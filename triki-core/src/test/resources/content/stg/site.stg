@@ -1,0 +1,438 @@
+group site;
+
+header(props) ::= <<
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+<title>$props.dc_title$</title>
+<script type="text/javascript" src="/content/charcount.js"></script>
+<link rel="stylesheet" type="text/css" href="/content/site.css"/>
+<link href="https://github.com/donaldmcintosh" rel="me">
+<link href="https://twitter.com/DonaldBMcIntosh" rel="me">
+<link rel="openid.server" href="https://indieauth.com/openid" />
+<link rel="openid.delegate" href="http://donaldmcintosh.net/" />
+</head>
+<body>
+
+<div id="all">
+    <div id="navmenuback">
+        <div id="navmenuframe">
+             <ul class="navmenu">
+                 <li class="navitem">
+                      <a href="/resource/home">Home</a>
+                 </li>
+                 <li class="navitem">
+                      <a href="/resource/blogs">Blogs</a>
+                 </li>
+                 <li class="navitem">
+                      <a href="/resource/photos">Photos</a>
+                 </li>
+                 <li class="navitem">
+                      <a href="/resource/news">News</a>
+                 </li>
+                 <li class="navitem">
+                      <a href="/resource/feeds">Feeds</a>
+                 </li>
+                 <li class="navitem">
+                      <a href="/resource/chat">Chat</a>
+                 </li>
+                 <li class="navitem">
+                      <a href="/resource/recommendations">Recommendations</a>
+                 </li>
+                 <li class="navitem">
+                      <a href="/resource/software">Software</a>
+                 </li>
+                 <li class="navitem">
+                      <a href="/resource/albums">Albums</a>
+                 </li>
+                 <li class="navitem">
+                      <a href="/resource/history">History</a>
+                 </li>
+             </ul>
+	     <ul class="navmenuright">
+                 <li class="navitemright">
+                     <a href="/resource/login">Login</a>
+                 </li>
+             </ul>
+        </div>
+    </div>
+    <div id="headerback">
+        <div id="header">
+            <div id="title">
+                 // Comments on coding, the Web and life... generally
+            </div>
+	    <div id="rss">
+	         <a href="/resource/as/updates"><img src="/image/as.png"/></a>
+	    </div>
+	    <div id="rss">
+	         <a href="/resource/rss/blogs"><img src="/image/rss.png"/></a>
+	    </div>
+        </div>
+    </div>
+    <div id="main">
+>>
+
+footer() ::= <<
+    <p>
+    </div>
+    <div id="footerback">
+        <div id="footer">
+            <div id="footerleft">
+                &copy; 2009-2016 Donald McIntosh - Powered by <a href="http://donaldmcintosh.net/resource/triki">triki</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body></html>
+
+>>
+
+blogs(props) ::= <<
+    $header(props)$
+
+    <h4>$props.dc_title$</h4>
+    $props.dc_references :{ 
+		ref | $reverse(ref.Srdf_type :{ 
+			blog | <div class="blogtitle"><a href='$blog.relurl$'>$blog.dc_title$</a></div>
+			       <div id="blogsubhead">Posted: $blog.dc_created$</div> 
+			       <p>$blog.dc_description$</p> 
+		})$
+	}$
+
+    <p>
+    $footer()$
+>>
+
+history(props) ::= <<
+    $header(props)$
+
+    <div id="recentblog">
+        <ul>
+        $props.resource_yearslist:{ 
+			yearslist | $yearslist.triki_sparql:{ 
+		                year | <li><a href='$year.relurl$'>$year.dc_description$</a></li> 
+			}$ 
+		}$
+        </ul>
+    </div>
+    $footer()$
+>>
+
+
+software(props) ::= <<
+    $header(props)$
+
+    <h4>$props.dc_title$</h4>
+    $props.dc_references :{ 
+		ref | $reverse(ref.Srdf_type :{ 
+			code | <div class="blogtitle"><a href='$code.relurl$'>$code.dc_title$</a></div> 
+		})$
+	}$
+
+    $footer()$
+>>
+
+photos(props) ::= <<
+    $header(props)$
+
+    <h4>$props.dc_title$</h4>
+    $props.dc_references :{ 
+		ref | $reverse(ref.Srdf_type :{ 
+			photo | $if(photo.triki_thumbimg)$
+			    <div id="thumbnail">
+			        <a href='$photo.relurl$'><img src='$photo.triki_thumbimg/triki_content$'></a><div id="blogsubhead">Posted: $photo.dc_created$</div> 
+				</div>
+		    $endif$
+		})$
+	}$
+
+    $footer()$
+>>
+
+recommendations(props) ::= <<
+    $header(props)$
+
+    $props.dc_references :{ 
+		ref | $reverse(ref.Srdf_type :{ 
+			recommendation | <div id="recommendation"> $recommendation.dc_title$
+                             <div id="recommendationdesc">$recommendation.dc_description$</div>
+                             <div id="blogsubhead">Posted: $recommendation.dc_created$</div>
+							 </div>
+		})$
+	}$
+
+    $footer()$
+>>
+
+news(props) ::= <<
+    $header(props)$
+
+    <div id="newslist">
+		<div id="heading">News</div>
+        $props.resource_newssummary:{ 
+			newssummary | $newssummary.triki_sparql:{ 
+				news | <div id="newssource">$news.triki_source$</div><div id="newstitle"> <a href="$news.rss_link$">$news.rss_title$</a></div>
+			}$ 
+		}$
+    </div>
+
+    $footer()$
+>>
+
+feeds(props) ::= <<
+    $header(props)$
+
+    <div id="newslist">
+		<div id="heading">Feeds</div>
+        $props.resource_newssummary:{ 
+			newssummary | $newssummary.triki_sparql:{ 
+				news | <div id="newssource">$news.triki_source$</div><div id="newstitle"> <a href="$news.rss_link$">$news.rss_title$</a></div>
+			}$ 
+		}$
+    </div>
+
+    $footer()$
+>>
+
+chat(props) ::= <<
+    $header(props)$
+
+    <div id="newslist">
+		<div id="heading">Chatter</div>
+        $props.resource_newssummary:{ 
+			newssummary | $newssummary.triki_sparql:{ 
+				news | <div id="newssource">$news.triki_source$</div><div id="newstitle"> <a href="$news.rss_link$">$news.rss_title$</a> - at $news.dc_created$</div>
+			}$ 
+		}$
+    </div>
+
+    $footer()$
+>>
+
+photo(props) ::= <<
+    $header(props)$
+
+    <div id="blogsubhead">Posted: $props.dc_created$</div>
+
+    $footer()$
+>>
+
+login(props) ::= <<
+    $header(props)$
+        <p>
+        <b>Connect</b> to access protected pages:
+        </p>
+        <form action="/resource/login" method="POST">
+           Login: <input name="triki:login" width="100">&nbsp;&nbsp; Password: <input type="password" name="triki:password" name="password" width="10"/><br>
+           <br>
+           <input type="submit" value="Login"/><br>
+        </form>
+    $footer()$
+>>
+
+notepub(props) ::= <<
+    $header(props)$
+        <div id="heading">Note Publisher</div>
+        <form action="/publish/note" method="POST">
+           <div id="notelabel"> URL: </div> <div id="notein"> <input name="triki:url" size="60" width="200"> </div> <br>
+           <div id="notelabel"> Note: </div> <div id="notein"> <textarea id="notetext" name="triki:note" cols="60" resize="none"></textarea> </div> <br>
+	   <div id="textarea_feedback"></div>
+	   <div id="notelabel"> Syndicate: </div>
+	   <div id="notein"> <input type="checkbox" name="triki:twitter" value="Twitter"/> Twitter <br>
+	                     <input type="checkbox" name="triki:email" value="Email"/> Email
+	   </div><br>
+           <input type="submit" value="Publish"/><br>
+        </form>
+    $footer()$
+>>
+
+blog(props) ::= <<
+    $header(props)$
+
+    <div id="bloghead">$props.dc_title$</div>
+    <div id="blogsubhead">Posted: $props.dc_created$</div>
+    $props.triki_include$
+
+   <div id="feedback">
+   Enjoy this?  Please send me <a href="mailto:donaldbmcintosh@yahoo.co.uk">feedback</a>.
+   </div>
+
+    $footer()$
+>>
+
+note(props) ::= <<
+    $header(props)$
+
+    <div id="heading">Note</div>
+    <p>
+    $props.dc_description$
+    </p>
+    <div id="blogsubhead">Posted: $props.dc_created$</div>
+
+    $footer()$
+>>
+
+code(props) ::= <<
+    $header(props)$
+
+    <div id="bloghead">$props.dc_title$</div>
+    <div id="blogsubhead">Posted: $props.dc_created$</div>
+    $props.triki_include$
+
+    $footer()$
+>>
+
+image(props) ::= <<
+    $header(props)$
+        <p>
+          <div id="imgdesc">$if(props.dc_description)$ $props.dc_description$ $endif$</div>
+	  <p>
+          <img class="imgalbum" src="$props.triki_content$"/>
+          <p>Taken $props.exif_dateTimeOriginal$</p>
+          <p>
+          Month: $props.time_month:{ month | <a href='$month.relurl$'>$month.dc_description$</a> }$<br>
+
+        </p>
+    $footer()$
+>>
+
+recommendation(props) ::= <<
+    $header(props)$
+
+    <div id="bloghead">Recommendation: $props.dc_title$</div>
+    <div id="blogsubhead">Posted: $props.dc_created$</div>
+    <p>
+        $props.dc_description$
+    </p>
+
+    $footer()$
+>>
+
+instant(props) ::= <<
+    $header(props)$
+        <p>
+          <h3>$props.dc_description$</h3>
+          <p>
+          <ul>
+	  $props.Stime_year:{ res | 
+		<li><a href='$res.relurl$'>$res.dc_description$</a></li> 
+          }$
+
+          $props.Stime_month:{ res | 
+	        $if(res.dc_title)$
+		    <li><a href="$res.relurl$">$res.dc_title$</a></li>
+		$endif$
+	  }$
+	  </ul>
+
+        </p>
+    $footer()$
+>>
+
+album(props) ::= <<
+    $header(props)$
+        <p>
+          <div id="bloghead">$props.dc_title$</div>
+          <div id="imgdesc">$if(props.dc_description)$ $props.dc_description$ $endif$</div>
+
+          $props.triki_includes:{ res | <a href='$res.relurl$'><img src='$res.triki_thumbimg/triki_content$'></a> }$
+
+        </p>
+    $footer()$
+>>
+
+albums(props) ::= <<
+    $header(props)$
+
+    <h4>$props.dc_title$</h4>
+    Please login to see all photos in each album.<p>
+    $props.dc_references :{ 
+		ref | $reverse(ref.Srdf_type :{ 
+			album | <div class="blogtitle"><a href='$album.relurl$'>$album.dc_title$</a></div><div id="blogsubhead">Posted: $album.dc_created$</div> 
+		})$
+	}$
+
+    $footer()$
+>>
+
+index(props) ::= <<
+    $header(props)$
+
+    <div id="recentblog">
+		<div id="heading">Blogs</div>
+        $props.resource_blogsummary:{ 
+			recentblog | $recentblog.triki_sparql:{ 
+				blog | <div class="blogtitle">
+						<a href='$blog.relurl$'>$blog.dc_title$</a></div>
+						<div id="blogsubhead">Posted: $blog.dc_created$</div> 
+			}$ 
+		}$
+    </div>
+
+    <div id="recentphoto">
+		<div id="heading">Photos</div>
+        $props.resource_photosummary:{ 
+			recentphoto | $recentphoto.triki_sparql:{ 
+				photo | <div id="thumbnail"><a href='$photo.relurl$'><img src='$photo.triki_thumbimg: { 
+					thumb | $thumb.triki_content$ 
+				}$' /img></a></div>
+				<div id="blogsubhead">$photo.dc_created$</div> 
+			}$ 
+		}$
+    </div>
+
+    <div id="recentrecommendation">
+		<div id="heading">Recommendations</div>
+        $props.resource_recommendationssummary:{ 
+			recentrecommendation | $recentrecommendation.triki_sparql:{ 
+				recommendation | <div id="recommendation"><a href="$recommendation.relurl$">$recommendation.dc_title$</a></div>  
+				     <div id="recdescwrap">$recommendation.dc_description$</div>  
+				     <div id="imgsubhead">$recommendation.dc_created$</div> 
+			}$ 
+		}$
+    </div>
+
+    <div id="bio">
+        <img id="biopic" src="/image/mud.jpg" />
+	<div id="biotext" >
+	  donaldbmcintosh at yahoo dot co dot uk
+	</div>
+	<div id="biotext" >
+	  Into:  MTB, EVs, the great outdoors, coding, IndieWeb, Semantic Web, Gentoo, Ibiza & ... living in Scotland.
+	</div>
+    </div>
+
+    $footer()$
+>>
+
+rssheader(props) ::= <<
+<?xml version="1.0" encoding="utf-8" ?>
+    <rss version="2.0">
+        <channel>
+            <title>$props.dc_title$</title>
+            <description>$props.dc_description$</description>
+            <link>$props.puburl$</link>
+>>
+
+rssfooter(props) ::= <<
+        </channel>
+    </rss>
+>>
+
+rssblogs(props) ::= <<
+$rssheader(props)$
+
+    $props.rdf_domain :{ 
+	ref | $reverse(ref.Srdf_type :{ 
+            blog | <item>
+	               <title>$blog.dc_title$</title>
+	               <link>$blog.puburl$</link>
+	               <description>$blog.dc_description$</description>
+	               <pubDate>$blog.dc_created$</pubDate>
+		   </item>
+		})$
+	}$
+
+    $rssfooter()$
+>>
+

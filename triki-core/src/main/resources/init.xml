@@ -1,0 +1,61 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+       xsi:schemaLocation="http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+       					   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+                           http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+        
+    <context:annotation-config/>
+    
+    <bean id="sch" class="org.eclipse.jetty.servlet.ServletContextHandler">
+    	<constructor-arg>
+    		<util:constant static-field="org.eclipse.jetty.servlet.ServletContextHandler.SESSIONS"/>
+    	</constructor-arg>
+    </bean>
+        
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+	
+	<!-- Remove later -->
+	<context:property-placeholder ignore-resource-not-found="true" location="classpath:test.properties, file:#{systemProperties['config']}" />
+
+	<bean id="propStore" class="net.opentechnology.triki.core.boot.CachedPropertyStore" />
+	
+	<bean id="coreModule" class="net.opentechnology.triki.core.boot.CoreModule" />
+	<bean id="siteModel" class="org.apache.jena.rdf.model.ModelFactory"	factory-method="createDefaultModel" />
+	<bean id="sourceExpander" class="net.opentechnology.triki.core.expander.GenericSourceExpander" />
+	<bean id="modelPropertySource" class="net.opentechnology.triki.core.model.ModelPropertySource" />
+	<bean id="modelStore" class="net.opentechnology.triki.core.model.ModelStore" />
+	<bean id="prefixDto" class="net.opentechnology.triki.core.dto.PrefixDto" />
+	<bean id="propertyDto" class="net.opentechnology.triki.core.dto.PropertyDto" />
+	<bean id="pageDto" class="net.opentechnology.triki.core.dto.PageDto" />
+	<bean id="userDto" class="net.opentechnology.triki.core.dto.UserDto" />
+	<bean id="groupDto" class="net.opentechnology.triki.core.dto.GroupDto" />
+	<bean id="typeDto" class="net.opentechnology.triki.core.dto.TypeDto" />
+	<bean id="mediaTypeDto" class="net.opentechnology.triki.core.dto.MediaTypeDto" />
+	<bean id="resourceDto" class="net.opentechnology.triki.core.dto.ResourceDto" />
+	<bean id="settingDto" class="net.opentechnology.triki.core.dto.SettingDto" />
+	<bean id="contentDto" class="net.opentechnology.triki.core.dto.ContentDto" />
+	<bean id="contentUtils" class="net.opentechnology.triki.core.resources.ContentUtils" />
+	<bean id="formModel" class="net.opentechnology.triki.core.resources.NodeFormModel" scope="prototype"/>
+	
+	<bean id="authModule" class="net.opentechnology.triki.auth.module.AuthModule" />
+
+	<bean id="utilities" class="net.opentechnology.triki.core.boot.Utilities" />
+	<bean id="templateStore" class="net.opentechnology.triki.core.template.TemplateStore" />
+	<bean id="asModel" class="org.apache.jena.rdf.model.ModelFactory" factory-method="createDefaultModel" />
+	
+	<bean id="modelSaver" class="net.opentechnology.triki.core.async.LiveModelSaver" />
+        
+    <camel:camelContext id="camel" xmlns="http://camel.apache.org/schema/spring" />
+   
+    <bean id="quartz2" class="org.apache.camel.component.quartz2.QuartzComponent">
+	    <property name="startDelayedSeconds" value="30"/>
+	</bean>
+
+</beans>

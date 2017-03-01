@@ -1,0 +1,54 @@
+@prefix triki: <http://www.opentechnology.net/triki/0.1/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix prefix: <http://localhost:8080/prefix/> .
+@prefix publish: <http://localhost:8080//publish/> .
+@prefix root:  <http://localhost:8080/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix content: <http://localhost:8080/content/> .
+@prefix dc:    <http://purl.org/dc/terms/> .
+
+prefix:root  a         triki:Prefix ;
+        dc:identifier  "http://localhost:8080/" ;
+        dc:title       "root" .
+
+prefix:time  a         triki:Prefix ;
+        dc:identifier  "http://www.w3.org/2006/time#" ;
+        dc:title       "time" .
+
+prefix:content  a      triki:Prefix ;
+        dc:identifier  "http://localhost:8080/content/" ;
+        dc:title       "content" .
+
+prefix:rdf  a          triki:Prefix ;
+        dc:identifier  "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ;
+        dc:title       "rdf" .
+
+prefix:triki  a        triki:Prefix ;
+        dc:identifier  "http://www.opentechnology.net/triki/0.1/" ;
+        dc:title       "triki" .
+
+prefix:xsd  a          triki:Prefix ;
+        dc:identifier  "http://www.w3.org/2001/XMLSchema#" ;
+        dc:title       "xsd" .
+
+root:prefixes  a    "http://localhost:8080/prefixes" ;
+        dc:created  "2016-11-09T16:57:10.141Z"^^xsd:dateTime ;
+        dc:title    "Prefixes" .
+
+prefix:publish  a      triki:Prefix ;
+        dc:identifier  "http://localhost:8080//publish/" ;
+        dc:title       "publish" .
+
+prefix:prefix  a       triki:Prefix ;
+        dc:identifier  "http://localhost:8080/prefix/" ;
+        dc:title       "prefix" .
+
+prefix:dc  a           triki:Prefix ;
+        dc:identifier  "http://purl.org/dc/terms/" ;
+        dc:title       "dc" .
+
+prefix:rdfs  a         triki:Prefix ;
+        dc:identifier  "http://www.w3.org/2000/01/rdf-schema#" ;
+        dc:title       "rdfs" .

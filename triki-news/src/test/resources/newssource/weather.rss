@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:georss="http://www.georss.org/georss" version="2.0">
+  <channel>
+    <atom:link href="http://open.live.bbc.co.uk/weather/feeds/en/2642484/3dayforecast.rss" rel="self" type="application/rss+xml" />
+    <title>BBC Weather - Forecast for  Milngavie, United Kingdom</title>
+    <link>http://www.bbc.co.uk/weather/2642484</link>
+    <description>3-day forecast for Milngavie from BBC Weather, including weather, temperature and wind information</description>
+    <language>en</language>
+    <copyright>Copyright: (C) British Broadcasting Corporation, see http://www.bbc.co.uk/terms/additional_rss.shtml for more details</copyright>
+    <pubDate>Mon, 22 Feb 2016 11:06:11 +0000</pubDate>
+    <image>
+      <title>BBC Weather - Forecast for  Milngavie, United Kingdom</title>
+      <url>http://static.bbci.co.uk/weather/0.3.203/images/icons/individual_57_icons/en_on_light_bg/3.gif</url>
+      <link>http://www.bbc.co.uk/weather/2642484</link>
+      <width>-1</width>
+      <height>-1</height>
+    </image>
+    <item>
+      <title>Monday: Sunny Intervals, Maximum Temperature: 8°C (46°F) Minimum Temperature: -2°C (28°F)</title>
+      <link>http://www.bbc.co.uk/weather/2642484?day=0</link>
+      <description>Maximum Temperature: 8°C (46°F), Minimum Temperature: -2°C (28°F), Wind Direction: West North Westerly, Wind Speed: 8mph, Visibility: Very Good, Pressure: 1005mb, Humidity: 76%, UV Risk: 1, Pollution: Low, Sunrise: 07:27 GMT, Sunset: 17:36 GMT</description>
+      <pubDate>Mon, 22 Feb 2016 11:06:11 +0000</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/weather/2642484-0-2016-02-22T11:06:11.000Z</guid>
+      <georss:point>55.94071 -4.32311</georss:point>
+    </item>
+    <item>
+      <title>Tuesday: Sunny, Maximum Temperature: 5°C (41°F) Minimum Temperature: -2°C (28°F)</title>
+      <link>http://www.bbc.co.uk/weather/2642484?day=1</link>
+      <description>Maximum Temperature: 5°C (41°F), Minimum Temperature: -2°C (28°F), Wind Direction: North Westerly, Wind Speed: 7mph, Visibility: Excellent, Pressure: 1020mb, Humidity: 61%, UV Risk: 1, Pollution: Low, Sunrise: 07:25 GMT, Sunset: 17:38 GMT</description>
+      <pubDate>Mon, 22 Feb 2016 11:06:11 +0000</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/weather/2642484-1-2016-02-22T11:06:11.000Z</guid>
+      <georss:point>55.94071 -4.32311</georss:point>
+    </item>
+    <item>
+      <title>Wednesday: Light Cloud, Maximum Temperature: 4°C (39°F) Minimum Temperature: -3°C (27°F)</title>
+      <link>http://www.bbc.co.uk/weather/2642484?day=2</link>
+      <description>Maximum Temperature: 4°C (39°F), Minimum Temperature: -3°C (27°F), Wind Direction: West North Westerly, Wind Speed: 6mph, Visibility: Very Good, Pressure: 1019mb, Humidity: 71%, UV Risk: 1, Pollution: Low, Sunrise: 07:22 GMT, Sunset: 17:40 GMT</description>
+      <pubDate>Mon, 22 Feb 2016 10:08:06 +0000</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/weather/2642484-2-2016-02-22T10:08:06.000Z</guid>
+      <georss:point>55.94071 -4.32311</georss:point>
+    </item>
+  </channel>
+</rss>
+

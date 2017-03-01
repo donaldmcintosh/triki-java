@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="50">
+  <g transform="scale(0.5, 0.5)">
+    <rect x="0" y="0" width="280" height="100" fill="#6090B1" rx="0" ry="0" />
+    <rect x="3" y="3" width="274" height="94" fill="#FFFFFF" rx="2" ry="2" />
+    <text x="40" y="70" font-family="Verdana" font-size="60" fill="#000000">Upload</text>
+  </g>
+</svg>

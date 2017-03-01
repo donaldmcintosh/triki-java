@@ -1,0 +1,23 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+       xsi:schemaLocation="http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+       					   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+                           http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+        <context:annotation-config/>
+        
+        <context:property-placeholder ignore-resource-not-found="true" location="classpath:test.properties" />
+        
+        <bean id="trikiClient" class="net.opentechnology.triki.core.boot.TrikiClient" />
+        <bean id="trikiHelper" class="net.opentechnology.triki.cucumber.TrikiHelper" />
+		<bean id="trikiSteps" class="net.opentechnology.triki.cucumber.TrikiSteps" />
+		<bean id="testRoutes" class="net.opentechnology.triki.cucumber.TestRoutes" />
+		<bean id="msgCollector" class="net.opentechnology.triki.cucumber.MsgCollector" />
+
+</beans>

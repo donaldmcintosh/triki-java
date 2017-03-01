@@ -1,0 +1,421 @@
+.body {
+	background-position: center;
+}
+
+#all {
+	font-family: verdana;
+	font-size: 12px;
+	width: 920px;
+	margin: 0px auto;
+}
+
+#main {
+	min-height: 600px;
+	margin: 0px 5px 5px 20px;
+}
+
+#confheadertext {
+	display: inline-block;
+	margin: 0px auto;
+	font-size: 12px;
+	height: 25px;
+	color: white;
+	text-align: right;
+}
+
+#banner {
+	text-align: center;
+	width: 1000px;
+	height: auto;
+	overflow: hidden;
+	clear: both;
+	margin: 0px auto;
+	background-color: #205081;
+	padding: 0px;
+	border-bottom: 1px solid #2d2d2d;
+}
+
+ul#confmenu {
+	width: 800px;
+	list-style-type: none;
+	display: inline-block;
+	margin: 0 0 0 0px;
+	float: left;
+	vertical-align: bottom;
+	align: left;
+	line-height: 35px;
+}
+
+ul#confmenuright {
+	width: 100x;
+	list-style-type: none;
+	display: inline-block;
+	margin: 0 0 0 0px;
+	float: right;
+}
+
+li.confitem {
+	color: white;
+	display: inline-block;
+	font-size: 12px;
+	padding: 0px 25px 0px 6px;
+	vertical-align: bottom;
+	line-height: 32px;
+	float: left;
+}
+
+li.confitemright {
+	width: 100px;
+	color: white;
+	display: inline-block;
+	font-weight: bold;
+	font-size: 12px;
+	float: right;
+	padding: 0px 6px 0px 6px;
+	vertical-align: bottom;
+	line-height: 32px;
+}
+
+.search {
+	vertical-align: middle;
+	display: inline-block;
+}
+
+img.logo {
+	display: block;
+	border: 2px 4px 0px 2px;
+	float: right;
+}
+
+img.icon {
+	display: block;
+	margin: 4px 4px 0px 2px;
+	float: left;
+}
+
+img.graphlefticon {
+	display: block;
+	margin: 2px 4px 0px 0px;
+	float: right;
+}
+
+img.graphrighticon {
+	display: block;
+	margin: 2px 4px 0px 0px;
+	float: left;
+}
+
+.iconlable {
+	padding: 2px;
+	float: left;
+}
+
+.confitem:hover {
+	background-color: #103061;
+}
+
+.confitem a {
+	color: white;
+	text-decoration: none;
+}
+
+.confcolheader {
+	display: inline-block;
+	margin: 5px auto;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.confcol {
+	display: inline-block;
+	vertical-align: top;
+	width: 200px;
+	margin: 5px auto;
+	font-size: 12px;
+	float: left;
+}
+
+li.confcol {
+	margin: 5px auto;
+}
+
+.conflist {
+	list-style-type: none;
+	margin: 5px auto;
+}
+
+.graph {
+	display: inline-block;
+	width: 800px;
+	font-size: 12px;
+}
+
+.graphheader {
+	display: inline-block;
+	width: 800px;
+	font-weight: bold;
+	margin: 6px 0 0 0px;
+}
+
+.predheading {
+	display: display-block;
+	width: 250px;
+	float: left;
+	margin: 4px 4px 4px 60px;
+	font-weight: bold;
+	background: #6090B1;
+	height: 20px;
+}
+
+.predheadingsubject {
+	display: inline-block;
+	width: 220px;
+	float: left;
+	margin: 4px 4px 4px 0px;
+	font-weight: bold;
+	background: #6090B1;
+	height: 20px;
+}
+
+.subheading {
+	display: inline-block;
+	width: 280px;
+	float: left;
+	margin: 4px 4px 4px 0px;
+	font-weight: bold;
+	background: #6090B1;
+	height: 20px;
+}
+
+.objheading {
+	display: inline-block;
+	width: 400px;
+	float: left;
+	margin: 4px 4px 4px 40px;
+	font-weight: bold;
+	background: #6090B1;
+	height: 20px;
+}
+
+.objheadingsubject {
+	display: inline-block;
+	width: 450px;
+	float: left;
+	margin: 4px 4px 4px 80px;
+	font-weight: bold;
+	background: #6090B1;
+	height: 20px;
+}
+
+.addpropheading {
+	display: inline-block;
+	width: 200px;
+	float: left;
+	margin: 4px 4px 4px 0px;
+	font-weight: bold;
+	background: #6090B1;
+	height: 20px;
+}
+
+.addprop {
+	display: inline-block;
+	width: 200px;
+	margin: 4px 4px 4px 0px;
+	vertical-align: top;
+}
+
+.minus {
+	margin: 4px 4px 4px 4px;
+}
+
+.addcontent {
+	display: inline-block;
+	width: 900px;
+	margin: 4px 4px 4px 0px;
+	vertical-align: top;
+}
+
+.addobjheading {
+	display: inline-block;
+	width: 400px;
+	float: left;
+	margin: 4px 4px 4px 60px;
+	font-weight: bold;
+	background: #6090B1;
+	height: 20px;
+}
+
+.addobj {
+	display: inline-block;
+	width: 400px;
+	margin: 4px 4px 4px 60px;
+}
+
+.node {
+	display: inline-block;
+}
+
+.navicon {
+	display: inline-block;
+}
+
+.pred {
+	display: inline-block;
+	width: 150px;
+	margin: 4px 4px 4px 4px;
+	vertical-align: top;
+	padding: 2px;
+	border: solid 0.1em white;
+	border-bottom-color: #205081;
+}
+
+.obj {
+	display: inline-block;
+	width: 400px;
+	margin: 4px 4px 4px 4px;
+	vertical-align: top;
+	padding: 2px;
+	border: solid 0.1em white;
+	border-bottom-color: #103061;
+}
+
+.sub {
+	display: inline-block;
+	width: 200px;
+	margin: 4px 4px 4px 4px;
+	vertical-align: top;
+	padding: 2px;
+	border: solid 0.1em white;
+	border-bottom-color: #003091;
+}
+
+#iconbuffer {
+	display: inline-block;
+	width: 30px;
+}
+
+#footerback {
+	border-top: 1px solid #DDD;
+	color: #141414;
+}
+
+#footerleft {
+	float: left;
+	color: #101010;
+	font-size: 10px;
+	padding: 3px;
+}
+
+#footerright {
+	float: right;
+	color: #101010;
+	font-size: 10px;
+	padding: 3px;
+}
+
+.graphid {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 10px 5px 10px 0px;
+	vertical-align: middle;
+}
+
+.titleicon {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 10px 5px 10px 0px;
+	vertical-align: middle;
+}
+
+a {
+	text-decoration: none;
+	color: #3B5998;
+}
+
+.headingbig {
+	display: inline-block;
+	font-size: 18px;
+	vertical-align: middle;
+}
+
+.configlist {
+	margin: 24px 0px 5px 10px;
+}
+
+.configitem {
+	margin: 10px 0px 5px 10px;
+}
+
+.ui-widget {
+	display: inline-block;
+	padding: 2px;
+	font-size: 12px !important;
+}
+
+.addertext {
+	display: inline-block;
+	padding: 4px;
+}
+
+.addtextfile {
+	vertical-align: middle;
+}
+
+.addbinfile {
+	vertical-align: middle;
+}
+
+a.addtext {
+	display: inline-block;
+	padding: 4px;
+}
+
+a.addlink {
+	display: inline-block;
+	padding: 4px;
+}
+.addericon {
+	display: inline-block;
+	padding: 4px;
+}
+
+.adder {
+	display: inline-block;
+	padding: 4px;
+}
+
+.messages {
+	padding: 6px;
+}
+
+.goodmsg {
+	color: green;
+}
+
+.errormsg {
+	color: red;
+}
+
+.editbutton {
+	margin: 4px 10px 4px 0px;
+}
+
+#validatetemplate {
+	margin: 4px 10px 4px 0px;
+}
+
+.editbuttons {
+	margin: 20px 0px 0px 0px;
+}
+
+#spacer {
+	display: inline-block;
+	margin: 0px 60px 0px 0px;
+}
+
+.editable {
+    width: 600px;
+    height: 200px;
+    border: 1px solid #ccc;
+    padding: 5px;
+}

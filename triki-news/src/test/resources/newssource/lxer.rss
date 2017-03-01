@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns="http://purl.org/rss/1.0/"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+ xmlns:taxo="http://purl.org/rss/1.0/modules/taxonomy/"
+ xmlns:admin="http://webns.net/mvcb/"
+ xmlns:syn="http://purl.org/rss/1.0/modules/syndication/"
+>
+
+<channel rdf:about="http://lxer.com/">
+<title>LXer Linux News</title>
+<link>http://lxer.com/</link>
+<description>Linux and Open Source news headlines</description>
+<image rdf:resource="http://lxer.com/images/lxer_small.png" />
+<dc:language>en-us</dc:language>
+<dc:rights>Copyright 2010, LXer - WebMarket  All Rights Reserved.</dc:rights>
+<dc:date>2004-09-15T14:13:08-05:00</dc:date>
+<dc:publisher>LXer</dc:publisher>
+<dc:creator>bob@lxer.com</dc:creator>
+<dc:subject>Information Technology</dc:subject>
+<syn:updatePeriod>hourly</syn:updatePeriod>
+<syn:updateFrequency>1</syn:updateFrequency>
+<syn:updateBase>2004-01-01T00:00:00-05:00</syn:updateBase>
+<items>
+ <rdf:Seq>
+<rdf:li rdf:resource="http://lxer.com/module/newswire/ext_link.php?rid=228731" /><rdf:li rdf:resource="http://lxer.com/module/newswire/ext_link.php?rid=228714" /><rdf:li rdf:resource="http://lxer.com/module/newswire/ext_link.php?rid=228720" /><rdf:li rdf:resource="http://lxer.com/module/newswire/ext_link.php?rid=228734" /><rdf:li rdf:resource="http://lxer.com/module/newswire/ext_link.php?rid=228727" /><rdf:li rdf:resource="http://lxer.com/module/newswire/ext_link.php?rid=228729" /><rdf:li rdf:resource="http://lxer.com/module/newswire/ext_link.php?rid=228730" /><rdf:li rdf:resource="http://lxer.com/module/newswire/ext_link.php?rid=228726" /><rdf:li rdf:resource="http://lxer.com/module/newswire/ext_link.php?rid=228725" /><rdf:li rdf:resource="http://lxer.com/module/newswire/ext_link.php?rid=228721" /><rdf:li rdf:resource="http://lxer.com/module/newswire/ext_link.php?rid=228723" /><rdf:li rdf:resource="http://lxer.com/module/newswire/ext_link.php?rid=228724" /><rdf:li rdf:resource="http://lxer.com/module/newswire/ext_link.php?rid=228706" /><rdf:li rdf:resource="http://lxer.com/module/newswire/ext_link.php?rid=228718" /><rdf:li rdf:resource="http://lxer.com/module/newswire/ext_link.php?rid=228704" /><rdf:li rdf:resource="http://lxer.com/module/newswire/ext_link.php?rid=228728" /><rdf:li rdf:resource="http://lxer.com/module/newswire/ext_link.php?rid=228713" /><rdf:li rdf:resource="http://lxer.com/module/newswire/ext_link.php?rid=228722" /><rdf:li rdf:resource="http://lxer.com/module/newswire/ext_link.php?rid=228705" /><rdf:li rdf:resource="http://lxer.com/module/newswire/ext_link.php?rid=228701" />
+ </rdf:Seq>
+</items>
+<textinput rdf:resource="http://lxer.com/module/newswire/search.php" />
+</channel>
+
+
+<item rdf:about="http://lxer.com/module/newswire/ext_link.php?rid=228731">
+<title>Tiny ARM9 COM and SBC support dual Ethernet and CAN</title>
+<link>http://lxer.com/module/newswire/ext_link.php?rid=228731</link>
+<description>Boardcon&amp;#8217;s 40 x 40mm &amp;#8220;MINI287&amp;#8221; COM runs Linux on an NXP i.MX287 SoC, offers dual Ethernet and CAN ports, and is also available as a sandwich-style SBC. Thanks to the cost and power consumption sensitivities of the IoT market, old-time ARM9 system-on-chips continue to arrive in new embedded boards. Boardcon’s tiny (40 x 40mm) MINI287 [&amp;#8230;]</description>
+<dc:creator></dc:creator>
+<dc:subject>linux</dc:subject>
+<dc:date>2016-04-26T10:02:14-00:00</dc:date>
+<slash:section>linux</slash:section>
+<slash:hit_parade>0,0,0,0,0,0,0</slash:hit_parade>
+</item>
+  
+<item rdf:about="http://lxer.com/module/newswire/ext_link.php?rid=228714">
+<title>How to Install ATutor on Ubuntu 14.04</title>
+<link>http://lxer.com/module/newswire/ext_link.php?rid=228714</link>
+<description>ATutor is a free open source web-based Learning Management System (LMS) used to develop and deliver online courses. It is used in various contexts, including online course management, continuing professional development for teachers, career development and academic research.</description>
+<dc:creator></dc:creator>
+<dc:subject>linux</dc:subject>
+<dc:date>2016-04-26T09:05:03-00:00</dc:date>
+<slash:section>linux</slash:section>
+<slash:hit_parade>0,0,0,0,0,0,0</slash:hit_parade>
+</item>
+  
+<item rdf:about="http://lxer.com/module/newswire/ext_link.php?rid=228720">
+<title>Ubuntu MATE 16.04 LTS Officially Released for Raspberry Pi 3 and Raspberry Pi 2</title>
+<link>http://lxer.com/module/newswire/ext_link.php?rid=228720</link>
+<description>The Ubuntu MATE team has been proud to announce today the general availability of Ubuntu MATE 16.04 for Raspberry Pi 2 and Raspberry Pi 3 single-board computers.</description>
+<dc:creator>Marius Nestor</dc:creator>
+<dc:subject>linux</dc:subject>
+<dc:date>2016-04-26T08:07:52-00:00</dc:date>
+<slash:section>linux</slash:section>
+<slash:hit_parade>0,0,0,0,0,0,0</slash:hit_parade>
+</item>
+  
+<item rdf:about="http://lxer.com/module/newswire/ext_link.php?rid=228734">
+<title>Roundup of community backed x86 hacker SBCs</title>
+<link>http://lxer.com/module/newswire/ext_link.php?rid=228734</link>
+<description>The first community supported x86 hacker SBCs not backed by Intel or AMD are pricier than most ARM SBCs, but offer faster CPUs and competitive power drain. The first x86-based community supported hacker SBCs not backed by Intel or AMD have reached market, offering higher prices than most ARM SBCs, but featuring faster processors and [&amp;#8230;]</description>
+<dc:creator></dc:creator>
+<dc:subject>linux</dc:subject>
+<dc:date>2016-04-26T07:10:41-00:00</dc:date>
+<slash:section>linux</slash:section>
+<slash:hit_parade>0,0,0,0,0,0,0</slash:hit_parade>
+</item>
+  
+<item rdf:about="http://lxer.com/module/newswire/ext_link.php?rid=228727">
+<title>Email Server With Postfix Dovecot MailScanner</title>
+<link>http://lxer.com/module/newswire/ext_link.php?rid=228727</link>
+<description>A detailed installation and configuration of an email server with Postfix, Dovecot, MailScanner, MailWatch, PostfixAdmin, and Roundcube on CentOS 7. </description>
+<dc:creator></dc:creator>
+<dc:subject>linux</dc:subject>
+<dc:date>2016-04-26T06:13:30-00:00</dc:date>
+<slash:section>linux</slash:section>
+<slash:hit_parade>0,0,0,0,0,0,0</slash:hit_parade>
+</item>
+  
+<item rdf:about="http://lxer.com/module/newswire/ext_link.php?rid=228729">
+<title>Active drive-by exploits critical Android bugs, care of Hacking Team</title>
+<link>http://lxer.com/module/newswire/ext_link.php?rid=228729</link>
+<description>An ongoing drive-by attack is forcing ransomware onto Android smartphones by exploiting critical vulnerabilities in older versions of Google&apos;s mobile operating system still in use by millions of people, according to research scheduled to be published Monday...</description>
+<dc:creator>Dan Goodin </dc:creator>
+<dc:subject>linux</dc:subject>
+<dc:date>2016-04-26T05:16:19-00:00</dc:date>
+<slash:section>linux</slash:section>
+<slash:hit_parade>0,0,0,0,0,0,0</slash:hit_parade>
+</item>
+  
+<item rdf:about="http://lxer.com/module/newswire/ext_link.php?rid=228730">
+<title>How to change timezone on Linux</title>
+<link>http://lxer.com/module/newswire/ext_link.php?rid=228730</link>
+<description>If the default timezone of your Linux system is not correct, you need to correct it to get accurate local time. Note that configuring NTP is not a solution for an incorrect timezone as NTP itself does not handle timezones. NTP handles time data in UTC, and actual local time is calculated by adding the local time zone offset. </description>
+<dc:creator>Dan Nanni</dc:creator>
+<dc:subject>linux</dc:subject>
+<dc:date>2016-04-26T04:19:08-00:00</dc:date>
+<slash:section>linux</slash:section>
+<slash:hit_parade>0,0,0,0,0,0,0</slash:hit_parade>
+</item>
+  
+<item rdf:about="http://lxer.com/module/newswire/ext_link.php?rid=228726">
+<title>Should beginners install Kali Linux on their computers?</title>
+<link>http://lxer.com/module/newswire/ext_link.php?rid=228726</link>
+<description>Also in today&apos;s open source roundup: Black Lab Linux 7.6 released, and the meaning of Bash on Microsoft&apos;s Windows operating system.</description>
+<dc:creator>Jim Lynch</dc:creator>
+<dc:subject>linux</dc:subject>
+<dc:date>2016-04-26T03:21:57-00:00</dc:date>
+<slash:section>linux</slash:section>
+<slash:hit_parade>0,0,0,0,0,0,0</slash:hit_parade>
+</item>
+  
+<item rdf:about="http://lxer.com/module/newswire/ext_link.php?rid=228725">
+<title>Certified OpenStack administrator exam now available</title>
+<link>http://lxer.com/module/newswire/ext_link.php?rid=228725</link>
+<description>At the OpenStack Summit, the OpenStack Foundation announced the general availability of its Certified OpenStack Administrator (COA) exam.</description>
+<dc:creator>Steven J. Vaughan-Nichols</dc:creator>
+<dc:subject>linux</dc:subject>
+<dc:date>2016-04-26T02:24:46-00:00</dc:date>
+<slash:section>linux</slash:section>
+<slash:hit_parade>0,0,0,0,0,0,0</slash:hit_parade>
+</item>
+  
+<item rdf:about="http://lxer.com/module/newswire/ext_link.php?rid=228721">
+<title>Introducing the extra wallpapers for Fedora 24</title>
+<link>http://lxer.com/module/newswire/ext_link.php?rid=228721</link>
+<description>In the Fedora 24 alpha release, you could preview an early version of the default wallpaper for Fedora 24. Each release, the Fedora Design team collaborates with the Fedora community to release a set of 16 additional backgrounds to install and... Continue Reading &amp;#8594;</description>
+<dc:creator></dc:creator>
+<dc:subject>linux</dc:subject>
+<dc:date>2016-04-26T01:27:35-00:00</dc:date>
+<slash:section>linux</slash:section>
+<slash:hit_parade>0,0,0,0,0,0,0</slash:hit_parade>
+</item>
+  
+<item rdf:about="http://lxer.com/module/newswire/ext_link.php?rid=228723">
+<title>How to Test Mir and Unity 8 on Ubuntu 16.04</title>
+<link>http://lxer.com/module/newswire/ext_link.php?rid=228723</link>
+<description>So, Ubuntu 16.04 LTS is finally here and many of us are already getting our hands dirty with the final version of the most popular distribution that is using the X window system. While this long-term support release does look good, the upcoming major changes planned for Ubuntu 16.10 have generated great excitement.</description>
+<dc:creator></dc:creator>
+<dc:subject>linux</dc:subject>
+<dc:date>2016-04-26T00:30:24-00:00</dc:date>
+<slash:section>linux</slash:section>
+<slash:hit_parade>0,0,0,0,0,0,0</slash:hit_parade>
+</item>
+  
+<item rdf:about="http://lxer.com/module/newswire/ext_link.php?rid=228724">
+<title>The Death of RoboVM</title>
+<link>http://lxer.com/module/newswire/ext_link.php?rid=228724</link>
+<description>Microsoft recently made a big noise about its love and support ofthe Open Source community (especially Linux), but while it&apos;s makingconcrete steps toward improving its support for FOSS projects, itsmotives may not be entirely altruistic. </description>
+<dc:creator></dc:creator>
+<dc:subject>linux</dc:subject>
+<dc:date>2016-04-25T23:33:13-00:00</dc:date>
+<slash:section>linux</slash:section>
+<slash:hit_parade>0,0,0,0,0,0,0</slash:hit_parade>
+</item>
+  
+<item rdf:about="http://lxer.com/module/newswire/ext_link.php?rid=228706">
+<title>Lubuntu 16.04 Screenshot Tour</title>
+<link>http://lxer.com/module/newswire/ext_link.php?rid=228706</link>
+<description>Lubuntu 16.04 is now available. Lubuntu is a fast, lightweight and energy-saving variant of Ubuntu using the LXDE (Lightweight X11 Desktop Environment) desktop. It is intended to have low-resource system requirements and is designed primarily for netbooks, mobile devices and older PCs.</description>
+<dc:creator></dc:creator>
+<dc:subject>linux</dc:subject>
+<dc:date>2016-04-25T22:36:02-00:00</dc:date>
+<slash:section>linux</slash:section>
+<slash:hit_parade>0,0,0,0,0,0,0</slash:hit_parade>
+</item>
+  
+<item rdf:about="http://lxer.com/module/newswire/ext_link.php?rid=228718">
+<title>‘New’ Windows Security Flaw Runs Apps Without Admin Rights</title>
+<link>http://lxer.com/module/newswire/ext_link.php?rid=228718</link>
+<description>Taking advantage of the hole requires the use of regsvr32, a Windows command line utility for registering and unregistering DLLs and ActiveX controls in the Windows Registry. Use of the exploit is difficult to trace, as it doesn’t require administrator rights or alter the registry.</description>
+<dc:creator>FOSS Force</dc:creator>
+<dc:subject>linux</dc:subject>
+<dc:date>2016-04-25T21:38:51-00:00</dc:date>
+<slash:section>linux</slash:section>
+<slash:hit_parade>0,0,0,0,0,0,0</slash:hit_parade>
+</item>
+  
+<item rdf:about="http://lxer.com/module/newswire/ext_link.php?rid=228704">
+<title>10 Things To Do After Installing Ubuntu 16.04 </title>
+<link>http://lxer.com/module/newswire/ext_link.php?rid=228704</link>
+<description>Ubuntu 16.04 has brought some interesting features that you must give try if you&apos;ve upgraded. If you still don&apos;t know what&apos;s new in Ubuntu 16.04 then check out our article &quot;What&apos;s New In Ubuntu 16.04?&quot;.  In this article I&apos;ll show you 10 things to do after installing or upgrading to Ubuntu 16.04. It&apos;ll save your time tweaking the system and also will provide you the taste of new features of Ubuntu 16.04.</description>
+<dc:creator>Mohd Sohail</dc:creator>
+<dc:subject>linux</dc:subject>
+<dc:date>2016-04-25T20:41:40-00:00</dc:date>
+<slash:section>linux</slash:section>
+<slash:hit_parade>0,0,0,0,0,0,0</slash:hit_parade>
+</item>
+  
+<item rdf:about="http://lxer.com/module/newswire/ext_link.php?rid=228728">
+<title>Raspberry Pi cameras jump to 8MP, keep $25 price</title>
+<link>http://lxer.com/module/newswire/ext_link.php?rid=228728</link>
+<description>The v2 Raspberry Pi Camera and low-light PiNoIR Camera advance from 5- to 8-megapixels via a Sony IMX219PQ sensor with improved image quality. The Raspberry Pi Foundation has replaced its official 5-megapixel Raspberry Pi Camera and night-vision Raspberry Pi NoIR Camera with improved 8-megapixel models. Like the older cameras, which are almost out of stock, [&amp;#8230;]</description>
+<dc:creator></dc:creator>
+<dc:subject>linux</dc:subject>
+<dc:date>2016-04-25T19:44:29-00:00</dc:date>
+<slash:section>linux</slash:section>
+<slash:hit_parade>0,0,0,0,0,0,0</slash:hit_parade>
+</item>
+  
+<item rdf:about="http://lxer.com/module/newswire/ext_link.php?rid=228713">
+<title>Exploit kit pushes ransomware to Android devices</title>
+<link>http://lxer.com/module/newswire/ext_link.php?rid=228713</link>
+<description>It isn&apos;t Ransomware in the traditional sense, as there&apos;s no encryption, but Android devices are being targeted by malware that hijacks mobile advertisements to scam gift cards, researchers at Blue Coat Labs discovered.</description>
+<dc:creator>Steve Ragan</dc:creator>
+<dc:subject>linux</dc:subject>
+<dc:date>2016-04-25T18:47:18-00:00</dc:date>
+<slash:section>linux</slash:section>
+<slash:hit_parade>0,0,0,0,0,0,0</slash:hit_parade>
+</item>
+  
+<item rdf:about="http://lxer.com/module/newswire/ext_link.php?rid=228722">
+<title>Verizon taps Red Hat and OpenStack for its NFV deployment</title>
+<link>http://lxer.com/module/newswire/ext_link.php?rid=228722</link>
+<description>This week marks the annual North American OpenStack Summit, this year being held back where it all began, in Austin, Texas. When OpenStack began, half a dozen or so years ago, it was focused on giving service providers and large enterprises the ability to compete with Amazon Web Services (AWS). Using the open source OpenStack operating system, organizations could build themselves an &quot;Amazon-like&quot; cloud of their own. </description>
+<dc:creator>Ben Kepes</dc:creator>
+<dc:subject>linux</dc:subject>
+<dc:date>2016-04-25T17:50:07-00:00</dc:date>
+<slash:section>linux</slash:section>
+<slash:hit_parade>0,0,0,0,0,0,0</slash:hit_parade>
+</item>
+  
+<item rdf:about="http://lxer.com/module/newswire/ext_link.php?rid=228705">
+<title>A perfect marriage: YOU and Ubuntu 16.04</title>
+<link>http://lxer.com/module/newswire/ext_link.php?rid=228705</link>
+<description>But Richard Stallman might objectBefore I dive into what&apos;s new in Ubuntu 16.04, it&apos;s worth pausing to reflect on what&apos;s missing: Scopes online search, now off by default.…</description>
+<dc:creator></dc:creator>
+<dc:subject>linux</dc:subject>
+<dc:date>2016-04-25T16:52:56-00:00</dc:date>
+<slash:section>linux</slash:section>
+<slash:hit_parade>0,0,0,0,0,0,0</slash:hit_parade>
+</item>
+  
+<item rdf:about="http://lxer.com/module/newswire/ext_link.php?rid=228701">
+<title>If Android&apos;s wings are clipped, other Google platforms may gain</title>
+<link>http://lxer.com/module/newswire/ext_link.php?rid=228701</link>
+<description>Drones, balloons, AI... you won&apos;t see the back of AlphabetIf Google&apos;s Android wings are clipped in the mobile market by European Union judgments, other elements of its portfolio may gain heavier strategic weight as it pushes to create a dominant platform that looks well beyond PCs and mobile devices, and into every object which will have a web connection in future.…</description>
+<dc:creator></dc:creator>
+<dc:subject>linux</dc:subject>
+<dc:date>2016-04-25T15:55:45-00:00</dc:date>
+<slash:section>linux</slash:section>
+<slash:hit_parade>0,0,0,0,0,0,0</slash:hit_parade>
+</item>
+  
+
+<textinput rdf:about="http://lxer.com/module/newswire/search.php">
+<title>Search LXer</title>
+<description>Search LXer newswire</description>
+<name>query</name>
+<link>http://lxer.com/module/newswire/search.php</link>
+</textinput>
+                                                                                                   
+</rdf:RDF>
+

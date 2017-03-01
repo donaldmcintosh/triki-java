@@ -1,0 +1,220 @@
+group site;
+
+header(props) ::= <<
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+<title>$props.dc_title$</title>
+<link rel="stylesheet" type="text/css" href="/content/site.css" />
+
+</head>
+<body>
+
+<div id="all">
+    <div id="navmenuback">
+        <div id="navmenuframe">
+             <ul class="navmenu">
+                 <li class="navitem">
+                      <a href="/">Home</a>
+                 </li>
+                 <li class="navitem">
+                      <a href="/blogs">Blogs</a>
+                 </li>
+                 <li class="navitem">
+                      <a href="/images">Photos</a>
+                 </li>
+             </ul>
+        </div>
+    </div>
+    <div id="headerback">
+        <div id="header">
+            <div id="title">
+                 // Hello world!
+            </div>
+        </div>
+    </div>
+    <div id="main">
+>>
+
+blog(props) ::= <<
+    $header(props)$
+
+    <div id="bloghead">$props.dc_title$</div>
+    <div id="blogdesc">$props.dc_description$</div> 
+    <div id="blogsubhead">Posted: $props.dc_created$</div>
+
+    $props.triki_include$
+    
+    Month: $props.time_month:{ month | <a href='$month.relurl$'>$month.dc_description$</a> }$<br>
+
+    $footer()$
+>>
+
+blogs(props) ::= <<
+    $header(props)$
+
+    <div id="headingbig">$props.dc_title$</div>
+    $props.dc_references :{ 
+		ref | $reverse(ref.Srdf_type :{ 
+			blog | <div class="blogtitle"><a href='$blog.relurl$'>$blog.dc_title$</a></div>
+			       <div id="blogsubhead">Posted: $blog.dc_created$</div> 
+			       <p>$blog.dc_description$</p> 
+		})$
+	}$
+
+    <p>
+    $footer()$
+>>
+
+image(props) ::= <<
+    $header(props)$
+        <p>
+          <div id="imgdesc">$props.dc_title$</div>
+	  <p>
+          <img class="imgalbum" src="$props.triki_content:{ content | $content.relurl$}$"/>
+          <p>Taken $props.triki_content:{ content | $content.dc_created$}$</p>
+          <p>
+          Month: $props.time_month:{ month | <a href='$month.relurl$'>$month.dc_description$</a> }$<br>
+
+        </p>
+    $footer()$
+>>
+
+images(props) ::= <<
+    $header(props)$
+
+   <div id="headingbig">$props.dc_title$</div>
+    $props.dc_references :{ ref | 
+    	$reverse(ref.Srdf_type :{ image | 
+				$image.triki_content:{ photo | 
+				<div id="thumbnail">
+			       	<a href='$image.relurl$'><img src='$photo.triki_thumbimg : { thumb | $thumb.relurl$}$'></a><div id="blogsubhead">Posted: $photo.dc_created$</div> 
+				</div>		
+				}$
+		})$
+	}$
+
+    $footer()$
+>>
+
+instant(props) ::= <<
+    $header(props)$
+        <p>
+          <h3>$props.dc_description$</h3>
+          <p>
+          <ul>
+	  $props.Stime_year:{ res | 
+		<li><a href='$res.relurl$'>$res.dc_description$</a></li> 
+          }$
+
+          $props.Stime_month:{ res | 
+	        $if(res.dc_title)$
+		    <li><a href="$res.relurl$">$res.dc_title$</a></li>
+		$endif$
+	  }$
+	  </ul>
+
+        </p>
+    $footer()$
+>>
+
+home(props) ::= <<
+    $header(props)$
+
+    <div id="recentblog">
+		<div id="heading">Blogs</div>
+        $props.localprop_recentblogs:{ recentblog | 
+        	got recent blog
+        	$recentblog.triki_sparql:{ blog |
+				<div class="blogtitle">
+						<a href='$blog.relurl$'>$blog.dc_title$</a></div>
+						<div id="blogsubhead">Posted: $blog.dc_created$</div> 
+			}$ 
+		}$
+    </div>
+
+    <div id="recentphoto">
+		<div id="heading">Photos</div>
+        $props.resource_photosummary:{ 
+			recentphoto | $recentphoto.triki_sparql:{ 
+				photo | <div id="thumbnail"><a href='$photo.relurl$'><img src='$photo.triki_thumbimg: { 
+					thumb | $thumb.triki_content$ 
+				}$' /img></a></div>
+				<div id="blogsubhead">$photo.dc_created$</div> 
+			}$ 
+		}$
+    </div>
+
+    </div>
+    
+    $if(props.sessionid)$
+	    Hi $props.sessionid$
+	$endif$
+
+    $footer()$
+>>
+
+error(errors) ::= <<
+    $header(errors)$
+
+	<p>
+	Sorry, but triki could not render your page due to:
+	<div class="messages">
+		 $if(errors)$
+		 	$errors :
+		 		{ error | <div class="errormsg">$error$</div> }
+		 	$
+		 $endif$
+	 </div>
+
+    $footer()$
+>>
+
+footer() ::= <<
+    <p>
+    </div>
+    <div id="footerback">
+        <div id="footer">
+            <div id="footerleft">
+                &copy; Powered by <a href="http://opentechnology.net/triki">triki</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body></html>
+
+>>
+
+notepub(props) ::= <<
+    $header(props)$
+        <div id="heading">Note Publisher</div>
+        <form action="/share/note" method="POST">
+           <div id="notelabel"> Subject: </div> <div id="notein"> <input name="triki:subject" size="60" width="200"> </div> <br>
+           <div id="notelabel"> Note: </div> <div id="notein"> <textarea id="notetext" name="triki:note" rows="6" cols="60"  resize="none"></textarea> </div> <br>
+           <div id="notelabel"> </div><div id="notein"><div id="textarea_feedback">0 characters written</div></div><br>
+           <div id="notelabel"> Syndicate: </div>
+           <div id="notein"> <input type="checkbox" name="triki:twitter" value="yes"/> Twitter <br>
+           </div><br>
+           <input type="submit" value="Publish note"/><br>
+        </form>
+    $footer()$
+>>
+
+emailpub(props) ::= <<
+    $header(props)$
+        <div id="heading">$props.dc_title$</div>
+        <form action="/share/email" method="POST">
+           <div id="notelabel"> Subject: </div> <div id="notein"> <input name="triki:subject" size="60" width="200"> </div> <br>
+           <div id="notelabel"> Note: </div> <div id="notein"> <textarea id="notetext" name="triki:note" rows="10" cols="60" resize="none"></textarea> </div> <br>
+           <div id="notelabel"> Include user reminder: </div>
+           <div id="notein"> <input type="checkbox" name="triki:reminder" value="yes"/> Include user reminder <br>
+           </div><br>
+           <div id="notelabel"> Recipients: </div> <div id="notein"> <div>
+           $props.triki_sparql:{ emailaddr |
+                             <div id="notein"> <input type="checkbox" name="triki:email" value="$emailaddr.dc_title$"/> $emailaddr.dc_title$ <br></div>
+                        }$
+           </div></br>
+           <input type="submit" value="Send email"/><br>
+        </form>
+    $footer()$
+>>

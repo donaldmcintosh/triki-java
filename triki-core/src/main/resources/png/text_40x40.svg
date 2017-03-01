@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40">
+  <g transform="scale(0.4, 0.4)">
+    <rect x="0" y="0" width="100" height="100" fill="#000000" rx="0" ry="0" />
+    <rect x="3" y="3" width="94" height="94" fill="#FFFFFF" rx="2" ry="2" />
+    <g transform="rotate(-90 28 25)">
+      <rect x="25" y="25" width="6" height="45" fill="black" />
+      <circle cx="28" cy="25" r="8" fill="black" />
+      <circle cx="28" cy="70" r="8" fill="black" />
+    </g>
+    <g transform="rotate(-90 28 50)">
+      <rect x="25" y="50" width="6" height="45" fill="black" />
+      <circle cx="28" cy="50" r="8" fill="black" />
+      <circle cx="28" cy="95" r="8" fill="black" />
+    </g>
+    <g transform="rotate(-90 28 75)">
+      <rect x="25" y="75" width="6" height="45" fill="black" />
+      <circle cx="28" cy="75" r="8" fill="black" />
+      <circle cx="28" cy="120" r="8" fill="black" />
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,6 @@
+include 'triki-core'
+include 'triki-news'
+include 'triki-image'
+include 'triki-share'
+include 'triki-twitter'
+include 'triki-pageviews'

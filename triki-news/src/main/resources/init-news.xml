@@ -1,0 +1,24 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+       xsi:schemaLocation="http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+       					   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+                           http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+        
+    <context:annotation-config/>
+	
+	<bean id="feedExtensions" class="net.opentechnology.triki.news.init.LoadTrikiExtensions" scope="singleton"/>
+	<bean id="newsUpdater" class="net.opentechnology.triki.news.async.UpdateNewsInModel" />
+	<bean id="rssParser" class="net.opentechnology.triki.news.async.RssParser" />
+	<bean id="atomParser" class="net.opentechnology.triki.news.async.AtomParser" />
+	<bean id="liveUpdateScheduler" class="net.opentechnology.triki.news.async.LiveNewsUpdateScheduler" />
+	<bean id="dailypdateScheduler" class="net.opentechnology.triki.news.async.DailyNewsUpdateScheduler" />
+	
+	<bean id="newsModule" class="net.opentechnology.triki.news.module.NewsModule" init-method="init"/>
+
+</beans>

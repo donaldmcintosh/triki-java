@@ -1,0 +1,49 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+       xsi:schemaLocation="http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+       					   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+                           http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+        
+    <context:annotation-config/>   
+   
+	<bean id="resourceAdaptor" class="net.opentechnology.triki.core.template.ResourceAdaptor">
+		<constructor-arg ref="siteModel" />
+	</bean>
+	
+	<bean id="webContentUtils" class="net.opentechnology.triki.core.resources.ContentUtils" />
+	<bean id="contentModel" class="net.opentechnology.triki.core.resources.ContentModel" scope="prototype"/>
+	
+	<jaxrs:server address="/" basePackages="net.opentechnology.triki.core.resources,net.opentechnology.triki.auth.resources">
+		<jaxrs:providers>
+			<bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
+			<ref bean="dispatchProvider"/>
+		</jaxrs:providers>
+	</jaxrs:server>
+	<!--  jaxrs:server address="/auth" basePackages="net.opentechnology.triki.auth.resources"/-->
+	
+	<bean id="dispatchProvider" class="org.apache.cxf.jaxrs.provider.RequestDispatcherProvider">
+      <property name="classResources">
+          <map>
+              <entry key="net.opentechnology.triki.core.resources.NodeFormModel" value="/graph/response"/>
+              <entry key="net.opentechnology.triki.core.resources.ContentModel" value="/content/response"/>
+          </map>
+      </property>
+      <property name="beanNames">
+          <map>
+              <entry key="net.opentechnology.triki.core.resources.NodeFormModel" value="resp"/>
+              <entry key="net.opentechnology.triki.core.resources.ContentModel" value="resp"/>
+          </map>
+      </property>
+ </bean>
+	
+	<bean id="accessFilter" class="net.opentechnology.triki.auth.AccessFilter" />
+	<bean id="authMgr" class="net.opentechnology.triki.auth.AuthorisationManager" />
+	<bean id="authenticationMgr" class="net.opentechnology.triki.auth.AuthenticationManager" />  
+
+</beans>

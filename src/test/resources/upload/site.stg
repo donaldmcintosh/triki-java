@@ -1,0 +1,23 @@
+group site;
+
+instant(props) ::= <<
+
+        <p>
+          <h3>$props.dc_description$</h3>
+          <p>
+          <ul>
+	  $props.Stime_year:{ res | 
+		<li><a href='$res.relurl$'>$res.dc_description$</a></li> 
+          }$
+
+          $props.Stime_month:{ res | 
+	        $if(res.dc_title)$
+		    <li><a href="$res.relurl$">$res.dc_title$</a></li>
+		$endif$
+	  }$
+	  </ul>
+	   
+	   <textarea></textarea>
+
+        </p>
+>>

@@ -1,0 +1,7 @@
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.9'
+}
+
+dependencies {
+    compile project(':triki-core')
+}

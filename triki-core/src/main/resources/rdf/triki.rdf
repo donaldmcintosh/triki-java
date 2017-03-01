@@ -1,0 +1,180 @@
+<!-- This is the Triki formal vocabulary description, expressed using W3C RDFS and OWL markup. -->
+<rdf:RDF 
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" 
+	xmlns:owl="http://www.w3.org/2002/07/owl#" 
+	xmlns:vs="http://www.w3.org/2003/06/sw-vocab-status/ns#" 
+	xmlns:triki="http://www.opentechnology.net/triki/0.1/" 
+	xmlns:dc="http://purl.org/dc/elements/1.1/">
+
+  <owl:Ontology rdf:about="http://www.opentechnology.net/triki/0.1/" dc:title="Triki - RDF site builder" dc:description="Triki semantic web server" >
+  </owl:Ontology>
+
+  <rdfs:Class rdf:about="http://www.opentechnology.net/triki/0.1/Prefix" rdfs:label="Prefix" rdfs:comment="Vocabulary prefix used with templates" vs:term_status="stable">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+        <rdfs:isDefinedBy rdf:resource="http://www.opentechnology.net/triki/0.1/Prefix"/>
+  </rdfs:Class>
+  
+  <rdfs:Class rdf:about="http://www.opentechnology.net/triki/0.1/Page" rdfs:label="Prefix" rdfs:comment="A page on a triki website" vs:term_status="stable">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+        <rdfs:isDefinedBy rdf:resource="http://www.opentechnology.net/triki/0.1/Page"/>
+  </rdfs:Class>
+ 
+  <rdfs:Class rdf:about="http://www.opentechnology.net/triki/0.1/MediaType" rdfs:label="Prefix" rdfs:comment="Media Type for content" vs:term_status="stable">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+        <rdfs:isDefinedBy rdf:resource="http://www.opentechnology.net/triki/0.1/MediaType"/>
+  </rdfs:Class>
+
+  <rdfs:Class rdf:about="http://www.opentechnology.net/triki/0.1/Content" rdfs:label="Content" rdfs:comment="Content Type for content" vs:term_status="stable">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+        <rdfs:isDefinedBy rdf:resource="http://www.opentechnology.net/triki/0.1/ContentType"/>
+  </rdfs:Class> 
+
+  <rdfs:Class rdf:about="http://www.opentechnology.net/triki/0.1/Setting" rdfs:label="Setting" rdfs:comment="Setting Type for content" vs:term_status="stable">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+        <rdfs:isDefinedBy rdf:resource="http://www.opentechnology.net/triki/0.1/SettingType"/>
+  </rdfs:Class> 
+  
+  <rdfs:Class rdf:about="http://www.opentechnology.net/triki/0.1/Feed" rdfs:label="Feed" rdfs:comment="Feed type" vs:term_status="stable">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+        <rdfs:isDefinedBy rdf:resource="http://www.opentechnology.net/triki/0.1/SettingType"/>
+  </rdfs:Class> 
+    
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/password" vs:term_status="stable" rdfs:label="SHA Password" rdfs:comment="SHA Password">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>
+
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/template" vs:term_status="stable" rdfs:label="Triki template" rdfs:comment="Triki template">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>  
+
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/content" vs:term_status="stable" rdfs:label="Triki content" rdfs:comment="Triki content">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>  
+
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/setting" vs:term_status="stable" rdfs:label="Triki setting" rdfs:comment="Triki content">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>  
+    
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/siteUri" vs:term_status="stable" rdfs:label="Base Uri of the site" rdfs:comment="Base Uri of the site">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>  
+
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/include" vs:term_status="stable" rdfs:label="Include external content" rdfs:comment="Include external content">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>  
+
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/webimg" vs:term_status="stable" rdfs:label="Web Image" rdfs:comment="Web Image">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>  
+
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/thumbimg" vs:term_status="stable" rdfs:label="Thumbnail Image" rdfs:comment="Thumbnail Imagae">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>  
+
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/restricted" vs:term_status="stable" rdfs:label="Access restriction" rdfs:comment="Access restriction">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>
+        
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/unrestricted" vs:term_status="stable" rdfs:label="Access unrestricted" rdfs:comment="Access unrestricted">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>
+  
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/login" vs:term_status="stable" rdfs:label="Login" rdfs:comment="Login">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>
+  
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/index" vs:term_status="stable" rdfs:label="Index page." rdfs:comment="Index page.">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>
+  
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/source" vs:term_status="stable" rdfs:label="Source" rdfs:comment="Source">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>
+
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/refresh" vs:term_status="stable" rdfs:label="Refresh" rdfs:comment="Refresh rate">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>
+
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/linkref" vs:term_status="stable" rdfs:label="Link Reference" rdfs:comment="Name of groovy closure to find link">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>
+
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/order" vs:term_status="stable" rdfs:label="Natural ordering" rdfs:comment="Natural ordering">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>
+ 
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/sparql" vs:term_status="stable" rdfs:label="SPARQL query" rdfs:comment="SPARQL query">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>  
+ 
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/home" vs:term_status="stable" rdfs:label="Home page after login" rdfs:comment="Home page after login">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>
+
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/id" vs:term_status="stable" rdfs:label="IndieAuth ID" rdfs:comment="IndieAuth ID">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>
+  
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/maxage" vs:term_status="stable" rdfs:label="Max cache age" rdfs:comment="Max cache age">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>
+  
+  <rdfs:Class rdf:about="http://www.opentechnology.net/triki/0.1/Blog" rdfs:label="Blog" rdfs:comment="A triki blog." vs:term_status="stable">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:isDefinedBy rdf:resource="http://www.opentechnology.net/triki/0.1/"/>
+  </rdfs:Class>
+
+  <rdfs:Class rdf:about="http://www.opentechnology.net/triki/0.1/Note" rdfs:label="Note" rdfs:comment="A note." vs:term_status="stable">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:isDefinedBy rdf:resource="http://www.opentechnology.net/triki/0.1/"/>
+  </rdfs:Class>
+
+  <rdfs:Class rdf:about="http://www.opentechnology.net/triki/0.1/Property" rdfs:label="Page property" rdfs:comment="A page property" vs:term_status="stable">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:isDefinedBy rdf:resource="http://www.opentechnology.net/triki/0.1/"/>
+  </rdfs:Class>
+ 
+   <rdfs:Class rdf:about="http://www.opentechnology.net/triki/0.1/Type" rdfs:label="Page type" rdfs:comment="A page type" vs:term_status="stable">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:isDefinedBy rdf:resource="http://www.opentechnology.net/triki/0.1/"/>
+  </rdfs:Class> 
+
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/pageProperty" vs:term_status="stable" rdfs:label="Page property" rdfs:comment="Page property">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>
+
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/pageType" vs:term_status="stable" rdfs:label="Page type" rdfs:comment="Page type">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>
+
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/pageViews" vs:term_status="stable" rdfs:label="Page views" rdfs:comment="Page views">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>
+  
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/dateformat" vs:term_status="stable" rdfs:label="Date format" rdfs:comment="Date format">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property> 
+  
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/feedtype" vs:term_status="stable" rdfs:label="Feed type" rdfs:comment="Feed type">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property> 
+  
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/feedurl" vs:term_status="stable" rdfs:label="Feed URL" rdfs:comment="Feed URl">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>
+  
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/keywords" vs:term_status="stable" rdfs:label="Keywords" rdfs:comment="Keywords">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property> 
+  
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/refresh" vs:term_status="stable" rdfs:label="Refresh" rdfs:comment="Refresh">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>  
+
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/itemParser" vs:term_status="stable" rdfs:label="Item parser" rdfs:comment="Item parser">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property> 
+
+</rdf:RDF>
+

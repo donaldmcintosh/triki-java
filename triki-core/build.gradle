@@ -1,0 +1,66 @@
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.9'
+}
+
+ext {
+	mainClassName = "net.opentechnology.triki.common.Startup"
+	gendir = file('generated-sources/java')
+	rdffiles = ['src/main/resources/rdf/dcterms.rdf',
+		'src/main/resources/rdf/exif.rdf',
+		'src/main/resources/rdf/foaf.rdf',
+		'src/main/resources/rdf/rdfbase.rdf',
+		'src/main/resources/rdf/rss.rdf',
+		'src/main/resources/rdf/relationship.rdf',
+		'src/main/resources/rdf/review.rdf',
+		'src/main/resources/rdf/time.rdf',
+		'src/main/resources/rdf/activitystreams2.rdf',
+		'src/main/resources/rdf/triki.rdf']
+}
+
+sourceSets {
+   main {
+	   java {
+			srcDirs 'generated-sources/java'
+	   }
+   }
+}
+
+task generateJava() {
+	rdffiles.each { file ->
+		logger.info "Generating code for $file"
+	def matcher = file =~ /(\w+)\.rdf/
+	def stem = matcher[0][1]
+	task "generateJava$stem"(type: JavaExec) {
+
+			logger.info "$file"
+			main = 'jena.schemagen'
+			outputs.dir gendir
+
+			logger.info "rdffile is $stem"
+			classpath = configurations.schemagen
+
+			main = 'jena.schemagen'
+			args '-i'
+			args file
+			args "-o"
+			args "${gendir}"
+			args '--package'
+			args 'net.opentechnology.triki.schema'
+			args '--ontology'
+			args '--inference'
+		}
+
+	compileJava.dependsOn "generateJava$stem"
+	}
+}
+
+jar {
+	manifest {
+		attributes "Main-Class": "$mainClassName"
+	}
+
+//    from {
+//        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+//    }
+}

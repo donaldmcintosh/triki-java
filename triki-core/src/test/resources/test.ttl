@@ -1,0 +1,123 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix resource: <http://www.donaldmcintosh.net/resource/> .
+@prefix triki: <http://www.opentechnology.net/triki/0.1/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix content: <http://www.donaldmcintosh.net/content/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix scriptcourse: <http://www.donaldmcintosh.net/resource/scriptcourse/> .
+@prefix resource: <http://www.donaldmcintosh.net/resource/> .
+
+<http://www.foaf.org/0.1/Person> triki:restricted triki:public .
+
+<http://www.donaldmcintosh.net/resource/donald+mcintosh> dcterms:description "Donald McIntosh".
+<http://www.donaldmcintosh.net/resource/donald+mcintosh> triki:restricted triki:public.
+<http://www.donaldmcintosh.net/resource/donald+mcintosh> foaf:member resource:family .
+<http://www.donaldmcintosh.net/resource/noah+mcintosh> dcterms:description "Noah McIntosh".
+<http://www.donaldmcintosh.net/resource/noah+mcintosh> triki:restricted triki:public.
+<http://www.donaldmcintosh.net/resource/daniel+mcintosh> dcterms:description "Daniel McIntosh".
+<http://www.donaldmcintosh.net/resource/daniel+mcintosh> triki:restricted triki:public.
+<http://www.donaldmcintosh.net/resource/donald+mcintosh> a <http://www.foaf.org/0.1/Person>.
+<http://www.foaf.org/0.1/Person> dcterms:description "Person".
+<http://www.donaldmcintosh.net/resource/donald+mcintosh> dcterms:likes <http://www.donaldmcintosh.net/resource/noah+mcintosh>.
+<http://www.donaldmcintosh.net/resource/donald+mcintosh> dcterms:likes <http://www.donaldmcintosh.net/resource/daniel+mcintosh>.
+
+<http://www.donaldmcintosh.net/resource/ibiza2014> dcterms:description "Ibiza 2014 Album" .
+<http://www.donaldmcintosh.net/resource/ibiza2014> dcterms:creator <http://www.donaldmcintosh.net/resource/donald+mcintosh> .
+<http://www.donaldmcintosh.net/resource/aug2014> dcterms:description "August 2014 Album" .
+<http://www.donaldmcintosh.net/resource/aug2014> triki:restricted triki:public .
+<http://www.donaldmcintosh.net/resource/ibiza2014> rdf:type triki:album .
+<http://www.donaldmcintosh.net/resource/ibiza2014> dcterms:created "2016-04-16T11:21:57Z"^^xsd:dateTime .
+<http://www.donaldmcintosh.net/resource/ibiza2014> triki:restricted triki:public .
+<http://www.donaldmcintosh.net/resource/aug2014> rdf:type triki:album .
+<http://www.donaldmcintosh.net/resource/aug2014> dcterms:created "2016-04-16T11:21:57Z"^^xsd:dateTime .
+<http://www.donaldmcintosh.net/resource/ibiza2014> triki:restricted resource:family .
+<http://www.donaldmcintosh.net/resource/ibiza2014> triki:restricted resource:friends .
+<http://www.donaldmcintosh.net/resource/ibiza2014> triki:contains resource:IMG_0022.IMG .
+<http://www.donaldmcintosh.net/resource/aug2014> triki:contains resource:IMG_0022.IMG .
+resource:IMG_0022.IMG dcterms:description "Cala Llenya photo" .
+resource:IMG_0022.IMG dcterms:created "2016-04-16T11:21:57Z"^^xsd:dateTime .
+resource:IMG_0022.IMG triki:restricted triki:public.
+
+<http://www.donaldmcintosh.net/resource/blog1> triki:include resource:whatever .
+<http://www.donaldmcintosh.net/resource/blog1> dcterms:description "A fascinating blog" .
+<http://www.donaldmcintosh.net/resource/blog1> dcterms:creator <http://www.donaldmcintosh.net/resource/donald+mcintosh> .
+<http://www.donaldmcintosh.net/resource/blog1> dcterms:created "2016-04-16T11:21:57Z"^^xsd:dateTime .
+<http://www.donaldmcintosh.net/resource/blog1> triki:restricted triki:public.
+resource:whatever triki:restricted triki:public .
+
+resource:family foaf:Group "Family" .
+resource:friends foaf:Group "Friends" .
+
+<http://www.donaldmcintosh.net/resource/> triki:password "password123" .
+<http://www.donaldmcintosh.net/resource/joe+bloggs> dcterms:description "Joe Bloggs".
+<http://www.donaldmcintosh.net/resource/joe+bloggs> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> foaf:Person .
+<http://www.donaldmcintosh.net/resource/joe+bloggs> foaf:mbox "joe.bloggs@yahoo.co.uk" .
+<http://www.donaldmcintosh.net/resource/joe+bloggs> foaf:member resource:friends .
+<http://www.donaldmcintosh.net/resource/joe+bloggs> triki:login "donald" .
+<http://www.donaldmcintosh.net/resource/joe+bloggs> triki:password "donald2" .
+
+resource:home triki:unrestricted ".*/content/.*\\.jpg" .
+resource:home triki:unrestricted ".*/content/.*\\.svg" .
+resource:home triki:unrestricted ".*/content/.*\\.png" .
+resource:home triki:unrestricted ".*/content/.*\\.css" .
+resource:home triki:unrestricted ".*/content/.*\\.js" .
+resource:home triki:unrestricted ".*/content/.*\\.html" . 
+
+<http://www.donaldmcintosh.net/resource/ibiza2013> triki:restricted triki:public .
+
+# Order blogs by created
+resource:blog triki:order dcterms:created .
+
+resource:holiday-berlin a resource:blog ;
+						triki:restricted resource:friends ;
+						dcterms:description "Berliner holiday" ;
+						dcterms:created "2013-05-22T19:00:00"^^xsd:dateTime .
+resource:holiday-ibiza a resource:blog ;
+						triki:restricted triki:public ;
+						dcterms:description "Eivissa holiday" ;
+						dcterms:created "2015-06-22T19:00:00"^^xsd:dateTime .
+resource:holiday-aboyne a resource:blog ;
+						triki:restricted triki:public ;
+						dcterms:description "Up North holiday" ;
+						dcterms:weather "Monday: Sunny Intervals, Maximum Temperature: 8\u00B0C (46\u00B0F)" ;
+						dcterms:created "2014-03-22T19:00:00"^^xsd:dateTime .
+resource:holiday-newyork a resource:blog ;
+						triki:restricted triki:public ;
+						dcterms:description "New York holiday" ;
+						dcterms:created "2010-09-22T19:00:00"^^xsd:dateTime .
+resource:holiday-france a resource:blog ;
+						triki:restricted triki:public ;
+						dcterms:description "France holiday" ;
+						dcterms:created "2008-09-22T19:00:00"^^xsd:dateTime .
+
+resource:home resource:blogsummary resource:recentblogs .
+resource:recentblogs triki:restricted triki:public .
+resource:recentblogs triki:sparql '''
+	prefix dc:			<http://purl.org/dc/terms/>
+	prefix resource:	<http://www.donaldmcintosh.net/resource/>
+	prefix xsd:			<http://www.w3.org/2001/XMLSchema#dateTime> 
+	
+	select ?obj ?created
+	WHERE  { ?obj a resource:blog; 
+		   		  dc:created ?created }
+	ORDER BY desc(?created)
+	LIMIT 3
+''' .
+
+resource:holiday-arisaig a resource:page ;
+						dcterms:created "2012-04-22"^^xsd:dateTime .
+
+resource:module triki:order triki:seq .
+scriptcourse:introduction a resource:module ;
+						triki:restricted triki:public ;
+						triki:seq "1";
+						dcterms:description "Introduction" .
+scriptcourse:basics a resource:module ;
+						triki:restricted triki:public ;
+						dcterms:description "Basics" ;
+						triki:seq "2".
+scriptcourse:environment a resource:module ;
+						triki:restricted triki:public ;
+						dcterms:description "Environment" ;
+						triki:seq "3".

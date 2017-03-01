@@ -1,0 +1,318 @@
+@prefix image: <http://localhost:8081/image/> .
+@prefix as2:   <http://www.w3.org/ns/activitystreams#> .
+@prefix rev:   <http://purl.org/stuff/rev> .
+@prefix resource: <http://localhost:8081/resource/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix content: <http://localhost:8081/content/> .
+@prefix triki: <http://www.opentechnology.net/triki/0.1/> .
+@prefix rss:   <http://purl.org/rss/1.0/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix publish: <http://localhost:8081/publish/> .
+@prefix rssfeed: <http://localhost:8081/resource/rss/> .
+@prefix asfeed: <http://localhost:8081/resource/as/> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix exif:  <http://www.w3.org/2003/12/exif/ns#> .
+@prefix dc:    <http://purl.org/dc/terms/> .
+
+resource:news  a              triki:news ;
+        resource:newssummary  resource:livenews ;
+        dc:created            "2016-02-22T17:36:00"^^xsd:dateTime ;
+        dc:creator            resource:me ;
+        dc:title              "News" ;
+        triki:order           dc:created ;
+        triki:restricted      triki:public ;
+        time:month            resource:2016February .
+
+resource:2016June  a      time:Instant ;
+        dc:created        "2016-06-01T00:00:00Z"^^xsd:dateTime ;
+        dc:description    "June 2016" ;
+        dc:title          "June 2016" ;
+        triki:restricted  triki:public ;
+        time:month        "June" ;
+        time:month        resource:2016June ;
+        time:year         resource:2016 .
+
+resource:2015January  a   time:Instant ;
+        dc:created        "2015-01-01T01:00:00Z"^^xsd:dateTime ;
+        dc:description    "January 2015" ;
+        dc:title          "January 2015" ;
+        triki:restricted  triki:public ;
+        time:month        "January" ;
+        time:month        resource:2015January ;
+        time:year         resource:2015 .
+
+resource:recentblogs  triki:restricted  triki:public ;
+        triki:sparql      "\n    prefix dc:          <http://purl.org/dc/terms/>\n    prefix resource:    <http://localhost:8081/resource/>\n    prefix xsd:         <http://www.w3.org/2001/XMLSchema#dateTime> \n    prefix triki:       <http://www.opentechnology.net/triki/0.1/> \n    \n    select ?obj ?created\n    WHERE  { ?obj a resource:blog; \n                  triki:restricted triki:public;\n                  dc:created ?created }\n    ORDER BY desc(?created)\n    LIMIT 8\n" .
+
+foaf:Image  triki:order   dc:created ;
+        triki:restricted  triki:public .
+
+resource:feeds  a             triki:feeds ;
+        resource:newssummary  resource:slownews ;
+        dc:created            "2016-02-30T17:36:00"^^xsd:dateTime ;
+        dc:creator            resource:me ;
+        dc:title              "Feeds" ;
+        triki:order           dc:created ;
+        triki:restricted      triki:public ;
+        time:month            resource:2016March .
+
+resource:slownews  triki:restricted  triki:public ;
+        triki:sparql      "\n    prefix dc:          <http://purl.org/dc/terms/>\n    prefix resource:    <http://localhost:8081/resource/>\n    prefix xsd:         <http://www.w3.org/2001/XMLSchema#dateTime> \n    prefix triki:       <http://www.opentechnology.net/triki/0.1/> \n    prefix rss:         <http://purl.org/rss/1.0/>\n    \n    select ?obj ?created\n    WHERE  { ?obj a rss:item ; \n                  triki:source ?sourceName ;\n                  dc:created ?created . \n             ?source dc:title ?sourceName ;\n\t             triki:refresh \"daily\"  }\n    ORDER BY desc(?created)\n    LIMIT 150 \n" .
+
+resource:my-first-blog
+        a                 resource:blog ;
+        dc:created        "2015-05-05T12:45:00"^^xsd:dateTime ;
+        dc:creator        resource:me ;
+        dc:description    "\n\t\t   Some interesting news..\n\t\t   " ;
+        dc:title          "My first blog" ;
+        triki:include     content:first-blog.md ;
+        triki:restricted  triki:public ;
+        time:month        resource:2015May .
+
+content:first-blog.md
+        triki:restricted  triki:public .
+
+resource:2016  a          time:Instant ;
+        dc:created        "2016-01-01T01:00:00Z"^^xsd:dateTime ;
+        dc:description    "2016" ;
+        dc:references     time:Year ;
+        dc:title          "2016" ;
+        triki:restricted  triki:public ;
+        time:month        resource:2016January ;
+        time:year         "2016" .
+
+resource:notepub  triki:restricted  triki:public .
+
+resource:albums  a        triki:albums ;
+        dc:created        "2016-04-19T17:36:00"^^xsd:dateTime ;
+        dc:creator        resource:me ;
+        dc:references     resource:album ;
+        dc:title          "Albums" ;
+        triki:order       dc:created ;
+        triki:restricted  triki:public ;
+        time:month        resource:2016April .
+
+resource:2016January  a   time:Instant ;
+        dc:created        "2016-01-01T01:00:00Z"^^xsd:dateTime ;
+        dc:description    "January 2016" ;
+        dc:title          "January 2016" ;
+        triki:restricted  triki:public ;
+        time:month        "January" ;
+        time:month        resource:2016January ;
+        time:year         resource:2016 .
+
+resource:recentphotos
+        triki:restricted  triki:public ;
+        triki:sparql      "\n    prefix dc:          <http://purl.org/dc/terms/>\n    prefix foaf:        <http://xmlns.com/foaf/0.1/>\n    prefix resource:    <http://localhost:8081/resource/>\n    prefix xsd:         <http://www.w3.org/2001/XMLSchema#dateTime> \n    prefix triki:       <http://www.opentechnology.net/triki/0.1/> \n    \n    select ?obj ?created\n    WHERE  { ?obj a foaf:Image; \n                  triki:thumbimg ?thumb;\n                  triki:restricted triki:public;\n                  dc:created ?created .\n    }\n    ORDER BY desc(?created)\n    LIMIT 5\n" .
+
+resource:home  a               triki:index ;
+        resource:albumsummary  resource:recentalbums ;
+        resource:blogsummary   resource:recentblogs ;
+        resource:photosummary  resource:recentphotos ;
+        resource:recommendationssummary
+                resource:recentrecommendations ;
+        dc:created             "17th February 2014" ;
+        dc:creator             resource:me ;
+        dc:title               "// Comments on coding, the Web and life.... generally" ;
+        triki:restricted       triki:public ;
+        triki:unrestricted     ".*/content/.*\\.stg" , ".*/content/.*\\.svg" , ".*/content/.*\\.png" , ".*/content/.*\\.css" , ".*/content/.*\\.pdf" , ".*/content/.*\\.jpg" , ".*/content/.*\\.js" , ".*/content/.*\\.html" , ".*/rss/.*" , ".*/content/.*\\.ico" , ".*/content/.*\\.gz" .
+
+resource:2015May  a       time:Instant ;
+        dc:created        "2015-05-01T00:00:00Z"^^xsd:dateTime ;
+        dc:description    "May 2015" ;
+        dc:title          "May 2015" ;
+        triki:restricted  triki:public ;
+        time:month        "May" ;
+        time:month        resource:2015May ;
+        time:year         resource:2015 .
+
+resource:2015July  a      time:Instant ;
+        dc:created        "2015-07-01T00:00:00Z"^^xsd:dateTime ;
+        dc:description    "July 2015" ;
+        dc:title          "July 2015" ;
+        triki:restricted  triki:public ;
+        time:month        "July" ;
+        time:month        resource:2015July ;
+        time:year         resource:2015 .
+
+resource:recommendations
+        a                 triki:recommendations ;
+        dc:created        "2015-07-03T09:36:00"^^xsd:dateTime ;
+        dc:creator        resource:me ;
+        dc:references     resource:recommendation ;
+        dc:title          "Recommendations" ;
+        triki:order       dc:created ;
+        triki:restricted  triki:public ;
+        time:month        resource:2015July .
+
+resource:2015  a          time:Instant ;
+        dc:created        "2015-01-01T01:00:00Z"^^xsd:dateTime ;
+        dc:description    "2015" ;
+        dc:references     time:Year ;
+        dc:title          "2015" ;
+        triki:restricted  triki:public ;
+        time:month        resource:2015January ;
+        time:year         "2015" .
+
+resource:2016February
+        a                 time:Instant ;
+        dc:created        "2016-02-01T01:00:00Z"^^xsd:dateTime ;
+        dc:description    "February 2016" ;
+        dc:title          "February 2016" ;
+        triki:restricted  triki:public ;
+        time:month        "February" ;
+        time:month        resource:2016February ;
+        time:year         resource:2016 .
+
+resource:recommendation
+        triki:order       dc:created ;
+        triki:restricted  triki:public .
+
+resource:photos  a        triki:photos ;
+        dc:created        "2015-06-01T09:36:00"^^xsd:dateTime ;
+        dc:creator        resource:me ;
+        dc:references     foaf:Image ;
+        dc:title          "Photos" ;
+        triki:order       dc:created ;
+        triki:restricted  triki:public ;
+        time:month        resource:2015June .
+
+resource:software  a      triki:software ;
+        dc:created        "2015-07-07T13:36:00"^^xsd:dateTime ;
+        dc:creator        resource:me ;
+        dc:references     resource:code ;
+        dc:title          "Software" ;
+        triki:order       dc:created ;
+        triki:restricted  triki:public ;
+        time:month        resource:2015July .
+
+resource:history  a         triki:history ;
+        resource:yearslist  resource:allyears ;
+        dc:created          "2016-04-28T13:36:00"^^xsd:dateTime ;
+        dc:creator          resource:me ;
+        dc:title            "History" ;
+        triki:order         dc:created ;
+        triki:restricted    triki:public ;
+        time:month          resource:2016April .
+
+resource:login  a         triki:login ;
+        dc:title          "Connect" ;
+        triki:restricted  triki:public .
+
+resource:blog  triki:order  dc:created ;
+        triki:restricted  triki:public .
+
+resource:blogs  a         triki:blogs ;
+        dc:created        "2015-05-21T09:36:00"^^xsd:dateTime ;
+        dc:creator        resource:me ;
+        dc:references     resource:blog ;
+        dc:title          "Blogs" ;
+        triki:order       dc:created ;
+        triki:restricted  triki:public ;
+        time:month        resource:2015May .
+
+rssfeed:blogs  a          triki:rssblogs ;
+        rdf:domain        resource:blog ;
+        dc:created        "2015-05-21T09:36:00"^^xsd:dateTime ;
+        dc:creator        resource:me ;
+        dc:description    "// Comments on coding, the Web and life... generally" ;
+        dc:title          "donaldmcintosh.net - RSS Blog feed for Donald McIntosh" ;
+        triki:order       dc:created ;
+        triki:restricted  triki:public ;
+        time:month        resource:2015May .
+
+resource:allyears  triki:restricted  triki:public ;
+        triki:sparql      "\n\t   PREFIX triki: <http://www.opentechnology.net/triki/0.1/>  \n           PREFIX dc:    <http://purl.org/dc/terms/>\n           PREFIX time:  <http://www.w3.org/2006/time#>\n\t   SELECT ?obj  \n           WHERE {  \n\t\t ?obj dc:created ?created .\n\t\t ?obj dc:references time:Year .\n           } ORDER BY DESC(?obj) " .
+
+resource:2016March  a     time:Instant ;
+        dc:created        "2016-03-01T01:00:00Z"^^xsd:dateTime ;
+        dc:description    "March 2016" ;
+        dc:title          "March 2016" ;
+        triki:restricted  triki:public ;
+        time:month        "March" ;
+        time:month        resource:2016March ;
+        time:year         resource:2016 .
+
+resource:code  triki:order  dc:created ;
+        triki:restricted  triki:public .
+
+resource:recentrecommendations
+        triki:restricted  triki:public ;
+        triki:sparql      "\n    prefix dc:          <http://purl.org/dc/terms/>\n    prefix resource:    <http://localhost:8081/resource/>\n    prefix xsd:         <http://www.w3.org/2001/XMLSchema#dateTime> \n    \n    select ?obj ?created\n    WHERE  { ?obj a resource:recommendation; \n                  dc:created ?created }\n    ORDER BY desc(?created)\n    LIMIT 3 \n" .
+
+resource:note-14098e12-4fde-4681-b0ef-0ea54474abaa
+        a           triki:Note ;
+        dc:created  "2016-06-29T08:03:11.585Z"^^xsd:dateTime ;
+        dc:creator  resource:donaldmcintosh ;
+        time:month  resource:2016June .
+
+resource:note-new-ben-nevis-album
+        a                 triki:Note ;
+        dc:created        "2016-06-29T13:30:27.932Z"^^xsd:dateTime , "2016-06-29T13:02:11.903Z"^^xsd:dateTime ;
+        dc:creator        resource:donaldmcintosh ;
+        dc:description    "Check out my new Album http://donaldmcintosh.net/resource/ben-nevis" ;
+        triki:restricted  triki:public ;
+        time:month        resource:2016June .
+
+resource:me  a            foaf:Person ;
+        dc:description    "A.D. Blogger" ;
+        dc:title          "me" ;
+        triki:include     content:me.html ;
+        triki:login       "blogger" ;
+        triki:password    "huzzah!" ;
+        triki:restricted  resource:personal ;
+        foaf:mbox         "adblogger@yahoo.co.uk" ;
+        foaf:member       resource:personal , resource:friends , resource:us , resource:family .
+
+
+resource:jackie  a            foaf:Person ;
+        dc:description    "Jackie" ;
+        dc:title          "Jackie" ;
+        triki:include     content:me.html ;
+        triki:login       "blogger" ;
+        triki:password    "huzzah!" ;
+        triki:restricted  resource:personal ;
+        foaf:mbox         "jackie@yahoo.co.uk" ;
+        foaf:member       resource:friends , resource:us , resource:family .
+
+time:year  triki:order  dc:created .
+
+resource:livenews  triki:restricted  triki:public ;
+        triki:sparql      "\n    prefix dc:          <http://purl.org/dc/terms/>\n    prefix resource:    <http://localhost:8081/resource/>\n    prefix xsd:         <http://www.w3.org/2001/XMLSchema#dateTime> \n    prefix triki:       <http://www.opentechnology.net/triki/0.1/> \n    prefix rss:         <http://purl.org/rss/1.0/>\n    \n    select ?obj ?created\n    WHERE  { ?obj a rss:item ; \n                  triki:source ?sourceName ;\n                  dc:created ?created . \n             ?source dc:title ?sourceName ;\n\t             triki:refresh \"live\"  }\n    ORDER BY desc(?created)\n    LIMIT 150 \n" .
+
+publish:note  triki:restricted  triki:public .
+publish:email  triki:restricted  triki:public .
+
+resource:personal  foaf:Group  "Personal" .
+
+resource:2016April  a     time:Instant ;
+        dc:created        "2016-04-01T00:00:00Z"^^xsd:dateTime ;
+        dc:description    "April 2016" ;
+        dc:title          "April 2016" ;
+        triki:restricted  triki:public ;
+        time:month        "April" ;
+        time:month        resource:2016April ;
+        time:year         resource:2016 .
+
+resource:note-e8e1cbf2-4cf1-4928-b587-586da6b14c2e
+        a                 triki:Note ;
+        dc:created        "2016-06-29T12:51:18.393Z"^^xsd:dateTime ;
+        dc:creator        resource:donaldmcintosh ;
+        dc:description    "#EUreferendum #indyref when we have another Scottish Independence Election we need to be very clear on what currency we will have afterwards null" ;
+        triki:restricted  triki:public ;
+        time:month        resource:2016June .
+
+resource:2015June  a      time:Instant ;
+        dc:created        "2015-06-01T00:00:00Z"^^xsd:dateTime ;
+        dc:description    "June 2015" ;
+        dc:title          "June 2015" ;
+        triki:restricted  triki:public ;
+        time:month        "June" ;
+        time:month        resource:2015June ;
+        time:year         resource:2015 .
+
+resource:album  triki:order  dc:created ;
+        triki:restricted  triki:public .

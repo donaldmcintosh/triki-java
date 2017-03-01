@@ -1,0 +1,124 @@
+plugins {
+    id "com.jfrog.bintray" version "1.6"
+}
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'groovy'
+    apply plugin: 'distribution'
+	
+	repositories {
+	   mavenCentral()
+	}
+	
+	bintray {
+	    user = System.getenv('BINTRAY_USER')
+	    key = System.getenv('BINTRAY_KEY')
+	    configurations = ['archives']
+	    pkg {
+	        repo = 'opentechnology.net'
+		group = 'opentechnology.net'
+	        name = 'triki'
+	        licenses = ['MIT']
+	        vcsUrl = 'https://github.com/donaldmcintosh/triki'
+	        version {
+	            name = '1.0.0-Final'
+	            desc = 'triki 1.0.0'
+	            released  = new Date()
+	            vcsTag = '1.0.0'
+	        }
+	    }
+	}
+	
+	configurations { schemagen }
+	
+	dependencies {
+	   schemagen 'org.apache.jena:jena-core:3.0.1'
+	   compile ("log4j:log4j:1.2.14")
+	   compile ("commons-logging:commons-logging:1.1")
+	   compile ("org.antlr:stringtemplate:4.0.2")
+	   compile ("javax.servlet:javax.servlet-api:3.0.1")
+	   compile ("javax.ws.rs:javax.ws.rs-api:2.0.1")
+	   compile ("javax.inject:javax.inject:1")
+	
+	   compile ("org.apache.cxf:cxf-rt-frontend-jaxws:3.1.6")
+	   compile ("org.apache.cxf:cxf-rt-frontend-jaxrs:3.1.6")
+	   compile ("org.apache.cxf:cxf-rt-transports-http:3.1.6")
+	   compile ("org.apache.cxf:cxf-rt-rs-client:3.1.6")
+	   compile ("org.apache.httpcomponents:httpclient:4.5.2")
+	   
+	   compile ("org.springframework:spring-core:4.2.6.RELEASE")
+	   compile ("org.springframework:spring-context:4.2.6.RELEASE")
+	   compile ("org.springframework:spring-web:4.2.6.RELEASE")
+	   compile ("org.springframework:spring-test:4.2.6.RELEASE")
+	   compile ("org.springframework:spring-aspects:4.2.6.RELEASE")
+	
+	   compile ("org.apache.jena:jena-core:3.0.1")
+	   compile ("org.apache.jena:jena-arq:3.0.1")
+	   compile ("xml-apis:xml-apis:1.4.01")
+	   compile ("org.pegdown:pegdown:1.6.0")
+	   compile ("com.fasterxml.jackson.core:jackson-core:2.3.0-rc1")
+	   compile ("org.apache.httpcomponents:httpclient:4.4")
+	   compile ("org.apache.commons:commons-lang3:3.1")
+	   compile ("commons-io:commons-io:2.4")
+	   compile ("org.eclipse.jetty:jetty-server:8.1.14.v20131031")
+	   compile ("org.eclipse.jetty:jetty-webapp:8.1.14.v20131031")
+	   compile ("com.drewnoakes:metadata-extractor:2.6.2")
+	   compile ("org.imgscalr:imgscalr-lib:4.2")
+	   compile ("commons-configuration:commons-configuration:1.6")
+	   compile ("org.codehaus.groovy:groovy-all:2.3.11")
+	   compile ("org.apache.camel:camel-groovy:2.11.0")
+	   compile ("org.apache.camel:camel-quartz2:2.16.1")
+	   compile ("org.apache.camel:camel-spring:2.17.1")
+	   compile ("org.apache.camel:camel-twitter:2.17.1")
+	   compile ("org.apache.camel:camel-mail:2.17.1")
+	   compile ("commons-io:commons-io:2.4")
+	   compile ("org.jdom:jdom:2.0.0")
+	   compile ("org.apache.xmlgraphics:batik-transcoder:1.7")
+	   compile ("org.apache.xmlgraphics:batik-codec:1.7")
+	   compile ("com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.8.3")
+	
+	   testCompile ("junit:junit:4.4")
+	   testCompile ("org.mockito:mockito-all:1.9.5")
+	   testCompile ("org.apache.camel:camel-test:2.16.1")
+	   testCompile ("info.cukes:cucumber-core:1.2.4")
+	   testCompile ("info.cukes:cucumber-junit:1.2.4")
+	   testCompile ("info.cukes:cucumber-java:1.2.4")
+	   testCompile ("info.cukes:cucumber-spring:1.2.4")
+	}
+	
+	test {
+		exclude '**/TrikiDevFeatures.class'
+		include '**/TrikiMandFeatures.class'
+	}
+	
+}
+
+dependencies {
+	compile project(":triki-core")
+	compile project(":triki-news")
+	compile project(":triki-share")
+	compile project(":triki-twitter")
+	compile project(":triki-pageviews")
+	compile project(":triki-image")
+}
+
+distributions {
+    main {
+        contents {
+            into('lib') {
+                def libs = []
+                libs << project(':triki-core').configurations.runtime 
+                libs << project(':triki-image').configurations.runtime
+                from libs.unique { it.name }
+                from project(':triki-core').jar
+                from project(':triki-image').jar
+                from project(':triki-share').jar
+                from project(':triki-pageviews').jar
+                from project(':triki-news').jar
+                from project(':triki-twitter').jar
+            }
+        }
+    }
+}
