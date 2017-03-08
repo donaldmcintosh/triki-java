@@ -23,10 +23,10 @@ allprojects {
 	        licenses = ['MIT']
 	        vcsUrl = 'https://github.com/donaldmcintosh/triki'
 	        version {
-	            name = '1.0.0-Final'
-	            desc = 'triki 1.0.0'
+	            name = '1.0.2-Final'
+	            desc = 'triki 1.0.2'
 	            released  = new Date()
-	            vcsTag = '1.0.0'
+	            vcsTag = '1.0.2'
 	        }
 	    }
 	}
