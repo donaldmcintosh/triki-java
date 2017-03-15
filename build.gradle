@@ -1,6 +1,13 @@
-plugins {
-    id "com.jfrog.bintray" version "1.6"
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
+    }
 }
+
+apply plugin: 'com.github.johnrengelman.shadow'
 
 allprojects {
     apply plugin: 'java'
@@ -10,25 +17,6 @@ allprojects {
 	
 	repositories {
 	   mavenCentral()
-	}
-	
-	bintray {
-	    user = System.getenv('BINTRAY_USER')
-	    key = System.getenv('BINTRAY_KEY')
-	    configurations = ['archives']
-	    pkg {
-	        repo = 'opentechnology.net'
-		group = 'opentechnology.net'
-	        name = 'triki'
-	        licenses = ['MIT']
-	        vcsUrl = 'https://github.com/donaldmcintosh/triki'
-	        version {
-	            name = '1.0.2-Final'
-	            desc = 'triki 1.0.2'
-	            released  = new Date()
-	            vcsTag = '1.0.2'
-	        }
-	    }
 	}
 	
 	configurations { schemagen }
@@ -74,9 +62,6 @@ allprojects {
 	   compile ("org.apache.camel:camel-twitter:2.17.1")
 	   compile ("org.apache.camel:camel-mail:2.17.1")
 	   compile ("commons-io:commons-io:2.4")
-	   compile ("org.jdom:jdom:2.0.0")
-	   compile ("org.apache.xmlgraphics:batik-transcoder:1.7")
-	   compile ("org.apache.xmlgraphics:batik-codec:1.7")
 	   compile ("com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.8.3")
 	
 	   testCompile ("junit:junit:4.4")
@@ -104,21 +89,42 @@ dependencies {
 	compile project(":triki-image")
 }
 
+shadowJar {
+        baseName project.name
+        classifier = null
+        version = null
+        mergeServiceFiles {
+            include 'META-INF/services'
+            include 'META-INF/schemas.*'
+            include 'META-INF/spring.*'
+            include 'META-INF/cxf.*'
+            include 'META-INF/cxf/bus-extensions.txt'
+        }
+        mergeGroovyExtensionModules()
+        manifest {
+                attributes 'Implementation-Title': 'triki',
+                           'Implementation-Version': project.version,
+                           'Main-Class': 'net.opentechnology.triki.core.boot.TrikiMain'
+        }
+        configurations = [ project.configurations.default ]
+}
+
+distZip.dependsOn shadowJar
+
 distributions {
     main {
         contents {
             into('lib') {
-                def libs = []
-                libs << project(':triki-core').configurations.runtime 
-                libs << project(':triki-image').configurations.runtime
-                from libs.unique { it.name }
-                from project(':triki-core').jar
-                from project(':triki-image').jar
-                from project(':triki-share').jar
-                from project(':triki-pageviews').jar
-                from project(':triki-news').jar
-                from project(':triki-twitter').jar
+                from(libsDir) {
+                    include shadowJar.archiveName
+                }
             }
+	    into('scripts') {
+                from('src/main/scripts') {
+                    include 'triki.sh'
+                    include 'triki.bat'
+                }
+	    }
         }
     }
 }

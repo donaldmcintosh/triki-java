@@ -9,9 +9,10 @@
         </layout>
     </appender>
     
-    <appender name="RollingAppender" class="org.apache.log4j.DailyRollingFileAppender">
+    <appender name="RollingAppender" class="org.apache.log4j.RollingFileAppender">
        <param name="File" value="${content_dir}/log/triki.log" />
-       <param name="DatePattern" value="'.'yyyy-MM-dd" />
+       <param name="MaxFileSize" value="100MB" />
+       <param name="MaxBackupIndex" value="3" />
        <layout class="org.apache.log4j.PatternLayout">
           <param name="ConversionPattern" value="[%p] %d %c %M - %m%n"/>          
        </layout>
@@ -20,7 +21,6 @@
     <root>
         <level value="INFO"/>
         <appender-ref ref="RollingAppender"/>
-        <appender-ref ref="ConsoleAppender"/>
     </root>
  
 </log4j:configuration>

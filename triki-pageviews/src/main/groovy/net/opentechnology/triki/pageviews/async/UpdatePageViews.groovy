@@ -84,16 +84,19 @@ class UpdatePageViews extends RouteBuilder {
 				
 				if(view.forwardedFor != null && !view.getAgent().matches(ignores)){
 					Resource page = model.getResource(view.url);
-					if(page.hasProperty(Triki.pageViews))
+					if(model.containsResource(page))
 					{
-						Statement pageViews = page.getProperty(Triki.pageViews);
-						int viewCount = pageViews.getObject().asLiteral().getInt();
-						page.removeAll(Triki.pageViews);
-						page.addProperty(Triki.pageViews, ++viewCount);
-					}
-					else 
-					{
-						page.addProperty(Triki.pageViews, "1");
+						if(page.hasProperty(Triki.pageViews))
+						{
+							Statement pageViews = page.getProperty(Triki.pageViews);
+							int viewCount = pageViews.getObject().asLiteral().getInt();
+							page.removeAll(Triki.pageViews);
+							page.addProperty(Triki.pageViews, ++viewCount);
+						}
+						else 
+						{
+							page.addProperty(Triki.pageViews, "1");
+						}
 					}
 				}
 
