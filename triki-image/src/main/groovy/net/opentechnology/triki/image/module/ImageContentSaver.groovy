@@ -52,6 +52,7 @@ import com.drew.metadata.exif.ExifSubIFDDirectory;
 import groovy.util.logging.Log4j
 import net.opentechnology.triki.core.boot.CachedPropertyStore;
 import net.opentechnology.triki.core.boot.CoreModule
+import net.opentechnology.triki.core.dto.GroupDto
 import net.opentechnology.triki.core.dto.ResourceDto
 import net.opentechnology.triki.core.dto.SettingDto
 import net.opentechnology.triki.core.dto.TypeDto
@@ -86,6 +87,9 @@ public class ImageContentSaver implements ContentSaver {
 	private TypeDto typeDto;
 	
 	@Inject
+	private GroupDto groupDto;
+	
+	@Inject
 	private CoreModule coreModule;
 	
 	@Inject
@@ -98,11 +102,11 @@ public class ImageContentSaver implements ContentSaver {
 		coreModule.registerContentSaver("jpg", this);
 	}
 
-	public void saveContent(String filename, InputStream input, List<String> msgs, List<String> errors) {
-		saveImages(filename, input, msgs, errors)
+	public void saveContent(String filename, InputStream input, List<String> msgs, List<String> errors, String access) {
+		saveImages(filename, input, msgs, errors, access)
 	}
 	
-	private void saveImages(String filename, InputStream input, List<String> msgs, List<String> errors)
+	private void saveImages(String filename, InputStream input, List<String> msgs, List<String> errors, String access)
 	{
 		try {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -120,7 +124,7 @@ public class ImageContentSaver implements ContentSaver {
 			OutputStream thumbFileOut = contentUtils.getWriteStream(thumbName);
 			ImageIO.write(thumbImg, "jpg", thumbFileOut);
 			
-			addContentResource(webName, thumbName, new BufferedInputStream(new ByteArrayInputStream(bytes)), errors)
+			addContentResource(webName, thumbName, new BufferedInputStream(new ByteArrayInputStream(bytes)), errors, access)
 			msgs << "Created resource /content/${webName}"
 			msgs << "Created resource /content/${thumbName}"
 			msgs << "Created resource /image/${webName}"
@@ -155,20 +159,20 @@ public class ImageContentSaver implements ContentSaver {
 			return img
 	}
 	
-	private void addContentResource(String webName, String thumbName, BufferedInputStream inStream, List<String> errors) {
+	private void addContentResource(String webName, String thumbName, BufferedInputStream inStream, List<String> errors, String access) {
 		try {
 			Resource contentResource
 			Metadata metadata = ImageMetadataReader.readMetadata(inStream, true);
 			Iterable<Directory> dirs = metadata.getDirectories();
-			Resource thumbRes = addThumbnailResource(siteModel, thumbName);
-			Resource webResource = addResource(siteModel, webName, thumbRes, errors);
+			Resource thumbRes = addThumbnailResource(siteModel, thumbName, access);
+			Resource webResource = addResource(siteModel, webName, thumbRes, errors, access);
 			for(Directory metadir: dirs){
 				addMetadata(webResource, metadir, errors);
 			}
 			if(!webResource.hasProperty(Dcterms.created)){
 				resourceDto.addCreatedNow(webResource)
 			}
-			addImageResource(webName, webResource);
+			addImageResource(webName, webResource, access);
 
 		} catch (ImageProcessingException e) {
 			log.error("Problems processing " + webName, e);
@@ -177,13 +181,13 @@ public class ImageContentSaver implements ContentSaver {
 		}
 	}
 	
-	private Resource addResource(Model model, String webName, Resource thumbRes, List<String> errors) {	
+	private Resource addResource(Model model, String webName, Resource thumbRes, List<String> errors, String access) {	
 		try {
 			String resname = "content/" + webName;
 			Resource contentResource = model.createResource(propStore.privateUrl +  resname);
 			contentResource.addProperty(RDF.type, Triki.Content)
 				
-			contentResource.addProperty(Triki.restricted, settingDto.getSettingAsResource(Settings.RESTRICTION.name()));
+			contentResource.addProperty(Triki.restricted, groupDto.getGroup(access));
 			contentResource.addProperty(DCTerms.title, webName);
 			contentResource.addProperty(Triki.thumbimg, thumbRes);
 			resourceDto.addCreator(session, contentResource);
@@ -212,23 +216,23 @@ public class ImageContentSaver implements ContentSaver {
 		}
 	}
 	
-	private Resource addThumbnailResource(Model model, String thumbName) {
+	private Resource addThumbnailResource(Model model, String thumbName, String access) {
 		String resname = "content/" + thumbName;
 		Resource thumbnail = siteModel.createResource(propStore.getPrivateUrl() + resname, Triki.Content);
 		thumbnail.addProperty(DCTerms.title, thumbName);
-		thumbnail.addProperty(Triki.restricted, settingDto.getSettingAsResource(Settings.RESTRICTION.name()));
+		thumbnail.addProperty(Triki.restricted, groupDto.getGroup(access));
 		resourceDto.addCreator(session, thumbnail);
 		
 		return thumbnail;
 	}
 	
-	private void addImageResource(String webName, Resource contentResource)
+	private void addImageResource(String webName, Resource contentResource, String access)
 	{
 		String resname = "image/" + webName;
 		Resource imageType = typeDto.getType("image")
 		Resource image = siteModel.createResource(propStore.getPrivateUrl() + resname, imageType);
 		image.addProperty(DCTerms.title, "Image ${webName}");
-		image.addProperty(Triki.restricted, settingDto.getSettingAsResource(Settings.RESTRICTION.name()));
+		image.addProperty(Triki.restricted, groupDto.getGroup(access));
 		resourceDto.addCreator(session, image)
 		resourceDto.addCreated(image, contentResource.getRequiredProperty(Dcterms.created).getObject().asLiteral());
 		image.addProperty(Triki.content, contentResource);

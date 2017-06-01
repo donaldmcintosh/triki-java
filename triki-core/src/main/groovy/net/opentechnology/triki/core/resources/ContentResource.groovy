@@ -65,6 +65,7 @@ import net.opentechnology.triki.auth.AuthorisationManager
 import net.opentechnology.triki.core.boot.CachedPropertyStore;
 import net.opentechnology.triki.core.boot.CoreModule
 import net.opentechnology.triki.core.dto.ContentDto
+import net.opentechnology.triki.core.dto.GroupDto
 import net.opentechnology.triki.core.dto.MediaTypeDto
 import net.opentechnology.triki.core.expander.ExpanderException;
 import net.opentechnology.triki.core.template.TemplateException;;
@@ -88,6 +89,9 @@ public class ContentResource extends RenderResource {
 	private ContentDto contentDto;
 	
 	@Inject
+	private GroupDto groupDto;
+	
+	@Inject
 	private MediaTypeDto mediaTypeDto;
 	
 	@Inject @Qualifier("webContentUtils")
@@ -107,6 +111,9 @@ public class ContentResource extends RenderResource {
 	@Produces(TrikiMediaTypes.HTML_UTF8)
 	public String getGraph() throws ResourceException, TemplateException, ExpanderException{
 		ST template = templateStore.getTemplate("upload");
+	
+		def groups = groupDto.getGroups();
+		template.add("groups", groups)
 		
 		String rendered = template.render();
 		
@@ -242,20 +249,20 @@ public class ContentResource extends RenderResource {
 					{
 						model.msgs << "Successfully validated file ${contentFile.filename}"
 						webContentUtils.writeContent(contentFile.filename, content)
-						generateResource(contentFile)
-						model.msgs << "Successfully uploaded file ${contentFile.filename}"
+						generateResource(contentFile, model.access)
+						model.msgs << "Successfully uploaded file ${contentFile.filename} with group access ${model.access}"
 					}
 				}
 				else {
 					if(coreModule.contentSavers.containsKey(contentFile.suffix)){
-						coreModule.contentSavers.get(contentFile.suffix).saveContent(contentFile.filename, contentFile.inputStream, model.msgs, model.errors)
+						coreModule.contentSavers.get(contentFile.suffix).saveContent(contentFile.filename, contentFile.inputStream, model.msgs, model.errors, model.access)
 					}
 					else
 					{
 						webContentUtils.writeStream(contentFile.filename, contentFile.inputStream)
-						generateResource(contentFile)
+						generateResource(contentFile, model.access)
 					}
-					model.msgs << "Successfully uploaded file ${contentFile.filename}"
+					model.msgs << "Successfully uploaded file ${contentFile.filename} with group access ${model.access}"
 				}
 			}
 		}
@@ -272,14 +279,17 @@ public class ContentResource extends RenderResource {
 		ST template = templateStore.getTemplate("upload");
 		template.add("contentModel", contentModel);
 		
+		def groups = groupDto.getGroups();
+		template.add("groups", groups)
+		
 		String rendered = template.render();
 		
 		return rendered;
 	}
 	
-	private void generateResource(ContentFile contentFile)
+	private void generateResource(ContentFile contentFile, String access)
 	{
-		contentDto.addContent(contentFile.filename)
+		contentDto.addContentWithGroup(contentFile.filename, access)
 	}
 	
 	private boolean allowedAccess(String id)

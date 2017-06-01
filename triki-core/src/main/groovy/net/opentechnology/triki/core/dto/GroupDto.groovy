@@ -59,5 +59,29 @@ public class GroupDto extends BaseDto {
 		Resource group = model.createResource(resName);
 		return group
 	}
+	
+	public Map<String, String> getGroups()
+	{
+		Map<String, String> groups = new HashMap<>();
+		String query = """
+	    PREFIX foaf: <http://xmlns.com/foaf/0.1/>  
+		PREFIX dc:    <http://purl.org/dc/terms/>
+		SELECT ?sub ?groupTitle
+		WHERE {  
+			 ?sub a foaf:Group .
+             ?sub dc:title ?groupTitle .
+        }
+""";
+			
+		SparqlExecutor sparqler = new SparqlExecutor();
+		sparqler.execute(model, query){ QuerySolution soln ->
+			String groupUrl = soln.get("sub").asResource().getURI().toString()
+			String groupTitle = soln.get("groupTitle").asLiteral().toString()
+			String name = groupUrl.minus(props.getPrivateUrl() + "group/");
+			groups.put(name, groupTitle);
+		}
+			
+		return groups;
+	}
 
 }

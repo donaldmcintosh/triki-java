@@ -51,16 +51,30 @@ public class ContentDto extends BaseDto {
 	@Inject
 	private SettingDto settingDto;
 	
+	@Inject
+	private GroupDto groupDto;
+	
 	@Inject @Qualifier("contentUtils")
 	private ContentUtils contentUtils;
 	
 	public void addContent(String filename) 
 	{
+		Resource group = settingDto.getSettingAsResource(Settings.RESTRICTION.name())
+		addContentWithGroupRes(filename, group)
+	}
+	
+	public void addContentWithGroup(String filename, String groupName)
+	{
+		Resource group = groupDto.getGroup(groupName);
+		addContentWithGroupRes(filename, group)
+	}
+	
+	private addContentWithGroupRes(String filename, Resource group) {
 		String resName = props.getPrivateUrl() + "content/" + filename;
 		Resource contentResource = model.createResource(resName);
 		checkResource(contentResource, RDF.type, Triki.Content);
 		checkString(contentResource, DCTerms.title, filename);
-		checkResource(contentResource, Triki.restricted, settingDto.getSettingAsResource(Settings.RESTRICTION.name()))
+		checkResource(contentResource, Triki.restricted, group)
 	}
 	
 	public void checkFile(String filename, String defaultFilename)

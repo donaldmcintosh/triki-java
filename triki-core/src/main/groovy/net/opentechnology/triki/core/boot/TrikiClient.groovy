@@ -23,6 +23,7 @@ package net.opentechnology.triki.core.boot
 
 import java.io.File
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets
 
 import javax.inject.Inject
 import javax.ws.rs.client.Client
@@ -297,6 +298,12 @@ class TrikiClient {
 			
 			attachments << attachment
 		}
+		
+		// Default access
+		ContentDisposition content = new ContentDisposition("form-data; name=access;")
+		InputStream inStr = new ByteArrayInputStream("private".getBytes(StandardCharsets.UTF_8))
+		Attachment accessAttach = new Attachment("root", inStr, content)
+		attachments << accessAttach
 		
 		def contentTarget = initTarget("/content")
 		String response = contentTarget.request().cookie(new NewCookie(SESSION_COOKIE, sessionId))

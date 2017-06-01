@@ -114,6 +114,14 @@ public class ResourceAdaptor implements ModelAdaptor {
 		{
 			return getSessionHome()
 		}
+		else if(propertyName.equals("next"))
+		{
+			return getNext()
+		}
+		else if(propertyName.equals("previous"))
+		{
+			return getPrevious()
+		}
 		else if (propertyName.equals("relurl")) {
 			try {
 				return new URL(url);
@@ -151,8 +159,56 @@ public class ResourceAdaptor implements ModelAdaptor {
 			return values.get(0);
 		}
 		else {
+			session.setAttribute("currentList", values)
 			return values;
 		}
+	}
+
+	private getNext() {
+		List<Object> list = session.getAttribute("currentList");
+		int index = getUrlIndex(list)
+
+		if(index == -1 || index == (list.size() - 1))
+		{
+			return null;
+		}
+		else
+		{
+			Resource nextRes = list.get(index + 1);
+			return new URL(nextRes.getURI());
+		}
+	}
+	
+	private getPrevious() {
+		List<Object> list = session.getAttribute("currentList");
+		int index = getUrlIndex(list)
+		
+		if(index == -1 || index == 0 )
+		{
+			return null;
+		}
+		else
+		{
+			return list.get(index - 1)
+		}
+	}
+	
+	private int getUrlIndex(List<Object> list)
+	{
+		for(int i=0; i<list.size(); i++)
+		{
+			def resObj = list.get(i)
+			if(resObj instanceof Resource)
+			{
+				Resource obj = (Resource) resObj;
+				if(obj.getURI().equals(url))
+				{
+					return i;
+				}
+			}
+		}
+		
+		return -1;
 	}
 
 	private getSessionId() {
@@ -274,7 +330,7 @@ public class ResourceAdaptor implements ModelAdaptor {
 		             ?sub ?order ?seq .
 	             }  
              }
-			ORDER BY ASC(?seq) ASC(?created) ?sub
+			ORDER BY DESC(?seq) DESC(?created) ?sub
 		""";
 		
 		logger.info(queryString)

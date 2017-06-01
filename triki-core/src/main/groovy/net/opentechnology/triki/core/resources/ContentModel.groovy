@@ -88,6 +88,7 @@ public class ContentModel {
 	private List<String> errors = new ArrayList<>();
 	private String path;
 	private String content;
+	private String access;
 
 	public addFormData(List<Attachment> attachments) {
 		try {
@@ -101,7 +102,7 @@ public class ContentModel {
 	public def addContentFiles(List<Attachment> attachments)
 	{
 		attachments.each { Attachment attachment ->
-		def contentData = [:]
+			def contentData = [:]
 			ContentFile contentFile = new ContentFile()
 			ContentDisposition content = attachment.getContentDisposition();
 			def name = content.getParameter("name")
@@ -122,7 +123,12 @@ public class ContentModel {
 				
 				contentFiles << contentFile
 			}
+			if(type == "form-data" && name == "access")
+			{
+				access = IOUtils.toString(attachment.getDataHandler().getInputStream(), "UTF-8")
+			}
 		}
+		if(access == null) throw new FormValidationException("Must specify an access group for uploaded files.")
 	}
 	
 	public List<String> getMsgs() {

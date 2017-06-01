@@ -55,11 +55,11 @@ blogs(props) ::= <<
 
     <div id="headingbig">$props.dc_title$</div>
     $props.dc_references :{ 
-		ref | $reverse(ref.Srdf_type :{ 
+		ref | $ref.Srdf_type :{ 
 			blog | <div class="blogtitle"><a href='$blog.relurl$'>$blog.dc_title$</a></div>
 			       <div id="blogsubhead">Posted: $blog.dc_created$</div> 
 			       <p>$blog.dc_description$</p> 
-		})$
+		}$
 	}$
 
     <p>
@@ -73,6 +73,12 @@ image(props) ::= <<
 	  <p>
           <img class="imgalbum" src="$props.triki_content:{ content | $content.relurl$}$"/>
           <p>Taken $props.triki_content:{ content | $content.dc_created$}$</p>
+          $if(props.next)$
+         	 <p><a href="$props.next$">Next</a>
+          $endif$
+          $if(props.previous)$
+          	<p><a href="$props.previous$">Previous</a>
+          $endif$
           <p>
           Month: $props.time_month:{ month | <a href='$month.relurl$'>$month.dc_description$</a> }$<br>
 
@@ -85,13 +91,13 @@ images(props) ::= <<
 
    <div id="headingbig">$props.dc_title$</div>
     $props.dc_references :{ ref | 
-    	$reverse(ref.Srdf_type :{ image | 
+    	$ref.Srdf_type :{ image | 
 				$image.triki_content:{ photo | 
 				<div id="thumbnail">
 			       	<a href='$image.relurl$'><img src='$photo.triki_thumbimg : { thumb | $thumb.relurl$}$'></a><div id="blogsubhead">Posted: $photo.dc_created$</div> 
 				</div>		
 				}$
-		})$
+		}$
 	}$
 
     $footer()$

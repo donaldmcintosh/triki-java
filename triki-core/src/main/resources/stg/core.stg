@@ -410,7 +410,7 @@ addcontent(props, errors, values, path) ::= <<
     $conffooter()$
 >>
 
-upload(contentModel) ::= <<
+upload(contentModel, groups) ::= <<
 	$confheader("0")$
 	
 	<div class="titleicon"><img class="graphrighticon" src="/content/uploadArrow_40x40.png"></div>
@@ -432,6 +432,14 @@ upload(contentModel) ::= <<
             
             <br>Select file(s) to upload: <p>
             <input name="uploadfiles" type="file" multiple="multiple"/>
+            
+            <p>
+            <br>Select group access: <p>
+            <select name="access">
+           		$groups.keys :
+           			{ key | <option value="$key$">$groups.(key)$</option> }
+           		$
+            </select>
            
            <div class="editbuttons">
                <div><input type="image" src="/content/upload_56x20.png" value="Upload"/></div>

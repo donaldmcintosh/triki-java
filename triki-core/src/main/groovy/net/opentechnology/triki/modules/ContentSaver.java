@@ -26,5 +26,5 @@ import java.util.List;
 
 public interface ContentSaver {
 
-	public void saveContent(String filename, InputStream input, List<String> msgs, List<String> errors);
+	public void saveContent(String filename, InputStream input, List<String> msgs, List<String> errors, String access);
 }
