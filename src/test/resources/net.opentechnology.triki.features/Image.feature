@@ -42,6 +42,7 @@ Feature: Specification for content resource
 			| Private |
 		And get image /content/tmp5915-IMG20170102134601341HDR-483121498-web.jpg
 
+	@dev
 	Scenario: Upload a few images and check images page
 		Given initialise triki 
 		And create empty directory /tmp/content
@@ -55,6 +56,13 @@ Feature: Specification for content resource
 			| Posted: Sun 13 Apr, 2014, 09:15 |
 			| Posted: Tue 29 Sep, 2015, 08:15 |
 			| Posted: Thu 22 May, 2014, 11:26 |
+		And get resource /image/DSC-0681-web.jpg and check contains
+			| Next |
+		And get resource /image/DSC-0138-web.jpg and check contains
+			| Next |
+			| Previous |		
+		And get resource /image/IMG-0289-web.jpg and check contains
+			| Previous |	
 			
 	Scenario: Upload an image file with no date
 		Given initialise triki 

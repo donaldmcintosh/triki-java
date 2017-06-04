@@ -114,6 +114,11 @@ public class ResourceAdaptor implements ModelAdaptor {
 		{
 			return getSessionHome()
 		}
+		else if(propertyName.equals("pageNextList"))
+		{
+			session.setAttribute("pageNextList", Boolean.TRUE)
+			return ""
+		}
 		else if(propertyName.equals("next"))
 		{
 			return getNext()
@@ -159,7 +164,11 @@ public class ResourceAdaptor implements ModelAdaptor {
 			return values.get(0);
 		}
 		else {
-			session.setAttribute("currentList", values)
+			if(session.getAttribute("pageNextList") == Boolean.TRUE)
+			{
+				session.setAttribute("currentList", values)
+				session.setAttribute("pageNextList", Boolean.FALSE)
+			}
 			return values;
 		}
 	}

@@ -90,7 +90,8 @@ images(props) ::= <<
     $header(props)$
 
    <div id="headingbig">$props.dc_title$</div>
-    $props.dc_references :{ ref | 
+    $props.dc_references :{ ref |
+        $ref.pageNextList$ 
     	$ref.Srdf_type :{ image | 
 				$image.triki_content:{ photo | 
 				<div id="thumbnail">
