@@ -198,13 +198,14 @@ public class ResourceAdaptor implements ModelAdaptor {
 		}
 		else
 		{
-			return list.get(index - 1)
+			Resource previousRes = list.get(index - 1)
+			return new URL(previousRes.getURI());
 		}
 	}
 	
 	private int getUrlIndex(List<Object> list)
 	{
-		for(int i=0; i<list.size(); i++)
+		for(int i=0; list != null && i<list.size(); i++)
 		{
 			def resObj = list.get(i)
 			if(resObj instanceof Resource)

@@ -62,7 +62,9 @@ Feature: Specification for content resource
 			| Next |
 			| Previous |		
 		And get resource /image/IMG-0289-web.jpg and check contains
-			| Previous |	
+			| Previous |
+		And join
+			
 			
 	Scenario: Upload an image file with no date
 		Given initialise triki 
