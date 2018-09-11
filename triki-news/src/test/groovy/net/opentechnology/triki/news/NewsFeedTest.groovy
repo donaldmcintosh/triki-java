@@ -62,7 +62,6 @@ class NewsFeedTest extends CamelTestSupport {
 		};
 		builder.includeRoutes(testRouter);
 		builder.includeRoutes(atomBuilder);
-		builder.includeRoutes(twitterBuilder);
 		return builder;
 	}
 	

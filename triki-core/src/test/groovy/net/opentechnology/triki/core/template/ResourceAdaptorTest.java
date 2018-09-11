@@ -182,7 +182,7 @@ public class ResourceAdaptorTest extends TrikiBaseTest {
         String resource = "http://www.donaldmcintosh.net/resource/blog";
         String templateDef = "foo(resource) ::= \"Recent blogs: $resource.Srdf_type:{ blog | $blog.dcterms_description$, }$\"";
         String result = render(resource, templateDef);
-        assertTrue("Got " + result, result.equals("Recent blogs: France holiday, New York holiday, Berliner holiday, Up North holiday, Eivissa holiday, "));
+	    assertTrue("Got " + result, result.equals("Recent blogs: Eivissa holiday, Up North holiday, Berliner holiday, New York holiday, France holiday, "));
     }
    
    @Test
@@ -191,7 +191,7 @@ public class ResourceAdaptorTest extends TrikiBaseTest {
        String resource = "http://www.donaldmcintosh.net/resource/blog";
        String templateDef = "foo(resource) ::= \"Recent blogs: $reverse(resource.Srdf_type:{ blog | $blog.dcterms_description$, })$\"";
        String result = render(resource, templateDef);
-       assertTrue("Got " + result, result.equals("Recent blogs: Eivissa holiday, Up North holiday, Berliner holiday, New York holiday, France holiday, "));
+	   assertTrue("Got " + result, result.equals("Recent blogs: France holiday, New York holiday, Berliner holiday, Up North holiday, Eivissa holiday, "));
    }
    
    @Test
@@ -201,7 +201,7 @@ public class ResourceAdaptorTest extends TrikiBaseTest {
        String resource = "http://www.donaldmcintosh.net/resource/holiday-aboyne";
        String templateDef = "foo(resource) ::= \"Resource was created at $resource.dcterms_created$\"";
        String result = render(resource, templateDef);
-       assertTrue("Got result " + result, result.equals("Resource was created at Sat 22 Mar, 2014, 19:03"));
+       assertEquals(result, "Resource was created at Sat 22 Mar, 2014, 19:00");
    }
 
 	@Test

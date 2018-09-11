@@ -32,11 +32,11 @@ public class ResourceRendererTest {
 
 	@Test
 	public void testResourceRendererSuccess() throws MalformedURLException {
-		String privateUrl = "http://localhost:8080";
+		String privateUrl = "http://localhost:8080/";
 		RelativeUrlRenderer renderer = new RelativeUrlRenderer(privateUrl);
-		String testUrl = privateUrl  + "/resource/blog2";
+		String testUrl = privateUrl  + "resource/blog2";
 		String rendered = renderer.toString(new URL(testUrl), null, null);
-		assertTrue(rendered, "/resource/blog2".equals(rendered));
+		assertEquals("/resource/blog2", rendered);
 	}
 
 }

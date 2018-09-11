@@ -21,7 +21,7 @@
 
 package net.opentechnology.triki.core.renderer;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -48,7 +48,7 @@ public class DateRendererTest
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date(925827167000L));
         XSDDateTime date = new XSDDateTime(cal);
-        assertTrue(renderer.toString(date, null, null).equals("Tue 04 May, 1999, 15:05"));
+        assertEquals(renderer.toString(date, null, null), "Tue 04 May, 1999, 15:12");
     }
 
 }

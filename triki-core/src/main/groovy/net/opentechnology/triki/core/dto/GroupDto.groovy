@@ -39,7 +39,7 @@ import net.opentechnology.triki.sparql.SparqlExecutor
 public class GroupDto extends BaseDto {
 
 	@Inject	@Qualifier("siteModel")
-	private Model model;
+	private Model model
 	
 	@Inject
 	private CachedPropertyStore props;
@@ -84,4 +84,11 @@ public class GroupDto extends BaseDto {
 		return groups;
 	}
 
+	void setModel(Model model) {
+		this.model = model
+	}
+
+	void setProps(CachedPropertyStore props) {
+		this.props = props
+	}
 }

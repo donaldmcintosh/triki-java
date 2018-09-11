@@ -46,6 +46,7 @@ public class TrikiBaseTest {
 	@Mock protected ModelStore modelStore;
 	@Mock protected Configuration config;
 	@Mock protected HttpSession session;
+	@Mock protected CachedPropertyStore cachedPropertyStore;
 
 	public void loadModel() throws FileNotFoundException {
 		model = ModelFactory.createDefaultModel();

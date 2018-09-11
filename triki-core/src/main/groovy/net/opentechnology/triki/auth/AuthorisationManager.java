@@ -220,6 +220,10 @@ public class AuthorisationManager {
 		this.model = model;
 	}
 
+	public void setGroupDto(GroupDto groupDto) {
+		this.groupDto = groupDto;
+	}
+
 	private boolean imageAuth(String url){
 		logger.info("Checking image authorisation " + url);
 		if(url.contains("thumb")){

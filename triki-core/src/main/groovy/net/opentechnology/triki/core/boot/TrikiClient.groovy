@@ -75,7 +75,10 @@ class TrikiClient {
 		{
 			client = ClientBuilder.newClient();
 			client.register(JacksonJaxbJsonProvider.class)
-			Response response = client.target(propStore.getPrivateUrl() + "login").request(MediaType.TEXT_HTML).get(Response.class)
+			Response response = client
+					.target(propStore.getPrivateUrl() + "login")
+					.request(MediaType.TEXT_HTML)
+					.get(Response.class)
 			response.cookies.find { it.key == SESSION_COOKIE}.each { 
 				 sessionId = it.value.value
 			};

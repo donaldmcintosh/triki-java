@@ -164,7 +164,7 @@ public class ResourceAdaptor implements ModelAdaptor {
 			return values.get(0);
 		}
 		else {
-			if(session.getAttribute("pageNextList") == Boolean.TRUE)
+			if(session?.getAttribute("pageNextList") == Boolean.TRUE)
 			{
 				session.setAttribute("currentList", values)
 				session.setAttribute("pageNextList", Boolean.FALSE)
