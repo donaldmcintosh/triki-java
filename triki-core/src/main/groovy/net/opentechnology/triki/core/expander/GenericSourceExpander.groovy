@@ -19,25 +19,33 @@
 *
 ************************************************************************************/
 
-package net.opentechnology.triki.core.expander;
+package net.opentechnology.triki.core.expander
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import com.vladsch.flexmark.ast.Document
+import com.vladsch.flexmark.html.HtmlRenderer
+import com.vladsch.flexmark.parser.Parser
+import com.vladsch.flexmark.profiles.pegdown.Extensions
+import com.vladsch.flexmark.profiles.pegdown.PegdownOptionsAdapter
+import com.vladsch.flexmark.util.options.DataHolder
+import net.opentechnology.triki.core.resources.ContentUtils
+import net.opentechnology.triki.core.resources.ResourceException
 
-import javax.inject.Inject;
-
-import org.pegdown.Extensions;
-import org.pegdown.PegDownProcessor;
-
-import net.opentechnology.triki.core.resources.ContentUtils;
-import net.opentechnology.triki.core.resources.ResourceException;
+import javax.inject.Inject
 
 public class GenericSourceExpander extends AbstractSourceExpander implements SourceExpander {
 	
 	@Inject
 	private ContentUtils contentUtils;
-	
-	private PegDownProcessor pdp = new PegDownProcessor(Extensions.TABLES);
+	static final DataHolder options = PegdownOptionsAdapter.flexmarkOptions(
+			Extensions.ALL
+	);
+	Parser parser
+	HtmlRenderer renderer
+
+	public GenericSourceExpander(){
+		parser = Parser.builder(options).build();
+		renderer = HtmlRenderer.builder(options).build();
+	}
 	
 	public String expand(String url) throws ExpanderException{
 		
@@ -62,7 +70,8 @@ public class GenericSourceExpander extends AbstractSourceExpander implements Sou
 
 	@Override
 	public String expandString(String markdown) throws ExpanderException {
-		String html = pdp.markdownToHtml(markdown);
+		Document document = parser.parse(markdown);
+		String html = renderer.render(document)
 		return html;
 	}
 
