@@ -37,7 +37,7 @@ class RssParser extends RouteBuilder
 			.process { Exchange exchange ->
 				def items = []
 				NewsFeed src = exchange.in.body
-				def rssRoot = new XmlParser(false, false).parseText(src.url.toURL().getText("UTF-8"))
+				def rssRoot = new XmlParser(false, false).parseText(src.url.toURL().getText(requestProperties: ['User-Agent': 'triki'], "UTF-8"))
 				if(!src.itemParser)
 				{
 					rssRoot.channel.each { channel ->
