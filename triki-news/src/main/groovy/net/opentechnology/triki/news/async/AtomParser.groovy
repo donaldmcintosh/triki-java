@@ -36,7 +36,7 @@ class AtomParser extends RouteBuilder
 		.process { Exchange exchange ->
 			def items = []
 			NewsFeed src = exchange.in.body
-			def feedRoot = new XmlParser(false, false).parseText(src.url.toURL().getText("UTF-8"))
+			def feedRoot = new XmlParser(false, false).parseText(src.url.toURL().getText(requestProperties: ['User-Agent': 'triki'], "UTF-8"))
 			feedRoot.entry.each { entry ->
 				entry.title.each { title ->
 					def news = [:]
