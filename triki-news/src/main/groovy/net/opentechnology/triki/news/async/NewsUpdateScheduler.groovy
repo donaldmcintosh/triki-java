@@ -67,7 +67,7 @@ abstract class NewsUpdateScheduler extends RouteBuilder
 		""";
 				
 		
-		RouteDefinition route = from("quartz2://${routeName}?trigger.repeatInterval=${refreshMilli}&trigger.repeatCount=-1")
+		RouteDefinition route = from("quartz2://${routeName}?trigger.repeatInterval=${refreshMilli}&trigger.repeatCount=-1&fireNow=true")
 		route.setId(routeName)
 		route.split { Exchange exchange ->
 				def feeds = []
@@ -99,7 +99,7 @@ abstract class NewsUpdateScheduler extends RouteBuilder
 					}
 					feeds += feed
 				}
-				exchange.out.body = feeds
+ 				exchange.out.body = feeds
 			}
 			.choice().when{Exchange e -> e.in.body.type == "rss"}
 						.to("direct:rss")

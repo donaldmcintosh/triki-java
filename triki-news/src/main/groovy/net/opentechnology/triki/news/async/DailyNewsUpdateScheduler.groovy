@@ -21,6 +21,8 @@
 
 package net.opentechnology.triki.news.async
 
+import net.opentechnology.triki.core.boot.CachedPropertyStore
+
 import java.text.SimpleDateFormat
 import javax.inject.Inject
 
@@ -36,6 +38,9 @@ class DailyNewsUpdateScheduler extends NewsUpdateScheduler
 {
 	@Inject @Qualifier("siteModel")
 	private Model model;
+
+	@Inject
+	private CachedPropertyStore props
 	
 	@Inject
 	private SettingDto settingDto;
@@ -44,6 +49,7 @@ class DailyNewsUpdateScheduler extends NewsUpdateScheduler
 	
 	@Override
 	public void configure() throws Exception {
+		privateUrl = props.getPrivateUrl()
 		dailyRefresh = settingDto.getSettingAsInteger(NewsModule.Settings.DAILYREFRESH.name())
 		routeName = "dailyNewsUpdate"
 		refreshSchedule = "daily"
