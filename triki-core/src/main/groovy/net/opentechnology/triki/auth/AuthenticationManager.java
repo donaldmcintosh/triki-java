@@ -48,6 +48,11 @@ public class AuthenticationManager {
 		Resource person = getPersonById(id);
 		return person;
 	}
+
+	public Resource authenticateByNameAndEmail(String name, String email) throws AuthenticationException {
+		Resource person = getPersonByNameAndEmail(name, email);
+		return person;
+	}
 	
 	private boolean checkPassword(String password) {
 		boolean auth = false;
@@ -103,7 +108,7 @@ public class AuthenticationManager {
 	}
 	
 	private Resource getPersonById(String id) throws AuthenticationException{
-		String queryString = 
+		String queryString =
 				"PREFIX foaf: <http://xmlns.com/foaf/0.1/> " +
 				"PREFIX triki: <http://www.opentechnology.net/triki/0.1/> " +
 				"SELECT ?person " +
@@ -119,12 +124,39 @@ public class AuthenticationManager {
 		if(results.hasNext()){
 			QuerySolution soln = results.next();
 			Resource person = soln.getResource("person");
-			qe.close();	
+			qe.close();
 			return person;
 		}
 		else {
-			qe.close();	
+			qe.close();
 			throw new AuthenticationException("Could not find person with id " + id);
+		}
+	}
+
+	private Resource getPersonByNameAndEmail(String name, String email) throws AuthenticationException{
+		String queryString =
+						"PREFIX foaf: <http://xmlns.com/foaf/0.1/> " +
+						"PREFIX dc: <http://purl.org/dc/terms/> " +
+						"SELECT ?person " +
+						"WHERE {" +
+						"  ?person a foaf:Person . " +
+						"  ?person foaf:mbox \""+ email + "\" . " +
+						"  ?person dc:title \""+ name + "\" . " +
+						"}";
+
+		Query query = QueryFactory.create(queryString);
+
+		QueryExecution qe = QueryExecutionFactory.create(query, model);
+		ResultSet results = qe.execSelect();
+		if(results.hasNext()){
+			QuerySolution soln = results.next();
+			Resource person = soln.getResource("person");
+			qe.close();
+			return person;
+		}
+		else {
+			qe.close();
+			throw new AuthenticationException("Could not find person with name " + name + " and email " + email);
 		}
 	}
 
