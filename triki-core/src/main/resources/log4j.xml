@@ -20,7 +20,7 @@
     
     <root>
         <level value="INFO"/>
-        <appender-ref ref="ConsoleAppender"/>
+        <appender-ref ref="RollingAppender"/>
     </root>
  
 </log4j:configuration>
