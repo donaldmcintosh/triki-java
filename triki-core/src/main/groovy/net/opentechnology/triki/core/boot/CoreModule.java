@@ -235,6 +235,8 @@ public class CoreModule implements Module {
 		pageDto.addPage("conf", typeDto.getType("conf"), "Configuration", "admin");
 		pageDto.addPage("login", typeDto.getType("login"), "Login", "public");
 		pageDto.addPage("auth", typeDto.getType("auth"), "Authorise", "public");
+//		pageDto.addPage("auth/indie", typeDto.getType("auth"), "Authorise", "public");
+//		pageDto.addPage("auth/openidconnect", typeDto.getType("auth"), "Authorise", "public");
 		
 		pageDto.addIndexPage("blogs", typeDto.getType("blogs"), "Blogs Index", "public", typeDto.getType("blog"));
 	}
@@ -258,6 +260,7 @@ public class CoreModule implements Module {
 		prefixDto.addPrefix("user", props.getPrivateUrl() + "user/");
 		prefixDto.addPrefix("publish", props.getPrivateUrl() + "/publish/");
 		prefixDto.addPrefix("blog", props.getPrivateUrl() + "blog/");
+//		prefixDto.addPrefix("auth", props.getPrivateUrl() + "auth/");
 		prefixDto.addPrefix("query", props.getPrivateUrl() + "query/");
 		prefixDto.addPrefix("localprop", props.getPrivateUrl() + "localprop/");
 		prefixDto.addPrefix("time", "http://www.w3.org/2006/time#");
