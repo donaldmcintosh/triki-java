@@ -64,8 +64,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.stringtemplate.v4.ST
 
-import com.sun.java.util.jar.pack.BandStructure.CPRefBand;
-
 import net.opentechnology.triki.core.boot.CachedPropertyStore;
 import net.opentechnology.triki.core.boot.CoreModule
 import net.opentechnology.triki.core.boot.Utilities;

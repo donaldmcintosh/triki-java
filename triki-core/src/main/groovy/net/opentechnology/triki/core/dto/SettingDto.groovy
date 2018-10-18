@@ -55,13 +55,20 @@ public class SettingDto extends BaseDto {
 	@Inject
 	private CachedPropertyStore props;
 	
-	public void addSetting(String setting, String value) 
+	public void addSetting(String setting, String value, String description)
 	{
 		String resName = props.getPrivateUrl() + "setting/" + setting;
 		Resource contentResource = model.createResource(resName);
 		checkResource(contentResource, RDF.type, Triki.Setting);
 		checkString(contentResource, DCTerms.title, setting);
-		checkString(contentResource, Triki.setting, value)
+		checkString(contentResource, Triki.setting, value);
+		if(description){
+			checkString(contentResource, DCTerms.description, description);
+		}
+	}
+
+	public void addSetting(String setting, String value){
+		addSetting(setting, value, null);
 	}
 	
 	public String getSetting(String setting)
