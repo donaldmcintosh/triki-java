@@ -227,21 +227,8 @@ public class CoreModule implements Module {
 		mediaTypeDto.addMediaType(MediaType.TEXT_PLAIN, "js", "86400");
 		mediaTypeDto.addMediaType(MediaType.TEXT_PLAIN, "log", "10");
 	}
-	
-	private void initPages() {
-		pageDto.addPage("", typeDto.getType("home"), "Home Page", "public");
-		pageDto.addPage("graph", typeDto.getType("graph"), "Graph Explorer", "admin");
-		pageDto.addPage("template", typeDto.getType("template"), "Template Editor", "admin");
-		pageDto.addPage("conf", typeDto.getType("conf"), "Configuration", "admin");
-		pageDto.addPage("login", typeDto.getType("login"), "Login", "public");
-		pageDto.addPage("auth", typeDto.getType("auth"), "Authorise", "public");
-//		pageDto.addPage("auth/indie", typeDto.getType("auth"), "Authorise", "public");
-//		pageDto.addPage("auth/openidconnect", typeDto.getType("auth"), "Authorise", "public");
-		
-		pageDto.addIndexPage("blogs", typeDto.getType("blogs"), "Blogs Index", "public", typeDto.getType("blog"));
-	}
-	
-	private void initNamespacePrefixes() {	
+
+	private void initNamespacePrefixes() {
 		typeDto.addResourceTitle(Triki.Prefix.getURI(), "Triki Prefix");
 		prefixDto.addPrefix("root", props.getPrivateUrl());
 		prefixDto.addPrefix("prefix", props.getPrivateUrl() + "prefix/");
@@ -260,12 +247,22 @@ public class CoreModule implements Module {
 		prefixDto.addPrefix("user", props.getPrivateUrl() + "user/");
 		prefixDto.addPrefix("publish", props.getPrivateUrl() + "/publish/");
 		prefixDto.addPrefix("blog", props.getPrivateUrl() + "blog/");
-//		prefixDto.addPrefix("auth", props.getPrivateUrl() + "auth/");
+		prefixDto.addPrefix("auth", props.getPrivateUrl() + "auth/");
 		prefixDto.addPrefix("query", props.getPrivateUrl() + "query/");
 		prefixDto.addPrefix("localprop", props.getPrivateUrl() + "localprop/");
 		prefixDto.addPrefix("time", "http://www.w3.org/2006/time#");
 		prefixDto.addPrefix("year", props.getPrivateUrl() + "year/");
 		prefixDto.addPrefix("month", props.getPrivateUrl() + "month/");
+	}
+
+	private void initPages() {
+		pageDto.addPage("", typeDto.getType("home"), "Home Page", "public");
+		pageDto.addPage("graph", typeDto.getType("graph"), "Graph Explorer", "admin");
+		pageDto.addPage("template", typeDto.getType("template"), "Template Editor", "admin");
+		pageDto.addPage("conf", typeDto.getType("conf"), "Configuration", "admin");
+		pageDto.addPage("login", typeDto.getType("login"), "Login", "public");
+		pageDto.addPage("auth", typeDto.getType("auth"), "Authorise", "public");
+		pageDto.addIndexPage("blogs", typeDto.getType("blogs"), "Blogs Index", "public", typeDto.getType("blog"));
 	}
 	
 	public void initContent(){
