@@ -21,7 +21,9 @@
 
 package net.opentechnology.triki.auth.module
 
+import net.opentechnology.triki.core.dto.PageDto
 import net.opentechnology.triki.core.dto.SettingDto
+import net.opentechnology.triki.core.dto.TypeDto
 
 import javax.inject.Inject;
 import javax.servlet.DispatcherType;
@@ -62,6 +64,12 @@ public class AuthModule implements Module {
 	private UserDto userDto;
 
 	@Inject
+	private PageDto pageDto;
+
+	@Inject
+	private TypeDto typeDto;
+
+	@Inject
 	private SettingDto settingDto;
 	
 	@Inject
@@ -86,6 +94,7 @@ public class AuthModule implements Module {
 		initUnrestricted();
 		initGroupsAndUsers();
 		initSettings();
+		initPages();
 	}
 
 	private void initGroupsAndUsers() {
@@ -126,13 +135,18 @@ public class AuthModule implements Module {
 		propertyDto.addProperty("member", Foaf.member.getURI(), 30);
 	}
 
+	private void initPages() {
+		pageDto.addPage("auth/indie", typeDto.getType("auth"), "Authorise IndieLogin", "public");
+		pageDto.addPage("auth/openidconnect", typeDto.getType("auth"), "Authorise OpenID Connect", "public");
+	}
+
 	private void initSettings() {
 		settingDto.addSetting(Settings.INDIELOGINCLIENTID.name(), "https://www.yoursite.net/", "Indie Login client ID");
 		settingDto.addSetting(Settings.INDIELOGINREDIRECTURI.name(), "https://www.yoursite.net/auth/indie", "Indie Login redirect URL");
 		settingDto.addSetting(Settings.OPENIDCONNECTREDIRECTURI.name(), "https://www.yoursite.net/auth/openidconnect", "OpenID Connect Redirect URL");
 		settingDto.addSetting(Settings.GOOGLEAUTHROOT.name(), "https://accounts.google.com/oauth2/v4/token", "Googles OAuth2 URL");
 		settingDto.addSetting(Settings.GOOGLECLIENTID.name(), "Undefined","Generated Google OAuth2 client ID");
-		settingDto.addSetting(Settings.GOOGLECLIENTSECRET.name()," ","Generated Google OAuth2 client secret");
+		settingDto.addSetting(Settings.GOOGLECLIENTSECRET.name(),"Undefined","Generated Google OAuth2 client secret");
 	}
 
 	@Override
