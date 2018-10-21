@@ -22,7 +22,6 @@
 package net.opentechnology.triki.auth;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
@@ -44,8 +43,8 @@ public class AuthenticationManager {
 		return person;
 	}
 	
-	public Resource authenticateById(String id) throws AuthenticationException {
-		Resource person = getPersonById(id);
+	public Resource authenticateByWebsite(String website) throws AuthenticationException {
+		Resource person = getPersonByWebsite(website);
 		return person;
 	}
 
@@ -107,14 +106,14 @@ public class AuthenticationManager {
 		}
 	}
 	
-	private Resource getPersonById(String id) throws AuthenticationException{
+	private Resource getPersonByWebsite(String website) throws AuthenticationException{
 		String queryString =
 				"PREFIX foaf: <http://xmlns.com/foaf/0.1/> " +
 				"PREFIX triki: <http://www.opentechnology.net/triki/0.1/> " +
 				"SELECT ?person " +
 				"WHERE {" +
 				"  ?person a foaf:Person . " +
-				"  ?person triki:id \""+ id + "\" . " +
+				"  ?person foaf:homepage \""+ website + "\" . " +
 				"  }";
 
 		Query query = QueryFactory.create(queryString);
@@ -129,7 +128,7 @@ public class AuthenticationManager {
 		}
 		else {
 			qe.close();
-			throw new AuthenticationException("Could not find person with id " + id);
+			throw new AuthenticationException("Could not find person with id " + website);
 		}
 	}
 

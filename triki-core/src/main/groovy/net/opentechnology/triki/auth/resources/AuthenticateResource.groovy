@@ -136,7 +136,7 @@ public class AuthenticateResource extends RenderResource {
 		Calendar timestampCal = Calendar.getInstance();
 		timestampCal.setTime(new Date());
 		
-		logger.info("${me} has tried to login...");
+		logger.info("${me} has tried to login with code ${code}...");
 		
 		HttpPost poster = new HttpPost("https://indieauth.com/auth");
 		List<NameValuePair> form = new ArrayList<NameValuePair>();
@@ -154,12 +154,12 @@ public class AuthenticateResource extends RenderResource {
 			logger.info("${me} successfully authenticated by indieauth");
 			try {
 				checkKnownAndForward(session, resp){ ->
-					authMgr.authenticateById(me)
+					authMgr.authenticateByWebsite(me)
 				}
 			} catch (AuthenticationException e) {
 				logger.info("Unknown person ${me} but is authenticated")
 				setAuthenticatedPersonLogin(session, me);
-				resp.sendRedirect("/resource/home");
+				resp.sendRedirect("/");
 			}
 		}
 		else
@@ -190,6 +190,10 @@ public class AuthenticateResource extends RenderResource {
 		form.add(new BasicNameValuePair("client_secret", settingDto.getSetting(AuthModule.Settings.GOOGLECLIENTSECRET.toString())));
 		form.add(new BasicNameValuePair("redirect_uri", settingDto.getSetting(AuthModule.Settings.OPENIDCONNECTREDIRECTURI.toString())));
 		form.add(new BasicNameValuePair("grant_type", "authorization_code"));
+		logger.info("Calling Google with params:")
+		form.each { param ->
+			logger.info("${param.name}: ${param.value}")
+		}
 		UrlEncodedFormEntity entity = new UrlEncodedFormEntity(form, Consts.UTF_8);
 		poster.setEntity(entity);
 
@@ -222,7 +226,8 @@ public class AuthenticateResource extends RenderResource {
 		}
 		else
 		{
-			logger.warn("${me} not authenticated.");
+			logger.warn(response.getEntity().getContent().toString());
+			logger.warn("Google not not authenticated.");
 			resp.sendRedirect("/resource/login");
 		}
 	}

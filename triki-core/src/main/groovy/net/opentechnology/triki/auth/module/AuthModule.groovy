@@ -133,6 +133,7 @@ public class AuthModule implements Module {
 		propertyDto.addProperty("login", Triki.login.getURI(), 28);
 		propertyDto.addProperty("password", Triki.password.getURI(), 29);
 		propertyDto.addProperty("member", Foaf.member.getURI(), 30);
+		propertyDto.addProperty("homepage", Foaf.homepage.getURI(), 16);
 	}
 
 	private void initPages() {
@@ -144,7 +145,7 @@ public class AuthModule implements Module {
 		settingDto.addSetting(Settings.INDIELOGINCLIENTID.name(), "https://www.yoursite.net/", "Indie Login client ID");
 		settingDto.addSetting(Settings.INDIELOGINREDIRECTURI.name(), "https://www.yoursite.net/auth/indie", "Indie Login redirect URL");
 		settingDto.addSetting(Settings.OPENIDCONNECTREDIRECTURI.name(), "https://www.yoursite.net/auth/openidconnect", "OpenID Connect Redirect URL");
-		settingDto.addSetting(Settings.GOOGLEAUTHROOT.name(), "https://accounts.google.com/oauth2/v4/token", "Googles OAuth2 URL");
+		settingDto.addSetting(Settings.GOOGLEAUTHROOT.name(), "https://oauth2.googleapis.com/token", "Googles OAuth2 URL");
 		settingDto.addSetting(Settings.GOOGLECLIENTID.name(), "Undefined","Generated Google OAuth2 client ID");
 		settingDto.addSetting(Settings.GOOGLECLIENTSECRET.name(),"Undefined","Generated Google OAuth2 client secret");
 	}
