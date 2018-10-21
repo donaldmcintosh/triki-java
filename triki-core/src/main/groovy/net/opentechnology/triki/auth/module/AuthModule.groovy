@@ -144,6 +144,7 @@ public class AuthModule implements Module {
 	}
 
 	private void initPages() {
+        pageDto.addPage("auth/logoff", typeDto.getType("auth"), "Log off", "public");
 		pageDto.addPage("auth/indie", typeDto.getType("auth"), "Authorise IndieLogin", "public");
 		pageDto.addPage("auth/openidlogin", typeDto.getType("auth"), "Authorise OpenID Login", "public");
 		pageDto.addPage("auth/openidconnect", typeDto.getType("auth"), "Authorise OpenID Token Exchange", "public");

@@ -267,7 +267,7 @@ public class AuthenticateResource extends RenderResource {
 				logger.info("Unknown person ${email} but is authenticated")
 				resp.sendRedirect("/");
 			} catch (JWTDecodeException jwte){
-				logger.info("Problem decoding token for ${email}")
+				logger.info("Problem decoding token")
 				resp.sendRedirect("/");
 			}
 		}
