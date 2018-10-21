@@ -150,6 +150,20 @@ public class AuthModule implements Module {
 		settingDto.addSetting(Settings.GOOGLECLIENTSECRET.name(),"Undefined","Generated Google OAuth2 client secret");
 	}
 
+	private void initPages() {
+		pageDto.addPage("auth/indie", typeDto.getType("auth"), "Authorise IndieLogin", "public");
+		pageDto.addPage("auth/openidconnect", typeDto.getType("auth"), "Authorise OpenID Connect", "public");
+	}
+
+	private void initSettings() {
+		settingDto.addSetting(Settings.INDIELOGINCLIENTID.name(), "https://www.yoursite.net/", "Indie Login client ID");
+		settingDto.addSetting(Settings.INDIELOGINREDIRECTURI.name(), "https://www.yoursite.net/auth/indie", "Indie Login redirect URL");
+		settingDto.addSetting(Settings.OPENIDCONNECTREDIRECTURI.name(), "https://www.yoursite.net/auth/openidconnect", "OpenID Connect Redirect URL");
+		settingDto.addSetting(Settings.GOOGLEAUTHROOT.name(), "https://accounts.google.com/oauth2/v4/token", "Googles OAuth2 URL");
+		settingDto.addSetting(Settings.GOOGLECLIENTID.name(), "Undefined","Generated Google OAuth2 client ID");
+		settingDto.addSetting(Settings.GOOGLECLIENTSECRET.name(),"Undefined","Generated Google OAuth2 client secret");
+	}
+
 	@Override
 	public void initWeb() {
 		sch.addFilter(new FilterHolder(new DelegatingFilterProxy("accessFilter")), "/*", EnumSet.allOf(DispatcherType.class));
