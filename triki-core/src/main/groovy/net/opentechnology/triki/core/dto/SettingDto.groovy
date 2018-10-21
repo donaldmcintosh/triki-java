@@ -51,17 +51,29 @@ public class SettingDto extends BaseDto {
 
 	@Inject	@Qualifier("siteModel")
 	private Model model;
+
+	@Inject
+	private GroupDto groupDto;
 	
 	@Inject
 	private CachedPropertyStore props;
+
 	
-	public void addSetting(String setting, String value) 
+	public void addSetting(String setting, String value, String description)
 	{
 		String resName = props.getPrivateUrl() + "setting/" + setting;
 		Resource contentResource = model.createResource(resName);
 		checkResource(contentResource, RDF.type, Triki.Setting);
+		checkResource(contentResource, Triki.restricted, groupDto.getGroup('private'));
 		checkString(contentResource, DCTerms.title, setting);
-		checkString(contentResource, Triki.setting, value)
+		checkString(contentResource, Triki.setting, value);
+		if(description){
+			checkString(contentResource, DCTerms.description, description);
+		}
+	}
+
+	public void addSetting(String setting, String value){
+		addSetting(setting, value, null);
 	}
 	
 	public String getSetting(String setting)

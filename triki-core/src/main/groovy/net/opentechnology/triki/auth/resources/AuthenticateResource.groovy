@@ -19,25 +19,19 @@
 *
 ************************************************************************************/
 
-package net.opentechnology.triki.auth.resources;
+package net.opentechnology.triki.auth.resources
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
+import com.auth0.jwt.JWT
+import com.auth0.jwt.algorithms.Algorithm
+import com.auth0.jwt.exceptions.JWTDecodeException
+import com.auth0.jwt.interfaces.DecodedJWT
+import groovy.json.JsonSlurper
+import net.opentechnology.triki.auth.module.AuthModule
+import net.opentechnology.triki.core.dto.SettingDto
 import groovy.util.logging.Log4j
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.jws.WebParam
-import javax.net.ssl.SSLContext
-import javax.net.ssl.SSLParameters
-import javax.servlet.RequestDispatcher;
+import org.apache.http.client.utils.URIBuilder
+
+import javax.inject.Inject
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse
@@ -47,24 +41,13 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.QueryParam
 import javax.ws.rs.GET
-import javax.ws.rs.PathParam;
 import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.client.WebTarget
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Form
+import javax.ws.rs.Path
+import javax.ws.rs.core.Context
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.client.Client
-import javax.ws.rs.client.ClientBuilder
-import javax.ws.rs.client.Entity
+import javax.ws.rs.core.Response
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.ProducerTemplate;
-import org.apache.cxf.configuration.jsse.TLSClientParameters
-import org.apache.cxf.jaxrs.client.WebClient
-import org.apache.cxf.transport.http.HTTPConduit
 import org.apache.http.NameValuePair
 import org.apache.http.client.entity.UrlEncodedFormEntity
 import org.apache.http.client.methods.CloseableHttpResponse
@@ -73,39 +56,25 @@ import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.impl.client.HttpClients
 import org.apache.http.message.BasicNameValuePair
 import org.apache.http.Consts
-import org.apache.jena.query.QuerySolution
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.RDFNode
-import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.vocabulary.DCTerms;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value
-
+import org.apache.jena.rdf.model.Resource
+import org.apache.log4j.Logger
 import net.opentechnology.triki.auth.AuthenticationException
 import net.opentechnology.triki.auth.AuthenticationManager
 import net.opentechnology.triki.core.boot.CachedPropertyStore;
 import net.opentechnology.triki.core.boot.Utilities
 import net.opentechnology.triki.core.resources.RenderResource;
-import net.opentechnology.triki.schema.Dcterms;
-import net.opentechnology.triki.schema.Rdfbase;
-import net.opentechnology.triki.schema.Triki;
-import net.opentechnology.triki.sparql.SparqlExecutor;
+import net.opentechnology.triki.schema.Dcterms
+import net.opentechnology.triki.schema.Triki
 
 @Log4j
 @Path("/auth")
 public class AuthenticateResource extends RenderResource {
 
+    private final CloseableHttpClient httpclient = HttpClients.createDefault();
 	public static final String SESSION_PERSON = "person";
 	public static final String SESSION_ID = "id";
 	
 	private final Logger logger = Logger.getLogger(this.getClass());
-	
-	@Value('${client_id}')
-	private String clientId;
-	
-	@Value('${indie_auth_redirect}')
-	private String redirectUri;
 	
 	@Inject
 	private CachedPropertyStore propStore;
@@ -115,6 +84,20 @@ public class AuthenticateResource extends RenderResource {
 	
 	@Inject
 	private final Utilities utils;
+
+	@Inject
+	private final SettingDto settingDto;
+
+	public AuthenticateResource(){
+
+	}
+
+	public AuthenticateResource(CachedPropertyStore propStore, AuthenticationManager authMgr, Utilities utils, SettingDto settingDto) {
+		this.propStore = propStore
+		this.authMgr = authMgr
+		this.utils = utils
+		this.settingDto = settingDto
+	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -168,17 +151,16 @@ public class AuthenticateResource extends RenderResource {
 		Calendar timestampCal = Calendar.getInstance();
 		timestampCal.setTime(new Date());
 		
-		logger.info("${me} has tried to login...");
+		logger.info("${me} has tried to login with code ${code}...");
 		
-		HttpPost poster = new HttpPost("https://indieauth.com/auth");
+		HttpPost poster = new HttpPost(settingDto.getSetting(AuthModule.Settings.INDIELOGINROOT.toString()));
 		List<NameValuePair> form = new ArrayList<NameValuePair>();
 		form.add(new BasicNameValuePair("code", code));
-		form.add(new BasicNameValuePair("client_id", clientId));
-		form.add(new BasicNameValuePair("redirect_uri", redirectUri));
+		form.add(new BasicNameValuePair("client_id", settingDto.getSetting(AuthModule.Settings.INDIELOGINCLIENTID.toString())));
+		form.add(new BasicNameValuePair("redirect_uri", settingDto.getSetting(AuthModule.Settings.INDIELOGINREDIRECTURI.toString())));
 		UrlEncodedFormEntity entity = new UrlEncodedFormEntity(form, Consts.UTF_8);
 		poster.setEntity(entity);
-		
-		CloseableHttpClient httpclient = HttpClients.createDefault();
+
 		CloseableHttpResponse response = httpclient.execute(poster);
 		
 		if(response.getStatusLine().getStatusCode() == Response.Status.OK.code)
@@ -186,17 +168,113 @@ public class AuthenticateResource extends RenderResource {
 			logger.info("${me} successfully authenticated by indieauth");
 			try {
 				checkKnownAndForward(session, resp){ ->
-					authMgr.authenticateById(me)
+					authMgr.authenticateByWebsite(me)
 				}
 			} catch (AuthenticationException e) {
 				logger.info("Unknown person ${me} but is authenticated")
 				setAuthenticatedPersonLogin(session, me);
-				resp.sendRedirect("/resource/home");
+				resp.sendRedirect("/");
 			}
 		}
 		else
 		{
 			logger.warn("${me} not authenticated.");
+			resp.sendRedirect("/resource/login");
+		}
+	}
+
+	//https://accounts.google.com/o/oauth2/v2/auth?
+	// client_id=173048672515-3bamo1l0dpoeo0u90q1ev0k4h9icjq7n.apps.googleusercontent.com&
+	// redirect_uri=https://www.donaldmcintosh.net/auth/openidconnect&scope=openid+email&
+	// response_type=code&
+	// state=121ff877352548393447cb2fd58e69db513775d3
+
+	@Path("openidlogin")
+	@GET
+	public Response getStateLogin(@Context HttpServletResponse resp,@Context HttpServletRequest req, @QueryParam("path") String path){
+		HttpSession session = req.getSession();
+		String randomSecret = UUID.randomUUID().toString()
+		Algorithm algorithm = Algorithm.HMAC256(randomSecret);
+		logger.info("Signing state token with secret ${randomSecret}")
+		String secretState = JWT.create().withClaim('path', path ?: '/').sign(algorithm)
+		session.setAttribute(AuthModule.SessionVars.OPENID_STATE.toString(), secretState)
+
+		def authUrl = new URIBuilder(settingDto.getSetting(AuthModule.Settings.GOOGLEAUTHENDPOINT.toString()))
+		authUrl.addParameter("client_id", settingDto.getSetting(AuthModule.Settings.GOOGLECLIENTID.toString()))
+		authUrl.addParameter("redirect_uri", settingDto.getSetting(AuthModule.Settings.OPENIDCONNECTREDIRECTURI.toString()))
+		authUrl.addParameter("scope", settingDto.getSetting(AuthModule.Settings.OPENIDSCOPE.toString()))
+		authUrl.addParameter("response_type", "code")
+		authUrl.addParameter("state", secretState)
+
+		logger.info("Requesting Google login with ${authUrl.build().toString()}")
+		resp.sendRedirect(authUrl.build().toString());
+	}
+
+	@Path("openidconnect")
+	@GET
+	@Produces(MediaType.TEXT_HTML)
+	public Response openidConnect(@Context HttpServletResponse resp,@Context HttpServletRequest req,
+								  @QueryParam("state") String state,
+								  @QueryParam("code") String code,
+								  @QueryParam("scope") String scope)
+			throws ServletException, IOException, URISyntaxException
+	{
+		HttpSession session = req.getSession();
+		Calendar timestampCal = Calendar.getInstance();
+		timestampCal.setTime(new Date());
+		def redirectPath
+
+		String openIdState = session.getAttribute(AuthModule.SessionVars.OPENID_STATE.toString()) as String
+		if(openIdState != state){
+			logger.error("${openIdState} is not equal to anti-forge code ${state}, rejecting.")
+			resp.sendRedirect("/");
+		}
+		else {
+			DecodedJWT jwt = JWT.decode(openIdState);
+			redirectPath = jwt.getClaim('path').asString()
+		}
+
+		HttpPost poster = new HttpPost(settingDto.getSetting(AuthModule.Settings.GOOGLETOKENENDPOINT.toString()));
+		List<NameValuePair> form = new ArrayList<NameValuePair>();
+		form.add(new BasicNameValuePair("code", code));
+		form.add(new BasicNameValuePair("client_id", settingDto.getSetting(AuthModule.Settings.GOOGLECLIENTID.toString())));
+		form.add(new BasicNameValuePair("client_secret", settingDto.getSetting(AuthModule.Settings.GOOGLECLIENTSECRET.toString())));
+		form.add(new BasicNameValuePair("redirect_uri", settingDto.getSetting(AuthModule.Settings.OPENIDCONNECTREDIRECTURI.toString())));
+		form.add(new BasicNameValuePair("grant_type", "authorization_code"));
+		logger.info("Calling Google with params:")
+		form.each { param ->
+			logger.info("${param.name}: ${param.value}")
+		}
+		UrlEncodedFormEntity entity = new UrlEncodedFormEntity(form, Consts.UTF_8);
+		poster.setEntity(entity);
+
+		CloseableHttpResponse response = httpclient.execute(poster);
+
+		if(response.getStatusLine().getStatusCode() == Response.Status.OK.code)
+		{
+			def tokenResponse = new JsonSlurper().parse(response.getEntity().getContent());
+
+			logger.info("Successfully authenticated by OpenID Connect with token ${tokenResponse['id_token'] as String}");
+			String email
+			try {
+				DecodedJWT jwt = JWT.decode(tokenResponse['id_token'] as String);
+				email = jwt.getClaims().get('email').asString()
+
+				checkKnownAndForward(session, resp){ ->
+					authMgr.authenticateByEmail(email)
+				}
+			} catch (AuthenticationException e) {
+				logger.info("Unknown person ${email} but is authenticated")
+				resp.sendRedirect("/");
+			} catch (JWTDecodeException jwte){
+				logger.info("Problem decoding token for ${email}")
+				resp.sendRedirect("/");
+			}
+		}
+		else
+		{
+			logger.warn(response.getEntity().getContent().toString());
+			logger.warn("Google not not authenticated.");
 			resp.sendRedirect("/resource/login");
 		}
 	}

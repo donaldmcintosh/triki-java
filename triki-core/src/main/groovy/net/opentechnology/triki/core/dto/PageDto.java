@@ -46,9 +46,8 @@ public class PageDto extends BaseDto {
 	
 	@Inject
 	private GroupDto groupDto;
-	
-	public Resource addPage(String name, Resource type, String title, String restricted) 
-	{
+
+	public Resource addPage(String name, Resource type, String title, String restricted) {
 		String resName = props.getPrivateUrl() + name;
 		Resource page = model.createResource(resName);
 		checkResource(page, RDF.type, type);
@@ -58,7 +57,7 @@ public class PageDto extends BaseDto {
 		//Literal timestampLiteral = model.createTypedLiteral(timestampCal);
 		//checkLiteral(page, DCTerms.created, timestampLiteral);
 		checkResource(page, Triki.restricted, groupDto.getGroup(restricted));
-		
+
 		return page;
 	}
 	

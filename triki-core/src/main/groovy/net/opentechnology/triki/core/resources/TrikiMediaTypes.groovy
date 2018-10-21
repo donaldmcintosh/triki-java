@@ -25,8 +25,8 @@ import javax.ws.rs.core.MediaType;
 
 public class TrikiMediaTypes {
 	
-	public static final String HTML_UTF8 = MediaType.TEXT_HTML + "; charset=utf-8";
-	public static final String XML_UTF8 = MediaType.APPLICATION_XML + "; charset=utf-8";
-	public static final String JSON_UTF8 = MediaType.APPLICATION_JSON + "; charset=utf-8";
+	public static final String HTML_UTF8 = 'text/html; charset=utf-8';
+	public static final String XML_UTF8 = 'application/xml; charset=utf-8';
+	public static final String JSON_UTF8 = 'application/json; charset=utf-8';
 
 }

@@ -19,9 +19,11 @@
 *
 ************************************************************************************/
 
-package net.opentechnology.triki.auth.module;
+package net.opentechnology.triki.auth.module
 
-import java.util.EnumSet;
+import net.opentechnology.triki.core.dto.PageDto
+import net.opentechnology.triki.core.dto.SettingDto
+import net.opentechnology.triki.core.dto.TypeDto
 
 import javax.inject.Inject;
 import javax.servlet.DispatcherType;
@@ -29,20 +31,16 @@ import javax.servlet.DispatcherType;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.sparql.vocabulary.FOAF
-import org.apache.jena.vocabulary.DCTerms;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.filter.DelegatingFilterProxy;
 
-import net.opentechnology.triki.core.boot.CachedPropertyStore;
-import net.opentechnology.triki.core.boot.CoreModule;
+import net.opentechnology.triki.core.boot.CachedPropertyStore
 import net.opentechnology.triki.core.dto.GroupDto;
 import net.opentechnology.triki.core.dto.PropertyDto
 import net.opentechnology.triki.core.dto.UserDto;
-import net.opentechnology.triki.modules.Module;
-import net.opentechnology.triki.schema.Triki;
-
+import net.opentechnology.triki.modules.Module
 import net.opentechnology.triki.schema.Foaf
 import net.opentechnology.triki.schema.Triki
 
@@ -64,9 +62,37 @@ public class AuthModule implements Module {
 	
 	@Inject 
 	private UserDto userDto;
+
+	@Inject
+	private PageDto pageDto;
+
+	@Inject
+	private TypeDto typeDto;
+
+	@Inject
+	private SettingDto settingDto;
 	
 	@Inject
 	private PropertyDto propertyDto;
+
+	public enum Settings {
+		OPENIDSCOPE,
+		OPENIDCONNECTREDIRECTURI,
+		INDIELOGINROOT,
+		INDIELOGINCLIENTID,
+		INDIELOGINREDIRECTURI,
+		GOOGLEAUTHENDPOINT,
+		GOOGLETOKENENDPOINT,
+		GOOGLECLIENTID,
+		GOOGLECLIENTSECRET,
+		TWITTERAUTHROOT,
+		TWITTERCLIENTID,
+		TWITTERCLIENTSECRET
+	}
+
+	public enum SessionVars {
+		OPENID_STATE
+	}
 
 	@Override
 	public void initMod() {
@@ -74,6 +100,8 @@ public class AuthModule implements Module {
 		initProperties();
 		initUnrestricted();
 		initGroupsAndUsers();
+		initSettings();
+		initPages();
 	}
 
 	private void initGroupsAndUsers() {
@@ -112,6 +140,25 @@ public class AuthModule implements Module {
 		propertyDto.addProperty("login", Triki.login.getURI(), 28);
 		propertyDto.addProperty("password", Triki.password.getURI(), 29);
 		propertyDto.addProperty("member", Foaf.member.getURI(), 30);
+		propertyDto.addProperty("homepage", Foaf.homepage.getURI(), 16);
+	}
+
+	private void initPages() {
+		pageDto.addPage("auth/indie", typeDto.getType("auth"), "Authorise IndieLogin", "public");
+		pageDto.addPage("auth/openidlogin", typeDto.getType("auth"), "Authorise OpenID Login", "public");
+		pageDto.addPage("auth/openidconnect", typeDto.getType("auth"), "Authorise OpenID Token Exchange", "public");
+	}
+
+	private void initSettings() {
+		settingDto.addSetting(Settings.OPENIDSCOPE.name(), "openid email", "OpenID scope");
+		settingDto.addSetting(Settings.OPENIDCONNECTREDIRECTURI.name(), "https://www.yoursite.net/auth/openidconnect", "OpenID Connect Redirect URL");
+		settingDto.addSetting(Settings.INDIELOGINROOT.name(), "https://indieauth.com/auth", "IndieLogin Login URL");
+		settingDto.addSetting(Settings.INDIELOGINCLIENTID.name(), "https://www.yoursite.net/", "Indie Login client ID");
+		settingDto.addSetting(Settings.INDIELOGINREDIRECTURI.name(), "https://www.yoursite.net/auth/indie", "Indie Login redirect URL");
+		settingDto.addSetting(Settings.GOOGLEAUTHENDPOINT.name(), "https://accounts.google.com/o/oauth2/v2/auth", "Google OAuth2 URL");
+		settingDto.addSetting(Settings.GOOGLETOKENENDPOINT.name(), "https://oauth2.googleapis.com/token", "Google Token Exchange URL");
+		settingDto.addSetting(Settings.GOOGLECLIENTID.name(), "Undefined","Generated Google OAuth2 client ID");
+		settingDto.addSetting(Settings.GOOGLECLIENTSECRET.name(),"Undefined","Generated Google OAuth2 client secret");
 	}
 
 	@Override
