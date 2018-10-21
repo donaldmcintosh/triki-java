@@ -73,6 +73,8 @@ allprojects {
         testCompile("info.cukes:cucumber-junit:1.2.4")
         testCompile("info.cukes:cucumber-java:1.2.4")
         testCompile("info.cukes:cucumber-spring:1.2.4")
+        testCompile("org.spockframework:spock-core:1.1-groovy-2.3")
+        testCompile("cglib:cglib-nodep:3.2.8")
     }
 
     test {

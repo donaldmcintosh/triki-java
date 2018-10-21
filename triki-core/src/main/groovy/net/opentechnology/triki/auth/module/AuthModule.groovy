@@ -76,15 +76,22 @@ public class AuthModule implements Module {
 	private PropertyDto propertyDto;
 
 	public enum Settings {
+		OPENIDSCOPE,
+		OPENIDCONNECTREDIRECTURI,
+		INDIELOGINROOT,
 		INDIELOGINCLIENTID,
 		INDIELOGINREDIRECTURI,
-		OPENIDCONNECTREDIRECTURI,
-		GOOGLEAUTHROOT,
+		GOOGLEAUTHENDPOINT,
+		GOOGLETOKENENDPOINT,
 		GOOGLECLIENTID,
 		GOOGLECLIENTSECRET,
 		TWITTERAUTHROOT,
 		TWITTERCLIENTID,
 		TWITTERCLIENTSECRET
+	}
+
+	public enum SessionVars {
+		OPENID_STATE
 	}
 
 	@Override
@@ -138,28 +145,18 @@ public class AuthModule implements Module {
 
 	private void initPages() {
 		pageDto.addPage("auth/indie", typeDto.getType("auth"), "Authorise IndieLogin", "public");
-		pageDto.addPage("auth/openidconnect", typeDto.getType("auth"), "Authorise OpenID Connect", "public");
+		pageDto.addPage("auth/openidlogin", typeDto.getType("auth"), "Authorise OpenID Login", "public");
+		pageDto.addPage("auth/openidconnect", typeDto.getType("auth"), "Authorise OpenID Token Exchange", "public");
 	}
 
 	private void initSettings() {
+		settingDto.addSetting(Settings.OPENIDSCOPE.name(), "openid email", "OpenID scope");
+		settingDto.addSetting(Settings.OPENIDCONNECTREDIRECTURI.name(), "https://www.yoursite.net/auth/openidconnect", "OpenID Connect Redirect URL");
+		settingDto.addSetting(Settings.INDIELOGINROOT.name(), "https://indieauth.com/auth", "IndieLogin Login URL");
 		settingDto.addSetting(Settings.INDIELOGINCLIENTID.name(), "https://www.yoursite.net/", "Indie Login client ID");
 		settingDto.addSetting(Settings.INDIELOGINREDIRECTURI.name(), "https://www.yoursite.net/auth/indie", "Indie Login redirect URL");
-		settingDto.addSetting(Settings.OPENIDCONNECTREDIRECTURI.name(), "https://www.yoursite.net/auth/openidconnect", "OpenID Connect Redirect URL");
-		settingDto.addSetting(Settings.GOOGLEAUTHROOT.name(), "https://oauth2.googleapis.com/token", "Googles OAuth2 URL");
-		settingDto.addSetting(Settings.GOOGLECLIENTID.name(), "Undefined","Generated Google OAuth2 client ID");
-		settingDto.addSetting(Settings.GOOGLECLIENTSECRET.name(),"Undefined","Generated Google OAuth2 client secret");
-	}
-
-	private void initPages() {
-		pageDto.addPage("auth/indie", typeDto.getType("auth"), "Authorise IndieLogin", "public");
-		pageDto.addPage("auth/openidconnect", typeDto.getType("auth"), "Authorise OpenID Connect", "public");
-	}
-
-	private void initSettings() {
-		settingDto.addSetting(Settings.INDIELOGINCLIENTID.name(), "https://www.yoursite.net/", "Indie Login client ID");
-		settingDto.addSetting(Settings.INDIELOGINREDIRECTURI.name(), "https://www.yoursite.net/auth/indie", "Indie Login redirect URL");
-		settingDto.addSetting(Settings.OPENIDCONNECTREDIRECTURI.name(), "https://www.yoursite.net/auth/openidconnect", "OpenID Connect Redirect URL");
-		settingDto.addSetting(Settings.GOOGLEAUTHROOT.name(), "https://accounts.google.com/oauth2/v4/token", "Googles OAuth2 URL");
+		settingDto.addSetting(Settings.GOOGLEAUTHENDPOINT.name(), "https://accounts.google.com/o/oauth2/v2/auth", "Google OAuth2 URL");
+		settingDto.addSetting(Settings.GOOGLETOKENENDPOINT.name(), "https://oauth2.googleapis.com/token", "Google Token Exchange URL");
 		settingDto.addSetting(Settings.GOOGLECLIENTID.name(), "Undefined","Generated Google OAuth2 client ID");
 		settingDto.addSetting(Settings.GOOGLECLIENTSECRET.name(),"Undefined","Generated Google OAuth2 client secret");
 	}

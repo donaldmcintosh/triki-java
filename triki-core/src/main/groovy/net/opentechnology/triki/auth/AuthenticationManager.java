@@ -48,8 +48,8 @@ public class AuthenticationManager {
 		return person;
 	}
 
-	public Resource authenticateByNameAndEmail(String name, String email) throws AuthenticationException {
-		Resource person = getPersonByNameAndEmail(name, email);
+	public Resource authenticateByEmail(String email) throws AuthenticationException {
+		Resource person = getPersonByEmail(email);
 		return person;
 	}
 	
@@ -132,7 +132,7 @@ public class AuthenticationManager {
 		}
 	}
 
-	private Resource getPersonByNameAndEmail(String name, String email) throws AuthenticationException{
+	private Resource getPersonByEmail(String email) throws AuthenticationException{
 		String queryString =
 						"PREFIX foaf: <http://xmlns.com/foaf/0.1/> " +
 						"PREFIX dc: <http://purl.org/dc/terms/> " +
@@ -140,7 +140,6 @@ public class AuthenticationManager {
 						"WHERE {" +
 						"  ?person a foaf:Person . " +
 						"  ?person foaf:mbox \""+ email + "\" . " +
-						"  ?person dc:title \""+ name + "\" . " +
 						"}";
 
 		Query query = QueryFactory.create(queryString);
@@ -155,7 +154,7 @@ public class AuthenticationManager {
 		}
 		else {
 			qe.close();
-			throw new AuthenticationException("Could not find person with name " + name + " and email " + email);
+			throw new AuthenticationException("Could not find person with email " + email);
 		}
 	}
 

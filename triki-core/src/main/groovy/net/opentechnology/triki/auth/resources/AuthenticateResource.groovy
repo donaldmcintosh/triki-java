@@ -22,12 +22,15 @@
 package net.opentechnology.triki.auth.resources
 
 import com.auth0.jwt.JWT
+import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.exceptions.JWTDecodeException
 import com.auth0.jwt.interfaces.DecodedJWT
 import groovy.json.JsonSlurper
 import net.opentechnology.triki.auth.module.AuthModule
 import net.opentechnology.triki.core.dto.SettingDto
 import groovy.util.logging.Log4j
+import org.apache.http.client.utils.URIBuilder
+
 import javax.inject.Inject
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -67,6 +70,7 @@ import net.opentechnology.triki.schema.Triki
 @Path("/auth")
 public class AuthenticateResource extends RenderResource {
 
+    private final CloseableHttpClient httpclient = HttpClients.createDefault();
 	public static final String SESSION_PERSON = "person";
 	public static final String SESSION_ID = "id";
 	
@@ -82,7 +86,18 @@ public class AuthenticateResource extends RenderResource {
 	private final Utilities utils;
 
 	@Inject
-	private SettingDto settingDto;
+	private final SettingDto settingDto;
+
+	public AuthenticateResource(){
+
+	}
+
+	public AuthenticateResource(CachedPropertyStore propStore, AuthenticationManager authMgr, Utilities utils, SettingDto settingDto) {
+		this.propStore = propStore
+		this.authMgr = authMgr
+		this.utils = utils
+		this.settingDto = settingDto
+	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -138,15 +153,14 @@ public class AuthenticateResource extends RenderResource {
 		
 		logger.info("${me} has tried to login with code ${code}...");
 		
-		HttpPost poster = new HttpPost("https://indieauth.com/auth");
+		HttpPost poster = new HttpPost(settingDto.getSetting(AuthModule.Settings.INDIELOGINROOT.toString()));
 		List<NameValuePair> form = new ArrayList<NameValuePair>();
 		form.add(new BasicNameValuePair("code", code));
 		form.add(new BasicNameValuePair("client_id", settingDto.getSetting(AuthModule.Settings.INDIELOGINCLIENTID.toString())));
 		form.add(new BasicNameValuePair("redirect_uri", settingDto.getSetting(AuthModule.Settings.INDIELOGINREDIRECTURI.toString())));
 		UrlEncodedFormEntity entity = new UrlEncodedFormEntity(form, Consts.UTF_8);
 		poster.setEntity(entity);
-		
-		CloseableHttpClient httpclient = HttpClients.createDefault();
+
 		CloseableHttpResponse response = httpclient.execute(poster);
 		
 		if(response.getStatusLine().getStatusCode() == Response.Status.OK.code)
@@ -169,21 +183,58 @@ public class AuthenticateResource extends RenderResource {
 		}
 	}
 
+	//https://accounts.google.com/o/oauth2/v2/auth?
+	// client_id=173048672515-3bamo1l0dpoeo0u90q1ev0k4h9icjq7n.apps.googleusercontent.com&
+	// redirect_uri=https://www.donaldmcintosh.net/auth/openidconnect&scope=openid+email&
+	// response_type=code&
+	// state=121ff877352548393447cb2fd58e69db513775d3
+
+	@Path("openidlogin")
+	@GET
+	public Response getStateLogin(@Context HttpServletResponse resp,@Context HttpServletRequest req, @QueryParam("path") String path){
+		HttpSession session = req.getSession();
+		String randomSecret = UUID.randomUUID().toString()
+		Algorithm algorithm = Algorithm.HMAC256(randomSecret);
+		logger.info("Signing state token with secret ${randomSecret}")
+		String secretState = JWT.create().withClaim('path', path ?: '/').sign(algorithm)
+		session.setAttribute(AuthModule.SessionVars.OPENID_STATE.toString(), secretState)
+
+		def authUrl = new URIBuilder(settingDto.getSetting(AuthModule.Settings.GOOGLEAUTHENDPOINT.toString()))
+		authUrl.addParameter("client_id", settingDto.getSetting(AuthModule.Settings.GOOGLECLIENTID.toString()))
+		authUrl.addParameter("redirect_uri", settingDto.getSetting(AuthModule.Settings.OPENIDCONNECTREDIRECTURI.toString()))
+		authUrl.addParameter("scope", settingDto.getSetting(AuthModule.Settings.OPENIDSCOPE.toString()))
+		authUrl.addParameter("response_type", "code")
+		authUrl.addParameter("state", secretState)
+
+		logger.info("Requesting Google login with ${authUrl.build().toString()}")
+		resp.sendRedirect(authUrl.build().toString());
+	}
+
 	@Path("openidconnect")
 	@GET
 	@Produces(MediaType.TEXT_HTML)
 	public Response openidConnect(@Context HttpServletResponse resp,@Context HttpServletRequest req,
 								  @QueryParam("state") String state,
 								  @QueryParam("code") String code,
-								  @QueryParam("scope") String scope,
-								  @QueryParam("session_state") String sessionState)
+								  @QueryParam("scope") String scope)
 			throws ServletException, IOException, URISyntaxException
 	{
 		HttpSession session = req.getSession();
 		Calendar timestampCal = Calendar.getInstance();
 		timestampCal.setTime(new Date());
+		def redirectPath
 
-		HttpPost poster = new HttpPost(settingDto.getSetting(AuthModule.Settings.GOOGLEAUTHROOT.toString()));
+		String openIdState = session.getAttribute(AuthModule.SessionVars.OPENID_STATE.toString()) as String
+		if(openIdState != state){
+			logger.error("${openIdState} is not equal to anti-forge code ${state}, rejecting.")
+			resp.sendRedirect("/");
+		}
+		else {
+			DecodedJWT jwt = JWT.decode(openIdState);
+			redirectPath = jwt.getClaim('path').asString()
+		}
+
+		HttpPost poster = new HttpPost(settingDto.getSetting(AuthModule.Settings.GOOGLETOKENENDPOINT.toString()));
 		List<NameValuePair> form = new ArrayList<NameValuePair>();
 		form.add(new BasicNameValuePair("code", code));
 		form.add(new BasicNameValuePair("client_id", settingDto.getSetting(AuthModule.Settings.GOOGLECLIENTID.toString())));
@@ -197,30 +248,26 @@ public class AuthenticateResource extends RenderResource {
 		UrlEncodedFormEntity entity = new UrlEncodedFormEntity(form, Consts.UTF_8);
 		poster.setEntity(entity);
 
-		CloseableHttpClient httpclient = HttpClients.createDefault();
 		CloseableHttpResponse response = httpclient.execute(poster);
 
 		if(response.getStatusLine().getStatusCode() == Response.Status.OK.code)
 		{
-			def token = new JsonSlurper().parse(response.getEntity().getContent());
+			def tokenResponse = new JsonSlurper().parse(response.getEntity().getContent());
 
-			logger.info("Successfully authenticated by OpenID Connect");
+			logger.info("Successfully authenticated by OpenID Connect with token ${tokenResponse['id_token'] as String}");
+			String email
 			try {
-				DecodedJWT jwt = JWT.decode(token['id_token'] as String);
-				def payload = new JsonSlurper().parse(jwt.getPayload().bytes);
-				String name = payload['name']
-				String email = payload['email']
+				DecodedJWT jwt = JWT.decode(tokenResponse['id_token'] as String);
+				email = jwt.getClaims().get('email').asString()
 
 				checkKnownAndForward(session, resp){ ->
-					authMgr.authenticateByNameAndEmail(name, email)
+					authMgr.authenticateByEmail(email)
 				}
 			} catch (AuthenticationException e) {
-				logger.info("Unknown person ${me} but is authenticated")
-				setAuthenticatedPersonLogin(session, me);
+				logger.info("Unknown person ${email} but is authenticated")
 				resp.sendRedirect("/");
 			} catch (JWTDecodeException jwte){
-				logger.info("Unknown person ${me} but is authenticated")
-				setAuthenticatedPersonLogin(session, me);
+				logger.info("Problem decoding token for ${email}")
 				resp.sendRedirect("/");
 			}
 		}
