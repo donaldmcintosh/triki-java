@@ -85,9 +85,13 @@ public class AuthModule implements Module {
 		GOOGLETOKENENDPOINT,
 		GOOGLECLIENTID,
 		GOOGLECLIENTSECRET,
-		TWITTERAUTHROOT,
+		TWITTERAUTHENDPOINT,
 		TWITTERCLIENTID,
-		TWITTERCLIENTSECRET
+		TWITTERCLIENTSECRET,
+		GITHUBAUTHENDPOINT,
+		GITHUBTOKENENDPOINT,
+		GITHUBCLIENTID,
+		GITHUBCLIENTSECRET,
 	}
 
 	public enum SessionVars {
@@ -150,7 +154,7 @@ public class AuthModule implements Module {
 	}
 
 	private void initSettings() {
-		settingDto.addSetting(Settings.OPENIDSCOPE.name(), "openid email", "OpenID scope");
+		settingDto.addSetting(Settings.OPENIDSCOPE.name(), "openid email name", "OpenID scope");
 		settingDto.addSetting(Settings.OPENIDCONNECTREDIRECTURI.name(), "https://www.yoursite.net/auth/openidconnect", "OpenID Connect Redirect URL");
 		settingDto.addSetting(Settings.INDIELOGINROOT.name(), "https://indieauth.com/auth", "IndieLogin Login URL");
 		settingDto.addSetting(Settings.INDIELOGINCLIENTID.name(), "https://www.yoursite.net/", "Indie Login client ID");
@@ -159,6 +163,13 @@ public class AuthModule implements Module {
 		settingDto.addSetting(Settings.GOOGLETOKENENDPOINT.name(), "https://oauth2.googleapis.com/token", "Google Token Exchange URL");
 		settingDto.addSetting(Settings.GOOGLECLIENTID.name(), "Undefined","Generated Google OAuth2 client ID");
 		settingDto.addSetting(Settings.GOOGLECLIENTSECRET.name(),"Undefined","Generated Google OAuth2 client secret");
+		settingDto.addSetting(Settings.TWITTERAUTHENDPOINT.name(), "https://api.twitter.com/oauth2/token", "Twitter OAuth2 URL");
+		settingDto.addSetting(Settings.TWITTERCLIENTID.name(), "Undefined","Generated Twitter OAuth2 client ID");
+		settingDto.addSetting(Settings.TWITTERCLIENTSECRET.name(),"Undefined","Generated Twitter OAuth2 client secret");
+		settingDto.addSetting(Settings.GITHUBAUTHENDPOINT.name(), "https://github.com/login/oauth/authorize", "Github OAuth2 URL");
+		settingDto.addSetting(Settings.GITHUBTOKENENDPOINT.name(), "https://github.com/login/oauth/access_token", "Github Token Exchange URL");
+		settingDto.addSetting(Settings.GITHUBCLIENTID.name(), "Undefined","Generated Github OAuth2 client ID");
+		settingDto.addSetting(Settings.GITHUBCLIENTSECRET.name(),"Undefined","Generated Github OAuth2 client secret");
 	}
 
 	@Override

@@ -108,7 +108,7 @@ public class AuthenticateResource extends RenderResource {
 			@FormParam("triki:password") String password) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		try {
-			checkKnownAndForward(session, resp){ ->
+			checkKnownAndForward(session, resp, "/"){ ->
 				authMgr.authenticate(login, password);
 			}
 		} catch (AuthenticationException e) {
@@ -167,7 +167,7 @@ public class AuthenticateResource extends RenderResource {
 		{
 			logger.info("${me} successfully authenticated by indieauth");
 			try {
-				checkKnownAndForward(session, resp){ ->
+				checkKnownAndForward(session, resp, "/"){ ->
 					authMgr.authenticateByWebsite(me)
 				}
 			} catch (AuthenticationException e) {
@@ -183,31 +183,50 @@ public class AuthenticateResource extends RenderResource {
 		}
 	}
 
-	//https://accounts.google.com/o/oauth2/v2/auth?
-	// client_id=173048672515-3bamo1l0dpoeo0u90q1ev0k4h9icjq7n.apps.googleusercontent.com&
-	// redirect_uri=https://www.donaldmcintosh.net/auth/openidconnect&scope=openid+email&
-	// response_type=code&
-	// state=121ff877352548393447cb2fd58e69db513775d3
-
 	@Path("openidlogin")
 	@GET
-	public Response getStateLogin(@Context HttpServletResponse resp,@Context HttpServletRequest req, @QueryParam("path") String path){
+	public Response getStateLogin(@Context HttpServletResponse resp,@Context HttpServletRequest req, @QueryParam("authority") String authority){
 		HttpSession session = req.getSession();
 		String randomSecret = UUID.randomUUID().toString()
 		Algorithm algorithm = Algorithm.HMAC256(randomSecret);
+		URIBuilder authUrl
+		if(authority == 'google'){
+			authUrl = getGoogleParams()
+		} else if(authority == 'github'){
+			authUrl = getGithubParams()
+		} else {
+			logger.info("Unknown OpenID authority ${authority}")
+			resp.sendRedirect("/");
+			return
+		}
+
 		logger.info("Signing state token with secret ${randomSecret}")
-		String secretState = JWT.create().withClaim('path', path ?: '/').sign(algorithm)
+		String secretState = JWT.create()
+				.withClaim('referer', req.getHeader("referer"))
+				.withClaim('authority', authority)
+				.sign(algorithm)
 		session.setAttribute(AuthModule.SessionVars.OPENID_STATE.toString(), secretState)
 
-		def authUrl = new URIBuilder(settingDto.getSetting(AuthModule.Settings.GOOGLEAUTHENDPOINT.toString()))
-		authUrl.addParameter("client_id", settingDto.getSetting(AuthModule.Settings.GOOGLECLIENTID.toString()))
 		authUrl.addParameter("redirect_uri", settingDto.getSetting(AuthModule.Settings.OPENIDCONNECTREDIRECTURI.toString()))
 		authUrl.addParameter("scope", settingDto.getSetting(AuthModule.Settings.OPENIDSCOPE.toString()))
-		authUrl.addParameter("response_type", "code")
 		authUrl.addParameter("state", secretState)
-
+		
 		logger.info("Requesting Google login with ${authUrl.build().toString()}")
 		resp.sendRedirect(authUrl.build().toString());
+	}
+
+	private URIBuilder getGoogleParams() {
+		def authUrl = new URIBuilder(settingDto.getSetting(AuthModule.Settings.GOOGLEAUTHENDPOINT.toString()))
+		authUrl.addParameter("client_id", settingDto.getSetting(AuthModule.Settings.GOOGLECLIENTID.toString()))
+		authUrl.addParameter("response_type", "code")
+		authUrl
+	}
+
+	private URIBuilder getGithubParams() {
+		def authUrl = new URIBuilder(settingDto.getSetting(AuthModule.Settings.GITHUBAUTHENDPOINT.toString()))
+		authUrl.addParameter("client_id", settingDto.getSetting(AuthModule.Settings.GITHUBCLIENTID.toString()))
+		authUrl.addParameter("grant_type", "client_credentials")
+		authUrl
 	}
 
 	@Path("openidconnect")
@@ -222,7 +241,8 @@ public class AuthenticateResource extends RenderResource {
 		HttpSession session = req.getSession();
 		Calendar timestampCal = Calendar.getInstance();
 		timestampCal.setTime(new Date());
-		def redirectPath
+		String referer = "/"
+		String authority = "unknown"
 
 		String openIdState = session.getAttribute(AuthModule.SessionVars.OPENID_STATE.toString()) as String
 		if(openIdState != state){
@@ -231,16 +251,28 @@ public class AuthenticateResource extends RenderResource {
 		}
 		else {
 			DecodedJWT jwt = JWT.decode(openIdState);
-			redirectPath = jwt.getClaim('path').asString()
+			referer = jwt.getClaim('referer').asString()
+			authority = jwt.getClaim('authority').asString()
 		}
 
-		HttpPost poster = new HttpPost(settingDto.getSetting(AuthModule.Settings.GOOGLETOKENENDPOINT.toString()));
+		
 		List<NameValuePair> form = new ArrayList<NameValuePair>();
-		form.add(new BasicNameValuePair("code", code));
-		form.add(new BasicNameValuePair("client_id", settingDto.getSetting(AuthModule.Settings.GOOGLECLIENTID.toString())));
-		form.add(new BasicNameValuePair("client_secret", settingDto.getSetting(AuthModule.Settings.GOOGLECLIENTSECRET.toString())));
 		form.add(new BasicNameValuePair("redirect_uri", settingDto.getSetting(AuthModule.Settings.OPENIDCONNECTREDIRECTURI.toString())));
 		form.add(new BasicNameValuePair("grant_type", "authorization_code"));
+		form.add(new BasicNameValuePair("code", code));
+
+		HttpPost poster
+		if(authority == 'google'){
+			poster = getGoogleTokenPost(form)
+		}
+		else if(authority == 'github'){
+			poster = getGithubTokenPost(form)
+		}
+		else {
+			logger.info("Unknown authority ${authority}")
+			resp.sendRedirect("/");	
+		}
+
 		logger.info("Calling Google with params:")
 		form.each { param ->
 			logger.info("${param.name}: ${param.value}")
@@ -254,21 +286,24 @@ public class AuthenticateResource extends RenderResource {
 		{
 			def tokenResponse = new JsonSlurper().parse(response.getEntity().getContent());
 
-			logger.info("Successfully authenticated by OpenID Connect with token ${tokenResponse['id_token'] as String}");
 			String email
 			try {
 				DecodedJWT jwt = JWT.decode(tokenResponse['id_token'] as String);
+				jwt.getClaims().each { claim ->
+					logger.info("Claim is ${claim.key} : ${claim.getValue().asString()}")
+				}
 				email = jwt.getClaims().get('email').asString()
 
-				checkKnownAndForward(session, resp){ ->
+				logger.info("Successfully authenticated by OpenID Connect with email ${email}");
+				checkKnownAndForward(session, resp, referer){ ->
 					authMgr.authenticateByEmail(email)
 				}
 			} catch (AuthenticationException e) {
 				logger.info("Unknown person ${email} but is authenticated")
-				resp.sendRedirect("/");
+				resp.sendRedirect(referer);
 			} catch (JWTDecodeException jwte){
 				logger.info("Problem decoding token for ${email}")
-				resp.sendRedirect("/");
+				resp.sendRedirect(referer);
 			}
 		}
 		else
@@ -279,27 +314,25 @@ public class AuthenticateResource extends RenderResource {
 		}
 	}
 
-	private checkKnownAndForward(HttpSession session, HttpServletResponse resp, Closure authMethod) {
+	private HttpPost getGoogleTokenPost(ArrayList<NameValuePair> form) {
+		HttpPost poster = new HttpPost(settingDto.getSetting(AuthModule.Settings.GOOGLETOKENENDPOINT.toString()));
+		form.add(new BasicNameValuePair("client_id", settingDto.getSetting(AuthModule.Settings.GOOGLECLIENTID.toString())));
+		form.add(new BasicNameValuePair("client_secret", settingDto.getSetting(AuthModule.Settings.GOOGLECLIENTSECRET.toString())));
+		poster
+	}
+
+	private HttpPost getGithubTokenPost(ArrayList<NameValuePair> form) {
+		HttpPost poster = new HttpPost(settingDto.getSetting(AuthModule.Settings.GITHUBTOKENENDPOINT.toString()));
+		form.add(new BasicNameValuePair("client_id", settingDto.getSetting(AuthModule.Settings.GITHUBCLIENTID.toString())));
+		form.add(new BasicNameValuePair("client_secret", settingDto.getSetting(AuthModule.Settings.GITHUBCLIENTSECRET.toString())));
+		poster
+	}
+
+	private checkKnownAndForward(HttpSession session, HttpServletResponse resp, String redirectTo, Closure authMethod) {
 		Resource person = authMethod();
 		String id = person.getProperty(Dcterms.title).getString();
 		setKnownPersonSession(session, person);
-		Resource home = person.getPropertyResourceValue(Triki.home);
-		if(session.getAttribute("origUrl") != null){
-			logger.info("Redirecting ${id} to original URL");
-			resp.sendRedirect(session.getAttribute("origUrl"));
-		}
-		else if(home != null)
-		{
-			String homeUrl = home.getURI().toString()
-			logger.info("Redirecting ${id} to home page ${homeUrl}")
-			resp.sendRedirect(utils.makeUrlPublic(homeUrl));
-		}
-		else
-		{
-			logger.info("Redirecting ${id} to home page")
-			resp.sendRedirect("/");
-		}
-		
+		resp.sendRedirect(redirectTo);
 	}
 	
 }
