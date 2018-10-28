@@ -124,11 +124,8 @@ public class AuthenticateResource extends RenderResource {
 		HttpSession session = req.getSession();
 		session.removeAttribute(SESSION_PERSON);
 		session.removeAttribute(SESSION_ID);
-		
-		String url =  propStore.getPrivateUrl();
-		String content = renderContent(url);
-		
-		return content;
+
+		resp.sendRedirect("/");
 	}
 
 	private setKnownPersonSession(HttpSession session, Resource person) {
@@ -202,7 +199,7 @@ public class AuthenticateResource extends RenderResource {
 
 		logger.info("Signing state token with secret ${randomSecret}")
 		String secretState = JWT.create()
-				.withClaim('referer', req.getHeader("referer"))
+				.withClaim('referer', req.getHeader("referer") ?: "/")
 				.withClaim('authority', authority)
 				.sign(algorithm)
 		session.setAttribute(AuthModule.SessionVars.OPENID_STATE.toString(), secretState)
@@ -273,7 +270,7 @@ public class AuthenticateResource extends RenderResource {
 			resp.sendRedirect("/");	
 		}
 
-		logger.info("Calling Google with params:")
+		logger.info("Calling ${authority} with params:")
 		form.each { param ->
 			logger.info("${param.name}: ${param.value}")
 		}
@@ -281,7 +278,6 @@ public class AuthenticateResource extends RenderResource {
 		poster.setEntity(entity);
 
 		CloseableHttpResponse response = httpclient.execute(poster);
-
 		if(response.getStatusLine().getStatusCode() == Response.Status.OK.code)
 		{
 			def tokenResponse = new JsonSlurper().parse(response.getEntity().getContent());
