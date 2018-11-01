@@ -88,10 +88,14 @@ public class AuthModule implements Module {
 		TWITTERAUTHENDPOINT,
 		TWITTERCLIENTID,
 		TWITTERCLIENTSECRET,
-		GITHUBAUTHENDPOINT,
-		GITHUBTOKENENDPOINT,
-		GITHUBCLIENTID,
-		GITHUBCLIENTSECRET,
+		YAHOOAUTHENDPOINT,
+		YAHOOTOKENENDPOINT,
+		YAHOOCLIENTID,
+		YAHOOCLIENTSECRET,
+		AMAZONAUTHENDPOINT,
+		AMAZONTOKENENDPOINT,
+		AMAZONCLIENTID,
+		AMAZONCLIENTSECRET,
 	}
 
 	public enum SessionVars {
@@ -166,10 +170,14 @@ public class AuthModule implements Module {
 		settingDto.addSetting(Settings.TWITTERAUTHENDPOINT.name(), "https://api.twitter.com/oauth2/token", "Twitter OAuth2 URL");
 		settingDto.addSetting(Settings.TWITTERCLIENTID.name(), "Undefined","Generated Twitter OAuth2 client ID");
 		settingDto.addSetting(Settings.TWITTERCLIENTSECRET.name(),"Undefined","Generated Twitter OAuth2 client secret");
-		settingDto.addSetting(Settings.GITHUBAUTHENDPOINT.name(), "https://github.com/login/oauth/authorize", "Github OAuth2 URL");
-		settingDto.addSetting(Settings.GITHUBTOKENENDPOINT.name(), "https://github.com/login/oauth/access_token", "Github Token Exchange URL");
-		settingDto.addSetting(Settings.GITHUBCLIENTID.name(), "Undefined","Generated Github OAuth2 client ID");
-		settingDto.addSetting(Settings.GITHUBCLIENTSECRET.name(),"Undefined","Generated Github OAuth2 client secret");
+		settingDto.addSetting(Settings.AMAZONAUTHENDPOINT.name(), "https://www.amazon.com/ap/oa", "Amazon OAuth2 URL");
+		settingDto.addSetting(Settings.AMAZONTOKENENDPOINT.name(), "https://api.amazon.com/auth/o2/token", "Amazon Token Exchange URL");
+		settingDto.addSetting(Settings.AMAZONCLIENTID.name(), "Undefined","Generated Amazon OAuth2 client ID");
+		settingDto.addSetting(Settings.AMAZONCLIENTSECRET.name(),"Undefined","Generated Amazon OAuth2 client secret");
+		settingDto.addSetting(Settings.YAHOOAUTHENDPOINT.name(), "https://api.login.yahoo.com/oauth2/request_auth", "Yahoo OAuth2 URL");
+		settingDto.addSetting(Settings.YAHOOTOKENENDPOINT.name(), "https://api.login.yahoo.com/oauth2/get_token", "Yahoo Token Exchange URL");
+		settingDto.addSetting(Settings.YAHOOCLIENTID.name(), "Undefined","Generated Yahoo OAuth2 client ID");
+		settingDto.addSetting(Settings.YAHOOCLIENTSECRET.name(),"Undefined","Generated Yahoo OAuth2 client secret");
 	}
 
 	@Override

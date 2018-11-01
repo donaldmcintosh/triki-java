@@ -43,6 +43,10 @@
 	<bean id="contentDto" class="net.opentechnology.triki.core.dto.ContentDto" />
 	<bean id="contentUtils" class="net.opentechnology.triki.core.resources.ContentUtils" />
 	<bean id="formModel" class="net.opentechnology.triki.core.resources.NodeFormModel" scope="prototype"/>
+	<bean id="amazonIdentityProvider" class="net.opentechnology.triki.auth.resources.AmazonIdentityProvider" />
+	<bean id="yahooIdentityProvider" class="net.opentechnology.triki.auth.resources.YahooIdentityProvider" />
+	<bean id="googleIdentityProvider" class="net.opentechnology.triki.auth.resources.GoogleIdentityProvider" />
+	<bean id="identityProviders" class="net.opentechnology.triki.auth.resources.IdentityProviders" />
 	
 	<bean id="authModule" class="net.opentechnology.triki.auth.module.AuthModule" />
 

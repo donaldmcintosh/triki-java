@@ -88,15 +88,19 @@ public class AuthenticateResource extends RenderResource {
 	@Inject
 	private final SettingDto settingDto;
 
+	@Inject
+	private final IdentityProviders identityProviders
+
 	public AuthenticateResource(){
 
 	}
 
-	public AuthenticateResource(CachedPropertyStore propStore, AuthenticationManager authMgr, Utilities utils, SettingDto settingDto) {
+	public AuthenticateResource(CachedPropertyStore propStore, AuthenticationManager authMgr, Utilities utils, SettingDto settingDto, IdentityProviders identityProviders) {
 		this.propStore = propStore
 		this.authMgr = authMgr
 		this.utils = utils
 		this.settingDto = settingDto
+		this.identityProviders = identityProviders
 	}
 
 	@POST
@@ -108,7 +112,8 @@ public class AuthenticateResource extends RenderResource {
 			@FormParam("triki:password") String password) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		try {
-			checkKnownAndForward(session, resp, "/"){ ->
+			String redirectUrl = session.getAttribute("redirectUrl")
+			checkKnownAndForward(session, resp, redirectUrl ?: "/"){ ->
 				authMgr.authenticate(login, password);
 			}
 		} catch (AuthenticationException e) {
@@ -125,7 +130,10 @@ public class AuthenticateResource extends RenderResource {
 		session.removeAttribute(SESSION_PERSON);
 		session.removeAttribute(SESSION_ID);
 
-		resp.sendRedirect("/");
+		String url =  propStore.getPrivateUrl();
+		String content = renderContent(url);
+
+		return content;
 	}
 
 	private setKnownPersonSession(HttpSession session, Resource person) {
@@ -182,48 +190,24 @@ public class AuthenticateResource extends RenderResource {
 
 	@Path("openidlogin")
 	@GET
-	public Response getStateLogin(@Context HttpServletResponse resp,@Context HttpServletRequest req, @QueryParam("authority") String authority){
+	public Response getStateLogin(@Context HttpServletResponse resp,@Context HttpServletRequest req, @QueryParam("idp") String idp){
 		HttpSession session = req.getSession();
 		String randomSecret = UUID.randomUUID().toString()
 		Algorithm algorithm = Algorithm.HMAC256(randomSecret);
 		URIBuilder authUrl
-		if(authority == 'google'){
-			authUrl = getGoogleParams()
-		} else if(authority == 'github'){
-			authUrl = getGithubParams()
-		} else {
-			logger.info("Unknown OpenID authority ${authority}")
-			resp.sendRedirect("/");
-			return
-		}
+		IdentityProvider identityProvider = identityProviders.getIdentityProvider(idp)
+		authUrl = identityProvider.getAuthUri()
 
 		logger.info("Signing state token with secret ${randomSecret}")
 		String secretState = JWT.create()
 				.withClaim('referer', req.getHeader("referer") ?: "/")
-				.withClaim('authority', authority)
+				.withClaim('idp', idp)
 				.sign(algorithm)
 		session.setAttribute(AuthModule.SessionVars.OPENID_STATE.toString(), secretState)
-
-		authUrl.addParameter("redirect_uri", settingDto.getSetting(AuthModule.Settings.OPENIDCONNECTREDIRECTURI.toString()))
-		authUrl.addParameter("scope", settingDto.getSetting(AuthModule.Settings.OPENIDSCOPE.toString()))
 		authUrl.addParameter("state", secretState)
 		
-		logger.info("Requesting Google login with ${authUrl.build().toString()}")
+		logger.info("Requesting ${idp} login with ${authUrl.build().toString()}")
 		resp.sendRedirect(authUrl.build().toString());
-	}
-
-	private URIBuilder getGoogleParams() {
-		def authUrl = new URIBuilder(settingDto.getSetting(AuthModule.Settings.GOOGLEAUTHENDPOINT.toString()))
-		authUrl.addParameter("client_id", settingDto.getSetting(AuthModule.Settings.GOOGLECLIENTID.toString()))
-		authUrl.addParameter("response_type", "code")
-		authUrl
-	}
-
-	private URIBuilder getGithubParams() {
-		def authUrl = new URIBuilder(settingDto.getSetting(AuthModule.Settings.GITHUBAUTHENDPOINT.toString()))
-		authUrl.addParameter("client_id", settingDto.getSetting(AuthModule.Settings.GITHUBCLIENTID.toString()))
-		authUrl.addParameter("grant_type", "client_credentials")
-		authUrl
 	}
 
 	@Path("openidconnect")
@@ -239,38 +223,30 @@ public class AuthenticateResource extends RenderResource {
 		Calendar timestampCal = Calendar.getInstance();
 		timestampCal.setTime(new Date());
 		String referer = "/"
-		String authority = "unknown"
+		String idp = "unknown"
 
 		String openIdState = session.getAttribute(AuthModule.SessionVars.OPENID_STATE.toString()) as String
 		if(openIdState != state){
 			logger.error("${openIdState} is not equal to anti-forge code ${state}, rejecting.")
 			resp.sendRedirect("/");
+			return;
 		}
 		else {
 			DecodedJWT jwt = JWT.decode(openIdState);
 			referer = jwt.getClaim('referer').asString()
-			authority = jwt.getClaim('authority').asString()
+			idp = jwt.getClaim('idp').asString()
 		}
 
+		IdentityProvider identityProvider = identityProviders.getIdentityProvider(idp)
 		
 		List<NameValuePair> form = new ArrayList<NameValuePair>();
 		form.add(new BasicNameValuePair("redirect_uri", settingDto.getSetting(AuthModule.Settings.OPENIDCONNECTREDIRECTURI.toString())));
 		form.add(new BasicNameValuePair("grant_type", "authorization_code"));
 		form.add(new BasicNameValuePair("code", code));
 
-		HttpPost poster
-		if(authority == 'google'){
-			poster = getGoogleTokenPost(form)
-		}
-		else if(authority == 'github'){
-			poster = getGithubTokenPost(form)
-		}
-		else {
-			logger.info("Unknown authority ${authority}")
-			resp.sendRedirect("/");	
-		}
+		HttpPost poster = identityProvider.getTokenPost(form)
 
-		logger.info("Calling ${authority} with params:")
+		logger.info("Calling ${idp} with params:")
 		form.each { param ->
 			logger.info("${param.name}: ${param.value}")
 		}
@@ -305,29 +281,16 @@ public class AuthenticateResource extends RenderResource {
 		else
 		{
 			logger.warn(response.getEntity().getContent().toString());
-			logger.warn("Google not not authenticated.");
+			logger.warn("Not not authenticated.");
 			resp.sendRedirect("/resource/login");
 		}
-	}
-
-	private HttpPost getGoogleTokenPost(ArrayList<NameValuePair> form) {
-		HttpPost poster = new HttpPost(settingDto.getSetting(AuthModule.Settings.GOOGLETOKENENDPOINT.toString()));
-		form.add(new BasicNameValuePair("client_id", settingDto.getSetting(AuthModule.Settings.GOOGLECLIENTID.toString())));
-		form.add(new BasicNameValuePair("client_secret", settingDto.getSetting(AuthModule.Settings.GOOGLECLIENTSECRET.toString())));
-		poster
-	}
-
-	private HttpPost getGithubTokenPost(ArrayList<NameValuePair> form) {
-		HttpPost poster = new HttpPost(settingDto.getSetting(AuthModule.Settings.GITHUBTOKENENDPOINT.toString()));
-		form.add(new BasicNameValuePair("client_id", settingDto.getSetting(AuthModule.Settings.GITHUBCLIENTID.toString())));
-		form.add(new BasicNameValuePair("client_secret", settingDto.getSetting(AuthModule.Settings.GITHUBCLIENTSECRET.toString())));
-		poster
 	}
 
 	private checkKnownAndForward(HttpSession session, HttpServletResponse resp, String redirectTo, Closure authMethod) {
 		Resource person = authMethod();
 		String id = person.getProperty(Dcterms.title).getString();
 		setKnownPersonSession(session, person);
+		session.removeAttribute("redirectUrl")
 		resp.sendRedirect(redirectTo);
 	}
 	

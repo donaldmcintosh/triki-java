@@ -68,7 +68,7 @@ public class AccessFilter implements Filter {
 		String url = props.getPrivateUrl() + path.replaceFirst("/", "");
 		logger.debug("Checking auth on " + url);
 		if(!authoriser.allowAccess(url)){		
-			session.setAttribute("origUrl", url);
+			session.setAttribute("redirectUrl", url);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/login");
 			dispatcher.forward(request, response);
 			return;
