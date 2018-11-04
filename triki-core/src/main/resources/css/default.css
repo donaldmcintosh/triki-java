@@ -386,3 +386,36 @@ img.imgembed {
    width: 900px;
 }
 
+.loginoption {
+   background-color: #444444;
+   margin: 1em 1em 2em 0em;
+   padding: 1em 1em 1em 0.5em;
+}
+
+.loginfield {
+
+}
+
+.loginlabel {
+  display: inline-block;
+  width: 10em;
+}
+
+.signintype {
+  font-weight: bold;
+}
+
+.signinwith {
+  width: 25em;
+  padding: 0.5em 3em 0.5em 3em;
+  margin: 0.5em;
+  font-weight: bold;
+  background-color: #333333;
+}
+
+.signinlogo {
+  height: 1.5em;
+  padding: 0 2em 0 0;
+  vertical-align:middle;
+}
+

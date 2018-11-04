@@ -470,23 +470,10 @@ login(props) ::= <<
 
         Login with an Identity Provider:
         <p>
-        <a href="/auth/openidlogin?authority=google">Sign in with Google</a><br>
-        <a href="/auth/openidlogin?authority=yahoo">Sign in with Yahoo!</a><br>
-        <a href="/auth/openidlogin?authority=amazon">Sign in with Amazon</a><br>
+        <a href="/auth/openidlogin?idp=google">Sign in with Google</a><br>
+        <a href="/auth/openidlogin?idp=yahoo">Sign in with Yahoo!</a><br>
+        <a href="/auth/openidlogin?idp=amazon">Sign in with Amazon</a><br>
 
-        <p>
-        Signin with <a href="https://indieauth.com/">IndieAuth</a>:
-        <p>
-
-        <form action="https://indieauth.com/auth" method="get">
-          <label for="url">Web Address:</label>
-          <input id="url" type="text" name="me" placeholder="yourdomain.com" />
-          <input type="hidden" name="client_id" value="https://www.yourdomain.net/" />
-          <input type="hidden" name="redirect_uri" value="https://www.yourdomain.net/auth/indie" />
-          <input type="hidden" name="state" value="jwiusuerujs" />
-          <br>
-          <input type="image" src="/content/login_48x20.png" value="Login"/><br>
-        </form>
 
     $conffooter()$
 >>

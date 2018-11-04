@@ -52,7 +52,6 @@ Feature: Authorisation and authentication
 		And get resource /content/upload and check contains
 			| Select |	
 
-		@dev
 	Scenario: Check logoff
 		Given initialise triki 
 		And create empty directory /tmp/content

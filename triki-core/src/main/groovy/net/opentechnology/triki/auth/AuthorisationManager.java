@@ -27,6 +27,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import net.opentechnology.triki.auth.resources.AuthenticateResource;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
@@ -70,8 +71,8 @@ public class AuthorisationManager {
 		else if(publicAccess(url)){
 			return true;
 		}
-		else if(session.getAttribute("person") != null){
-			Resource person = (Resource) session.getAttribute("person");
+		else if(session.getAttribute(AuthenticateResource.SESSION_PERSON) != null){
+			Resource person = (Resource) session.getAttribute(AuthenticateResource.SESSION_PERSON);
 			if(authorise(url, person)){
 				return true;
 			}
@@ -80,11 +81,19 @@ public class AuthorisationManager {
 				return true;
 			}
 		}
+		else if(session.getAttribute(AuthenticateResource.SESSION_PROFILE) != null){
+			List<Resource> resourceGroups = getResourceGroups(url);
+			for(Resource urlGroup: resourceGroups){
+				if(urlGroup == groupDto.getGroup("identified")){
+					return true;
+				}
+			}
+		}
 		
 		return false;
 	}
 	
-	private boolean isAdmin(Resource person) {
+	public boolean isAdmin(Resource person) {
 		List<Resource> personGroups = getPersonGroups(person);
 		Resource publicGroup = groupDto.getGroup("admin");
 		for(Resource group: personGroups)

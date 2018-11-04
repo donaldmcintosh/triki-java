@@ -9,6 +9,7 @@ import net.opentechnology.triki.auth.module.AuthModule
 import net.opentechnology.triki.core.boot.CachedPropertyStore
 import net.opentechnology.triki.core.boot.Utilities
 import net.opentechnology.triki.core.dto.SettingDto
+import org.apache.http.client.utils.URIBuilder
 import org.apache.http.impl.client.CloseableHttpClient
 import spock.lang.Specification
 
@@ -25,12 +26,14 @@ class AuthenticateResourceTest extends Specification {
     AuthenticationManager mockAuthenticationManager = Mock(AuthenticationManager)
     Utilities mockUtilities = Mock(Utilities)
     SettingDto mockSettingDto = Mock(SettingDto)
+    IdentityProviders mockIdentityProviders = Mock(IdentityProviders)
+    IdentityProvider mockIdentityProvider = Mock(IdentityProvider)
 
     AuthenticateResource authenticateResource
 
 
     def setup() {
-        authenticateResource = new AuthenticateResource(mockCachedPropertyStore, mockAuthenticationManager, mockUtilities, mockSettingDto)
+        authenticateResource = new AuthenticateResource(mockCachedPropertyStore, mockAuthenticationManager, mockUtilities, mockSettingDto, mockIdentityProviders)
     }
 
     def "OpenID Auth Login request"() {
@@ -43,19 +46,16 @@ class AuthenticateResourceTest extends Specification {
 
         when: 'A call to login using OpenID'
 
-        authenticateResource.getStateLogin(resp, req, '/blog/frenchdivide')
+        authenticateResource.getStateLogin(resp, req, 'google')
 
         then: 'Should authenticate'
 
+        1 * mockIdentityProviders.getIdentityProvider('google') >> mockIdentityProvider
+        1 * mockIdentityProvider.getAuthUri() >> new URIBuilder('http://www.google.com/auth2')
         1 * req.getSession() >> session
-        1 * session.getAttribute(AuthModule.SessionVars.OPENID_STATE.toString()) >> 'thebigsecret'
-        1 * mockSettingDto.getSetting(AuthModule.Settings.GOOGLEAUTHENDPOINT.toString()) >> 'http://www.google.com/auth2'
-        1 * mockSettingDto.getSetting(AuthModule.Settings.GOOGLECLIENTID.toString()) >> 'myClientId1'
-        1 * mockSettingDto.getSetting(AuthModule.Settings.OPENIDCONNECTREDIRECTURI.toString()) >> 'http://www.donaldmcintosh.net/auth/openid'
-        1 * mockSettingDto.getSetting(AuthModule.Settings.OPENIDSCOPE.toString()) >> 'openid'
 
         1 * resp.sendRedirect(_) >> { args  ->
-            assert args[0] == 'http://www.google.com/auth2?client_id=myClientId1&redirect_uri=http%3A%2F%2Fwww.donaldmcintosh.net%2Fauth%2Fopenid&scope=openid&response_type=code&state=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwYXRoIjoiL2Jsb2cvZnJlbmNoZGl2aWRlIn0.s3BlYSqTw5dlkPcY3jhvjWpy7YHetWbJjOjUmpuo6_g'
+            assert args[0] ==~ /http:\/\/www\.google\.com\/auth2\?state=.*$/
         }
 
     }

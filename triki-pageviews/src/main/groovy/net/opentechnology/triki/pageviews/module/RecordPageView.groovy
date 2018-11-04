@@ -25,6 +25,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import net.opentechnology.triki.auth.resources.Profile;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 
@@ -44,7 +45,7 @@ public class RecordPageView implements PostRenderListener{
     	view.setUrl(url);
     	view.setAgent(req.getHeader("User-Agent"));
     	view.setForwardedFor(req.getHeader("X-Forwarded-For"));
-    	view.setLogin((String) session.getAttribute(AuthenticateResource.SESSION_ID));
+    	view.setLogin(((Profile) session.getAttribute(AuthenticateResource.SESSION_PROFILE))?.getPreferredDisplay());
     	template.sendBody("seda:pageviews", view);	
 	}
 

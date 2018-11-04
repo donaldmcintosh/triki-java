@@ -52,10 +52,6 @@ public class PageDto extends BaseDto {
 		Resource page = model.createResource(resName);
 		checkResource(page, RDF.type, type);
 		checkString(page, DCTerms.title, title);
-		// Not working, creating duplicates
-		//Calendar timestampCal = Calendar.getInstance();
-		//Literal timestampLiteral = model.createTypedLiteral(timestampCal);
-		//checkLiteral(page, DCTerms.created, timestampLiteral);
 		checkResource(page, Triki.restricted, groupDto.getGroup(restricted));
 
 		return page;

@@ -69,7 +69,7 @@ public class AccessFilter implements Filter {
 		logger.debug("Checking auth on " + url);
 		if(!authoriser.allowAccess(url)){		
 			session.setAttribute("redirectUrl", url);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/login");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/sitelogin");
 			dispatcher.forward(request, response);
 			return;
 		}
