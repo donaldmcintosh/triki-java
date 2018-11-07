@@ -76,7 +76,6 @@ public class AuthModule implements Module {
 	private PropertyDto propertyDto;
 
 	public enum Settings {
-		OPENIDSCOPE,
 		OPENIDCONNECTREDIRECTURI,
 		INDIELOGINROOT,
 		INDIELOGINCLIENTID,
@@ -85,9 +84,22 @@ public class AuthModule implements Module {
 		GOOGLETOKENENDPOINT,
 		GOOGLECLIENTID,
 		GOOGLECLIENTSECRET,
-		TWITTERAUTHROOT,
+		GOOGLEOPENIDSCOPE,
+		TWITTERAUTHENDPOINT,
 		TWITTERCLIENTID,
-		TWITTERCLIENTSECRET
+		TWITTERCLIENTSECRET,
+		YAHOOAUTHENDPOINT,
+		YAHOOTOKENENDPOINT,
+		YAHOOCLIENTID,
+		YAHOOCLIENTSECRET,
+		YAHOOOPENIDSCOPE,
+		YAHOOPROFILEENDPOINT,
+		AMAZONAUTHENDPOINT,
+		AMAZONTOKENENDPOINT,
+		AMAZONCLIENTID,
+		AMAZONCLIENTSECRET,
+		AMAZONOPENIDSCOPE,
+		AMAZONPROFILEENDPOINT,
 	}
 
 	public enum SessionVars {
@@ -110,6 +122,7 @@ public class AuthModule implements Module {
 		groupDto.addGroup("friends", "Friends group");
 		groupDto.addGroup("family", "Family group");
 		groupDto.addGroup("personal", "Personal group");
+		groupDto.addGroup("identified", "Identified psuedo group");
 		
 		def adminDetails = [:]
 		adminDetails."title" = "Administrator"
@@ -127,6 +140,7 @@ public class AuthModule implements Module {
 		authRoot.addProperty(Triki.unrestricted, ".*\\.css");
 		authRoot.addProperty(Triki.unrestricted, ".*\\.js");
 		authRoot.addProperty(Triki.unrestricted, ".*\\.ico");
+		authRoot.addProperty(Triki.unrestricted, ".*\\.svg");
 	}
 
 	private void initPrefixes() {
@@ -144,13 +158,12 @@ public class AuthModule implements Module {
 	}
 
 	private void initPages() {
-		pageDto.addPage("auth/indie", typeDto.getType("auth"), "Authorise IndieLogin", "public");
+		pageDto.addPage("sitelogin", typeDto.getType("sitelogin"), "Site login", "public");
 		pageDto.addPage("auth/openidlogin", typeDto.getType("auth"), "Authorise OpenID Login", "public");
 		pageDto.addPage("auth/openidconnect", typeDto.getType("auth"), "Authorise OpenID Token Exchange", "public");
 	}
 
 	private void initSettings() {
-		settingDto.addSetting(Settings.OPENIDSCOPE.name(), "openid email", "OpenID scope");
 		settingDto.addSetting(Settings.OPENIDCONNECTREDIRECTURI.name(), "https://www.yoursite.net/auth/openidconnect", "OpenID Connect Redirect URL");
 		settingDto.addSetting(Settings.INDIELOGINROOT.name(), "https://indieauth.com/auth", "IndieLogin Login URL");
 		settingDto.addSetting(Settings.INDIELOGINCLIENTID.name(), "https://www.yoursite.net/", "Indie Login client ID");
@@ -159,6 +172,22 @@ public class AuthModule implements Module {
 		settingDto.addSetting(Settings.GOOGLETOKENENDPOINT.name(), "https://oauth2.googleapis.com/token", "Google Token Exchange URL");
 		settingDto.addSetting(Settings.GOOGLECLIENTID.name(), "Undefined","Generated Google OAuth2 client ID");
 		settingDto.addSetting(Settings.GOOGLECLIENTSECRET.name(),"Undefined","Generated Google OAuth2 client secret");
+		settingDto.addSetting(Settings.GOOGLEOPENIDSCOPE.name(), "openid email profile", "Google OpenID scope");
+		settingDto.addSetting(Settings.TWITTERAUTHENDPOINT.name(), "https://api.twitter.com/oauth2/token", "Twitter OAuth2 URL");
+		settingDto.addSetting(Settings.TWITTERCLIENTID.name(), "Undefined","Generated Twitter OAuth2 client ID");
+		settingDto.addSetting(Settings.TWITTERCLIENTSECRET.name(),"Undefined","Generated Twitter OAuth2 client secret");
+		settingDto.addSetting(Settings.AMAZONAUTHENDPOINT.name(), "https://www.amazon.com/ap/oa", "Amazon OAuth2 URL");
+		settingDto.addSetting(Settings.AMAZONTOKENENDPOINT.name(), "https://api.amazon.com/auth/o2/token", "Amazon Token Exchange URL");
+		settingDto.addSetting(Settings.AMAZONCLIENTID.name(), "Undefined","Generated Amazon OAuth2 client ID");
+		settingDto.addSetting(Settings.AMAZONCLIENTSECRET.name(),"Undefined","Generated Amazon OAuth2 client secret");
+		settingDto.addSetting(Settings.AMAZONOPENIDSCOPE.name(), "profile", "Amazon OpenID scope");
+		settingDto.addSetting(Settings.AMAZONPROFILEENDPOINT.name(), "https://api.amazon.com/user/profile", "Amazon profile endpoint");
+		settingDto.addSetting(Settings.YAHOOAUTHENDPOINT.name(), "https://api.login.yahoo.com/oauth2/request_auth", "Yahoo OAuth2 URL");
+		settingDto.addSetting(Settings.YAHOOTOKENENDPOINT.name(), "https://api.login.yahoo.com/oauth2/get_token", "Yahoo Token Exchange URL");
+		settingDto.addSetting(Settings.YAHOOCLIENTID.name(), "Undefined","Generated Yahoo OAuth2 client ID");
+		settingDto.addSetting(Settings.YAHOOCLIENTSECRET.name(),"Undefined","Generated Yahoo OAuth2 client secret");
+		settingDto.addSetting(Settings.YAHOOOPENIDSCOPE.name(), "openid", "Yahoo OpenID scope");
+		settingDto.addSetting(Settings.YAHOOPROFILEENDPOINT.name(), 'https://social.yahooapis.com/v1/user/${guid}/profile?format=json', "Yahoo profile endpoint");
 	}
 
 	@Override

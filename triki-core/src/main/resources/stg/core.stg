@@ -468,6 +468,13 @@ login(props) ::= <<
            <input type="image" src="/content/login_48x20.png" value="Login"/><br>
         </form>
 
+        Login with an Identity Provider:
+        <p>
+        <a href="/auth/openidlogin?idp=google">Sign in with Google</a><br>
+        <a href="/auth/openidlogin?idp=yahoo">Sign in with Yahoo!</a><br>
+        <a href="/auth/openidlogin?idp=amazon">Sign in with Amazon</a><br>
+
+
     $conffooter()$
 >>
 

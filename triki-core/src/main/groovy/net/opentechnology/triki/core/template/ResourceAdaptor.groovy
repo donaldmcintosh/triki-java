@@ -19,16 +19,11 @@
 *
 ************************************************************************************/
 
-package net.opentechnology.triki.core.template;
+package net.opentechnology.triki.core.template
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import net.opentechnology.triki.auth.resources.Profile
 
 import javax.inject.Inject
-import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpSession;
 
 import net.opentechnology.triki.auth.AuthorisationManager
@@ -39,24 +34,13 @@ import net.opentechnology.triki.core.renderer.PublicURL
 import net.opentechnology.triki.schema.Triki;
 import net.opentechnology.triki.sparql.SparqlExecutor;
 import net.opentechnology.triki.auth.resources.AuthenticateResource;
-import net.opentechnology.triki.schema.Dcterms;
-
-import org.apache.commons.configuration.Configuration;
-import org.apache.cxf.transport.Session
+import net.opentechnology.triki.schema.Dcterms
 import org.apache.log4j.Logger;
 import org.stringtemplate.v4.Interpreter;
 import org.stringtemplate.v4.ModelAdaptor;
 import org.stringtemplate.v4.ST;
-import org.stringtemplate.v4.misc.STNoSuchPropertyException;
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Qualifier
-
-import org.apache.jena.query.Query;
-import org.apache.jena.query.QueryExecution;
-import org.apache.jena.query.QueryExecutionFactory;
-import org.apache.jena.query.QueryFactory;
-import org.apache.jena.query.QuerySolution;
-import org.apache.jena.query.ResultSet;
+import org.stringtemplate.v4.misc.STNoSuchPropertyException
+import org.apache.jena.query.QuerySolution
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
@@ -106,13 +90,13 @@ public class ResourceAdaptor implements ModelAdaptor {
 			values.add("Unexpected template type " + o.getClass());
 		}
 		
-		if(propertyName.equals("sessionid"))
+		if(propertyName.equals("sessionId"))
 		{
 			return getSessionId()
 		}
-		else if(propertyName.equals("sessionhome"))
+		else if(propertyName.equals("isAdmin"))
 		{
-			return getSessionHome()
+			return isAdmin()
 		}
 		else if(propertyName.equals("pageNextList"))
 		{
@@ -222,47 +206,29 @@ public class ResourceAdaptor implements ModelAdaptor {
 	}
 
 	private getSessionId() {
-		if(session != null && session.getAttribute(AuthenticateResource.SESSION_ID) != null)
+		if(session != null && session.getAttribute(AuthenticateResource.SESSION_PROFILE) != null)
 		{
-			String id = session.getAttribute(AuthenticateResource.SESSION_ID);
-			return truncateId(id)
-		}
-		else if(session != null && session.getAttribute(AuthenticateResource.SESSION_PERSON) != null)
-		{
-			Resource person = session.getAttribute(AuthenticateResource.SESSION_PERSON);
-			return truncateId(person.getProperty(Dcterms.title).getString());
-		}
-		else {
-			return null;
-		}
-	}
-	
-	private getSessionHome() {
-		if(session != null && session.getAttribute(AuthenticateResource.SESSION_PERSON) != null)
-		{
-			Resource person = session.getAttribute(AuthenticateResource.SESSION_PERSON);
-			Resource home = person.getPropertyResourceValue(Triki.home);
-			if(home != null)
-			{
-				return utils.makeUrlPublic(home.getURI().toString());
-			}
-			else 
-			{
-				return null;
-			}
+			Profile profile = session.getAttribute(AuthenticateResource.SESSION_PROFILE) as Profile;
+			return profile.getPreferredDisplay()
 		}
 		else {
 			return null;
 		}
 	}
 
-	private truncateId(String id) {
-		if(id.length() > 25)
+	private isAdmin() {
+		if(session != null && session.getAttribute(AuthenticateResource.SESSION_PROFILE) != null)
 		{
-			return id.substring(0,24)
+			Profile profile = session.getAttribute(AuthenticateResource.SESSION_PROFILE) as Profile;
+			if(profile.getIsAdmin()){
+				return true
+			}
+			else {
+				return null
+			}
 		}
-		else{
-			return id;
+		else {
+			return null;
 		}
 	}
 	

@@ -33,23 +33,25 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import java.util.Optional;
+
 public class AuthenticationManager {
 
 	@Inject	@Qualifier("siteModel")
     private Model model;
 	
-	public Resource authenticate(String login, String password) throws AuthenticationException {
-		Resource person = getPersonByLogin(login, password);
+	public Optional<Resource> authenticate(String login, String password) throws AuthenticationException {
+		Optional<Resource> person = getPersonByLogin(login, password);
 		return person;
 	}
 	
-	public Resource authenticateByWebsite(String website) throws AuthenticationException {
-		Resource person = getPersonByWebsite(website);
+	public Optional<Resource> authenticateByWebsite(String website) throws AuthenticationException {
+		Optional<Resource> person = getPersonByWebsite(website);
 		return person;
 	}
 
-	public Resource authenticateByEmail(String email) throws AuthenticationException {
-		Resource person = getPersonByEmail(email);
+	public Optional<Resource> authenticateByEmail(String email) throws AuthenticationException {
+		Optional<Resource> person = getPersonByEmail(email);
 		return person;
 	}
 	
@@ -79,7 +81,7 @@ public class AuthenticationManager {
 		return auth;
 	}
 
-	private Resource getPersonByLogin(String login, String password) throws AuthenticationException{
+	private Optional<Resource> getPersonByLogin(String login, String password) throws AuthenticationException{
 		String queryString = 
 				"PREFIX foaf: <http://xmlns.com/foaf/0.1/> " +
 				"PREFIX triki: <http://www.opentechnology.net/triki/0.1/> " +
@@ -94,19 +96,10 @@ public class AuthenticationManager {
 
 		QueryExecution qe = QueryExecutionFactory.create(query, model);
 		ResultSet results = qe.execSelect();
-		if(results.hasNext()){
-			QuerySolution soln = results.next();
-			Resource person = soln.getResource("person");
-			qe.close();	
-			return person;
-		}
-		else {
-			qe.close();	
-			throw new AuthenticationException("Could not find person with login " + login);
-		}
+		return getPersonIfKnown(qe, results);
 	}
 	
-	private Resource getPersonByWebsite(String website) throws AuthenticationException{
+	private Optional<Resource> getPersonByWebsite(String website) throws AuthenticationException{
 		String queryString =
 				"PREFIX foaf: <http://xmlns.com/foaf/0.1/> " +
 				"PREFIX triki: <http://www.opentechnology.net/triki/0.1/> " +
@@ -120,19 +113,10 @@ public class AuthenticationManager {
 
 		QueryExecution qe = QueryExecutionFactory.create(query, model);
 		ResultSet results = qe.execSelect();
-		if(results.hasNext()){
-			QuerySolution soln = results.next();
-			Resource person = soln.getResource("person");
-			qe.close();
-			return person;
-		}
-		else {
-			qe.close();
-			throw new AuthenticationException("Could not find person with id " + website);
-		}
+		return getPersonIfKnown(qe, results);
 	}
 
-	private Resource getPersonByEmail(String email) throws AuthenticationException{
+	private Optional<Resource> getPersonByEmail(String email) {
 		String queryString =
 						"PREFIX foaf: <http://xmlns.com/foaf/0.1/> " +
 						"PREFIX dc: <http://purl.org/dc/terms/> " +
@@ -146,15 +130,19 @@ public class AuthenticationManager {
 
 		QueryExecution qe = QueryExecutionFactory.create(query, model);
 		ResultSet results = qe.execSelect();
+		return getPersonIfKnown(qe, results);
+	}
+
+	private Optional<Resource> getPersonIfKnown(QueryExecution qe, ResultSet results) {
 		if(results.hasNext()){
 			QuerySolution soln = results.next();
 			Resource person = soln.getResource("person");
 			qe.close();
-			return person;
+			return Optional.of(person);
 		}
 		else {
 			qe.close();
-			throw new AuthenticationException("Could not find person with email " + email);
+			return Optional.ofNullable(null);
 		}
 	}
 

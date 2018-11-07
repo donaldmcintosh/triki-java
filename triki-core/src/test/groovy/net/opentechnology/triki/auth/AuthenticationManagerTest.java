@@ -23,6 +23,7 @@ package net.opentechnology.triki.auth;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Optional;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
@@ -50,26 +51,28 @@ public class AuthenticationManagerTest {
 		String password = "donald2";
 		AuthenticationManager authenticator = new AuthenticationManager();
 		authenticator.setModel(model);
-		Resource person = authenticator.authenticate(login, password);
+		Optional<Resource> person = authenticator.authenticate(login, password);
 		Resource expected = model.getResource("http://www.donaldmcintosh.net/resource/joe+bloggs");
-		Assert.assertTrue(person.equals(expected));
+		Assert.assertTrue(person.get().equals(expected));
 	}
 
-	@Test(expected=AuthenticationException.class)
+	@Test
 	public void testFailureMissingEmail() throws AuthenticationException {
 		String email = "fred.bloggs@yahoo.co.uk";
 		String password = "password123";
 		AuthenticationManager authenticator = new AuthenticationManager();
 		authenticator.setModel(model);
-		Resource person = authenticator.authenticate(email, password);
+		Optional<Resource> person = authenticator.authenticate(email, password);
+		assert !person.isPresent();
 	}
 
-	@Test(expected=AuthenticationException.class)
+	@Test
 	public void testFailureBadPassword() throws AuthenticationException {
 		String email = "joe.bloggs@yahoo.co.uk";
 		String password = "guess";
 		AuthenticationManager authenticator = new AuthenticationManager();
 		authenticator.setModel(model);
-		Resource person = authenticator.authenticate(email, password);
+		Optional<Resource> person = authenticator.authenticate(email, password);
+		assert !person.isPresent();
 	}
 }

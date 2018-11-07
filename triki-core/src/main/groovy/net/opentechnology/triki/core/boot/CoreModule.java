@@ -206,6 +206,7 @@ public class CoreModule implements Module {
 		typeDto.addTypeRestricted("login", "Login", publicGroup);
 		typeDto.addType("auth", "Auth");
 		typeDto.addType("query", "Query");
+		typeDto.addType("sitelogin", "Site login");
 		
 		typeDto.addType("page", "Standard");
 		typeDto.addTypeRestricted("home", "Home", publicGroup);
@@ -226,6 +227,7 @@ public class CoreModule implements Module {
 		mediaTypeDto.addMediaType(MediaType.TEXT_PLAIN, "stg", "10");
 		mediaTypeDto.addMediaType(MediaType.TEXT_PLAIN, "js", "86400");
 		mediaTypeDto.addMediaType(MediaType.TEXT_PLAIN, "log", "10");
+		mediaTypeDto.addMediaType("image/svg+xml", "svg", "10");
 	}
 
 	private void initNamespacePrefixes() {
@@ -260,7 +262,7 @@ public class CoreModule implements Module {
 		pageDto.addPage("graph", typeDto.getType("graph"), "Graph Explorer", "admin");
 		pageDto.addPage("template", typeDto.getType("template"), "Template Editor", "admin");
 		pageDto.addPage("conf", typeDto.getType("conf"), "Configuration", "admin");
-		pageDto.addPage("login", typeDto.getType("login"), "Login", "public");
+		pageDto.addPage("login", typeDto.getType("login"), "Console login", "public");
 		pageDto.addPage("auth", typeDto.getType("auth"), "Authorise", "public");
 		pageDto.addIndexPage("blogs", typeDto.getType("blogs"), "Blogs Index", "public", typeDto.getType("blog"));
 	}

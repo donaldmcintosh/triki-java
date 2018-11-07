@@ -51,7 +51,6 @@ import net.opentechnology.triki.core.template.StringTemplateValidator;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider
 
-
 import javax.ws.rs.core.Form
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.NewCookie
@@ -150,9 +149,14 @@ class TrikiClient {
 	{
 		def contentPath = "/auth/logoff"
 		def target = initTarget(contentPath)
-		String response = target.request().cookie(new NewCookie(SESSION_COOKIE, sessionId)).get(String.class);
-		
-		return response
+		Response response = target.request().cookie(new NewCookie(SESSION_COOKIE, sessionId)).get(Response.class)
+
+		String redirect = response.getHeaderString("Location")
+		URL redir = new URL(redirect)
+		def redirTarget = initTarget(redir.path)
+
+		String reply = redirTarget.request().cookie(new NewCookie(SESSION_COOKIE, sessionId)).get(String.class);
+		return reply
 	}
 	
 	def Response getResponse(String resource)
