@@ -7,6 +7,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix scriptcourse: <http://www.donaldmcintosh.net/resource/scriptcourse/> .
 @prefix resource: <http://www.donaldmcintosh.net/resource/> .
+@prefix property: <http://www.donaldmcintosh.net/property/> .
 
 <http://www.foaf.org/0.1/Person> triki:restricted triki:public .
 
@@ -121,3 +122,15 @@ scriptcourse:environment a resource:module ;
 						triki:restricted triki:public ;
 						dcterms:description "Environment" ;
 						triki:seq "3".
+
+property:webcontent  a         triki:Property ;
+        dcterms:identifier     triki:webcontent ;
+        dcterms:title          "webcontent" ;
+        triki:propertyrenderer "markdownRenderer" ;
+        triki:order            "16"^^xsd:int .
+
+resource:note1          a resource:story ;
+                        triki:restricted triki:public ;
+                        dcterms:description "France holiday" ;
+                        triki:webcontent "[hello](http://www.donaldmcintosh.net/hello)" ;
+                        dcterms:created "2008-09-22T19:00:00"^^xsd:dateTime .

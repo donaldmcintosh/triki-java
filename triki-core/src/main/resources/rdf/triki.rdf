@@ -174,7 +174,15 @@
 
   <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/itemParser" vs:term_status="stable" rdfs:label="Item parser" rdfs:comment="Item parser">
     <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
-  </rdf:Property> 
+  </rdf:Property>
+
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/propertyrenderer" vs:term_status="stable" rdfs:label="Property renderer" rdfs:comment="A property renderer name">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>
+
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/webcontent" vs:term_status="stable" rdfs:label="Web content" rdfs:comment="Web content">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>
 
 </rdf:RDF>
 

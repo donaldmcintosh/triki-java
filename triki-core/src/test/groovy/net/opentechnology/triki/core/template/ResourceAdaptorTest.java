@@ -29,10 +29,12 @@ import java.io.FileNotFoundException;
 import javax.servlet.http.HttpSession;
 
 import net.opentechnology.triki.core.boot.TrikiBaseTest;
+import net.opentechnology.triki.core.dto.PropertyDto;
 import net.opentechnology.triki.core.expander.ExpanderException;
 import net.opentechnology.triki.core.expander.SourceExpander;
 import net.opentechnology.triki.core.renderer.DateRenderer;
 
+import net.opentechnology.triki.core.renderer.MarkdownRenderer;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,6 +55,7 @@ public class ResourceAdaptorTest extends TrikiBaseTest {
 	
 	@Mock private SourceExpander expander;
 	@Mock private Resource person;
+	@Mock private MarkdownRenderer markdownRenderer;
 	
 	private Logger logger = Logger.getLogger(this.getClass());
 	
@@ -65,6 +68,7 @@ public class ResourceAdaptorTest extends TrikiBaseTest {
 		ResourceAdaptor ra = new ResourceAdaptor(model);
 		ra.setExpander(expander);
 		ra.setAuthManager(authMgr);
+		ra.setMarkdownRenderer(new MarkdownRenderer());
 		STGroup g = new STGroupString("", templateDef, '$', '$');
 		g.registerModelAdaptor(String.class, ra);
 		g.registerModelAdaptor(RDFNode.class, ra);
@@ -212,6 +216,15 @@ public class ResourceAdaptorTest extends TrikiBaseTest {
 		String templateDef = "foo(resource) ::= \"$resource.dcterms_weather$\"";
 		String result = render(resource, templateDef);
 		assertEquals(result, "Monday: Sunny Intervals, Maximum Temperature: 8\u00B0C (46\u00B0F)");
+	}
+
+	@Test
+	public void testInlineRenderer() throws TemplateException, ExpanderException{
+		when(authMgr.allowAccess(Matchers.anyString())).thenReturn(true);
+		String resource = "http://www.donaldmcintosh.net/resource/note1";
+		String templateDef = "foo(resource) ::= \"Include this $resource.triki_webcontent$\"";
+		String result = render(resource, templateDef);
+		assertEquals(result, "Include this <a href=\"http://www.donaldmcintosh.net/hello\">hello</a>\n");
 	}
 	
 }

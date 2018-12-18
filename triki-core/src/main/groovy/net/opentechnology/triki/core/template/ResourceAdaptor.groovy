@@ -22,6 +22,8 @@
 package net.opentechnology.triki.core.template
 
 import net.opentechnology.triki.auth.resources.Profile
+import net.opentechnology.triki.core.dto.PropertyDto
+import net.opentechnology.triki.core.renderer.MarkdownRenderer
 
 import javax.inject.Inject
 import javax.servlet.http.HttpSession;
@@ -66,8 +68,11 @@ public class ResourceAdaptor implements ModelAdaptor {
 	
 	@Inject
 	private final Utilities utils;
-	
-    public ResourceAdaptor(Model model) throws TemplateException{
+
+	@Inject
+	private MarkdownRenderer markdownRenderer
+
+	public ResourceAdaptor(Model model) throws TemplateException{
         this.logger = Logger.getLogger(this.getClass());
 		this.model = model;
     }
@@ -131,8 +136,15 @@ public class ResourceAdaptor implements ModelAdaptor {
 		values = getMultipleProperty(propertyName);
 		if(values.size() == 1){
 			try {
-				if(translateToProperty(propertyName).equals(Triki.include)){
-					values.set(0, expander.expand(values.get(0).toString()));
+				Property rdfProperty = translateToProperty(propertyName)
+				if(rdfProperty.equals(Triki.include)){
+					return expander.expand(values.get(0).toString());
+				}
+				else if ([Dcterms.description, Triki.webcontent].contains(rdfProperty)){
+					return markdownRenderer.render(values.get(0).toString())
+				}
+				else {
+					return values.get(0)
 				}
 			}
 			catch(TemplateException te){
@@ -144,8 +156,6 @@ public class ResourceAdaptor implements ModelAdaptor {
 				logger.error(ee.getMessage());
 				return "";
 			}
-			
-			return values.get(0);
 		}
 		else {
 			if(session?.getAttribute("pageNextList") == Boolean.TRUE)
@@ -451,6 +461,10 @@ public class ResourceAdaptor implements ModelAdaptor {
 
 	public void setAuthManager(AuthorisationManager authManager) {
 		this.authManager = authManager;
+	}
+
+	void setMarkdownRenderer(MarkdownRenderer markdownRenderer) {
+		this.markdownRenderer = markdownRenderer
 	}
 
 }
