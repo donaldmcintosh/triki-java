@@ -2,6 +2,7 @@ package net.opentechnology.triki.core.renderer
 
 import com.vladsch.flexmark.ast.Document
 import com.vladsch.flexmark.ext.media.tags.MediaTagsExtension
+import com.vladsch.flexmark.ext.tables.TablesExtension
 import com.vladsch.flexmark.html.HtmlRenderer
 import com.vladsch.flexmark.parser.Parser
 import com.vladsch.flexmark.profiles.pegdown.Extensions
@@ -14,7 +15,7 @@ class MarkdownRenderer {
 
     static final MutableDataHolder OPTIONS = new MutableDataSet()
             .set(HtmlRenderer.HARD_BREAK, "\n")
-            .set(Parser.EXTENSIONS, Arrays.asList(MediaTagsExtension.create()));
+            .set(Parser.EXTENSIONS, Arrays.asList(MediaTagsExtension.create(), TablesExtension.create()));
 
     static final DataHolder pegdownOptions = PegdownOptionsAdapter.flexmarkOptions(
             Extensions.ALL
