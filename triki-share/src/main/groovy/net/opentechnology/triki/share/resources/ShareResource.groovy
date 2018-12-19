@@ -133,7 +133,9 @@ public class ShareResource {
 		resourceDto.addCreatedNow(res);
 		res.addProperty(DCTerms.title, subject);
 		res.addProperty(DCTerms.description, note);
-		res.addProperty(Triki.thumbimg, imgurl);
+		if(imgurl){
+			res.addProperty(Triki.thumbimg, imgurl);
+		}
 		res.addProperty(Triki.restricted, groupDto.getGroup("public"));
 		
 		if(twitter != null && twitter.equalsIgnoreCase("yes"))
