@@ -17,7 +17,7 @@ background: white url("/content/wait.gif") right center no-repeat;
 <div id="all">
 	<div id="banner">
 		<ul id="confmenuright">
-			<li class="confitemright"><img class="logo" src="/content/trikiLogo_72x40.png"/></li>
+			<li class="confitemright"><img class="logo" src="/content/trikiLogo_90x50.svg"/></li>
 		</ul>
 	</div>
 	<div id="main">
@@ -45,26 +45,23 @@ background: white url("/content/wait.gif") right center no-repeat;
 <script src="/content/jquery-ui.min.js"></script>
 <script src="/content/triki.js"></script>
 </head>
-<body">
+<body>
+	<nav id="main-menu" class="menu">
+	    <div class="menu-dropdown">
+            <ul class="nav-menu">
+                <li><img class="logo" src="/content/trikiLogo_90x50.svg"/></li>
+                <li><img class="icon" src="/content/inOutTree_50x50.svg">
+                       <input class="search" value="Find..."
+                              onblur="if(this.value==''){ this.value='Find...'; this.style.color='#BBB';}"
+                              onfocus="if(this.value=='Find...'){ this.value=''; this.style.color='#000';}">
 
-<div id="all">
-	<div id="banner">
-		<ul id="confmenu">
-			<li class="confitem"><img class="icon" src="/content/inOutTree_25x25.png">
-                              
-                                   <input id="search" value="Find..."
-                                          onblur="if(this.value==''){ this.value='Find...'; this.style.color='#BBB';}"
-                                          onfocus="if(this.value=='Find...'){ this.value=''; this.style.color='#000';}">
-                              
-			</li>
-			<li class="confitem"><a class="iconlabel" href="/graph/addnode"><img class="icon" src="/content/outTree_25x25.png">Add Node</a></li>
-			<li class="confitem"><a class="iconlabel" href="/content/upload"><img class="icon" src="/content/uploadArrow_25x25.png">Upload</a></li>
-			<li class="confitem"><a class="iconlabel" href="/conf"><img class="icon" src="/content/configuration_25x25.png">Configuration</a></li>
-		</ul>
-		<ul id="confmenuright">
-			<li class="confitemright"><img class="logo" src="/content/trikiLogo_72x40.png"/></li>
-		</ul>
-	</div>
+                </li>
+                <li><a class="iconlabel" href="/graph/addnode"><img class="icon" src="/content/outTree_50x50.svg">Add Node</a></li>
+                <li><a class="iconlabel" href="/content/upload"><img class="icon" src="/content/uploadArrow_50x50.svg">Upload</a></li>
+                <li><a class="iconlabel" href="/conf"><img class="icon" src="/content/configuration_50x50.svg">Configuration</a></li>
+            </ul>
+		</div>
+	</nav>
 	<div id="main">
 >>
 
@@ -74,7 +71,7 @@ conffooter() ::= <<
     <div id="footerback">
         <div id="footer">
             <div id="footerright">
-                <img class="logo" src="/content/trikiPower_94x20.png" /></a>
+                <img class="logo" src="/content/trikiPower_235x50.svg" /></a>
             </div>
         </div>
     </div>
@@ -85,16 +82,16 @@ conffooter() ::= <<
 
 graph(props) ::= <<
 	$confheader("0")$
-	
+
 	$conffooter()$
 >>
 
 conf(props, msgs) ::= <<
     $confheader("0")$
 
-    <div class="titleicon"><img class="graphrighticon" src="/content/configuration_40x40.png"></div>
+    <div class="titleicon"><img class="headingicon" src="/content/configuration_50x50.svg"></div>
     <div class="headingbig">Configuration</div>
-    
+
     <div class="messages">
 		 $if(msgs)$
 		 	$msgs :
@@ -102,7 +99,7 @@ conf(props, msgs) ::= <<
 		 	$
 		 $endif$
 	</div>
-    
+
     <div class="configlist">
     	<div class="configitem"><a href="/graph/object/triki_Prefix">Prefixes</a></div>
     	<div class="configitem"><a href="/graph/object/triki_Type">Types</a></div>
@@ -122,8 +119,8 @@ addnode(model) ::= <<
 			$else$
 			    $confheader("0")$
 		$endif$
-     
-        <div class="titleicon"><img class="graphrighticon" src="/content/configuration_40x40.png"></div>
+
+        <div class="titleicon"><img class="headingicon" src="/content/configuration_50x50.svg"></div>
         $if(model.addAction)$
     		<div class="headingbig">Add Node</div>
     	$endif$
@@ -137,11 +134,11 @@ addnode(model) ::= <<
         <form method="POST" enctype="multipart/form-data" action="/graph">
 			<div class="graphheader">
 				 <div class="navicon">
-				 	<div class="graphid"><img class="graphrighticon" src="/content/outTree_25x25.png"></div>
+				 	<div class="graphid"><img class="graphrighticon" src="/content/outTree_50x50.svg"></div>
 				 	<div class="graphid">Path: <input class="lookupprefix" name="$model.nodeAddress.prefixName$" size="15" value="$model.nodeAddress.prefixValue$"/> <input name="id" width="30" value="$model.nodeAddress.id$"/></div>
 				 </div>
 			</div>
-			
+
 			 <div class="messages">
 				 $if(model.errors)$
 				 	$model.errors :
@@ -152,7 +149,7 @@ addnode(model) ::= <<
 
 			$showprops(model)$
 
-        	<div><input type="image" src="/content/save_48x20.png" name="action" value="$model.action$"/></div>
+        	<div><input class="submitbutton" type="image" src="/content/save_120x50.svg" name="action" value="$model.action$"/></div>
         	<input type="hidden" name="action" value="$model.action$" />
         </form>
 
@@ -179,7 +176,7 @@ showprops(model) ::= <<
 	       	         		$else$
 	       	         			<input name="$property.valueField.name$" class="lookup" value="$property.valueField.value$"/>
 	       	         		$endif$
-	       	         		<a class="minus"><img src="/content/minus_15x15.png"></a></div>
+	       	         		<a><img class="minus" src="/content/minus_50x50.svg"></a></div>
 		        		</div>
 	        		}
 	        	$
@@ -188,13 +185,13 @@ showprops(model) ::= <<
 		            <div class="addprop">
 		       	         <input name="proplink1:" class="lookupprop" size="30" />
 			        </div><div class="addobj">
-		       	         <input name="objlink1:" class="lookup" size="50" /><a class="minus"><img src="/content/minus_15x15.png"></a>
+		       	         <input name="objlink1:" class="lookup" size="50" /><a><img class="minus" src="/content/minus_50x50.svg"></a>
 			        </div>
 		       </div>
 	       $endif$
-	      
-        	<div class="adder"><img class="addtext" src="/content/text_15x15.png"><div class="addertext"><a class="addtext">Add Text Property</a></div></div>
-        	<div class="adder"><img class="addlink" src="/content/outTree_15x15.png"><div class="addertext"><a class="addlink">Add Node Property</a></div></div>
+
+        	<div class="adder"><img class="addicon" src="/content/text_50x50.svg"><div class="addertext"><a class="addtext">Add Text Property</a></div></div>
+        	<div class="adder"><img class="addicon" src="/content/outTree_50x50.svg"><div class="addertext"><a class="addlink">Add Node Property</a></div></div>
         </div>
 >>
 
@@ -204,15 +201,15 @@ subject(graphTable, encodedId, path, model, isContent, isTextContent) ::= <<
 		$else$
 		    $confheader("0")$
 	$endif$
-	 
+
 	 <div class="graphheader">
-	 
+
 		 <div class="navicon">
-		 	<div class="graphid"><img class="graphrighticon" src="/content/outTree_25x25.png"></div>
+		 	<div class="graphid"><img class="graphrighticon" src="/content/outTree_50x50.svg"></div>
 		 	<div class="graphid">$path$</div>
 		 </div>
 	 </div>
-	 
+
 	 <div class="messages">
 		 $if(model.msgs)$
 		 	$model.msgs :
@@ -220,32 +217,32 @@ subject(graphTable, encodedId, path, model, isContent, isTextContent) ::= <<
 		 	$
 		 $endif$
 	 </div>
-	 
+
 	 <div class="graph">
 	 <div class="graphrow">
 	 	<div class="predheadingsubject">Property</div>
 	 	<div class="objheadingsubject">Value</div>
 	 </div>
-	 $graphTable : 
-	 	{row | 
+	 $graphTable :
+	 	{row |
 	 	<div class="graphrow">
 	 		<div class="node">
-		 		<div class="navicon"><a href="$row.pred_url_sub$"><img class="graphlefticon" src="/content/outTree_25x25.png"></a></div>
+		 		<div class="navicon"><a href="$row.pred_url_sub$"><img class="graphlefticon" src="/content/outTree_50x50.svg"></a></div>
 		 		<div class="pred">
 		 			$row.pred_title$
 		 		</div>
-		 		<div class="navicon"><a href="$row.pred_url_obj$"><img class="graphrighticon" src="/content/inTree_25x25.png"></a></div>
+		 		<div class="navicon"><a href="$row.pred_url_obj$"><img class="headingicon" src="/content/inTree_50x50.svg"></a></div>
 	 		</div>
 			<div id="spacer"></div>
 		 	$if(row.obj_url_sub)$
 		 		<div class="node">
-			 		<div class="navicon"><a href="$row.obj_url_sub$"><img class="graphlefticon" src="/content/outTree_25x25.png"></a></div>
+			 		<div class="navicon"><a href="$row.obj_url_sub$"><img class="graphlefticon" src="/content/outTree_50x50.svg"></a></div>
 			 		<div class="obj">$row.obj_title$</div>
-			 		<div class="navicon"><a href="$row.obj_url_obj$"><img class="graphrighticon" src="/content/inTree_25x25.png"></a></div>
+			 		<div class="navicon"><a href="$row.obj_url_obj$"><img class="graphrighticon" src="/content/inTree_50x50.svg"></a></div>
 		 		</div>
 		 	$else$
 		 		<div class="node">
-		 			<div class="navicon"><img class="graphlefticon" src="/content/text_25x25.png"></div>
+		 			<div class="navicon"><img class="graphlefticon" src="/content/text_50x50.svg"></div>
 		 			<div class="obj">$row.obj_title$</div>
 		 		</div>
 		 	$endif$
@@ -255,25 +252,25 @@ subject(graphTable, encodedId, path, model, isContent, isTextContent) ::= <<
 	 </div>
 
 	 <div class="editbuttons">
-	        <a href="/graph/subject/$encodedId$?action=edit" class="editbutton"><img src="/content/edit_40x20.png" /></a>
-	        <a href="/graph/subject/$encodedId$?action=delete" class="editbutton"><img src="/content/delete_56x20.png" /></a>
-	        <a href="/graph/subject/$encodedId$?action=clone" class="editbutton"><img src="/content/clone_48x20.png" /></a>
+	        <a href="/graph/subject/$encodedId$?action=edit" class="editbutton"><img src="/content/edit_100x50.svg" /></a>
+	        <a href="/graph/subject/$encodedId$?action=delete" class="editbutton"><img src="/content/delete_140x50.svg" /></a>
+	        <a href="/graph/subject/$encodedId$?action=clone" class="editbutton"><img src="/content/clone_120x50.svg" /></a>
 	        $if(isTextContent)$
-	        <a href="$path$?action=edit" class="editbutton"><img src="/content/content_64x20.png" /></a>
+	        <a href="$path$?action=edit" class="editbutton"><img src="/content/content_160x50.svg" /></a>
 	        $endif$
-	        <a target="_render" href="$path$" class="editbutton"><img src="/content/render_56x20.png" /></a>
+	        <a target="_render" href="$path$" class="editbutton"><img src="/content/render_140x50.svg" /></a>
 	 </div>
-		 
+
 
 	 $conffooter()$
 >>
 
 object(id, graphTable) ::= <<
 	 $confheader("0")$
-	 
+
 	 <div class="graphheader">
 		 <div class="navicon">
-		 	<div class="graphid"><img class="graphrighticon" src="/content/inTree_40x40.png"></div>
+		 	<div class="graphid"><img class="headingicon" src="/content/inTree_50x50.svg"></div>
 		 	<div class="graphid">$id$</div>
 		 </div>
 	 </div>
@@ -282,14 +279,14 @@ object(id, graphTable) ::= <<
 	 	<div class="subheading">Node</div>
 	 	<div class="predheading">Property</div>
 	 </div>
-	 $graphTable : 
-	 	{row | 
+	 $graphTable :
+	 	{row |
 	 	<div class="graphrow">
 		 	$if(row.sub_url_sub)$
 		 		<div class="node">
-			 		<div class="navicon"><a href="$row.sub_url_sub$"><img class="graphlefticon" src="/content/outTree_25x25.png"></a></div>
+			 		<div class="navicon"><a href="$row.sub_url_sub$"><img class="graphlefticon" src="/content/outTree_50x50.svg"></a></div>
 			 		<div class="sub">$row.sub_title$</div>
-			 		<div class="navicon"><a href="$row.sub_url_obj$"><img class="graphrighticon" src="/content/inTree_25x25.png"></a></div>
+			 		<div class="navicon"><a href="$row.sub_url_obj$"><img class="graphrighticon" src="/content/inTree_50x50.svg"></a></div>
 		 		</div>
 		 	$else$
 		 		<div class="node">
@@ -298,11 +295,11 @@ object(id, graphTable) ::= <<
 		 	$endif$
 			<div id="spacer"></div>
 		 	<div class="node">
-		 		<div class="navicon"><a href="$row.pred_url_sub$"><img class="graphlefticon" src="/content/outTree_25x25.png"></a></div>
+		 		<div class="navicon"><a href="$row.pred_url_sub$"><img class="graphlefticon" src="/content/outTree_50x50.svg"></a></div>
 		 		<div class="pred">
 		 			$row.pred_title$
 		 		</div>
-		 		<div class="navicon"><a href="$row.pred_url_obj$"><img class="graphrighticon" src="/content/inTree_25x25.png"></a></div>
+		 		<div class="navicon"><a href="$row.pred_url_obj$"><img class="graphrighticon" src="/content/inTree_50x50.svg"></a></div>
 	 		</div>
 	 	</div>
 	 	 }
@@ -314,10 +311,10 @@ object(id, graphTable) ::= <<
 
 content(model) ::= <<
 	$confheader("0")$
-	 
+
 	<div class="graphheader">
 	 	<div class="navicon">
-		 	<div class="graphid"><img class="graphrighticon" src="/content/text_25x25.png"></div>
+		 	<div class="graphid"><img class="headingicon" src="/content/text_50x50.svg></div>
 		 	<div class="graphid">$model.path$</div>
 		</div>
 	</div>
@@ -338,13 +335,13 @@ content(model) ::= <<
         </div>
 
         <br>
-        
+
         <!-- script lang="javascript">contentPath="$model.path$"</script -->
         <textarea name="content" cols="120" rows="20">$model.content$</textarea>
 
         <div class="editbuttons">
-       		<input class="editbutton" style="background: url(/content/blank_96x20.png); border: none;" type="submit" name="action" value="Validate" />
-        	<input class="editbutton" style="background: url(/content/blank_96x20.png); border: none;" type="submit" name="action" value="Save" onsubmit="return getTextContent()"/>
+       		<input class="editbutton" style="background: url(/content/blank_240x50.svg); border: none;" type="submit" name="action" value="Validate" />
+        	<input class="editbutton" style="background: url(/content/blank_240x50.svg); border: none;" type="submit" name="action" value="Save" onsubmit="return getTextContent()"/>
 	    </div>
 
 	</form>
@@ -354,11 +351,11 @@ content(model) ::= <<
 
 addcontent(props, errors, values, path) ::= <<
      $confheader("0")$
-        <div class="titleicon"><img class="graphrighticon" src="/content/text_40x40.png"></div>
+        <div class="titleicon"><img class="headingicon" src="/content/text_50x50.svg"></div>
        <div class="headingbig">Add Content</div>
 
         <form method="POST" enctype="multipart/form-data" action="/content">
-                       
+
                         <div class="messages">
                                 $if(errors)$
                                        $errors :
@@ -366,14 +363,14 @@ addcontent(props, errors, values, path) ::= <<
                                        $
                                 $endif$
                         </div>
-                        
+
                        <div class="graph">
-                       
+
                                <div class="graphrow">
                            <div class="addpropheading">Property</div>
                                <div class="addobjheading">Value</div>
                        </div>
-                       
+
                        <div class="graphrow">
                            <div class="addprop">
                                 <div>ID</div>
@@ -381,7 +378,7 @@ addcontent(props, errors, values, path) ::= <<
                                 <div><input name="id" size="50" /></div>
                                </div>
                        </div>
-                       
+
                        <div class="graphrow">
                            <div class="addprop">
                                 <div>Media type</div><input type="hidden" name="proplink1:property_Format" class="lookupprop" value="Media Type"/>
@@ -389,7 +386,7 @@ addcontent(props, errors, values, path) ::= <<
                                 <input name="objlink1:" class="lookup" size="50" />
                                </div>
                        </div>
-                       
+
                        <div class="graphrow">
                            <div class="addprop">
                                 <div>Restricted</div><input type="hidden" name="proplink2:property_Permission" class="lookupprop" value="Permission"/>
@@ -397,12 +394,12 @@ addcontent(props, errors, values, path) ::= <<
                                 <input name="objlink2:" class="lookup" size="50" />
                                </div>
                        </div>
-                       
-                               <div class="adder"><img class="addtextfile" src="/content/outTree_15x15.png"><div class="addertext"><a class="addtextfile">Add Text</a></div></div>
-                               <div class="adder"><img class="addbinfile" src="/content/outTree_15x15.png"><div class="addertext"><a class="addbinfile">Add File</a></div></div>
-                       
+
+                               <div class="adder"><img class="addtextfile" src="/content/outTree_50x50.svg"><div class="addertext"><a class="addtextfile">Add Text</a></div></div>
+                               <div class="adder"><img class="addbinfile" src="/content/outTree_50x50.svg"><div class="addertext"><a class="addbinfile">Add File</a></div></div>
+
                        <div class="editbuttons">
-                               <div><input type="image" src="/content/upload_56x20.png" value="Upload"/></div>
+                               <div><input type="image" src="/content/upload_140x50.svg" value="Upload"/></div>
                        </div>
         </form>
 
@@ -412,11 +409,11 @@ addcontent(props, errors, values, path) ::= <<
 
 upload(contentModel, groups) ::= <<
 	$confheader("0")$
-	
-	<div class="titleicon"><img class="graphrighticon" src="/content/uploadArrow_40x40.png"></div>
+
+	<div class="titleicon"><img class="headingicon" src="/content/uploadArrow_50x50.svg></div>
     <div class="headingbig">Upload</div>
-	    <form method="POST" enctype="multipart/form-data" action="/content">  
-	             
+	    <form method="POST" enctype="multipart/form-data" action="/content">
+
             <div class="messages">
                     $if(contentModel.errors)$
                            $contentModel.errors :
@@ -429,10 +426,10 @@ upload(contentModel, groups) ::= <<
                            $
                     $endif$
             </div>
-            
+
             <br>Select file(s) to upload: <p>
             <input name="uploadfiles" type="file" multiple="multiple"/>
-            
+
             <p>
             <br>Select group access: <p>
             <select name="access">
@@ -440,11 +437,11 @@ upload(contentModel, groups) ::= <<
            			{ key | <option value="$key$">$groups.(key)$</option> }
            		$
             </select>
-           
+
            <div class="editbuttons">
-               <div><input type="image" src="/content/upload_56x20.png" value="Upload"/></div>
+               <div><input type="image" src="/content/upload_140x50.svg" value="Upload"/></div>
            </div>
-           
+
         </form>
 	$conffooter()$
 >>
@@ -453,7 +450,7 @@ login(props) ::= <<
     $loginheader(props)$
         </p>
 		 <div class="navicon">
-		 	<div class="graphid"><img class="graphrighticon" src="/content/inOutTree_40x40.png"></div>
+		 	<div class="graphid"><img class="headingicon" src="/content/inOutTree_50x50.svg"></div>
 		 	<div class="headingbig">Welcome to triki, the graph wiki.</div>
 		 </div>
         <p>
@@ -465,7 +462,7 @@ login(props) ::= <<
            Login: <input name="triki:login" width="100">&nbsp;&nbsp;
            Password: <input type="password" name="triki:password"  name="password" width="10"/><br>
            <br>
-           <input type="image" src="/content/login_48x20.png" value="Login"/><br>
+           <input type="image" src="/content/login_120x50.svg" value="Login"/><br>
         </form>
 
         Login with an Identity Provider:

@@ -54,7 +54,7 @@ function initEditor() {
 
 
     $(".addtext").click(function() {
-        var newrow = $('<div class="graphrow"><div class="addprop"><input name="proptext' + rowcount + '" class="lookupprop" size="30"/></div><div class="addobj"><textarea name="obj'+ rowcount + '" rows="3" cols="38"></textarea><a class="minus"><img src="/content/minus_15x15.png"></a></div></div>');
+        var newrow = $('<div class="graphrow"><div class="addprop"><input name="proptext' + rowcount + '" class="lookupprop" size="30"/></div><div class="addobj"><textarea name="obj'+ rowcount + '" rows="3" cols="38"></textarea><a class="minus"><img src="/content/minus_50x50.svg"></a></div></div>');
         $('.lookupprop', newrow).autocomplete(lookup_prop);
         $('.minus', newrow).click(minus_opt);
         $('.graphrow:last').after(newrow);
@@ -63,7 +63,7 @@ function initEditor() {
      });
     
     $(".addlink").click(function() {
-        var newrow = $('<div class="graphrow"><div class="addprop"><input name="proplink' + rowcount + '" class="lookupprop" size="30"/></div><div class="addobj"><input name="objlink' + rowcount + '" class="lookup" size="50" /><a class="minus"><img src="/content/minus_15x15.png"></a></div></div>');
+        var newrow = $('<div class="graphrow"><div class="addprop"><input name="proplink' + rowcount + '" class="lookupprop" size="30"/></div><div class="addobj"><input name="objlink' + rowcount + '" class="lookup" size="50" /><a class="minus"><img src="/content/minus_50x50.svg"></a></div></div>');
         $('.lookupprop', newrow).autocomplete(lookup_prop);
         $('.lookup', newrow).autocomplete(lookup_opt);
         $('.minus', newrow).click(minus_opt);
@@ -73,7 +73,7 @@ function initEditor() {
      });
 
     $(".addtextfile").click(function() {
-        var newrow = $('<div class="graphrow"><div class="addcontent"><textarea name="obj'+ rowcount + '" rows="20" cols="100"></textarea><a class="minus"><img src="/content/minus_15x15.png"></a></div></div>');
+        var newrow = $('<div class="graphrow"><div class="addcontent"><textarea name="obj'+ rowcount + '" rows="20" cols="100"></textarea><a><img class="minus" src="/content/minus_50x50.svg"></a></div></div>');
         $('.minus', newrow).click(minus_opt);
         $('.graphrow:last').after(newrow);
         rowcount++;
@@ -81,7 +81,7 @@ function initEditor() {
      });
     
     $(".addbinfile").click(function() {
-        var newrow = $('<div class="graphrow"><div class="addcontent"><input name="obj' + rowcount + '" type="file" multiple="multiple"/><a class="minus"><img src="/content/minus_15x15.png"></a></div></div>');
+        var newrow = $('<div class="graphrow"><div class="addcontent"><input name="obj' + rowcount + '" type="file" multiple="multiple"/><a><img class="minus" src="/content/minus_50x50.svg"></a></div></div>');
         $('.minus', newrow).click(minus_opt);
         $('.graphrow:last').after(newrow);
         rowcount++;
