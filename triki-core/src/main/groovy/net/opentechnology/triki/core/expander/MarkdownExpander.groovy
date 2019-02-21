@@ -27,28 +27,21 @@ import com.vladsch.flexmark.parser.Parser
 import com.vladsch.flexmark.profiles.pegdown.Extensions
 import com.vladsch.flexmark.profiles.pegdown.PegdownOptionsAdapter
 import com.vladsch.flexmark.util.options.DataHolder
+import net.opentechnology.triki.core.renderer.MarkdownRenderer
 import net.opentechnology.triki.core.resources.ContentUtils
 import net.opentechnology.triki.core.resources.ResourceException
 
 import javax.inject.Inject
 
-public class GenericSourceExpander extends AbstractSourceExpander implements SourceExpander {
+public class MarkdownExpander extends AbstractSourceExpander implements SourceExpander {
 	
 	@Inject
 	private ContentUtils contentUtils;
-	static final DataHolder options = PegdownOptionsAdapter.flexmarkOptions(
-			Extensions.ALL
-	);
-	Parser parser
-	HtmlRenderer renderer
 
-	public GenericSourceExpander(){
-		parser = Parser.builder(options).build();
-		renderer = HtmlRenderer.builder(options).build();
-	}
+	@Inject
+	private MarkdownRenderer markdownRenderer
 	
 	public String expand(String url) throws ExpanderException{
-		
 		if(url.endsWith("md"))
 		{
 			try {
@@ -70,9 +63,7 @@ public class GenericSourceExpander extends AbstractSourceExpander implements Sou
 
 	@Override
 	public String expandString(String markdown) throws ExpanderException {
-		Document document = parser.parse(markdown);
-		String html = renderer.render(document)
-		return html;
+		markdownRenderer.render(markdown)
 	}
 
 }

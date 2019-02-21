@@ -28,7 +28,8 @@
 	
 	<bean id="coreModule" class="net.opentechnology.triki.core.boot.CoreModule" />
 	<bean id="siteModel" class="org.apache.jena.rdf.model.ModelFactory"	factory-method="createDefaultModel" />
-	<bean id="sourceExpander" class="net.opentechnology.triki.core.expander.GenericSourceExpander" />
+	<bean id="markdownRenderer" class="net.opentechnology.triki.core.renderer.MarkdownRenderer" />
+	<bean id="sourceExpander" class="net.opentechnology.triki.core.expander.MarkdownExpander" />
 	<bean id="modelPropertySource" class="net.opentechnology.triki.core.model.ModelPropertySource" />
 	<bean id="modelStore" class="net.opentechnology.triki.core.model.ModelStore" />
 	<bean id="prefixDto" class="net.opentechnology.triki.core.dto.PrefixDto" />

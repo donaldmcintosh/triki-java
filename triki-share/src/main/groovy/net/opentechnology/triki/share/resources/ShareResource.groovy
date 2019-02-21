@@ -111,7 +111,8 @@ public class ShareResource {
 	public Response publishNote(@Context HttpServletResponse resp, @Context HttpServletRequest req,
 			MultivaluedMap<String, String> formParams,
 			@FormParam("triki:note") String note, 
-			@FormParam("triki:subject") String subject, 
+			@FormParam("triki:subject") String subject,
+			@FormParam("triki:imgurl") String imgurl,
 			@FormParam("triki:twitter") String twitter
 			) throws ServletException, IOException, URISyntaxException
 	{	
@@ -132,6 +133,9 @@ public class ShareResource {
 		resourceDto.addCreatedNow(res);
 		res.addProperty(DCTerms.title, subject);
 		res.addProperty(DCTerms.description, note);
+		if(imgurl){
+			res.addProperty(Triki.thumbimg, imgurl);
+		}
 		res.addProperty(Triki.restricted, groupDto.getGroup("public"));
 		
 		if(twitter != null && twitter.equalsIgnoreCase("yes"))

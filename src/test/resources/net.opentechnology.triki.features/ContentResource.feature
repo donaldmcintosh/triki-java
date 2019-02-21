@@ -15,7 +15,7 @@ Feature: Specification for content resource
 		And start triki with content path /tmp/content and port 8080
 		And login with user admin password admin
 		And get content /core.css and check content type is text/css
-	
+
 	Scenario: Upload a Markdown file
 		Given initialise triki 
 		And create empty directory /tmp/content

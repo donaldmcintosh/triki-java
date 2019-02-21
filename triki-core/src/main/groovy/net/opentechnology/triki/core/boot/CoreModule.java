@@ -185,7 +185,7 @@ public class CoreModule implements Module {
 		propertyDto.addProperty("month", Time.month.getURI(), 40);
 		
 		propertyDto.addProperty("setting", Triki.setting.getURI(), 20);
-		
+		propertyDto.addProperty("webcontent", Triki.webcontent.getURI(), 20);
 	}
 	
 	private void initSettings()

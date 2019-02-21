@@ -22,12 +22,8 @@
 package net.opentechnology.triki.core.resources
 
 import groovy.util.logging.Log4j
-import java.awt.event.ItemEvent
-import java.util.List;
-import java.util.Map
 
 import javax.inject.Inject
-import javax.swing.plaf.basic.BasicButtonListener.Actions;
 
 import org.apache.jena.rdf.model.Literal
 import org.apache.jena.rdf.model.Model;
@@ -43,13 +39,10 @@ import net.opentechnology.triki.core.boot.Utilities
 import net.opentechnology.triki.core.dto.PrefixDto
 import net.opentechnology.triki.core.dto.PropertyDto
 import net.opentechnology.triki.core.dto.ResourceDto
-import net.opentechnology.triki.core.resources.NodeFormModel.Action
 import net.opentechnology.triki.schema.Triki;
 
 import org.springframework.beans.factory.annotation.Qualifier
 import org.apache.jena.vocabulary.DCTerms
-
-import org.apache.commons.lang.StringEscapeUtils
 
 /*
  * Need getters in this Groovy file because StringTemplate relies on reflection
@@ -462,7 +455,7 @@ public class NodeFormModel {
 		def props = allProperties.sort { item ->
 			int order = 0;
 			Property property = item.propertyField.property
-			propertyDto.getPropertyFromUrl(item.propertyField.property.URI){String title, String url ->
+			propertyDto.getPropertyFromUrl(item.propertyField.property.URI){ String title, String url ->
 				Resource propertyRes = siteModel.getResource(url);
 				try
 				{

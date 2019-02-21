@@ -19,22 +19,9 @@
 *
 ************************************************************************************/
 
-package net.opentechnology.triki.core.resources;
+package net.opentechnology.triki.core.resources
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties
-import java.util.concurrent.ConcurrentSkipListMap.Iter;
-import java.util.function.Predicate;
-
-import javax.inject.Inject;
-import javax.servlet.RequestDispatcher
+import javax.inject.Inject
 import javax.servlet.ServletContext
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse;
@@ -47,35 +34,20 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.MediaType
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.ProducerTemplate;
+import org.apache.camel.CamelContext
 import org.apache.cxf.jaxrs.ext.multipart.Attachment
 import org.apache.cxf.jaxrs.ext.multipart.ContentDisposition
 import org.apache.cxf.jaxrs.ext.multipart.MultipartBody
-import org.apache.cxf.jaxrs.provider.RequestDispatcherProvider
-import org.apache.jena.datatypes.xsd.XSDDateTime;
-import org.apache.jena.datatypes.xsd.impl.XSDDateTimeType
 import org.apache.jena.query.QuerySolution
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.rdf.model.Statement;
-import org.apache.jena.rdf.model.StmtIterator;
-import org.apache.jena.vocabulary.DCTerms;
-import org.apache.jena.vocabulary.RDF;
-import org.apache.jena.shared.PropertyNotFoundException
+import org.apache.jena.rdf.model.Statement
+import org.apache.jena.vocabulary.DCTerms
 import org.apache.log4j.Logger;
 import org.apache.commons.io.IOUtils
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.stringtemplate.v4.ST;
-
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.stringtemplate.v4.ST
 import org.springframework.context.ApplicationContext
 
 import net.opentechnology.triki.core.boot.CachedPropertyStore;
@@ -84,15 +56,8 @@ import net.opentechnology.triki.core.dto.MediaTypeDto
 import net.opentechnology.triki.core.dto.PrefixDto
 import net.opentechnology.triki.core.dto.PropertyDto;
 import net.opentechnology.triki.core.dto.ResourceDto
-import net.opentechnology.triki.core.expander.ExpanderException;
-import net.opentechnology.triki.core.expander.SourceExpander
-import net.opentechnology.triki.core.model.ModelException
-import net.opentechnology.triki.core.renderer.DateRenderer;
-import net.opentechnology.triki.core.template.ResourceAdaptor;
-import net.opentechnology.triki.core.template.TemplateException;
-import net.opentechnology.triki.core.template.TemplateStore
-import net.opentechnology.triki.schema.Dcterms
-import net.opentechnology.triki.schema.Triki;
+import net.opentechnology.triki.core.expander.ExpanderException
+import net.opentechnology.triki.core.template.TemplateException
 import net.opentechnology.triki.sparql.SparqlExecutor
 
 @Path("/graph")

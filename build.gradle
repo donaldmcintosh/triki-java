@@ -47,6 +47,8 @@ allprojects {
         compile("xml-apis:xml-apis:1.4.01")
         compile('com.vladsch.flexmark:flexmark:0.34.30')
         compile('com.vladsch.flexmark:flexmark-profile-pegdown:0.34.30')
+        compile('com.vladsch.flexmark:flexmark-ext-media-tags:0.34.30')
+        compile('com.vladsch.flexmark:flexmark-ext-gfm-tables:0.34.30')
         compile('com.auth0:java-jwt:3.4.0')
         compile("com.fasterxml.jackson.core:jackson-core:2.3.0-rc1")
         compile("org.apache.httpcomponents:httpclient:4.4")
