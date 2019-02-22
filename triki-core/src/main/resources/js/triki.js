@@ -46,12 +46,23 @@ function initEditor() {
             return false;
         };
 
-        $("#search").autocomplete(search_opt);
+        var save_cursor_pos = function() {
+            var curspos = $(".contentedit").selectionEnd
+            sessionStorage.setItem('curspos', curspos);
+        };
+
+        var set_cursor_pos = function() {
+            var curspos =sessionStorage.getItem('curspos');
+            $(".contentedit").setFocusAt(curspos);
+        };
+
+        set_cursor_pos();
+
+        $(".search").autocomplete(search_opt);
         $(".lookup").autocomplete(lookup_opt);
         $(".lookupprop").autocomplete(lookup_prop);
         $(".lookupprefix").autocomplete(lookup_prefix);
         $('.minus').click(minus_opt);
-
 
     $(".addtext").click(function() {
         var newrow = $('<div class="graphrow"><div class="addprop"><input name="proptext' + rowcount + '" class="lookupprop" size="30"/></div><div class="addobj"><textarea name="obj'+ rowcount + '" rows="3" cols="38"></textarea><a class="minus"><img src="/content/minus_50x50.svg"></a></div></div>');

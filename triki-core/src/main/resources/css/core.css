@@ -58,6 +58,8 @@ main {
 
 .menu {
   position: relative;
+  padding: 0.5em 0;
+  background-color: #205081;
 }
 
 .menu-toggle {
@@ -121,7 +123,7 @@ main {
 .nav-menu > li > a {
   display: block;
   padding: 0.8em 1em;
-  color: #000;
+  color: #FFF;
   font-weight: normal;
 }
 
@@ -139,6 +141,15 @@ main {
   .nav-menu > li > a {
     padding: 0em;
   }
+}
+
+.contentedit {
+  width: 90%;
+  min-height: 75px;
+  outline: none;
+  resize: none;
+  max-width:95%;
+  height: 40em;
 }
 
 #confheadertext {
@@ -221,6 +232,8 @@ img.icon {
 	margin: 0 0.4em 0 0;
 	float: left;
 	height: 1.5em;
+        bottom: 0.1em;
+        position: relative;
 }
 
 img.graphlefticon {
@@ -494,6 +507,8 @@ a {
 
 .submitbutton {
     height: 1.5em;
+    border: 0;
+    padding: 0;
 }
 
 .addicon {

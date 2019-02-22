@@ -57,7 +57,7 @@ background: white url("/content/wait.gif") right center no-repeat;
 
                 </li>
                 <li><a class="iconlabel" href="/graph/addnode"><img class="icon" src="/content/outTree_50x50.svg">Add Node</a></li>
-                <li><a class="iconlabel" href="/content/upload"><img class="icon" src="/content/uploadArrow_50x50.svg">Upload</a></li>
+                <li><a class="iconlabel" href="/content/upload"><img class="icon" src="/content/uploadArrow_40x40.png">Upload</a></li>
                 <li><a class="iconlabel" href="/conf"><img class="icon" src="/content/configuration_50x50.svg">Configuration</a></li>
             </ul>
 		</div>
@@ -319,7 +319,7 @@ content(model) ::= <<
 		</div>
 	</div>
 
-    <form method="POST" action="$model.path$">
+    <form method="POST" action="$model.path$" onsubmit="save_cursor_pos()">
 
    	     <div class="messages">
                 $if(model.errors)$
@@ -337,13 +337,12 @@ content(model) ::= <<
         <br>
 
         <!-- script lang="javascript">contentPath="$model.path$"</script -->
-        <textarea name="content" cols="120" rows="20">$model.content$</textarea>
+        <textarea class="contentedit" name="content">$model.content$</textarea>
 
         <div class="editbuttons">
-       		<input class="editbutton" style="background: url(/content/blank_240x50.svg); border: none;" type="submit" name="action" value="Validate" />
-        	<input class="editbutton" style="background: url(/content/blank_240x50.svg); border: none;" type="submit" name="action" value="Save" onsubmit="return getTextContent()"/>
+                <button class="submitbutton" type="submit" name="action" value="Validate"><img src="/content/validate_128x40.png" alt="Validate"></button>
+                <button class="submitbutton" type="submit" name="action" value="Save"><img src="/content/validate_128x40.png"  alt="Save"></button>
 	    </div>
-
 	</form>
 
 	 $conffooter()$
