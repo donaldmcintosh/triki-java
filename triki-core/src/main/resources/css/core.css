@@ -143,7 +143,7 @@ main {
   }
 }
 
-.contentedit {
+#contentedit {
   width: 90%;
   min-height: 75px;
   outline: none;
@@ -506,6 +506,13 @@ a {
 }
 
 .submitbutton {
+    font-size: inherit;
+    border: 0;
+    background: transparent;
+    background-position: 50% 50%;
+}
+
+.submiticon {
     height: 1.5em;
     border: 0;
     padding: 0;
@@ -530,6 +537,7 @@ a {
 
 a.addtext {
 	display: inline-block;
+	font-size: 1.5em;
 	padding: 4px;
 }
 
@@ -561,6 +569,7 @@ a.addlink {
 
 .editbutton {
 	margin: 4px 10px 4px 0px;
+	height: 1.5em;
 }
 
 #validatetemplate {

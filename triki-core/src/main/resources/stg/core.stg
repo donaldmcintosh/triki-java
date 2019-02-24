@@ -57,7 +57,7 @@ background: white url("/content/wait.gif") right center no-repeat;
 
                 </li>
                 <li><a class="iconlabel" href="/graph/addnode"><img class="icon" src="/content/outTree_50x50.svg">Add Node</a></li>
-                <li><a class="iconlabel" href="/content/upload"><img class="icon" src="/content/uploadArrow_40x40.png">Upload</a></li>
+                <li><a class="iconlabel" href="/content/upload"><img class="icon" src="/content/uploadArrow_50x50.svg">Upload</a></li>
                 <li><a class="iconlabel" href="/conf"><img class="icon" src="/content/configuration_50x50.svg">Configuration</a></li>
             </ul>
 		</div>
@@ -149,7 +149,9 @@ addnode(model) ::= <<
 
 			$showprops(model)$
 
-        	<div><input class="submitbutton" type="image" src="/content/save_120x50.svg" name="action" value="$model.action$"/></div>
+        	<div>
+        	<button class="submitbutton" type="submit" name="action" value="$model.action$"><img class="submiticon" src="/content/save_120x50.svg" alt="Save"></button>
+        	</div>
         	<input type="hidden" name="action" value="$model.action$" />
         </form>
 
@@ -252,13 +254,13 @@ subject(graphTable, encodedId, path, model, isContent, isTextContent) ::= <<
 	 </div>
 
 	 <div class="editbuttons">
-	        <a href="/graph/subject/$encodedId$?action=edit" class="editbutton"><img src="/content/edit_100x50.svg" /></a>
-	        <a href="/graph/subject/$encodedId$?action=delete" class="editbutton"><img src="/content/delete_140x50.svg" /></a>
-	        <a href="/graph/subject/$encodedId$?action=clone" class="editbutton"><img src="/content/clone_120x50.svg" /></a>
+	        <a href="/graph/subject/$encodedId$?action=edit" class="editbutton"><img class="submiticon" src="/content/edit_100x50.svg" /></a>
+	        <a href="/graph/subject/$encodedId$?action=delete" class="editbutton"><img class="submiticon"  src="/content/delete_140x50.svg" /></a>
+	        <a href="/graph/subject/$encodedId$?action=clone" class="editbutton"><img class="submiticon"  src="/content/clone_120x50.svg" /></a>
 	        $if(isTextContent)$
-	        <a href="$path$?action=edit" class="editbutton"><img src="/content/content_160x50.svg" /></a>
+	        <a href="$path$?action=edit" class="editbutton"><img class="submiticon" src="/content/content_160x50.svg" /></a>
 	        $endif$
-	        <a target="_render" href="$path$" class="editbutton"><img src="/content/render_140x50.svg" /></a>
+	        <a target="_render" href="$path$" class="editbutton"><img class="submiticon"  src="/content/render_140x50.svg" /></a>
 	 </div>
 
 
@@ -314,7 +316,7 @@ content(model) ::= <<
 
 	<div class="graphheader">
 	 	<div class="navicon">
-		 	<div class="graphid"><img class="headingicon" src="/content/text_50x50.svg></div>
+		 	<div class="graphid"><img class="headingicon" src="/content/text_50x50.svg"></div>
 		 	<div class="graphid">$model.path$</div>
 		</div>
 	</div>
@@ -336,12 +338,11 @@ content(model) ::= <<
 
         <br>
 
-        <!-- script lang="javascript">contentPath="$model.path$"</script -->
-        <textarea class="contentedit" name="content">$model.content$</textarea>
+        <textarea id="contentedit" name="content">$model.content$</textarea>
 
         <div class="editbuttons">
-                <button class="submitbutton" type="submit" name="action" value="Validate"><img src="/content/validate_128x40.png" alt="Validate"></button>
-                <button class="submitbutton" type="submit" name="action" value="Save"><img src="/content/validate_128x40.png"  alt="Save"></button>
+                <button class="submitbutton" type="submit" name="action" value="Validate"><img class="submiticon" src="/content/validate_160x50.svg" alt="Validate"></button>
+                <button class="submitbutton" type="submit" name="action" value="Save"><img class="submiticon" src="/content/save_120x50.svg"  alt="Save"></button>
 	    </div>
 	</form>
 
@@ -409,7 +410,7 @@ addcontent(props, errors, values, path) ::= <<
 upload(contentModel, groups) ::= <<
 	$confheader("0")$
 
-	<div class="titleicon"><img class="headingicon" src="/content/uploadArrow_50x50.svg></div>
+	<div class="titleicon"><img class="headingicon" src="/content/uploadArrow_50x50.svg"></div>
     <div class="headingbig">Upload</div>
 	    <form method="POST" enctype="multipart/form-data" action="/content">
 
@@ -438,7 +439,7 @@ upload(contentModel, groups) ::= <<
             </select>
 
            <div class="editbuttons">
-               <div><input type="image" src="/content/upload_140x50.svg" value="Upload"/></div>
+               <div><button class="submitbutton" type="submit" value="Upload"><img class="submiticon" src="/content/upload_140x50.svg"  alt="Upload"></button></div>
            </div>
 
         </form>

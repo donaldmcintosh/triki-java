@@ -1,3 +1,15 @@
+function save_cursor_pos() {
+    var curspos = $("#contentedit").prop("selectionEnd")
+    sessionStorage.setItem('curspos', curspos);
+};
+
+function set_cursor_pos() {
+    var curspos = sessionStorage.getItem('curspos');
+    $("#contentedit").focus();
+    $("#contentedit").prop("selectionStart", curspos);
+    $("#contentedit").prop("selectionEnd", curspos);
+};
+
 function initEditor() {
 	// Add 4 to count - only need to add two, but keep it safe
     rowcount += 4;
@@ -45,18 +57,6 @@ function initEditor() {
             $(this).closest('.graphrow').remove();
             return false;
         };
-
-        var save_cursor_pos = function() {
-            var curspos = $(".contentedit").selectionEnd
-            sessionStorage.setItem('curspos', curspos);
-        };
-
-        var set_cursor_pos = function() {
-            var curspos =sessionStorage.getItem('curspos');
-            $(".contentedit").setFocusAt(curspos);
-        };
-
-        set_cursor_pos();
 
         $(".search").autocomplete(search_opt);
         $(".lookup").autocomplete(lookup_opt);
@@ -126,4 +126,5 @@ function initEditor() {
 
 window.onload = function() {
 	initEditor()
+	set_cursor_pos()
 }

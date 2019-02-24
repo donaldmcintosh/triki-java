@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="50">
+  <defs>
+    <linearGradient id="ButtonGradient" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="white" />
+      <stop offset="100%" stop-color="#80C0E1" />
+    </linearGradient>
+  </defs>
+  <g transform="scale(0.5, 0.5)">
+    <rect x="0" y="0" width="240" height="100" fill="#6090B1" rx="0" ry="0" />
+    <rect x="3" y="3" width="234" height="94" fill="url(#ButtonGradient)" rx="2" ry="2" />
+    <text x="40" y="70" font-family="Verdana" font-size="60" fill="#000000">Clone</text>
+  </g>
+</svg>
