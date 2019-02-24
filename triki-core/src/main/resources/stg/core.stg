@@ -47,10 +47,11 @@ background: white url("/content/wait.gif") right center no-repeat;
 </head>
 <body>
 	<nav id="main-menu" class="menu">
+	    <img class="logo" src="/content/trikiLogo_90x50.svg"/>
+        <button class="menu-toggle" id="toggle-menu"></button>
 	    <div class="menu-dropdown">
             <ul class="nav-menu">
-                <li><img class="logo" src="/content/trikiLogo_90x50.svg"/></li>
-                <li><img class="icon" src="/content/inOutTree_50x50.svg">
+                <li><img class="findicon" src="/content/inOutTree_50x50.svg">
                        <input class="search" value="Find..."
                               onblur="if(this.value==''){ this.value='Find...'; this.style.color='#BBB';}"
                               onfocus="if(this.value=='Find...'){ this.value=''; this.style.color='#000';}">

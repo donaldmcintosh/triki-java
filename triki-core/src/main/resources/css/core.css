@@ -60,30 +60,20 @@ main {
   position: relative;
   padding: 0.5em 0;
   background-color: #205081;
+  height: 2.5em;
 }
 
 .menu-toggle {
-  position: absolute;
-  top: -1.2em;
-  right: 0.1em;
   border: 0;
-  background-color: transparent;
-  font-size: 1em;
-  width: 1em;
-  height: 1em;
-  line-height: 0.4;
-  text-indent: 5em;
-  white-space: nowrap;
-  overflow: hidden;
+  background-color: #205081;
+  color: white;
+  float: right;
+  font-size: 1.5em;
 }
 
 .menu-toggle::after {
-  position: absolute;
-  top: 0.2em;
-  left: 0.2em;
   display: block;
   content: "\2261";
-  text-indent: 0;
 }
 
 .menu-dropdown {
@@ -92,6 +82,7 @@ main {
   right: 0;
   left: 0;
   margin: 0;
+  top: 3.0em;
 }
 
 @media (min-width: 35em) {
@@ -114,6 +105,7 @@ main {
   padding-left: 0;
   border: 1px solid #ccc;
   list-style: none;
+  background-color: #205081;
 }
 
 .nav-menu > li + li {
@@ -225,6 +217,17 @@ img.logo {
 	border: 2px 4px 0px 2px;
 	float: left;
 	height: 1.5em;
+	margin: 0 0 0 1em;
+}
+
+img.findicon {
+	display: block;
+	margin: 0 0.4em 0 0;
+	float: left;
+	height: 1.5em;
+    bottom: 0.1em;
+    position: relative;
+    padding: 0 0 0 1em;
 }
 
 img.icon {
@@ -232,8 +235,8 @@ img.icon {
 	margin: 0 0.4em 0 0;
 	float: left;
 	height: 1.5em;
-        bottom: 0.1em;
-        position: relative;
+    bottom: 0.1em;
+    position: relative;
 }
 
 img.graphlefticon {
@@ -298,20 +301,19 @@ li.confcol {
 
 .graph {
 	display: inline-block;
-	width: 800px;
-	font-size: 12px;
+	width: 90%;
+	font-size: 1em;
 }
 
 .graphheader {
 	display: inline-block;
-	width: 800px;
 	font-weight: bold;
 	margin: 6px 0 0 0px;
 }
 
 .predheading {
 	display: display-block;
-	width: 250px;
+	width: 40%;
 	float: left;
 	margin: 4px 4px 4px 60px;
 	font-weight: bold;
@@ -321,7 +323,7 @@ li.confcol {
 
 .predheadingsubject {
 	display: inline-block;
-	width: 220px;
+	width: 40%;
 	float: left;
 	margin: 4px 4px 4px 0px;
 	font-weight: bold;
@@ -331,7 +333,7 @@ li.confcol {
 
 .subheading {
 	display: inline-block;
-	width: 280px;
+	width: 40%;
 	float: left;
 	margin: 4px 4px 4px 0px;
 	font-weight: bold;
@@ -341,17 +343,17 @@ li.confcol {
 
 .objheading {
 	display: inline-block;
-	width: 400px;
+	width: 40%;
 	float: left;
-	margin: 4px 4px 4px 40px;
+	margin: 0.5em 0;
 	font-weight: bold;
 	background: #6090B1;
-	height: 20px;
+	height: 1.2em;;
 }
 
 .objheadingsubject {
 	display: inline-block;
-	width: 450px;
+	width: 40%;
 	float: left;
 	margin: 4px 4px 4px 80px;
 	font-weight: bold;
@@ -361,12 +363,12 @@ li.confcol {
 
 .addpropheading {
 	display: inline-block;
-	width: 200px;
+	width: 40%;
 	float: left;
-	margin: 4px 4px 4px 0px;
+	margin: 0.5em 0;
 	font-weight: bold;
 	background: #6090B1;
-	height: 20px;
+	height: 1.2em;
 }
 
 .addprop {
@@ -377,20 +379,20 @@ li.confcol {
 }
 
 .minus {
-    height: 1em;
+    height: 1.5em;
 	margin: 4px 4px 4px 4px;
 }
 
 .addcontent {
 	display: inline-block;
-	width: 900px;
+	width: 90%;
 	margin: 4px 4px 4px 0px;
 	vertical-align: top;
 }
 
 .addobjheading {
 	display: inline-block;
-	width: 400px;
+	width: 40%;
 	float: left;
 	margin: 4px 4px 4px 60px;
 	font-weight: bold;
@@ -400,7 +402,7 @@ li.confcol {
 
 .addobj {
 	display: inline-block;
-	width: 400px;
+	width: 40%;
 	margin: 4px 4px 4px 60px;
 }
 
@@ -537,7 +539,6 @@ a {
 
 a.addtext {
 	display: inline-block;
-	font-size: 1.5em;
 	padding: 4px;
 }
 

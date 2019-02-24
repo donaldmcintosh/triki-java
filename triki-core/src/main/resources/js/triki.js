@@ -8,6 +8,7 @@ function set_cursor_pos() {
     $("#contentedit").focus();
     $("#contentedit").prop("selectionStart", curspos);
     $("#contentedit").prop("selectionEnd", curspos);
+    sessionStorage.removeItem('curspos');
 };
 
 function initEditor() {
@@ -121,6 +122,15 @@ function initEditor() {
     		 textarea.textContent = data;
     	 }, "text");
      });
+
+     (function () {
+      var button = document.getElementById('toggle-menu');
+      button.addEventListener('click', function(event) {
+        event.preventDefault();
+        var menu = document.getElementById('main-menu');
+        menu.classList.toggle('is-open');
+        });
+      })();
      
 };
 
