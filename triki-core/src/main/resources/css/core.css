@@ -27,7 +27,13 @@ body {
   }
 }
 
-@media (min-width: 70em) {
+@media (min-width: 35em) and (min-resolution: 2x) {
+  body {
+    font-size: calc(1vw + 0.4em);
+  }
+}
+
+@media (min-width: 70em) and (max-resolution: 1x) {
   body {
     font-size: calc(0.5vw + 0.5em);
     margin: 0 5em;
@@ -41,7 +47,6 @@ body * + * {
 #all {
 	font-family: verdana;
 	font-size: 12px;
-	width: 920px;
 	margin: 0px auto;
 }
 
@@ -50,7 +55,7 @@ main {
   font-family: Verdana;
 }
 
-@media (min-width: 35em) {
+@media (min-width: 70em) {
   main {
     padding: 2em 1em;
   }
@@ -85,7 +90,7 @@ main {
   top: 3.0em;
 }
 
-@media (min-width: 35em) {
+@media (min-width: 70em) {
   .menu-toggle {
     display: none;
   }
@@ -119,7 +124,7 @@ main {
   font-weight: normal;
 }
 
-@media (min-width: 35em) {
+@media (min-width: 70em) {
   .nav-menu {
     display: flex;
     border: 0;
@@ -155,7 +160,6 @@ main {
 
 #banner {
 	text-align: center;
-	width: 1000px;
 	height: auto;
 	overflow: hidden;
 	clear: both;
@@ -166,7 +170,6 @@ main {
 }
 
 ul#confmenu {
-	width: 800px;
 	list-style-type: none;
 	display: inline-block;
 	margin: 0 0 0 0px;
