@@ -21,22 +21,9 @@ body {
   font-family: Armata, verdana;
 }
 
-@media (min-width: 35em) {
+@media (min-width: 30em) {
   body {
     font-size: calc(1vw + 0.4em);
-  }
-}
-
-@media (min-width: 35em) and (min-resolution: 2x) {
-  body {
-    font-size: calc(1vw + 0.4em);
-  }
-}
-
-@media (min-width: 70em) and (max-resolution: 1x) {
-  body {
-    font-size: calc(0.5vw + 0.5em);
-    margin: 0 5em;
   }
 }
 
@@ -90,7 +77,7 @@ main {
   top: 3.0em;
 }
 
-@media (min-width: 70em) {
+@media (min-width: 30em) {
   .menu-toggle {
     display: none;
   }
@@ -124,7 +111,7 @@ main {
   font-weight: normal;
 }
 
-@media (min-width: 70em) {
+@media (min-width: 30em) {
   .nav-menu {
     display: flex;
     border: 0;
@@ -147,6 +134,44 @@ main {
   resize: none;
   max-width:95%;
   height: 40em;
+}
+
+.Rtable {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 3em 0;
+  padding: 0;
+}
+
+.Rtable-cell {
+  box-sizing: border-box;
+  margin: 0em 0em 1em 0em;
+  width: 100%;  // Default to full width
+  padding: 0.8em 1.2em;
+  overflow: hidden; // Or flex might break
+  list-style: none;
+  border: solid @bw white;
+  background: fade(slategrey,20%);
+  > h1, > h2, > h3, > h4, > h5, > h6 { margin: 0; }
+}
+
+.Rtable-col1 { flex: 0 0 5%; }
+.Rtable-col2 { flex: 0 1 20%; border: solid 0.1em white; border-bottom-color: #103061; }
+.Rtable-col3 { flex: 0 0 5%; }
+.Rtable-col4 { flex: 0 0 5%; }
+.Rtable-col5 { flex: 0 1 60%; border: solid 0.1em white; border-bottom-color: #103061; }
+.Rtable-col6 { flex: 0 0 5%; }
+
+.AddTable-col1 { flex: 0 0 35%; }
+.AddTable-col2 { flex: 0 0 60% }
+.AddTable-col3 { flex: 0 0 5%; }
+
+.lookup {
+    width: 90%;
+}
+
+.editdesc {
+    width: 90%;
 }
 
 #confheadertext {
@@ -238,34 +263,6 @@ img.icon {
 	margin: 0 0.4em 0 0;
 	float: left;
 	height: 1.5em;
-    bottom: 0.1em;
-    position: relative;
-}
-
-img.graphlefticon {
-	display: block;
-	margin: 2px 4px 0px 0px;
-	float: right;
-	height: 1.5em;
-}
-
-img.graphrighticon {
-	display: block;
-	margin: 2px 4px 0px 0px;
-	float: left;
-	height: 1.5em;
-}
-
-img.headingicon {
-	display: block;
-	margin: 2px 4px 0px 0px;
-	float: left;
-	height: 2em;
-}
-
-.iconlable {
-	padding: 2px;
-	float: left;
 }
 
 .confitem:hover {
@@ -381,11 +378,6 @@ li.confcol {
 	vertical-align: top;
 }
 
-.minus {
-    height: 1.5em;
-	margin: 4px 4px 4px 4px;
-}
-
 .addcontent {
 	display: inline-block;
 	width: 90%;
@@ -419,8 +411,7 @@ li.confcol {
 
 .pred {
 	display: inline-block;
-	width: 150px;
-	margin: 4px 4px 4px 4px;
+	margin: 1em;
 	vertical-align: top;
 	padding: 2px;
 	border: solid 0.1em white;
@@ -429,7 +420,6 @@ li.confcol {
 
 .obj {
 	display: inline-block;
-	width: 400px;
 	margin: 4px 4px 4px 4px;
 	vertical-align: top;
 	padding: 2px;
@@ -518,7 +508,7 @@ a {
 }
 
 .submiticon {
-    height: 1.5em;
+    height: 1.3em;
     border: 0;
     padding: 0;
 }

@@ -66,7 +66,7 @@ function initEditor() {
         $('.minus').click(minus_opt);
 
     $(".addtext").click(function() {
-        var newrow = $('<div class="graphrow"><div class="addprop"><input name="proptext' + rowcount + '" class="lookupprop" size="30"/></div><div class="addobj"><textarea name="obj'+ rowcount + '" rows="3" cols="38"></textarea><a class="minus"><img src="/content/minus_50x50.svg"></a></div></div>');
+        var newrow = $('<div class="Rtable-cell AddTable-col1"><input name="proptext' + rowcount + '" class="lookupprop" size="30"/></div><div class="Rtable-cell AddTable-col2"><textarea class="editdesc" name="obj'+ rowcount + '" rows="3"></textarea></div><div class="Rtable-cell AddTable-col3"><a class="minus icon"><img src="/content/minus_50x50.svg"></a></div>');
         $('.lookupprop', newrow).autocomplete(lookup_prop);
         $('.minus', newrow).click(minus_opt);
         $('.graphrow:last').after(newrow);
@@ -75,7 +75,7 @@ function initEditor() {
      });
     
     $(".addlink").click(function() {
-        var newrow = $('<div class="graphrow"><div class="addprop"><input name="proplink' + rowcount + '" class="lookupprop" size="30"/></div><div class="addobj"><input name="objlink' + rowcount + '" class="lookup" size="50" /><a class="minus"><img src="/content/minus_50x50.svg"></a></div></div>');
+        var newrow = $('<div class="Rtable-cell AddTable-col1"><input name="proplink' + rowcount + '" class="lookupprop" size="30"/></div><div class="Rtable-cell AddTable-col2"><input name="objlink' + rowcount + '" class="lookup" size="50" /></div><div class="Rtable-cell AddTable-col3"><a class="minus"><img src="/content/minus_50x50.svg"></a></div>');
         $('.lookupprop', newrow).autocomplete(lookup_prop);
         $('.lookup', newrow).autocomplete(lookup_opt);
         $('.minus', newrow).click(minus_opt);

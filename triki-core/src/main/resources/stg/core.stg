@@ -163,35 +163,42 @@ addnode(model) ::= <<
 
 showprops(model) ::= <<
 
-        <div class="graph">
-	        <div class="graphrow">
-	       	    <div class="addpropheading">Property</div>
-	 	    <div class="addobjheading">Value</div>
-	        </div>
+     <div class="Rtable">
+        <div class="Rtable-cell AddTable-col1">Property</div>
+        <div class="Rtable-cell AddTable-col2">Value</div>
+        <div class="Rtable-cell AddTable-col3"></div>
+
 	        $if(model.allProperties)$
 	        	$model.allProperties :{ property |
-	        			<div class="graphrow">
-		        			<div class="addprop">
+	        	    <div class="graphrow">
+	        			<div class="Rtable-cell AddTable-col1">
 		       	         		<input name="$property.propertyField.name$" class="lookupprop" value="$property.propertyField.value$"/>
-			        		</div>
-	            		<div class="addobj">
+			        	</div>
+	            		<div class="Rtable-cell AddTable-col2">
 	       	         		$if(property.valueField.text)$
-	       	         			<textarea name="$property.valueField.name$" rows="3" cols="38">$property.valueField.text$</textarea>
+	       	         			<textarea class="editdesc" name="$property.valueField.name$" rows="3">$property.valueField.text$</textarea>
 	       	         		$else$
 	       	         			<input name="$property.valueField.name$" class="lookup" value="$property.valueField.value$"/>
 	       	         		$endif$
-	       	         		<a><img class="minus" src="/content/minus_50x50.svg"></a></div>
+	       	         	</div>
+	       	         	<div class="Rtable-cell AddTable-col3">
+	       	         		<a><img class="icon minus" src="/content/minus_50x50.svg"></a>
 		        		</div>
+                    </div>
 	        		}
 	        	$
 	        $else$
-	            <div class="graphrow">
-		            <div class="addprop">
-		       	         <input name="proplink1:" class="lookupprop" size="30" />
-			        </div><div class="addobj">
-		       	         <input name="objlink1:" class="lookup" size="50" /><a><img class="minus" src="/content/minus_50x50.svg"></a>
-			        </div>
-		       </div>
+	        <div class="graphrow">
+	            <div class="Rtable-cell AddTable-col1">
+                     <input name="proplink1:" class="lookupprop" size="30" />
+                </div>
+                <div class="Rtable-cell AddTable-col2">
+                     <input name="objlink1:" class="lookup" size="50" />
+                 </div>
+                 <div class="Rtable-cell AddTable-col3">
+                     <a><img class="icon minus" src="/content/minus_50x50.svg"></a>
+                </div>
+             </div>
 	       $endif$
 
         	<div class="adder"><img class="addicon" src="/content/text_50x50.svg"><div class="addertext"><a class="addtext">Add Text Property</a></div></div>
@@ -222,35 +229,29 @@ subject(graphTable, encodedId, path, model, isContent, isTextContent) ::= <<
 		 $endif$
 	 </div>
 
-	 <div class="graph">
-	 <div class="graphrow">
-	 	<div class="predheadingsubject">Property</div>
-	 	<div class="objheadingsubject">Value</div>
-	 </div>
+     <div class="Rtable">
+        <div class="Rtable-cell Rtable-col1"></div>
+        <div class="Rtable-cell Rtable-col2">Property</div>
+        <div class="Rtable-cell Rtable-col3"></div>
+        <div class="Rtable-cell Rtable-col4"></div>
+        <div class="Rtable-cell Rtable-col5">Value</div>
+        <div class="Rtable-cell Rtable-col6"></div>
+
 	 $graphTable :
 	 	{row |
-	 	<div class="graphrow">
-	 		<div class="node">
-		 		<div class="navicon"><a href="$row.pred_url_sub$"><img class="graphlefticon" src="/content/outTree_50x50.svg"></a></div>
-		 		<div class="pred">
-		 			$row.pred_title$
-		 		</div>
-		 		<div class="navicon"><a href="$row.pred_url_obj$"><img class="headingicon" src="/content/inTree_50x50.svg"></a></div>
-	 		</div>
-			<div id="spacer"></div>
+		 		<div class="Rtable-cell Rtable-col1"><a href="$row.pred_url_sub$"><img class="icon" src="/content/outTree_50x50.svg"></a></div>
+		 		<div class="Rtable-cell Rtable-col2">$row.pred_title$</div>
+		 		<div class="Rtable-cell Rtable-col3"><a href="$row.pred_url_obj$"><img class="icon" src="/content/inTree_50x50.svg"></a></div>
 		 	$if(row.obj_url_sub)$
-		 		<div class="node">
-			 		<div class="navicon"><a href="$row.obj_url_sub$"><img class="graphlefticon" src="/content/outTree_50x50.svg"></a></div>
-			 		<div class="obj">$row.obj_title$</div>
-			 		<div class="navicon"><a href="$row.obj_url_obj$"><img class="graphrighticon" src="/content/inTree_50x50.svg"></a></div>
-		 		</div>
+			 		<div class="Rtable-cell Rtable-col4"><a href="$row.obj_url_sub$"><img class="icon" src="/content/outTree_50x50.svg"></a></div>
+			 		<div class="Rtable-cell Rtable-col5">$row.obj_title$</div>
+			 		<div class="Rtable-cell Rtable-col6"><a href="$row.obj_url_obj$"><img class="icon" src="/content/inTree_50x50.svg"></a></div>
+
 		 	$else$
-		 		<div class="node">
-		 			<div class="navicon"><img class="graphlefticon" src="/content/text_50x50.svg"></div>
-		 			<div class="obj">$row.obj_title$</div>
-		 		</div>
+		 			<div class="Rtable-cell Rtable-col4"><img class="icon" src="/content/text_50x50.svg"></div>
+		 			<div class="Rtable-cell Rtable-col5">$row.obj_title$</div>
+		 			<div class="Rtable-cell Rtable-col6"> </div>
 		 	$endif$
-	 	</div>
 	 	 }
 	 $
 	 </div>
@@ -278,34 +279,31 @@ object(id, graphTable) ::= <<
 		 	<div class="graphid">$id$</div>
 		 </div>
 	 </div>
-	 <div class="graph">
-	 <div class="graphrow">
-	 	<div class="subheading">Node</div>
-	 	<div class="predheading">Property</div>
-	 </div>
+
+
+     <div class="Rtable">
+        <div class="Rtable-cell Rtable-col1"></div>
+        <div class="Rtable-cell Rtable-col2">Node</div>
+        <div class="Rtable-cell Rtable-col3"></div>
+        <div class="Rtable-cell Rtable-col4"></div>
+        <div class="Rtable-cell Rtable-col5">Property</div>
+        <div class="Rtable-cell Rtable-col6"></div>
+
 	 $graphTable :
 	 	{row |
-	 	<div class="graphrow">
 		 	$if(row.sub_url_sub)$
-		 		<div class="node">
-			 		<div class="navicon"><a href="$row.sub_url_sub$"><img class="graphlefticon" src="/content/outTree_50x50.svg"></a></div>
-			 		<div class="sub">$row.sub_title$</div>
-			 		<div class="navicon"><a href="$row.sub_url_obj$"><img class="graphrighticon" src="/content/inTree_50x50.svg"></a></div>
-		 		</div>
+                <div class="Rtable-cell Rtable-col1"><a href="$row.sub_url_sub$"><img class="icon" src="/content/outTree_50x50.svg"></a></div>
+                <div class="Rtable-cell Rtable-col2">$row.sub_title$</div>
+                <div class="Rtable-cell Rtable-col3"><a href="$row.sub_url_obj$"><img class="icon" src="/content/inTree_50x50.svg"></a></div>
 		 	$else$
-		 		<div class="node">
-		 			<div class="sub">$row.sub_title$</div>
-		 		</div>
+		 	    <div class="Rtable-cell Rtable-col1"/>
+		 		<div class="Rtable-cell Rtable-col2">$row.sub_title$</div>
+		 		<div class="Rtable-cell Rtable-col3"/>
 		 	$endif$
-			<div id="spacer"></div>
-		 	<div class="node">
-		 		<div class="navicon"><a href="$row.pred_url_sub$"><img class="graphlefticon" src="/content/outTree_50x50.svg"></a></div>
-		 		<div class="pred">
-		 			$row.pred_title$
-		 		</div>
-		 		<div class="navicon"><a href="$row.pred_url_obj$"><img class="graphrighticon" src="/content/inTree_50x50.svg"></a></div>
-	 		</div>
-	 	</div>
+
+            <div class="Rtable-cell Rtable-col4"><a href="$row.pred_url_sub$"><img class="icon" src="/content/outTree_50x50.svg"></a></div>
+            <div class="Rtable-cell Rtable-col5">$row.pred_title$</div>
+            <div class="Rtable-cell Rtable-col6"><a href="$row.pred_url_obj$"><img class="icon" src="/content/inTree_50x50.svg"></a></div>
 	 	 }
 	 $
 	 </div>
