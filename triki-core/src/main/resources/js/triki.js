@@ -66,7 +66,7 @@ function initEditor() {
         $('.minus').click(minus_opt);
 
     $(".addtext").click(function() {
-        var newrow = $('<div class="graphrow"><div class="Rtable-cell AddTable-col1"><input type="text" name="proptext' + rowcount + '" class="lookupprop"/></div><div class="Rtable-cell AddTable-col2"><textarea class="editdesc" name="obj'+ rowcount + '" rows="3"></textarea></div><div class="Rtable-cell AddTable-col3"><a><img class="icon minus" src="/content/minus_50x50.svg"></a></div></div>');
+        var newrow = $('<div class="graphrow"><div class="showProps-cell AddTable-col1"><input type="text" name="proptext' + rowcount + '" class="lookupprop"/></div><div class="showProps-cell AddTable-col2"><textarea class="editdesc" name="obj'+ rowcount + '" rows="3"></textarea></div><div class="showProps-cell AddTable-col3"><a><img class="icon minus" src="/content/minus_50x50.svg"></a></div></div>');
         $('.lookupprop', newrow).autocomplete(lookup_prop);
         $('.minus', newrow).click(minus_opt);
         $('.graphrow:last').after(newrow);
@@ -75,7 +75,7 @@ function initEditor() {
      });
     
     $(".addlink").click(function() {
-        var newrow = $('<div class="graphrow"><div class="Rtable-cell AddTable-col1"><input type="text" name="proplink' + rowcount + '" class="lookupprop"/></div><div class="Rtable-cell AddTable-col2"><input name="objlink' + rowcount + '" class="lookup" /></div><div class="Rtable-cell AddTable-col3"><a><img class="icon minus" src="/content/minus_50x50.svg"></a></div></div>');
+        var newrow = $('<div class="graphrow"><div class="showProps-cell AddTable-col1"><input type="text" name="proplink' + rowcount + '" class="lookupprop"/></div><div class="showProps-cell AddTable-col2"><input name="objlink' + rowcount + '" class="lookup" /></div><div class="showProps-cell AddTable-col3"><a><img class="icon minus" src="/content/minus_50x50.svg"></a></div></div>');
         $('.lookupprop', newrow).autocomplete(lookup_prop);
         $('.lookup', newrow).autocomplete(lookup_opt);
         $('.minus', newrow).click(minus_opt);

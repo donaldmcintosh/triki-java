@@ -163,25 +163,25 @@ addnode(model) ::= <<
 
 showprops(model) ::= <<
 
-     <div class="Rtable">
-        <div class="Rtable-cell AddTable-col1">Property</div>
-        <div class="Rtable-cell AddTable-col2">Value</div>
-        <div class="Rtable-cell AddTable-col3"></div>
+     <div class="showProps">
+        <div class="showProps-cell AddTable-col1">Property</div>
+        <div class="showProps-cell AddTable-col2">Value</div>
+        <div class="showProps-cell AddTable-col3"></div>
 
 	        $if(model.allProperties)$
 	        	$model.allProperties :{ property |
 	        	    <div class="graphrow">
-	        			<div class="Rtable-cell AddTable-col1">
+	        			<div class="showProps-cell AddTable-col1">
 		       	         		<input type="text" name="$property.propertyField.name$" class="lookupprop" value="$property.propertyField.value$"/>
 			        	</div>
-	            		<div class="Rtable-cell AddTable-col2">
+	            		<div class="showProps-cell AddTable-col2">
 	       	         		$if(property.valueField.text)$
 	       	         			<textarea class="editdesc" name="$property.valueField.name$" rows="3">$property.valueField.text$</textarea>
 	       	         		$else$
 	       	         			<input type="text" name="$property.valueField.name$" class="lookup" value="$property.valueField.value$"/>
 	       	         		$endif$
 	       	         	</div>
-	       	         	<div class="Rtable-cell AddTable-col3">
+	       	         	<div class="showProps-cell AddTable-col3">
 	       	         		<a><img class="icon minus" src="/content/minus_50x50.svg"></a>
 		        		</div>
                     </div>
@@ -189,13 +189,13 @@ showprops(model) ::= <<
 	        	$
 	        $else$
 	        <div class="graphrow">
-	            <div class="Rtable-cell AddTable-col1">
+	            <div class="showProps-cell AddTable-col1">
                      <input type="text" name="proplink1:" class="lookupprop" />
                 </div>
-                <div class="Rtable-cell AddTable-col2">
+                <div class="showProps-cell AddTable-col2">
                      <input type="text" name="objlink1:" class="lookup" />
                  </div>
-                 <div class="Rtable-cell AddTable-col3">
+                 <div class="showProps-cell AddTable-col3">
                      <a><img class="icon minus" src="/content/minus_50x50.svg"></a>
                 </div>
              </div>
@@ -229,28 +229,28 @@ subject(graphTable, encodedId, path, model, isContent, isTextContent) ::= <<
 		 $endif$
 	 </div>
 
-     <div class="Rtable">
-        <div class="Rtable-cell Rtable-col1"></div>
-        <div class="Rtable-cell Rtable-col2">Property</div>
-        <div class="Rtable-cell Rtable-col3"></div>
-        <div class="Rtable-cell Rtable-col4"></div>
-        <div class="Rtable-cell Rtable-col5">Value</div>
-        <div class="Rtable-cell Rtable-col6"></div>
+     <div class="showProps">
+        <div class="showProps-cell showProps-col1"></div>
+        <div class="showProps-cell showProps-col2">Property</div>
+        <div class="showProps-cell showProps-col3"></div>
+        <div class="showProps-cell showProps-col4"></div>
+        <div class="showProps-cell showProps-col5">Value</div>
+        <div class="showProps-cell showProps-col6"></div>
 
 	 $graphTable :
 	 	{row |
-		 		<div class="Rtable-cell Rtable-col1"><a href="$row.pred_url_sub$"><img class="icon" src="/content/outTree_50x50.svg"></a></div>
-		 		<div class="Rtable-cell Rtable-col2">$row.pred_title$</div>
-		 		<div class="Rtable-cell Rtable-col3"><a href="$row.pred_url_obj$"><img class="icon" src="/content/inTree_50x50.svg"></a></div>
+		 		<div class="showProps-cell showProps-col1"><a href="$row.pred_url_sub$"><img class="icon" src="/content/outTree_50x50.svg"></a></div>
+		 		<div class="showProps-cell showProps-col2">$row.pred_title$</div>
+		 		<div class="showProps-cell showProps-col3"><a href="$row.pred_url_obj$"><img class="icon" src="/content/inTree_50x50.svg"></a></div>
 		 	$if(row.obj_url_sub)$
-			 		<div class="Rtable-cell Rtable-col4"><a href="$row.obj_url_sub$"><img class="icon" src="/content/outTree_50x50.svg"></a></div>
-			 		<div class="Rtable-cell Rtable-col5">$row.obj_title$</div>
-			 		<div class="Rtable-cell Rtable-col6"><a href="$row.obj_url_obj$"><img class="icon" src="/content/inTree_50x50.svg"></a></div>
+			 		<div class="showProps-cell showProps-col4"><a href="$row.obj_url_sub$"><img class="icon" src="/content/outTree_50x50.svg"></a></div>
+			 		<div class="showProps-cell showProps-col5">$row.obj_title$</div>
+			 		<div class="showProps-cell showProps-col6"><a href="$row.obj_url_obj$"><img class="icon" src="/content/inTree_50x50.svg"></a></div>
 
 		 	$else$
-		 			<div class="Rtable-cell Rtable-col4"><img class="icon" src="/content/text_50x50.svg"></div>
-		 			<div class="Rtable-cell Rtable-col5">$row.obj_title$</div>
-		 			<div class="Rtable-cell Rtable-col6"> </div>
+		 			<div class="showProps-cell showProps-col4"><img class="icon" src="/content/text_50x50.svg"></div>
+		 			<div class="showProps-cell showProps-col5">$row.obj_title$</div>
+		 			<div class="showProps-cell showProps-col6"> </div>
 		 	$endif$
 	 	 }
 	 $
@@ -281,29 +281,29 @@ object(id, graphTable) ::= <<
 	 </div>
 
 
-     <div class="Rtable">
-        <div class="Rtable-cell Rtable-col1"></div>
-        <div class="Rtable-cell Rtable-col2">Node</div>
-        <div class="Rtable-cell Rtable-col3"></div>
-        <div class="Rtable-cell Rtable-col4"></div>
-        <div class="Rtable-cell Rtable-col5">Property</div>
-        <div class="Rtable-cell Rtable-col6"></div>
+     <div class="showProps">
+        <div class="showProps-cell showProps-col1"></div>
+        <div class="showProps-cell showProps-col2">Node</div>
+        <div class="showProps-cell showProps-col3"></div>
+        <div class="showProps-cell showProps-col4"></div>
+        <div class="showProps-cell showProps-col5">Property</div>
+        <div class="showProps-cell showProps-col6"></div>
 
 	 $graphTable :
 	 	{row |
 		 	$if(row.sub_url_sub)$
-                <div class="Rtable-cell Rtable-col1"><a href="$row.sub_url_sub$"><img class="icon" src="/content/outTree_50x50.svg"></a></div>
-                <div class="Rtable-cell Rtable-col2">$row.sub_title$</div>
-                <div class="Rtable-cell Rtable-col3"><a href="$row.sub_url_obj$"><img class="icon" src="/content/inTree_50x50.svg"></a></div>
+                <div class="showProps-cell showProps-col1"><a href="$row.sub_url_sub$"><img class="icon" src="/content/outTree_50x50.svg"></a></div>
+                <div class="showProps-cell showProps-col2">$row.sub_title$</div>
+                <div class="showProps-cell showProps-col3"><a href="$row.sub_url_obj$"><img class="icon" src="/content/inTree_50x50.svg"></a></div>
 		 	$else$
-		 	    <div class="Rtable-cell Rtable-col1"/>
-		 		<div class="Rtable-cell Rtable-col2">$row.sub_title$</div>
-		 		<div class="Rtable-cell Rtable-col3"/>
+		 	    <div class="showProps-cell showProps-col1"/>
+		 		<div class="showProps-cell showProps-col2">$row.sub_title$</div>
+		 		<div class="showProps-cell showProps-col3"/>
 		 	$endif$
 
-            <div class="Rtable-cell Rtable-col4"><a href="$row.pred_url_sub$"><img class="icon" src="/content/outTree_50x50.svg"></a></div>
-            <div class="Rtable-cell Rtable-col5">$row.pred_title$</div>
-            <div class="Rtable-cell Rtable-col6"><a href="$row.pred_url_obj$"><img class="icon" src="/content/inTree_50x50.svg"></a></div>
+            <div class="showProps-cell showProps-col4"><a href="$row.pred_url_sub$"><img class="icon" src="/content/outTree_50x50.svg"></a></div>
+            <div class="showProps-cell showProps-col5">$row.pred_title$</div>
+            <div class="showProps-cell showProps-col6"><a href="$row.pred_url_obj$"><img class="icon" src="/content/inTree_50x50.svg"></a></div>
 	 	 }
 	 $
 	 </div>
@@ -450,7 +450,7 @@ login(props) ::= <<
     $loginheader(props)$
         </p>
 		 <div class="navicon">
-		 	<div class="graphid"><img class="headingicon" src="/content/inOutTree_50x50.svg"></div>
+		 	<div class="graphid"><img class="logo" src="/content/inOutTree_50x50.svg"></div>
 		 	<div class="headingbig">Welcome to triki, the graph wiki.</div>
 		 </div>
         <p>
@@ -458,11 +458,10 @@ login(props) ::= <<
         <p>
 
         <form action="/auth" method="POST">
-           <input type="hidden" name="action" value="login" />
-           Login: <input name="triki:login" width="100">&nbsp;&nbsp;
+           Login: <input name="triki:login" width="100">
            Password: <input type="password" name="triki:password"  name="password" width="10"/><br>
            <br>
-           <input type="image" src="/content/login_120x50.svg" value="Login"/><br>
+           <button class="submitbutton" type="image" name="action" value="login"><img class="submiticon" src="/content/login_120x50.svg" alt="Login"></button>
         </form>
 
         Login with an Identity Provider:

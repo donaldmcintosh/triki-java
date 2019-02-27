@@ -143,14 +143,14 @@ main {
   height: 40em;
 }
 
-.Rtable {
+.showProps {
   display: flex;
   flex-wrap: wrap;
   margin: 0 0 3em 0;
   padding: 0;
 }
 
-.Rtable-cell {
+.showProps-cell {
   box-sizing: border-box;
   margin: 0em 0em 1em 0em;
   width: 100%;  // Default to full width
@@ -162,12 +162,12 @@ main {
   > h1, > h2, > h3, > h4, > h5, > h6 { margin: 0; }
 }
 
-.Rtable-col1 { flex: 0 0 5%; }
-.Rtable-col2 { flex: 0 1 20%; border: solid 0.1em white; border-bottom-color: #103061; }
-.Rtable-col3 { flex: 0 0 5%; }
-.Rtable-col4 { flex: 0 0 5%; }
-.Rtable-col5 { flex: 0 1 60%; border: solid 0.1em white; border-bottom-color: #103061; }
-.Rtable-col6 { flex: 0 0 5%; }
+.showProps-col1 { flex: 0 0 5%; }
+.showProps-col2 { flex: 0 1 20%; border: solid 0.1em white; border-bottom-color: #103061; }
+.showProps-col3 { flex: 0 0 5%; }
+.showProps-col4 { flex: 0 0 5%; }
+.showProps-col5 { flex: 0 1 60%; border: solid 0.1em white; border-bottom-color: #103061; }
+.showProps-col6 { flex: 0 0 5%; }
 
 .AddTable-col1 { flex: 0 0 35%; }
 .AddTable-col2 { flex: 0 0 60% }
