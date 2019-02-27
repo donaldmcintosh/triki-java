@@ -53,7 +53,7 @@ background: white url("/content/wait.gif") right center no-repeat;
 	    <div class="menu-dropdown">
             <ul class="nav-menu">
                 <li><img class="findicon" src="/content/inOutTree_50x50.svg">
-                       <input class="search" value="Find..."
+                       <input type="text" class="search" value="Find..."
                               onblur="if(this.value==''){ this.value='Find...'; this.style.color='#BBB';}"
                               onfocus="if(this.value=='Find...'){ this.value=''; this.style.color='#000';}">
 
@@ -137,7 +137,7 @@ addnode(model) ::= <<
 			<div class="graphheader">
 				 <div class="navicon">
 				 	<div class="graphid"><img class="graphrighticon" src="/content/outTree_50x50.svg"></div>
-				 	<div class="graphid">Path: <input class="lookupprefix" name="$model.nodeAddress.prefixName$" size="15" value="$model.nodeAddress.prefixValue$"/> <input name="id" width="30" value="$model.nodeAddress.id$"/></div>
+				 	<div class="graphid">Path: <input type="text" class="lookupprefix" name="$model.nodeAddress.prefixName$" size="15" value="$model.nodeAddress.prefixValue$"/> <input type="text" name="id" width="30" value="$model.nodeAddress.id$"/></div>
 				 </div>
 			</div>
 
@@ -172,13 +172,13 @@ showprops(model) ::= <<
 	        	$model.allProperties :{ property |
 	        	    <div class="graphrow">
 	        			<div class="Rtable-cell AddTable-col1">
-		       	         		<input name="$property.propertyField.name$" class="lookupprop" value="$property.propertyField.value$"/>
+		       	         		<input type="text" name="$property.propertyField.name$" class="lookupprop" value="$property.propertyField.value$"/>
 			        	</div>
 	            		<div class="Rtable-cell AddTable-col2">
 	       	         		$if(property.valueField.text)$
 	       	         			<textarea class="editdesc" name="$property.valueField.name$" rows="3">$property.valueField.text$</textarea>
 	       	         		$else$
-	       	         			<input name="$property.valueField.name$" class="lookup" value="$property.valueField.value$"/>
+	       	         			<input type="text" name="$property.valueField.name$" class="lookup" value="$property.valueField.value$"/>
 	       	         		$endif$
 	       	         	</div>
 	       	         	<div class="Rtable-cell AddTable-col3">
@@ -190,10 +190,10 @@ showprops(model) ::= <<
 	        $else$
 	        <div class="graphrow">
 	            <div class="Rtable-cell AddTable-col1">
-                     <input name="proplink1:" class="lookupprop" size="30" />
+                     <input type="text" name="proplink1:" class="lookupprop" />
                 </div>
                 <div class="Rtable-cell AddTable-col2">
-                     <input name="objlink1:" class="lookup" size="50" />
+                     <input type="text" name="objlink1:" class="lookup" />
                  </div>
                  <div class="Rtable-cell AddTable-col3">
                      <a><img class="icon minus" src="/content/minus_50x50.svg"></a>
@@ -375,7 +375,7 @@ addcontent(props, errors, values, path) ::= <<
                            <div class="addprop">
                                 <div>ID</div>
                                </div><div class="addobj">
-                                <div><input name="id" size="50" /></div>
+                                <div><input type="text" name="id" size="50" /></div>
                                </div>
                        </div>
 
@@ -383,7 +383,7 @@ addcontent(props, errors, values, path) ::= <<
                            <div class="addprop">
                                 <div>Media type</div><input type="hidden" name="proplink1:property_Format" class="lookupprop" value="Media Type"/>
                                </div><div class="addobj">
-                                <input name="objlink1:" class="lookup" size="50" />
+                                <input type="text" name="objlink1:" class="lookup" size="50" />
                                </div>
                        </div>
 

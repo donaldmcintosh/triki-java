@@ -27,6 +27,13 @@ body {
   }
 }
 
+@media (min-width: 70em) {
+  body {
+    font-size: calc(1vw + 0.2em);
+    margin: 0 10em;
+  }
+}
+
 body * + * {
 
 }
@@ -172,6 +179,23 @@ main {
 
 .editdesc {
     width: 90%;
+}
+
+.graphrow {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 0 0em;
+  padding: 0;
+}
+
+input[type="text"]
+{
+  font-size: 1em;
+}
+
+textarea {
+  font-size: 0.6em;
 }
 
 #confheadertext {
