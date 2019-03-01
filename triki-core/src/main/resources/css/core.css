@@ -169,6 +169,13 @@ main {
 .showProps-col5 { flex: 0 1 60%; border: solid 0.1em white; border-bottom-color: #103061; }
 .showProps-col6 { flex: 0 0 5%; }
 
+.objProps-col1 { flex: 0 0 5%; }
+.objProps-col2 { flex: 0 1 60%; border: solid 0.1em white; border-bottom-color: #103061; }
+.objProps-col3 { flex: 0 0 5%; }
+.objProps-col4 { flex: 0 0 5%; }
+.objProps-col5 { flex: 0 1 20%; border: solid 0.1em white; border-bottom-color: #103061; }
+.objProps-col6 { flex: 0 0 5%; }
+
 .AddTable-col1 { flex: 0 0 35%; }
 .AddTable-col2 { flex: 0 0 60% }
 .AddTable-col3 { flex: 0 0 5%; }

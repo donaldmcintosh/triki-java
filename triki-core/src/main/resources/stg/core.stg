@@ -234,7 +234,7 @@ subject(graphTable, encodedId, path, model, isContent, isTextContent) ::= <<
         <div class="showProps-cell showProps-col2">Property</div>
         <div class="showProps-cell showProps-col3"></div>
         <div class="showProps-cell showProps-col4"></div>
-        <div class="showProps-cell showProps-col5">Value</div>
+        <div class="showProps-cell showProps-col5">Object</div>
         <div class="showProps-cell showProps-col6"></div>
 
 	 $graphTable :
@@ -282,28 +282,28 @@ object(id, graphTable) ::= <<
 
 
      <div class="showProps">
-        <div class="showProps-cell showProps-col1"></div>
-        <div class="showProps-cell showProps-col2">Node</div>
-        <div class="showProps-cell showProps-col3"></div>
-        <div class="showProps-cell showProps-col4"></div>
-        <div class="showProps-cell showProps-col5">Property</div>
-        <div class="showProps-cell showProps-col6"></div>
+        <div class="showProps-cell objProps-col1"></div>
+        <div class="showProps-cell objProps-col2">Subject</div>
+        <div class="showProps-cell objProps-col3"></div>
+        <div class="showProps-cell objProps-col4"></div>
+        <div class="showProps-cell objProps-col5">Property</div>
+        <div class="showProps-cell objProps-col6"></div>
 
 	 $graphTable :
 	 	{row |
 		 	$if(row.sub_url_sub)$
-                <div class="showProps-cell showProps-col1"><a href="$row.sub_url_sub$"><img class="icon" src="/content/outTree_50x50.svg"></a></div>
-                <div class="showProps-cell showProps-col2">$row.sub_title$</div>
-                <div class="showProps-cell showProps-col3"><a href="$row.sub_url_obj$"><img class="icon" src="/content/inTree_50x50.svg"></a></div>
+                <div class="showProps-cell objProps-col1"><a href="$row.sub_url_sub$"><img class="icon" src="/content/outTree_50x50.svg"></a></div>
+                <div class="showProps-cell objProps-col2">$row.sub_title$</div>
+                <div class="showProps-cell objProps-col3"><a href="$row.sub_url_obj$"><img class="icon" src="/content/inTree_50x50.svg"></a></div>
 		 	$else$
-		 	    <div class="showProps-cell showProps-col1"/>
-		 		<div class="showProps-cell showProps-col2">$row.sub_title$</div>
-		 		<div class="showProps-cell showProps-col3"/>
+		 	    <div class="showProps-cell objProps-col1"/>
+		 		<div class="showProps-cell objProps-col2">$row.sub_title$</div>
+		 		<div class="showProps-cell objProps-col3"/>
 		 	$endif$
 
-            <div class="showProps-cell showProps-col4"><a href="$row.pred_url_sub$"><img class="icon" src="/content/outTree_50x50.svg"></a></div>
-            <div class="showProps-cell showProps-col5">$row.pred_title$</div>
-            <div class="showProps-cell showProps-col6"><a href="$row.pred_url_obj$"><img class="icon" src="/content/inTree_50x50.svg"></a></div>
+            <div class="showProps-cell objProps-col4"><a href="$row.pred_url_sub$"><img class="icon" src="/content/outTree_50x50.svg"></a></div>
+            <div class="showProps-cell objProps-col5">$row.pred_title$</div>
+            <div class="showProps-cell objProps-col6"><a href="$row.pred_url_obj$"><img class="icon" src="/content/inTree_50x50.svg"></a></div>
 	 	 }
 	 $
 	 </div>
@@ -447,7 +447,31 @@ upload(contentModel, groups) ::= <<
 >>
 
 login(props) ::= <<
-    $loginheader(props)$
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+<title>Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="/content/core.css" />
+<style>
+.ui-autocomplete-loading {
+background: white url("/content/wait.gif") right center no-repeat;
+}
+</style>
+</head>
+<body>
+        <nav id="main-menu" class="menu">
+            <img class="logo" src="/content/trikiLogo_90x50.svg"/>
+        <button class="menu-toggle" id="toggle-menu"></button>
+            <div class="menu-dropdown">
+            <ul class="nav-menu">
+                <li><img class="findicon" src="/content/inOutTree_50x50.svg">
+                </li>
+            </ul>
+                </div>
+        </nav>
+        <div id="main">
+
         </p>
 		 <div class="navicon">
 		 	<div class="graphid"><img class="logo" src="/content/inOutTree_50x50.svg"></div>
