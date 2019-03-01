@@ -180,6 +180,16 @@ main {
 .AddTable-col2 { flex: 0 0 60% }
 .AddTable-col3 { flex: 0 0 5%; }
 
+.loginform {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 3em 0;
+  padding: 0;
+}
+
+.loginfield { flex: 0 0 30%; margin: 0.5em 0em; }
+.loginval { flex: 0 0 70%;  margin: 0.5em 0em; }
+
 .lookup {
     width: 90%;
 }

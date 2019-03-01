@@ -462,30 +462,22 @@ background: white url("/content/wait.gif") right center no-repeat;
 <body>
         <nav id="main-menu" class="menu">
             <img class="logo" src="/content/trikiLogo_90x50.svg"/>
-        <button class="menu-toggle" id="toggle-menu"></button>
-            <div class="menu-dropdown">
-            <ul class="nav-menu">
-                <li><img class="findicon" src="/content/inOutTree_50x50.svg">
-                </li>
-            </ul>
-                </div>
         </nav>
         <div id="main">
 
         </p>
 		 <div class="navicon">
 		 	<div class="graphid"><img class="logo" src="/content/inOutTree_50x50.svg"></div>
-		 	<div class="headingbig">Welcome to triki, the graph wiki.</div>
+		 	<div class="headingbig">Welcome to triki</div>
 		 </div>
         <p>
         Please login:
         <p>
 
-        <form action="/auth" method="POST">
-           Login: <input name="triki:login" width="100">
-           Password: <input type="password" name="triki:password"  name="password" width="10"/><br>
-           <br>
-           <button class="submitbutton" type="image" name="action" value="login"><img class="submiticon" src="/content/login_120x50.svg" alt="Login"></button>
+        <form class="loginform" action="/auth" method="POST">
+           <div class="loginfield">Login:</div><div class="loginval"> <input name="triki:login" width="100"></div>
+           <div class="loginfield">Password:</div><div class="loginval"> <input type="password" name="triki:password"  name="password" width="10"/></div>
+           <div class="loginfield"><button class="submitbutton" type="image" name="action" value="login"><img class="submiticon" src="/content/login_120x50.svg" alt="Login"></button></div>
         </form>
 
         Login with an Identity Provider:
