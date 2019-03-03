@@ -1,17 +1,232 @@
-.body {
-	background-position: center;
+@import url('https://fonts.googleapis.com/css?family=Armata');
+
+:root {
+    box-sizing: border-box;
+    font-size: calc(1vw + 0.9em);
+}
+
+*,
+::before,
+::after {
+    box-sizing: inherit;
+}
+
+.clearfix::after {
+  display: block;
+  content: " ";
+  clear: both;
+}
+
+body {
+  font-family: Armata, verdana;
+}
+
+@media (min-width: 30em) {
+  body {
+    font-size: calc(1vw + 0.4em);
+  }
+}
+
+@media (min-width: 70em) {
+  body {
+    font-size: calc(1vw + 0.2em);
+    margin: 0 10em;
+  }
+}
+
+body * + * {
+
 }
 
 #all {
 	font-family: verdana;
 	font-size: 12px;
-	width: 920px;
 	margin: 0px auto;
 }
 
-#main {
-	min-height: 600px;
-	margin: 0px 5px 5px 20px;
+main {
+  padding: 1em;
+  font-family: Verdana;
+}
+
+@media (min-width: 70em) {
+  main {
+    padding: 2em 1em;
+  }
+}
+
+.menu {
+  position: relative;
+  padding: 0.5em 0;
+  background-color: #205081;
+  height: 2.5em;
+}
+
+.menu-toggle {
+  border: 0;
+  background-color: #205081;
+  color: white;
+  float: right;
+  font-size: 1.5em;
+}
+
+.menu-toggle::after {
+  display: block;
+  content: "\2261";
+}
+
+.menu-dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  left: 0;
+  margin: 0;
+  top: 2.5em;
+}
+
+@media (min-width: 30em) {
+  .menu-toggle {
+    display: none;
+  }
+
+  .menu-dropdown {
+    display: block;
+    position: static;
+  }
+}
+
+.menu.is-open .menu-dropdown {
+  display: block;
+}
+
+.nav-menu {
+  margin: 0;
+  padding-left: 0;
+  border: 1px solid #ccc;
+  list-style: none;
+  background-color: #205081;
+}
+
+.nav-menu > li + li {
+  border-top: 1px solid #ccc;
+}
+
+.nav-menu > li > a {
+  display: block;
+  padding: 0.8em 1em;
+  color: #FFF;
+  font-weight: normal;
+}
+
+.nav-menu > li > input {
+  display: block;
+  margin: 0.8em 1em;
+  color: #FFF;
+  font-weight: normal;
+}
+
+@media (min-width: 30em) {
+    .nav-menu > li > input {
+      margin: 0em;
+    }
+}
+
+
+@media (min-width: 30em) {
+  .nav-menu {
+    display: flex;
+    border: 0;
+  }
+  .nav-menu > li {
+   flex: 1 0 auto;
+  }
+  .nav-menu > li + li {
+    border: 0;
+  }
+  .nav-menu > li > a {
+    padding: 0em;
+  }
+}
+
+#contentedit {
+  width: 90%;
+  min-height: 75px;
+  outline: none;
+  resize: none;
+  max-width:95%;
+  height: 40em;
+}
+
+.showProps {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 3em 0;
+  padding: 0;
+}
+
+.showProps-cell {
+  box-sizing: border-box;
+  margin: 0em 0em 1em 0em;
+  width: 100%;  // Default to full width
+  padding: 0.8em 1.2em;
+  overflow: hidden; // Or flex might break
+  list-style: none;
+  border: solid @bw white;
+  background: fade(slategrey,20%);
+  > h1, > h2, > h3, > h4, > h5, > h6 { margin: 0; }
+}
+
+.showProps-col1 { flex: 0 0 5%; }
+.showProps-col2 { flex: 0 1 20%; border: solid 0.1em white; border-bottom-color: #103061; }
+.showProps-col3 { flex: 0 0 5%; }
+.showProps-col4 { flex: 0 0 5%; }
+.showProps-col5 { flex: 0 1 60%; border: solid 0.1em white; border-bottom-color: #103061; }
+.showProps-col6 { flex: 0 0 5%; }
+
+.objProps-col1 { flex: 0 0 5%; }
+.objProps-col2 { flex: 0 1 60%; border: solid 0.1em white; border-bottom-color: #103061; }
+.objProps-col3 { flex: 0 0 5%; }
+.objProps-col4 { flex: 0 0 5%; }
+.objProps-col5 { flex: 0 1 20%; border: solid 0.1em white; border-bottom-color: #103061; }
+.objProps-col6 { flex: 0 0 5%; }
+
+.AddTable-col1 { flex: 0 0 35%; }
+.AddTable-col2 { flex: 0 0 60% }
+.AddTable-col3 { flex: 0 0 5%; }
+
+.loginform {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 3em 0;
+  padding: 0;
+}
+
+.loginfield { flex: 0 0 30%; margin: 0.5em 0em; }
+.loginval { flex: 0 0 70%;  margin: 0.5em 0em; }
+
+.lookup {
+    width: 90%;
+}
+
+.editdesc {
+    width: 90%;
+}
+
+.graphrow {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 0 0em;
+  padding: 0;
+}
+
+input[type="text"]
+{
+  font-size: 1em;
+}
+
+textarea {
+  font-size: 0.8em;
 }
 
 #confheadertext {
@@ -25,7 +240,6 @@
 
 #banner {
 	text-align: center;
-	width: 1000px;
 	height: auto;
 	overflow: hidden;
 	clear: both;
@@ -36,7 +250,6 @@
 }
 
 ul#confmenu {
-	width: 800px;
 	list-style-type: none;
 	display: inline-block;
 	margin: 0 0 0 0px;
@@ -79,35 +292,30 @@ li.confitemright {
 .search {
 	vertical-align: middle;
 	display: inline-block;
+	max-width: 10em;
 }
 
 img.logo {
 	display: block;
 	border: 2px 4px 0px 2px;
-	float: right;
+	float: left;
+	height: 1.5em;
+	margin: 0 0 0 1em;
+}
+
+img.findicon {
+	display: block;
+	margin: 0 0.4em 0 0;
+	float: left;
+	height: 1.5em;
+    padding: 0 0 0 1em;
 }
 
 img.icon {
 	display: block;
-	margin: 4px 4px 0px 2px;
+	margin: 0 0.4em 0 0;
 	float: left;
-}
-
-img.graphlefticon {
-	display: block;
-	margin: 2px 4px 0px 0px;
-	float: right;
-}
-
-img.graphrighticon {
-	display: block;
-	margin: 2px 4px 0px 0px;
-	float: left;
-}
-
-.iconlable {
-	padding: 2px;
-	float: left;
+	height: 1.5em;
 }
 
 .confitem:hover {
@@ -146,20 +354,19 @@ li.confcol {
 
 .graph {
 	display: inline-block;
-	width: 800px;
-	font-size: 12px;
+	width: 90%;
+	font-size: 1em;
 }
 
 .graphheader {
 	display: inline-block;
-	width: 800px;
 	font-weight: bold;
 	margin: 6px 0 0 0px;
 }
 
 .predheading {
 	display: display-block;
-	width: 250px;
+	width: 40%;
 	float: left;
 	margin: 4px 4px 4px 60px;
 	font-weight: bold;
@@ -169,7 +376,7 @@ li.confcol {
 
 .predheadingsubject {
 	display: inline-block;
-	width: 220px;
+	width: 40%;
 	float: left;
 	margin: 4px 4px 4px 0px;
 	font-weight: bold;
@@ -179,7 +386,7 @@ li.confcol {
 
 .subheading {
 	display: inline-block;
-	width: 280px;
+	width: 40%;
 	float: left;
 	margin: 4px 4px 4px 0px;
 	font-weight: bold;
@@ -189,17 +396,17 @@ li.confcol {
 
 .objheading {
 	display: inline-block;
-	width: 400px;
+	width: 40%;
 	float: left;
-	margin: 4px 4px 4px 40px;
+	margin: 0.5em 0;
 	font-weight: bold;
 	background: #6090B1;
-	height: 20px;
+	height: 1.2em;;
 }
 
 .objheadingsubject {
 	display: inline-block;
-	width: 450px;
+	width: 40%;
 	float: left;
 	margin: 4px 4px 4px 80px;
 	font-weight: bold;
@@ -209,12 +416,12 @@ li.confcol {
 
 .addpropheading {
 	display: inline-block;
-	width: 200px;
+	width: 40%;
 	float: left;
-	margin: 4px 4px 4px 0px;
+	margin: 0.5em 0;
 	font-weight: bold;
 	background: #6090B1;
-	height: 20px;
+	height: 1.2em;
 }
 
 .addprop {
@@ -224,20 +431,16 @@ li.confcol {
 	vertical-align: top;
 }
 
-.minus {
-	margin: 4px 4px 4px 4px;
-}
-
 .addcontent {
 	display: inline-block;
-	width: 900px;
+	width: 90%;
 	margin: 4px 4px 4px 0px;
 	vertical-align: top;
 }
 
 .addobjheading {
 	display: inline-block;
-	width: 400px;
+	width: 40%;
 	float: left;
 	margin: 4px 4px 4px 60px;
 	font-weight: bold;
@@ -247,7 +450,7 @@ li.confcol {
 
 .addobj {
 	display: inline-block;
-	width: 400px;
+	width: 40%;
 	margin: 4px 4px 4px 60px;
 }
 
@@ -261,8 +464,7 @@ li.confcol {
 
 .pred {
 	display: inline-block;
-	width: 150px;
-	margin: 4px 4px 4px 4px;
+	margin: 1em;
 	vertical-align: top;
 	padding: 2px;
 	border: solid 0.1em white;
@@ -271,7 +473,6 @@ li.confcol {
 
 .obj {
 	display: inline-block;
-	width: 400px;
 	margin: 4px 4px 4px 4px;
 	vertical-align: top;
 	padding: 2px;
@@ -334,7 +535,7 @@ a {
 
 .headingbig {
 	display: inline-block;
-	font-size: 18px;
+	font-size: 1.5em;
 	vertical-align: middle;
 }
 
@@ -350,6 +551,23 @@ a {
 	display: inline-block;
 	padding: 2px;
 	font-size: 12px !important;
+}
+
+.submitbutton {
+    font-size: inherit;
+    border: 0;
+    background: transparent;
+    background-position: 50% 50%;
+}
+
+.submiticon {
+    height: 1.3em;
+    border: 0;
+    padding: 0;
+}
+
+.addicon {
+    height: 1em;
 }
 
 .addertext {
@@ -398,6 +616,7 @@ a.addlink {
 
 .editbutton {
 	margin: 4px 10px 4px 0px;
+	height: 1.5em;
 }
 
 #validatetemplate {

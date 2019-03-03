@@ -126,7 +126,7 @@ public class AuthenticateResource extends RenderResource {
 				forwardCorrectly(resp, session, null)
 			}
 			else {
-				resp.sendRedirect("/sitelogin");
+				resp.sendRedirect("/login");
 			}
 		} catch (Exception e) {
 			logger.warn("Problems authenticating user ${login}");

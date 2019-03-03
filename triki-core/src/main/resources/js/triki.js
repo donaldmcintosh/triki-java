@@ -1,3 +1,16 @@
+function save_cursor_pos() {
+    var curspos = $("#contentedit").prop("selectionEnd")
+    sessionStorage.setItem('curspos', curspos);
+};
+
+function set_cursor_pos() {
+    var curspos = sessionStorage.getItem('curspos');
+    $("#contentedit").focus();
+    $("#contentedit").prop("selectionStart", curspos);
+    $("#contentedit").prop("selectionEnd", curspos);
+    sessionStorage.removeItem('curspos');
+};
+
 function initEditor() {
 	// Add 4 to count - only need to add two, but keep it safe
     rowcount += 4;
@@ -46,15 +59,14 @@ function initEditor() {
             return false;
         };
 
-        $("#search").autocomplete(search_opt);
+        $(".search").autocomplete(search_opt);
         $(".lookup").autocomplete(lookup_opt);
         $(".lookupprop").autocomplete(lookup_prop);
         $(".lookupprefix").autocomplete(lookup_prefix);
         $('.minus').click(minus_opt);
 
-
     $(".addtext").click(function() {
-        var newrow = $('<div class="graphrow"><div class="addprop"><input name="proptext' + rowcount + '" class="lookupprop" size="30"/></div><div class="addobj"><textarea name="obj'+ rowcount + '" rows="3" cols="38"></textarea><a class="minus"><img src="/content/minus_15x15.png"></a></div></div>');
+        var newrow = $('<div class="graphrow"><div class="showProps-cell AddTable-col1"><input type="text" name="proptext' + rowcount + '" class="lookupprop"/></div><div class="showProps-cell AddTable-col2"><textarea class="editdesc" name="obj'+ rowcount + '" rows="3"></textarea></div><div class="showProps-cell AddTable-col3"><a><img class="icon minus" src="/content/minus_50x50.svg"></a></div></div>');
         $('.lookupprop', newrow).autocomplete(lookup_prop);
         $('.minus', newrow).click(minus_opt);
         $('.graphrow:last').after(newrow);
@@ -63,7 +75,7 @@ function initEditor() {
      });
     
     $(".addlink").click(function() {
-        var newrow = $('<div class="graphrow"><div class="addprop"><input name="proplink' + rowcount + '" class="lookupprop" size="30"/></div><div class="addobj"><input name="objlink' + rowcount + '" class="lookup" size="50" /><a class="minus"><img src="/content/minus_15x15.png"></a></div></div>');
+        var newrow = $('<div class="graphrow"><div class="showProps-cell AddTable-col1"><input type="text" name="proplink' + rowcount + '" class="lookupprop"/></div><div class="showProps-cell AddTable-col2"><input name="objlink' + rowcount + '" class="lookup" /></div><div class="showProps-cell AddTable-col3"><a><img class="icon minus" src="/content/minus_50x50.svg"></a></div></div>');
         $('.lookupprop', newrow).autocomplete(lookup_prop);
         $('.lookup', newrow).autocomplete(lookup_opt);
         $('.minus', newrow).click(minus_opt);
@@ -73,7 +85,7 @@ function initEditor() {
      });
 
     $(".addtextfile").click(function() {
-        var newrow = $('<div class="graphrow"><div class="addcontent"><textarea name="obj'+ rowcount + '" rows="20" cols="100"></textarea><a class="minus"><img src="/content/minus_15x15.png"></a></div></div>');
+        var newrow = $('<div class="graphrow"><div class="addcontent"><textarea name="obj'+ rowcount + '" rows="20" cols="100"></textarea><a><img class="icon minus" src="/content/minus_50x50.svg"></a></div></div>');
         $('.minus', newrow).click(minus_opt);
         $('.graphrow:last').after(newrow);
         rowcount++;
@@ -81,7 +93,7 @@ function initEditor() {
      });
     
     $(".addbinfile").click(function() {
-        var newrow = $('<div class="graphrow"><div class="addcontent"><input name="obj' + rowcount + '" type="file" multiple="multiple"/><a class="minus"><img src="/content/minus_15x15.png"></a></div></div>');
+        var newrow = $('<div class="graphrow"><div class="addcontent"><input name="obj' + rowcount + '" type="file" multiple="multiple"/><a><img class="minus icon" src="/content/minus_50x50.svg"></a></div></div>');
         $('.minus', newrow).click(minus_opt);
         $('.graphrow:last').after(newrow);
         rowcount++;
@@ -110,9 +122,19 @@ function initEditor() {
     		 textarea.textContent = data;
     	 }, "text");
      });
+
+     (function () {
+      var button = document.getElementById('toggle-menu');
+      button.addEventListener('click', function(event) {
+        event.preventDefault();
+        var menu = document.getElementById('main-menu');
+        menu.classList.toggle('is-open');
+        });
+      })();
      
 };
 
 window.onload = function() {
 	initEditor()
+	set_cursor_pos()
 }
