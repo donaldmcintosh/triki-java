@@ -81,7 +81,7 @@ main {
   right: 0;
   left: 0;
   margin: 0;
-  top: 3.0em;
+  top: 2.5em;
 }
 
 @media (min-width: 30em) {
@@ -117,6 +117,20 @@ main {
   color: #FFF;
   font-weight: normal;
 }
+
+.nav-menu > li > input {
+  display: block;
+  margin: 0.8em 1em;
+  color: #FFF;
+  font-weight: normal;
+}
+
+@media (min-width: 30em) {
+    .nav-menu > li > input {
+      margin: 0em;
+    }
+}
+
 
 @media (min-width: 30em) {
   .nav-menu {
@@ -212,7 +226,7 @@ input[type="text"]
 }
 
 textarea {
-  font-size: 0.6em;
+  font-size: 0.8em;
 }
 
 #confheadertext {
@@ -294,8 +308,6 @@ img.findicon {
 	margin: 0 0.4em 0 0;
 	float: left;
 	height: 1.5em;
-    bottom: 0.1em;
-    position: relative;
     padding: 0 0 0 1em;
 }
 
