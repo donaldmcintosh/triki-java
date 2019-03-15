@@ -21,6 +21,8 @@
 
 package net.opentechnology.triki.auth.module
 
+import net.opentechnology.triki.auth.resources.IdentityProvider
+import net.opentechnology.triki.core.dto.IdentityProviderDto
 import net.opentechnology.triki.core.dto.PageDto
 import net.opentechnology.triki.core.dto.SettingDto
 import net.opentechnology.triki.core.dto.TypeDto
@@ -75,6 +77,9 @@ public class AuthModule implements Module {
 	@Inject
 	private PropertyDto propertyDto;
 
+	@Inject
+	private IdentityProviderDto identityProviderDto;
+
 	public enum Settings {
 		OPENIDCONNECTREDIRECTURI,
 		INDIELOGINROOT,
@@ -114,6 +119,7 @@ public class AuthModule implements Module {
 		initGroupsAndUsers();
 		initSettings();
 		initPages();
+		initIdentifyProviders();
 	}
 
 	private void initGroupsAndUsers() {
@@ -147,6 +153,7 @@ public class AuthModule implements Module {
 		model.setNsPrefix("foaf", FOAF.NS);
 		model.setNsPrefix("group", props.getPrivateUrl() + "group/");
 		model.setNsPrefix("user", props.getPrivateUrl() + "user/");
+		model.setNsPrefix("idp", props.getPrivateUrl() + "idp/");
 	}
 	
 	private void initProperties() {
@@ -161,6 +168,12 @@ public class AuthModule implements Module {
 		pageDto.addPage("login", typeDto.getType("login"), "Login", "public");
 		pageDto.addPage("auth/openidlogin", typeDto.getType("auth"), "Authorise OpenID Login", "public");
 		pageDto.addPage("auth/openidconnect", typeDto.getType("auth"), "Authorise OpenID Token Exchange", "public");
+	}
+
+	private void initIdentifyProviders(){
+		identityProviderDto.addIdentifyProvider("google", "https://accounts.google.com/o/oauth2/v2/auth", "https://oauth2.googleapis.com/token", "openid email profile");
+		identityProviderDto.addIdentifyProvider("amazon", "https://www.amazon.com/ap/oa", "https://api.amazon.com/auth/o2/token", "Amazon OpenID scope");
+		identityProviderDto.addIdentifyProvider("yahoo", "https://api.login.yahoo.com/oauth2/request_auth", "https://api.login.yahoo.com/oauth2/get_token", "Yahoo OpenID scope");
 	}
 
 	private void initSettings() {

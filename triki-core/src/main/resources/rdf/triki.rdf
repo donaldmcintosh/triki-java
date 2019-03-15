@@ -138,7 +138,12 @@
    <rdfs:Class rdf:about="http://www.opentechnology.net/triki/0.1/Type" rdfs:label="Page type" rdfs:comment="A page type" vs:term_status="stable">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:isDefinedBy rdf:resource="http://www.opentechnology.net/triki/0.1/"/>
-  </rdfs:Class> 
+  </rdfs:Class>
+
+    <rdfs:Class rdf:about="http://www.opentechnology.net/triki/0.1/IdentifyProvider" rdfs:label="Identity provider" rdfs:comment="An identify provider" vs:term_status="stable">
+      <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+      <rdfs:isDefinedBy rdf:resource="http://www.opentechnology.net/triki/0.1/"/>
+    </rdfs:Class>
 
   <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/pageProperty" vs:term_status="stable" rdfs:label="Page property" rdfs:comment="Page property">
     <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
@@ -183,6 +188,26 @@
   <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/webcontent" vs:term_status="stable" rdfs:label="Web content" rdfs:comment="Web content">
     <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
   </rdf:Property>
+ 
+   <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/oauthauthendpoint" vs:term_status="stable" rdfs:label="OAuth auth endpoint" rdfs:comment="OAuth auth endpoint">
+     <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+   </rdf:Property> 
+   
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/oauthtokenendpoint" vs:term_status="stable" rdfs:label="OAuth token endpoint" rdfs:comment="OAuth token endpoint">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property> 
+ 
+   <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/oauthclientid" vs:term_status="stable" rdfs:label="OAuth client ID" rdfs:comment="OAuth client ID">
+     <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+   </rdf:Property> 
+
+   <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/oauthclientsecret" vs:term_status="stable" rdfs:label="OAuth client secret" rdfs:comment="OAuth client secret">
+     <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+   </rdf:Property>
+
+   <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/oauthscope" vs:term_status="stable" rdfs:label="OAuth scope" rdfs:comment="OAuth scope">
+     <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+   </rdf:Property>
 
 </rdf:RDF>
 
