@@ -21,9 +21,10 @@
 
 package net.opentechnology.triki.auth.module
 
-import net.opentechnology.triki.auth.resources.IdentityProvider
+
 import net.opentechnology.triki.core.dto.IdentityProviderDto
 import net.opentechnology.triki.core.dto.PageDto
+import net.opentechnology.triki.core.dto.PrefixDto
 import net.opentechnology.triki.core.dto.SettingDto
 import net.opentechnology.triki.core.dto.TypeDto
 
@@ -78,6 +79,9 @@ public class AuthModule implements Module {
 	private PropertyDto propertyDto;
 
 	@Inject
+	private PrefixDto prefixDto;
+
+	@Inject
 	private IdentityProviderDto identityProviderDto;
 
 	public enum Settings {
@@ -85,11 +89,6 @@ public class AuthModule implements Module {
 		INDIELOGINROOT,
 		INDIELOGINCLIENTID,
 		INDIELOGINREDIRECTURI,
-		GOOGLEAUTHENDPOINT,
-		GOOGLETOKENENDPOINT,
-		GOOGLECLIENTID,
-		GOOGLECLIENTSECRET,
-		GOOGLEOPENIDSCOPE,
 		TWITTERAUTHENDPOINT,
 		TWITTERCLIENTID,
 		TWITTERCLIENTSECRET,
@@ -119,7 +118,7 @@ public class AuthModule implements Module {
 		initGroupsAndUsers();
 		initSettings();
 		initPages();
-		initIdentifyProviders();
+		initIdentityProviders();
 	}
 
 	private void initGroupsAndUsers() {
@@ -153,7 +152,8 @@ public class AuthModule implements Module {
 		model.setNsPrefix("foaf", FOAF.NS);
 		model.setNsPrefix("group", props.getPrivateUrl() + "group/");
 		model.setNsPrefix("user", props.getPrivateUrl() + "user/");
-		model.setNsPrefix("idp", props.getPrivateUrl() + "idp/");
+
+		prefixDto.addPrefix("idp", props.getPrivateUrl() + "idp/");
 	}
 	
 	private void initProperties() {
@@ -162,6 +162,12 @@ public class AuthModule implements Module {
 		propertyDto.addProperty("password", Triki.password.getURI(), 29);
 		propertyDto.addProperty("member", Foaf.member.getURI(), 30);
 		propertyDto.addProperty("homepage", Foaf.homepage.getURI(), 16);
+
+		propertyDto.addProperty("oauthauthendpoint", Triki.oauthauthendpoint.getURI(), 20);
+		propertyDto.addProperty("oauthtokenendpoint", Triki.oauthtokenendpoint.getURI(), 22);
+		propertyDto.addProperty("oauthscope", Triki.oauthscope.getURI(), 24);
+		propertyDto.addProperty("oauthclientid", Triki.oauthclientid.getURI(), 26);
+		propertyDto.addProperty("oauthclientsecret", Triki.oauthclientsecret.getURI(), 28);
 	}
 
 	private void initPages() {
@@ -170,10 +176,10 @@ public class AuthModule implements Module {
 		pageDto.addPage("auth/openidconnect", typeDto.getType("auth"), "Authorise OpenID Token Exchange", "public");
 	}
 
-	private void initIdentifyProviders(){
-		identityProviderDto.addIdentifyProvider("google", "https://accounts.google.com/o/oauth2/v2/auth", "https://oauth2.googleapis.com/token", "openid email profile");
-		identityProviderDto.addIdentifyProvider("amazon", "https://www.amazon.com/ap/oa", "https://api.amazon.com/auth/o2/token", "Amazon OpenID scope");
-		identityProviderDto.addIdentifyProvider("yahoo", "https://api.login.yahoo.com/oauth2/request_auth", "https://api.login.yahoo.com/oauth2/get_token", "Yahoo OpenID scope");
+	private void initIdentityProviders(){
+		identityProviderDto.addIdentityProvider("google", "https://accounts.google.com/o/oauth2/v2/auth", "https://oauth2.googleapis.com/token", "openid email profile");
+		identityProviderDto.addIdentityProvider("amazon", "https://www.amazon.com/ap/oa", "https://api.amazon.com/auth/o2/token", "profile");
+		identityProviderDto.addIdentityProvider("yahoo", "https://api.login.yahoo.com/oauth2/request_auth", "https://api.login.yahoo.com/oauth2/get_token", "openid");
 	}
 
 	private void initSettings() {
@@ -181,11 +187,6 @@ public class AuthModule implements Module {
 		settingDto.addSetting(Settings.INDIELOGINROOT.name(), "https://indieauth.com/auth", "IndieLogin Login URL");
 		settingDto.addSetting(Settings.INDIELOGINCLIENTID.name(), "https://www.yoursite.net/", "Indie Login client ID");
 		settingDto.addSetting(Settings.INDIELOGINREDIRECTURI.name(), "https://www.yoursite.net/auth/indie", "Indie Login redirect URL");
-		settingDto.addSetting(Settings.GOOGLEAUTHENDPOINT.name(), "https://accounts.google.com/o/oauth2/v2/auth", "Google OAuth2 URL");
-		settingDto.addSetting(Settings.GOOGLETOKENENDPOINT.name(), "https://oauth2.googleapis.com/token", "Google Token Exchange URL");
-		settingDto.addSetting(Settings.GOOGLECLIENTID.name(), "Undefined","Generated Google OAuth2 client ID");
-		settingDto.addSetting(Settings.GOOGLECLIENTSECRET.name(),"Undefined","Generated Google OAuth2 client secret");
-		settingDto.addSetting(Settings.GOOGLEOPENIDSCOPE.name(), "openid email profile", "Google OpenID scope");
 		settingDto.addSetting(Settings.TWITTERAUTHENDPOINT.name(), "https://api.twitter.com/oauth2/token", "Twitter OAuth2 URL");
 		settingDto.addSetting(Settings.TWITTERCLIENTID.name(), "Undefined","Generated Twitter OAuth2 client ID");
 		settingDto.addSetting(Settings.TWITTERCLIENTSECRET.name(),"Undefined","Generated Twitter OAuth2 client secret");

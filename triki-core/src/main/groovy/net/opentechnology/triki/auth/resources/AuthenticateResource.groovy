@@ -188,8 +188,7 @@ public class AuthenticateResource extends RenderResource {
 		String randomSecret = UUID.randomUUID().toString()
 		Algorithm algorithm = Algorithm.HMAC256(randomSecret);
 		URIBuilder authUrl
-		IdentityProvider identityProvider = identityProviders.getIdentityProvider(idp)
-		authUrl = identityProvider.getAuthUri()
+		authUrl = identityProviders.getAuthUri(idp)
 
 		logger.info("Signing state token with secret ${randomSecret}")
 		String secretState = JWT.create()
@@ -241,7 +240,7 @@ public class AuthenticateResource extends RenderResource {
 		form.add(new BasicNameValuePair("code", code));
 
 		IdentityProvider identityProvider = identityProviders.getIdentityProvider(idp)
-		HttpPost poster = identityProvider.getTokenPost(form)
+		HttpPost poster = identityProviders.getTokenPost(idp, form)
 
 		logger.info("Calling ${idp} with params:")
 		form.each { param ->

@@ -110,6 +110,7 @@ conf(props, msgs) ::= <<
     	<div class="configitem"><a href="/graph/object/foaf_Group">Groups</a></div>
     	<div class="configitem"><a href="/graph/object/triki_MediaType">Media Types</a></div>
     	<div class="configitem"><a href="/graph/object/triki_Setting">Settings</a></div>
+    	<div class="configitem"><a href="/graph/object/triki_IdentityProvider">Identity Providers</a></div>
     </div>
 
     $conffooter()$

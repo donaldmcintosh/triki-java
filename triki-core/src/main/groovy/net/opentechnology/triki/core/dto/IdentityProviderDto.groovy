@@ -44,38 +44,36 @@ public class IdentityProviderDto extends BaseDto {
 	@Inject
 	private CachedPropertyStore props;
 	
-	public void addIdentifyProvider(String name, String authEndpoint, String tokenEndpoint,
+	public void addIdentityProvider(String name, String authEndpoint, String tokenEndpoint,
 									String scope)
 	{
 		String resName = props.getPrivateUrl() + "idp/" + name;
-		Resource prefix = model.createResource(resName);
-		checkResource(prefix, RDF.type, Triki.IdentifyProvider);
-		checkString(prefix, DCTerms.title, "Identify provider ${name}");
-		checkString(prefix, Triki.oauthauthendpoint, authEndpoint);
-		checkString(prefix, Triki.oauthtokenendpoint, tokenEndpoint);
-		checkString(prefix, Triki.oauthscope, scope);
+		Resource idp = model.createResource(resName);
+		checkResource(idp, RDF.type, Triki.IdentityProvider);
+		checkString(idp, DCTerms.title, name);
+		checkString(idp, Triki.oauthauthendpoint, authEndpoint);
+		checkString(idp, Triki.oauthtokenendpoint, tokenEndpoint);
+		checkString(idp, Triki.oauthscope, scope);
+		checkString(idp, Triki.oauthclientid, "undefined");
+		checkString(idp, Triki.oauthclientsecret, "undefined");
 	}
 	
-	public getIdentifyProvider(String code)
+	public getIdentityProvider(String alias, Closure action)
 	{
-		String prefixUrl = model.getNsPrefixURI(code);
-		Resource prefix = model.createResource(prefixUrl);
-		
 		SparqlExecutor sparqler = new SparqlExecutor();
 		String query = """
 		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 	    PREFIX triki: <http://www.opentechnology.net/triki/0.1/>  
 		PREFIX dc:    <http://purl.org/dc/terms/>
-		SELECT ?title ?sub
+		SELECT ?sub
 		WHERE {  
-			 ?sub dc:identifier <${prefixUrl}> .  
-			 ?sub a triki:Prefix .
-			 ?sub dc:title ?title .
+			 ?sub a triki:IdentityProvider .
+			 ?sub dc:title "${alias}" .
         }
 """
 	
 		sparqler.execute(model, query){ QuerySolution soln ->
-			action(soln.get("title").asLiteral().toString(), soln.get("sub").asResource())
+			action(soln.get("sub").asResource())
 		}
 	}
 

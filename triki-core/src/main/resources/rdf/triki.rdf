@@ -140,7 +140,7 @@
     <rdfs:isDefinedBy rdf:resource="http://www.opentechnology.net/triki/0.1/"/>
   </rdfs:Class>
 
-    <rdfs:Class rdf:about="http://www.opentechnology.net/triki/0.1/IdentifyProvider" rdfs:label="Identity provider" rdfs:comment="An identify provider" vs:term_status="stable">
+    <rdfs:Class rdf:about="http://www.opentechnology.net/triki/0.1/IdentityProvider" rdfs:label="Identity provider" rdfs:comment="An identify provider" vs:term_status="stable">
       <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
       <rdfs:isDefinedBy rdf:resource="http://www.opentechnology.net/triki/0.1/"/>
     </rdfs:Class>
