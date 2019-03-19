@@ -8,7 +8,7 @@ buildscript {
 }
 
 plugins {
-  id 'net.researchgate.release' version '2.6.0'
+  id 'maven-publish'
 }
 
 apply plugin: 'com.github.johnrengelman.shadow'
@@ -89,6 +89,16 @@ allprojects {
         include '**/TrikiMandFeatures.class'
     }
 
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                groupId = 'net.opentechnology'
+                artifactId = "${project.name}"
+
+                from components.java
+            }
+        }
+    }
 }
 
 dependencies {
