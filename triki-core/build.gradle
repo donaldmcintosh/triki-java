@@ -55,17 +55,6 @@ task generateJava() {
 	}
 }
 
-publishing {
-	publications {
-		maven(MavenPublication) {
-			groupId = 'net.opentechnology'
-			artifactId = 'triki-core'
-
-			from components.java
-		}
-	}
-}
-
 jar {
 	manifest {
 		attributes "Main-Class": "$mainClassName"
