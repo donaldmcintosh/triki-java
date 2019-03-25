@@ -48,6 +48,7 @@
 	<bean id="amazonIdentityProvider" class="net.opentechnology.triki.auth.resources.AmazonIdentityProvider" />
 	<bean id="yahooIdentityProvider" class="net.opentechnology.triki.auth.resources.YahooIdentityProvider" />
 	<bean id="googleIdentityProvider" class="net.opentechnology.triki.auth.resources.GoogleIdentityProvider" />
+	<bean id="outlookIdentityProvider" class="net.opentechnology.triki.auth.resources.OutlookIdentityProvider" />
 	<bean id="identityProviders" class="net.opentechnology.triki.auth.resources.IdentityProviders" />
 	
 	<bean id="authModule" class="net.opentechnology.triki.auth.module.AuthModule" />

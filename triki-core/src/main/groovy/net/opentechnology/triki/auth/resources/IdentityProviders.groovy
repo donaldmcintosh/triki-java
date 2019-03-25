@@ -78,7 +78,6 @@ class YahooIdentityProvider implements IdentityProvider {
 
         try {
             DecodedJWT jwt = JWT.decode(tokenResponse['id_token'] as String);
-            // Remove later
             jwt.getClaims().each { claim ->
                 logger.info("Claim is ${claim.key} : ${claim.getValue().asString()}")
             }
@@ -140,16 +139,86 @@ class AmazonIdentityProvider implements IdentityProvider {
     }
 }
 
+class OutlookIdentityProvider implements IdentityProvider {
+
+    private final Logger logger = Logger.getLogger(this.getClass());
+
+    @Inject
+    private final SettingDto settingDto;
+
+    @Override
+    String getName() {
+        return 'outlook'
+    }
+
+    @Override
+    Profile getMinimalProfile(CloseableHttpResponse response) {
+        def profile = new Profile()
+        Map<String, String> tokenResponse = new JsonSlurper().parse(response.getEntity().getContent());
+
+        try {
+            DecodedJWT jwt = JWT.decode(tokenResponse['id_token'] as String);
+            jwt.getClaims().each { claim ->
+                logger.info("Claim is ${claim.key} : ${claim.getValue().asString()}")
+            }
+
+            profile.setName(jwt.getClaims().find{it.key == 'name'}.getValue().asString())
+            profile.setEmail(jwt.getClaims().find{it.key == 'email'}.getValue().asString())
+        } catch (Exception e){
+            throw new AuthenticationException("Problems getting Outlook profile: ${e.getMessage()}")
+        }
+
+        profile
+    }
+}
+
+class GenericIdentityProvider implements IdentityProvider {
+
+    private final Logger logger = Logger.getLogger(this.getClass());
+
+    @Override
+    String getName() {
+        return 'generic'
+    }
+
+    @Override
+    Profile getMinimalProfile(CloseableHttpResponse response) {
+        def profile = new Profile()
+        Map<String, String> tokenResponse = new JsonSlurper().parse(response.getEntity().getContent());
+
+        try {
+            DecodedJWT jwt = JWT.decode(tokenResponse['id_token'] as String);
+            jwt.getClaims().each { claim ->
+                logger.info("Claim is ${claim.key} : ${claim.getValue().asString()}")
+            }
+
+            profile.setOauthCredentials(tokenResponse)
+            profile.getOauthCredentials().keySet().each { key ->
+                logger.info("Credentials is ${key} : ${profile.getOauthCredentials().get(key)}")
+            }
+        } catch (JWTDecodeException jwte){
+            logger.info("Problem decoding token for token")
+            throw new AuthenticationException(jwte)
+        }
+
+        profile
+    }
+}
+
 class IdentityProviders {
 
-    @Inject
-    AmazonIdentityProvider amazonIdentifyProvider
+    private Map<String, IdentityProvider> oauthProviders = new HashMap<>();
 
     @Inject
-    YahooIdentityProvider yahooIdentifyProvider
+    private final IdentifyProviders(AmazonIdentityProvider amazonIdentifyProvider, YahooIdentityProvider yahooIdentifyProvider,
+                                    GoogleIdentityProvider googleIdentifyProvider, OutlookIdentityProvider outlookIdentityProvider){
+        oauthProviders.put('google', googleIdentifyProvider);
+        oauthProviders.put('yahoo', yahooIdentifyProvider);
+        oauthProviders.put('amazon', amazonIdentifyProvider);
+        oauthProviders.put('outlook', outlookIdentityProvider);
 
-    @Inject
-    GoogleIdentityProvider googleIdentifyProvider
+        oauthProviders.put('generic', new GenericIdentityProvider());
+    }
 
     @Inject
     private SettingDto settingDto
@@ -181,17 +250,11 @@ class IdentityProviders {
     }
     
     IdentityProvider getIdentityProvider(String identifyProviderName){
-        if(identifyProviderName == amazonIdentifyProvider.name){
-            return amazonIdentifyProvider
-        } else if(identifyProviderName == yahooIdentifyProvider.name){
-            return yahooIdentifyProvider
-        } else if(identifyProviderName == googleIdentifyProvider.name){
-            return googleIdentifyProvider
+        if(oauthProviders.containsKey(identifyProviderName)){
+            return oauthProviders.get(identifyProviderName)
         } else {
-            throw new AuthenticationException("Unexpected identify provider " + identifyProviderName)
+            return oauthProviders.get('generic')
         }
-        
     }
-    
-    
+
 }

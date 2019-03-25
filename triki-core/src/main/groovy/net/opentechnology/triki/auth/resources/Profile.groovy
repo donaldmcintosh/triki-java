@@ -1,10 +1,20 @@
 package net.opentechnology.triki.auth.resources
 
+
 class Profile {
 
     private String name
     private String email
     private String website
+    private Map<String, String> oauthCredentials
+
+    Map<String, String> getOauthCredentials() {
+        return oauthCredentials
+    }
+
+    void setOauthCredentials(Map<String, String> oauthCredentials) {
+        this.oauthCredentials = oauthCredentials
+    }
     private boolean isAdmin = false
 
     String getName() {
@@ -40,10 +50,10 @@ class Profile {
     }
 
     String getPreferredDisplay(){
-        if(name)
-            return name
-        else if(email)
+        if(email)
             return email
+        else if(name)
+            return name
         else if(website)
             return website
         else
