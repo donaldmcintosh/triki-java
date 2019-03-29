@@ -13,6 +13,11 @@ plugins {
 
 apply plugin: 'com.github.johnrengelman.shadow'
 
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
 allprojects {
     apply plugin: 'java'
     apply plugin: 'eclipse'
@@ -21,6 +26,7 @@ allprojects {
     apply plugin: 'maven-publish'
 
     repositories {
+        mavenLocal()
         mavenCentral()
     }
 
@@ -72,6 +78,7 @@ allprojects {
         compile("org.apache.camel:camel-mail:2.17.1")
         compile("commons-io:commons-io:2.4")
         compile("com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.8.3")
+        compile("net.opentechnology:triki-mtd-vat:1.0.0-SNAPSHOT")
 
         testCompile("junit:junit:4.4")
         testCompile("org.mockito:mockito-all:1.9.5")

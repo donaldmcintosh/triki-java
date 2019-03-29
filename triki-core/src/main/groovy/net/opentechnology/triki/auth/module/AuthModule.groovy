@@ -104,7 +104,8 @@ public class AuthModule implements Module {
 		AMAZONCLIENTSECRET,
 		AMAZONOPENIDSCOPE,
 		AMAZONPROFILEENDPOINT,
-		OUTLOOKPROFILEENDPOINT
+		OUTLOOKPROFILEENDPOINT,
+		DEFAULTLOGINPAGE
 	}
 
 	public enum SessionVars {
@@ -204,6 +205,7 @@ public class AuthModule implements Module {
 		settingDto.addSetting(Settings.YAHOOOPENIDSCOPE.name(), "openid", "Yahoo OpenID scope");
 		settingDto.addSetting(Settings.YAHOOPROFILEENDPOINT.name(), 'https://social.yahooapis.com/v1/user/${guid}/profile?format=json', "Yahoo profile endpoint");
 		settingDto.addSetting(Settings.OUTLOOKPROFILEENDPOINT.name(), "https://outlook.office.com/api/v2.0/me", "Outlook profile endpoint");
+		settingDto.addSetting(Settings.DEFAULTLOGINPAGE.name(), "/login", "Default login page");
 	}
 
 	@Override

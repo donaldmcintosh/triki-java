@@ -34,6 +34,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import net.opentechnology.triki.auth.module.AuthModule;
+import net.opentechnology.triki.core.dto.SettingDto;
 import org.apache.commons.configuration.Configuration;
 import org.apache.jena.rdf.model.Model;
 import org.apache.log4j.Logger;
@@ -52,6 +54,9 @@ public class AccessFilter implements Filter {
 	@Inject
 	private AuthorisationManager authoriser;
 
+	@Inject
+	private SettingDto settingDto;
+
 	protected final Logger logger = Logger.getLogger(this.getClass());
 
 
@@ -69,7 +74,7 @@ public class AccessFilter implements Filter {
 		logger.debug("Checking auth on " + url);
 		if(!authoriser.allowAccess(url)){		
 			session.setAttribute("redirectUrl", url);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/login");
+			RequestDispatcher dispatcher = request.getRequestDispatcher(settingDto.getSetting(AuthModule.Settings.DEFAULTLOGINPAGE.toString()));
 			dispatcher.forward(request, response);
 			return;
 		}
