@@ -7,7 +7,7 @@ class Profile {
     private String email
     private String website
     private String identityProvider
-    private Map<String, String> oauthCredentials
+    private Map<String, String> oauthCredentials = new HashMap<>()
 
     Map<String, String> getOauthCredentials() {
         return oauthCredentials
