@@ -50,6 +50,7 @@ class GoogleIdentityProvider implements IdentityProvider {
             }
             profile.setEmail(jwt.getClaims().get('email').asString())
             profile.setName(jwt.getClaims().get('name').asString())
+            profile.setIdentityProvider(getName())
         } catch (JWTDecodeException jwte){
             logger.info("Problem decoding token for token from Google")
             throw new AuthenticationException(jwte)
@@ -131,6 +132,7 @@ class AmazonIdentityProvider implements IdentityProvider {
 
             profile.setName(profileToken['name'] as String)
             profile.setEmail(profileToken['email'] as String)
+            profile.setIdentityProvider(getName())
         } catch (Exception e){
             throw new AuthenticationException("Problems getting Amazon profile: ${e.getMessage()}")
         }
@@ -164,6 +166,7 @@ class OutlookIdentityProvider implements IdentityProvider {
 
             profile.setName(jwt.getClaims().find{it.key == 'name'}.getValue().asString())
             profile.setEmail(jwt.getClaims().find{it.key == 'email'}.getValue().asString())
+            profile.setIdentityProvider(getName())
         } catch (Exception e){
             throw new AuthenticationException("Problems getting Outlook profile: ${e.getMessage()}")
         }
@@ -210,7 +213,7 @@ class IdentityProviders {
     private Map<String, IdentityProvider> oauthProviders = new HashMap<>();
 
     @Inject
-    private final IdentifyProviders(AmazonIdentityProvider amazonIdentifyProvider, YahooIdentityProvider yahooIdentifyProvider,
+    private IdentityProviders(AmazonIdentityProvider amazonIdentifyProvider, YahooIdentityProvider yahooIdentifyProvider,
                                     GoogleIdentityProvider googleIdentifyProvider, OutlookIdentityProvider outlookIdentityProvider){
         oauthProviders.put('google', googleIdentifyProvider);
         oauthProviders.put('yahoo', yahooIdentifyProvider);
@@ -218,6 +221,10 @@ class IdentityProviders {
         oauthProviders.put('outlook', outlookIdentityProvider);
 
         oauthProviders.put('generic', new GenericIdentityProvider());
+    }
+
+    public Map<String, IdentityProvider> getOauthProviders() {
+        return oauthProviders
     }
 
     @Inject

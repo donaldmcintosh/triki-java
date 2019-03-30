@@ -21,6 +21,7 @@
 
 package net.opentechnology.triki.core.boot;
 
+import net.opentechnology.triki.modules.Module;
 import org.apache.camel.CamelContext;
 import org.apache.cxf.transport.servlet.CXFServlet;
 import org.apache.log4j.Logger;
@@ -30,8 +31,6 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.context.request.RequestContextListener;
-
-import net.opentechnology.triki.modules.Module;
 
 public class TrikiMain {
 	

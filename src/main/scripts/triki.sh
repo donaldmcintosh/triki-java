@@ -2,6 +2,7 @@
 
 contentDir=$1
 port=$2
+debug=$3
 
 usage() {
     echo "triki.sh <content dir> <port>"
@@ -19,4 +20,9 @@ then
     exit -1
 fi
 
-java -Dcontent_dir=$1 -Dport=$2 -jar ../lib/triki.jar
+if [ ! -z ${debug} ]
+then
+   DEBUG="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000"
+fi
+
+java $DEBUG -Dcontent_dir=$1 -Dport=$2 -jar ../lib/triki.jar

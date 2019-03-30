@@ -6,6 +6,7 @@ class Profile {
     private String name
     private String email
     private String website
+    private String identityProvider
     private Map<String, String> oauthCredentials
 
     Map<String, String> getOauthCredentials() {
@@ -47,6 +48,14 @@ class Profile {
 
     void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin
+    }
+
+    String getIdentityProvider() {
+        return identityProvider
+    }
+
+    void setIdentityProvider(String identityProvider) {
+        this.identityProvider = identityProvider
     }
 
     String getPreferredDisplay(){

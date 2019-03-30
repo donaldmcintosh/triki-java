@@ -219,7 +219,7 @@ public class ResourceAdaptor implements ModelAdaptor {
 		if(session != null && session.getAttribute(AuthenticateResource.SESSION_PROFILE) != null)
 		{
 			Profile profile = session.getAttribute(AuthenticateResource.SESSION_PROFILE) as Profile;
-			return profile.getPreferredDisplay()
+			return profile
 		}
 		else {
 			return null;
