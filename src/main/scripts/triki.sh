@@ -25,4 +25,6 @@ then
    DEBUG="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000"
 fi
 
-java $DEBUG -Dcontent_dir=$1 -Dport=$2 -jar ../lib/triki.jar
+CLASSPATH=$CLASSPATH:../lib/triki.jar
+
+java $DEBUG -Dcontent_dir=$1 -Dport=$2 net.opentechnology.triki.core.boot.TrikiMain

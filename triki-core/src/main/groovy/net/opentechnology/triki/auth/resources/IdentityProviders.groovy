@@ -23,11 +23,6 @@ import org.apache.log4j.Logger
 
 import javax.inject.Inject
 
-public interface IdentityProvider {
-    String getName();
-    Profile getMinimalProfile(CloseableHttpResponse response)
-}
-
 class GoogleIdentityProvider implements IdentityProvider {
 
     private final Logger logger = Logger.getLogger(this.getClass());
@@ -38,8 +33,7 @@ class GoogleIdentityProvider implements IdentityProvider {
     }
 
     @Override
-    Profile getMinimalProfile(CloseableHttpResponse response) {
-        def profile = new Profile()
+    void getMinimalProfile(Profile profile, CloseableHttpResponse response) {
         def tokenResponse = new JsonSlurper().parse(response.getEntity().getContent());
 
         try {
@@ -55,8 +49,6 @@ class GoogleIdentityProvider implements IdentityProvider {
             logger.info("Problem decoding token for token from Google")
             throw new AuthenticationException(jwte)
         }
-
-        profile
     }
 }
 
@@ -73,8 +65,7 @@ class YahooIdentityProvider implements IdentityProvider {
     }
 
     @Override
-    Profile getMinimalProfile(CloseableHttpResponse response) {
-        def profile = new Profile()
+    void getMinimalProfile(Profile profile, CloseableHttpResponse response) {
         def tokenResponse = new JsonSlurper().parse(response.getEntity().getContent());
 
         try {
@@ -100,8 +91,6 @@ class YahooIdentityProvider implements IdentityProvider {
             logger.info("Problem decoding token for token from Google")
             throw new AuthenticationException(jwte)
         }
-
-        profile
     }
 }
 
@@ -118,9 +107,8 @@ class AmazonIdentityProvider implements IdentityProvider {
     }
 
     @Override
-    Profile getMinimalProfile(CloseableHttpResponse response) {
+    void getMinimalProfile(Profile profile, CloseableHttpResponse response) {
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        def profile = new Profile()
         def accessTokenResponse = new JsonSlurper().parse(response.getEntity().getContent());
 
         try {
@@ -136,8 +124,6 @@ class AmazonIdentityProvider implements IdentityProvider {
         } catch (Exception e){
             throw new AuthenticationException("Problems getting Amazon profile: ${e.getMessage()}")
         }
-
-        profile
     }
 }
 
@@ -154,8 +140,7 @@ class OutlookIdentityProvider implements IdentityProvider {
     }
 
     @Override
-    Profile getMinimalProfile(CloseableHttpResponse response) {
-        def profile = new Profile()
+    void getMinimalProfile(Profile profile, CloseableHttpResponse response) {
         Map<String, String> tokenResponse = new JsonSlurper().parse(response.getEntity().getContent());
 
         try {
@@ -170,8 +155,6 @@ class OutlookIdentityProvider implements IdentityProvider {
         } catch (Exception e){
             throw new AuthenticationException("Problems getting Outlook profile: ${e.getMessage()}")
         }
-
-        profile
     }
 }
 
@@ -185,8 +168,7 @@ class GenericIdentityProvider implements IdentityProvider {
     }
 
     @Override
-    Profile getMinimalProfile(CloseableHttpResponse response) {
-        def profile = new Profile()
+    void getMinimalProfile(Profile profile, CloseableHttpResponse response) {
         Map<String, String> tokenResponse = new JsonSlurper().parse(response.getEntity().getContent());
 
         try {

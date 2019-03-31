@@ -19,8 +19,8 @@
     </appender>
     
     <root>
-        <level value="INFO"/>
-        <appender-ref ref="RollingAppender"/>
+        <level value="DEBUG"/>
+        <appender-ref ref="ConsoleAppender"/>
     </root>
  
 </log4j:configuration>

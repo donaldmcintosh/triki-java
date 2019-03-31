@@ -1,5 +1,7 @@
 package net.opentechnology.triki.auth.resources
 
+import javax.servlet.http.HttpSession
+
 
 class Profile {
 
@@ -8,6 +10,17 @@ class Profile {
     private String website
     private String identityProvider
     private Map<String, String> oauthCredentials = new HashMap<>()
+
+    private Profile() {}
+
+    public static Profile getProfile(HttpSession session){
+        if(session.getAttribute(AuthenticateResource.SESSION_PROFILE)){
+            return session.getAttribute(AuthenticateResource.SESSION_PROFILE)
+        }
+        else {
+            return new Profile();
+        }
+    }
 
     Map<String, String> getOauthCredentials() {
         return oauthCredentials
@@ -69,12 +82,15 @@ class Profile {
             return "No identifier"
     }
 
+
     @Override
     public String toString() {
         return "Profile{" +
                 "name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", website='" + website + '\'' +
+                ", identityProvider='" + identityProvider + '\'' +
+                ", oauthCredentials=" + oauthCredentials +
                 ", isAdmin=" + isAdmin +
                 '}';
     }

@@ -118,7 +118,7 @@ public class AuthenticateResource extends RenderResource {
 			Optional<Resource> signedInPerson = authMgr.authenticate(login, password)
 			ifKnownSave(signedInPerson, session)
 			if(signedInPerson.isPresent()){
-				Profile profile = new Profile()
+				Profile profile = Profile.getProfile(session)
 				profile.setName(signedInPerson.get().getProperty(Dcterms.title)?.getString())
 				setIfAdmin(signedInPerson, profile)
 				setProfile(session, profile);
@@ -161,7 +161,7 @@ public class AuthenticateResource extends RenderResource {
 		
 		if(response.getStatusLine().getStatusCode() == Response.Status.OK.code)
 		{
-			Profile profile = new Profile()
+			Profile profile = Profile.getProfile(session)
 			logger.info("${site} successfully authenticated by indieauth");
 			profile.setWebsite(site)
 			setProfile(session, profile);
@@ -254,7 +254,8 @@ public class AuthenticateResource extends RenderResource {
 		{
 			try {
 				// Set profile
-				Profile profile = identityProvider.getMinimalProfile(response)
+				Profile profile = Profile.getProfile(session)
+				identityProvider.getMinimalProfile(profile, response)
 				logger.info("Successfully authenticated by OpenID Connect with email ${profile}");
 				setProfile(session, profile);
 
