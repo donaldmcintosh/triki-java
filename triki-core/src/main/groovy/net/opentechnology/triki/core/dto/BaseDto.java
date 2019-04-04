@@ -28,20 +28,20 @@ import org.apache.jena.rdf.model.Resource;
 public class BaseDto {
 
 	public void checkString(Resource subject, Property prop, String literal) {
-		if(!subject.hasProperty(prop)){
+		if(literal != null && !subject.hasProperty(prop)){
 			subject.addProperty(prop, literal);
 		}
 	}
 	
 	public void checkLiteral(Resource subject, Property prop, Literal literal) {
-		if(!subject.hasProperty(prop)){
+		if(literal != null && !subject.hasProperty(prop)){
 			subject.addProperty(prop, literal);
 		}
 	}
 	
-	protected void checkResource(Resource subject, Property prop, Resource res)
+	public void checkResource(Resource subject, Property prop, Resource res)
 	{
-		if(!subject.hasProperty(prop)){
+		if(res != null && !subject.hasProperty(prop)){
 			subject.addProperty(prop, res);
 		}
 	}

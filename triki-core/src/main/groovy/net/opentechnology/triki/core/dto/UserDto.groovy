@@ -1,23 +1,23 @@
 /************************************************************************************
-*
-*   This file is part of triki
-*
-*   Written by Donald McIntosh (dbm@opentechnology.net) 
-*
-*   triki is free software: you can redistribute it and/or modify
-*   it under the terms of the GNU General Public License as published by
-*   the Free Software Foundation, either version 3 of the License, or
-*   (at your option) any later version.
-*
-*   triki is distributed in the hope that it will be useful,
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*   GNU General Public License for more details.
-*
-*   You should have received a copy of the GNU General Public License
-*   along with triki.  If not, see <http://www.gnu.org/licenses/>.
-*
-************************************************************************************/
+ *
+ *   This file is part of triki
+ *
+ *   Written by Donald McIntosh (dbm@opentechnology.net)
+ *
+ *   triki is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   triki is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with triki.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ ************************************************************************************/
 
 package net.opentechnology.triki.core.dto;
 
@@ -37,34 +37,33 @@ import net.opentechnology.triki.sparql.SparqlExecutor
 
 public class UserDto extends BaseDto {
 
-	@Inject	@Qualifier("siteModel")
-	private Model model;
-	
-	@Inject
-	private CachedPropertyStore props;
-	
-	public void addUser(String userName, def details) 
-	{
-		String resName = props.getPrivateUrl() + "user/" + userName;
-		Resource person = model.createResource(resName);
-		checkResource(person, RDF.type, Foaf.Person);
-		checkResource(person, Triki.restricted, details."group");
-		checkString(person, DCTerms.title, details."title");
-		checkString(person, Foaf.mbox, details."email");
-		if(details."login") {
-                    checkString(person, Triki.login, details."login");
-                }
-		if(details."password") {
-		    checkString(person, Triki.password, details."password");
-                }
-		checkResource(person, Foaf.member, details."member");
-	}
+    @Inject
+    @Qualifier("siteModel")
+    private Model model;
 
-        public Resource getUserByEmail(String email)
-        {
-                SparqlExecutor sparqler = new SparqlExecutor();
-                String query = """
-                prefix foaf:  <http://xmlns.com/foaf/0.1/>
+    @Inject
+    private CachedPropertyStore props;
+
+    public void addUser(String userName, def details) {
+        String resName = props.getPrivateUrl() + "user/" + userName;
+        Resource person = model.createResource(resName);
+        checkResource(person, RDF.type, Foaf.Person);
+        checkResource(person, Triki.restricted, details."group");
+        checkString(person, DCTerms.title, details."title");
+        checkString(person, Foaf.mbox, details."email");
+        if (details."login") {
+            checkString(person, Triki.login, details."login");
+        }
+        if (details."password") {
+            checkString(person, Triki.password, details."password");
+        }
+        checkResource(person, Foaf.member, details."member");
+    }
+
+    public Resource getUserByEmail(String email) {
+        SparqlExecutor sparqler = new SparqlExecutor();
+        String query = """
+                PREFIX foaf:  <http://xmlns.com/foaf/0.1/>
                 SELECT ?sub
                 WHERE {
                          ?sub a foaf:Person .
@@ -72,9 +71,13 @@ public class UserDto extends BaseDto {
                 }
 """
 
-                QuerySolution soln = sparqler.execute(model, query)
-                soln.get("sub")?.asResource()
+        Resource user = null
+        sparqler.execute(model, query){ QuerySolution soln  ->
+            user = soln.get("sub")?.asResource()
         }
+
+        return user;
+    }
 
 
 }

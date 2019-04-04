@@ -29,6 +29,7 @@ import net.opentechnology.triki.auth.module.AuthModule
 import net.opentechnology.triki.core.dto.SettingDto
 import groovy.util.logging.Log4j
 import net.opentechnology.triki.schema.Dcterms
+import net.opentechnology.triki.schema.Foaf
 import org.apache.http.client.utils.URIBuilder
 
 import javax.inject.Inject
@@ -120,6 +121,7 @@ public class AuthenticateResource extends RenderResource {
 			if(signedInPerson.isPresent()){
 				Profile profile = Profile.getProfile(session)
 				profile.setName(signedInPerson.get().getProperty(Dcterms.title)?.getString())
+				profile.setEmail(signedInPerson.get().getProperty(Foaf.mbox)?.getString())
 				setIfAdmin(signedInPerson, profile)
 				setProfile(session, profile);
 
