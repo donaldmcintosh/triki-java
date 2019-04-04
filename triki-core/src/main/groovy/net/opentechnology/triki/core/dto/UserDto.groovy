@@ -51,9 +51,30 @@ public class UserDto extends BaseDto {
 		checkResource(person, Triki.restricted, details."group");
 		checkString(person, DCTerms.title, details."title");
 		checkString(person, Foaf.mbox, details."email");
-		checkString(person, Triki.login, details."login");
-		checkString(person, Triki.password, details."password");
+		if(details."login") {
+                    checkString(person, Triki.login, details."login");
+                }
+		if(details."password") {
+		    checkString(person, Triki.password, details."password");
+                }
 		checkResource(person, Foaf.member, details."member");
 	}
+
+        public Resource getUserByEmail(String email)
+        {
+                SparqlExecutor sparqler = new SparqlExecutor();
+                String query = """
+                prefix foaf:  <http://xmlns.com/foaf/0.1/>
+                SELECT ?sub
+                WHERE {
+                         ?sub a foaf:Person .
+                         ?sub foaf:mbox "${email}" .
+                }
+"""
+
+                QuerySolution soln = sparqler.execute(model, query)
+                soln.get("sub")?.asResource()
+        }
+
 
 }
