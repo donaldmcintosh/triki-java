@@ -42,6 +42,9 @@ public class UserDto extends BaseDto {
     private Model model;
 
     @Inject
+    private GroupDto groupDto;
+
+    @Inject
     private CachedPropertyStore props;
 
     public void addUser(String userName, def details) {
@@ -51,13 +54,27 @@ public class UserDto extends BaseDto {
         checkResource(person, Triki.restricted, details."group");
         checkString(person, DCTerms.title, details."title");
         checkString(person, Foaf.mbox, details."email");
-        if (details."login") {
-            checkString(person, Triki.login, details."login");
-        }
-        if (details."password") {
-            checkString(person, Triki.password, details."password");
-        }
+        checkString(person, Triki.login, details."login");
+        checkString(person, Triki.password, details."password");
         checkResource(person, Foaf.member, details."member");
+    }
+
+    public Resource addAuthenticatedUser(String name, String email) {
+        def encodedName = name.replaceAll(/\s/, "_")
+        def authGroup = groupDto.getGroup("identified")
+        String resName = props.getPrivateUrl() + "user/" + encodedName;
+        Resource person = model.createResource(resName);
+        checkResource(person, RDF.type, Foaf.Person);
+        checkString(person, DCTerms.title, name);
+        checkString(person, Foaf.mbox, email);
+        checkResource(person, Foaf.member, authGroup);
+
+        person
+    }
+
+    def addUserToGroup(Resource user, String groupName){
+        def group = groupDto.getGroup(groupName)
+        addResource(user, Foaf.member, group)
     }
 
     public Resource getUserByEmail(String email) {
@@ -79,5 +96,15 @@ public class UserDto extends BaseDto {
         return user;
     }
 
+    def setModel(Model model) {
+        this.model = model
+    }
 
+    def setProps(CachedPropertyStore props){
+        this.props = props
+    }
+
+    def setGroupDto(GroupDto groupDto){
+        this.groupDto = groupDto
+    }
 }

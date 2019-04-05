@@ -45,4 +45,11 @@ public class BaseDto {
 			subject.addProperty(prop, res);
 		}
 	}
+
+	public void addResource(Resource subject, Property prop, Resource res)
+	{
+		if(res != null){
+			subject.addProperty(prop, res);
+		}
+	}
 }

@@ -129,7 +129,7 @@ public class AuthModule implements Module {
 		groupDto.addGroup("friends", "Friends group");
 		groupDto.addGroup("family", "Family group");
 		groupDto.addGroup("personal", "Personal group");
-		groupDto.addGroup("identified", "Identified psuedo group");
+		groupDto.addGroup("identified", "Identified group");
 		
 		def adminDetails = [:]
 		adminDetails."title" = "Administrator"
