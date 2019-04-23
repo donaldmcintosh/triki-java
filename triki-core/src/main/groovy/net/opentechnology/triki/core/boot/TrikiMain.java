@@ -93,9 +93,12 @@ public class TrikiMain {
 	}
 	
 	private void initWeb() throws StartupException {
-		Module authModule = getCtx().getBean("authModule", Module.class);
-		authModule.initWeb();
-		// Find and init other web modules
+		String[] beanNames = getCtx().getBeanNamesForType(Module.class);
+		for(String beanName: beanNames){
+			Module module = getCtx().getBean(beanName, Module.class);
+			logger.info("Initialising web for module " + beanName);
+			module.initWeb();
+		}
 	}
 
 	private int getPort(String port) {
