@@ -272,6 +272,7 @@ public class CoreModule implements Module {
 		contentDto.checkFile("site.css", "default.css");
 		contentDto.addContent("triki.ttl");
 		contentDto.addContent("triki.log");
+		contentDto.addContent("triki-lb.log");
 	}
 
 	@Override
