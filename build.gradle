@@ -32,10 +32,12 @@ allprojects {
 
     configurations { schemagen }
 
+    configurations.all {
+        exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+    }
+
     dependencies {
         schemagen 'org.apache.jena:jena-core:3.0.1'
-        compile("commons-logging:commons-logging:1.1")
-        compile("log4j:log4j:1.2.14")
         compile("org.antlr:stringtemplate:4.0.2")
         compile("javax.servlet:javax.servlet-api:3.0.1")
         compile("javax.ws.rs:javax.ws.rs-api:2.0.1")
@@ -78,7 +80,9 @@ allprojects {
         compile("org.apache.camel:camel-mail:2.17.1")
         compile("commons-io:commons-io:2.4")
         compile("com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.8.3")
+
         compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+        compile group: 'org.slf4j', name: 'log4j-over-slf4j', version: '1.7.25'
 
         testCompile("junit:junit:4.4")
         testCompile("org.mockito:mockito-all:1.9.5")
