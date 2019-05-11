@@ -58,7 +58,6 @@ public class SettingDto extends BaseDto {
 	@Inject
 	private CachedPropertyStore props;
 
-	
 	public void addSetting(String setting, String value, String description)
 	{
 		String resName = props.getPrivateUrl() + "setting/" + setting;
@@ -70,6 +69,19 @@ public class SettingDto extends BaseDto {
 		if(description){
 			checkString(contentResource, DCTerms.description, description);
 		}
+	}
+
+	public void updateSetting(String setting, String value, String description){
+		deleteSettings(setting)
+		addSetting(setting, value, description)
+	}
+
+	public void deleteSettings(String setting)
+	{
+		String resName = props.getPrivateUrl() + "setting/" + setting;
+		Resource res = model.createResource(resName)
+		List stmts = res.listProperties().toList()
+		model.remove(stmts);
 	}
 
 	public void addSetting(String setting, String value){

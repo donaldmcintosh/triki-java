@@ -176,12 +176,14 @@ public class AuthModule implements Module {
 		pageDto.addPage("login", typeDto.getType("login"), "Login", "public");
 		pageDto.addPage("auth/openidlogin", typeDto.getType("auth"), "Authorise OpenID Login", "public");
 		pageDto.addPage("auth/openidconnect", typeDto.getType("auth"), "Authorise OpenID Token Exchange", "public");
+        pageDto.addPage("auth/logoff", typeDto.getType("auth"), "Logoff", "public");
 	}
 
 	private void initIdentityProviders(){
 		identityProviderDto.addIdentityProvider("google", "https://accounts.google.com/o/oauth2/v2/auth", "https://oauth2.googleapis.com/token", "openid email profile");
 		identityProviderDto.addIdentityProvider("amazon", "https://www.amazon.com/ap/oa", "https://api.amazon.com/auth/o2/token", "profile");
 		identityProviderDto.addIdentityProvider("yahoo", "https://api.login.yahoo.com/oauth2/request_auth", "https://api.login.yahoo.com/oauth2/get_token", "openid");
+		identityProviderDto.addIdentityProvider("outlook", "https://login.microsoftonline.com/common/oauth2/v2.0/authorize", "https://login.microsoftonline.com/common/oauth2/v2.0/token", "openid profile email");
 	}
 
 	private void initSettings() {

@@ -59,6 +59,9 @@ import net.opentechnology.triki.modules.PostRenderListener;
 import net.opentechnology.triki.schema.Time;
 import net.opentechnology.triki.schema.Triki;
 
+import static net.opentechnology.triki.core.template.TemplateStore.CORE_TEMPLATE;
+import static net.opentechnology.triki.core.template.TemplateStore.SITE_TEMPLATE;
+
 public class CoreModule implements Module {
 	
 	@Inject	@Qualifier("siteModel")
@@ -153,8 +156,8 @@ public class CoreModule implements Module {
 
 	private void initTemplates() throws StartupException {
 		try {
-			templateStore.initCoreTemplate();
-			templateStore.initSiteTemplate();
+			templateStore.addTemplate(SITE_TEMPLATE);
+			templateStore.addTemplate(CORE_TEMPLATE);
 		} catch (TemplateException e) {
 			throw new StartupException(e);
 		}

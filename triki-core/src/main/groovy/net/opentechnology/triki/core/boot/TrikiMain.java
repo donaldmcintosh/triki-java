@@ -86,10 +86,10 @@ public class TrikiMain {
 	}
 
 	private void initModules() throws StartupException {
-		Module coreModule = getCtx().getBean("coreModule", Module.class);
-		coreModule.initMod();
 		Module authModule = getCtx().getBean("authModule", Module.class);
 		authModule.initMod();
+		Module coreModule = getCtx().getBean("coreModule", Module.class);
+		coreModule.initMod();
 	}
 	
 	private void initWeb() throws StartupException {

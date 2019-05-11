@@ -177,10 +177,10 @@ class GenericIdentityProvider implements IdentityProvider {
                 logger.info("Claim is ${claim.key} : ${claim.getValue().asString()}")
             }
 
-            profile.setOauthCredentials(tokenResponse)
-            profile.getOauthCredentials().keySet().each { key ->
-                logger.info("Credentials is ${key} : ${profile.getOauthCredentials().get(key)}")
-            }
+//            profile.setOauthCredentials(tokenResponse)
+//            profile.getOauthCredentials().keySet().each { key ->
+//                logger.info("Credentials is ${key} : ${profile.getOauthCredentials().get(key)}")
+//            }
         } catch (JWTDecodeException jwte){
             logger.info("Problem decoding token for token")
             throw new AuthenticationException(jwte)

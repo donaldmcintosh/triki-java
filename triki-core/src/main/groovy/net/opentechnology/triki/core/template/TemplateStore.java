@@ -22,8 +22,7 @@
 package net.opentechnology.triki.core.template;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import javax.inject.Inject;
 
@@ -47,24 +46,24 @@ public class TemplateStore {
 	public static final String CORE_TEMPLATE = "core.stg";
 	public static final String SITE_TEMPLATE = "site.stg";
 	private final Logger logger = Logger.getLogger(this.getClass());
-    private STGroup coreTemplate;
-    private STGroup siteTemplate;
     protected final char d = '$';
     
-    private List<STGroup> moduleTemplates = new ArrayList<>();
-    
+    private Map<String, STGroup> moduleTemplates = new HashMap<>();
+
 	@Inject
 	private CachedPropertyStore propStore;
 	
 	@Inject
 	private ContentUtils contentUtils;
 	
-	public void initCoreTemplate() throws TemplateException{
-		coreTemplate = initTemplate(CORE_TEMPLATE);
+	public void reinitSiteTemplate() throws TemplateException{
+		moduleTemplates.remove(SITE_TEMPLATE);
+		addTemplate(SITE_TEMPLATE);
 	}
-	
-	public void initSiteTemplate() throws TemplateException{
-		siteTemplate = initTemplate(SITE_TEMPLATE);
+
+	public void addTemplate(String templateFilename) throws TemplateException {
+		STGroup stgroup = initTemplate(templateFilename);
+		moduleTemplates.put(templateFilename, stgroup);
 	}
 	
 	private STGroup initTemplate(String templateName) throws TemplateException {
@@ -82,23 +81,24 @@ public class TemplateStore {
 		}
 	}
 	
-	public ST getTemplate(String templateName) throws TemplateException{	
-		ST template = coreTemplate.getInstanceOf(templateName);
-		if(template == null){
-			template = siteTemplate.getInstanceOf(templateName);
-			if(template == null)
-			{
-				throw new TemplateException("No such template " + templateName);
-			}
+	public ST getTemplate(String templateName) throws TemplateException{
+		Optional<STGroup> optionalTemplate = moduleTemplates.values().stream()
+				.filter( moduleTemplate -> moduleTemplate.getInstanceOf(templateName) != null)
+				.findFirst();
+
+		if(!optionalTemplate.isPresent()){
+			throw new TemplateException("No such template " + templateName);
 		}
-
-		return template;
-
+		else {
+			return optionalTemplate.get().getInstanceOf(templateName);
+		}
 	}
 	
-	public void registerAdaptor(ModelAdaptor r) throws TemplateException{
-		siteTemplate.registerModelAdaptor(String.class, r);
-		siteTemplate.registerModelAdaptor(RDFNode.class, r);
+	public void registerAdaptor(ModelAdaptor r) throws TemplateException {
+		moduleTemplates.values().forEach( stgroup -> {
+			stgroup.registerModelAdaptor(String.class, r);
+			stgroup.registerModelAdaptor(RDFNode.class, r);
+		});
 	}
 
 }

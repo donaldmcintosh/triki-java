@@ -100,7 +100,7 @@
 	<category term="report" />
 	<category term="sabre" />
 	<category term="scala" />
-	<category term="spring integration" />
+	<category term="spring bdd.integration" />
 	<category term="structure101" />
 	<category term="tuning" />
 	<category term="vide" />
@@ -109,7 +109,7 @@
 	<category term="yourkit" />
 	<title type="text">Claus Ibsen (@davsclaus) riding the Apache Camel
 	</title>
-	<subtitle type="html">Works for Red Hat on open source integration
+	<subtitle type="html">Works for Red Hat on open source bdd.integration
 		projects such as Apache Camel, fabric8 and hawtio. Author of Camel in
 		Action books.</subtitle>
 	<link rel="alternate" type="text/html" href="http://www.davsclaus.com/" />
@@ -559,7 +559,7 @@
 			The plugin is able to parse both XML and Java code (the latter uses
 			Eclipse JDT). So should be useful for all schools of Camel
 			users.&lt;/div&gt;&lt;div&gt;&lt;br /&gt;&lt;/div&gt;&lt;div&gt;We
-			hope to improve on the plugin to have tighter integration in the
+			hope to improve on the plugin to have tighter bdd.integration in the
 			editors such as IDEA and Eclipse, so you can have in-place Camel
 			endpoint validation and code assistance while typing your Camel
 			endpoints. We are working together with the &lt;a
@@ -640,7 +640,7 @@
 			Mule.&lt;br /&gt;&lt;br /&gt;The question was asked in September
 			2010, and now fast forward 5+ years Raul took a look at the situation
 			today. I think his detailed answer is worth attention for users of
-			Camel, and others who are doing assessment on integration
+			Camel, and others who are doing assessment on bdd.integration
 			software.&lt;br /&gt;&lt;br /&gt;Rauls answer starts out as shown
 			below. I suggest to go read &lt;a
 			href="https://stackoverflow.com/questions/3792519/apache-camel-and-other-esb-products/34818263#34818263"&gt;his
@@ -692,12 +692,12 @@
 			developer would write such a piece of ... &amp;nbsp;(excuse my
 			english)&lt;br /&gt;&lt;br /&gt;And a final note Its also worth
 			referring people to the &lt;a
-			href="http://www.davsclaus.com/2015/12/mule-vs-spring-integration-vs-apache.html"&gt;previous
+			href="http://www.davsclaus.com/2015/12/mule-vs-spring-bdd.integration-vs-apache.html"&gt;previous
 			blog&lt;/a&gt;, which also spun from a tweet where you can easily
 			compare projects on blackduck, such as Camel vs Mule.&lt;br
 			/&gt;&lt;br /&gt;&lt;div class="separator" style="clear: both;
 			text-align: center;"&gt;&lt;a
-			href="http://www.davsclaus.com/2015/12/mule-vs-spring-integration-vs-apache.html"&gt;&lt;img
+			href="http://www.davsclaus.com/2015/12/mule-vs-spring-bdd.integration-vs-apache.html"&gt;&lt;img
 			border="0" height="171"
 			src="http://2.bp.blogspot.com/-gYoMNCC5HN4/Vm7_nZ5GGII/AAAAAAAAA_w/YXslIjJ6snY/s320/summary.png"
 			width="320" /&gt;&lt;/a&gt;&lt;/div&gt;&lt;br /&gt;&lt;br /&gt;With
@@ -794,7 +794,7 @@
 			href="http://camel.apache.org/commercial-camel-offerings.html"&gt;companies&lt;/a&gt;&amp;nbsp;offer
 			training either online or onsite.&lt;/div&gt;&lt;div&gt;&lt;br
 			/&gt;&lt;/div&gt;&lt;div&gt;Apache Camel is a very feature rich
-			integration library, and it has a lot of functionality. And you will
+			bdd.integration library, and it has a lot of functionality. And you will
 			be much more successful when you learn this piece by piece. The &lt;a
 			href="http://camel.apache.org/books"&gt;Camel books&lt;/a&gt; will
 			help you archive that by covering the pieces chapter by
@@ -1274,7 +1274,7 @@
 		<updated>2015-12-14T18:54:40.738+01:00</updated>
 		<category scheme="http://www.blogger.com/atom/ns#" term="apache camel" />
 		<category scheme="http://www.blogger.com/atom/ns#" term="mule" />
-		<category scheme="http://www.blogger.com/atom/ns#" term="spring integration" />
+		<category scheme="http://www.blogger.com/atom/ns#" term="spring bdd.integration" />
 		<title type="text">Mule vs Spring Integration vs Apache Camel compared
 			by Black Duck Open Hub</title>
 		<content type="html">&lt;div dir="ltr" style="text-align: left;"
@@ -1282,7 +1282,7 @@
 			href="https://twitter.com/MorganGeek/status/674899708402401280"&gt;tweet&lt;/a&gt;
 			that referred to Black Duck&amp;nbsp;&lt;a
 			href="https://www.openhub.net/p/_compare?project_0=Mule+Community+Edition&amp;amp;project_1=Apache+Camel&amp;amp;project_2=Spring+Integration"&gt;Open
-			HUB&lt;/a&gt; where the following three Java integration software was
+			HUB&lt;/a&gt; where the following three Java bdd.integration software was
 			summarized:&lt;br /&gt;&lt;br /&gt;&lt;ul style="text-align:
 			left;"&gt;&lt;li&gt;Mule Community Edition&lt;/li&gt;&lt;li&gt;Apache
 			Camel&lt;/li&gt;&lt;li&gt;Spring
@@ -1343,7 +1343,7 @@
 		<link rel="self" type="application/atom+xml"
 			href="http://www.blogger.com/feeds/5283832592516522895/posts/default/7816037120875847866" />
 		<link rel="alternate" type="text/html"
-			href="http://feedproxy.google.com/~r/ApacheCamel/~3/X7CbFLMqQSg/mule-vs-spring-integration-vs-apache.html"
+			href="http://feedproxy.google.com/~r/ApacheCamel/~3/X7CbFLMqQSg/mule-vs-spring-bdd.integration-vs-apache.html"
 			title="Mule vs Spring Integration vs Apache Camel compared by Black Duck Open Hub" />
 		<author>
 			<name>Claus Ibsen</name>
@@ -1357,7 +1357,7 @@
 			url="http://2.bp.blogspot.com/-gYoMNCC5HN4/Vm7_nZ5GGII/AAAAAAAAA_s/1hb7F08kVh4/s72-c/summary.png"
 			height="72" width="72" />
 		<thr:total>0</thr:total>
-		<feedburner:origLink>http://www.davsclaus.com/2015/12/mule-vs-spring-integration-vs-apache.html
+		<feedburner:origLink>http://www.davsclaus.com/2015/12/mule-vs-spring-bdd.integration-vs-apache.html
 		</feedburner:origLink>
 	</entry>
 	<entry>

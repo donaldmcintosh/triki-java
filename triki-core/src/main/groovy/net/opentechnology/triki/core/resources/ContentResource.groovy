@@ -19,16 +19,10 @@
 *
 ************************************************************************************/
 
-package net.opentechnology.triki.core.resources;
+package net.opentechnology.triki.core.resources
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URL;
 
 import javax.inject.Inject
-import javax.inject.Scope;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
@@ -37,30 +31,19 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.Produces
 import javax.ws.rs.core.CacheControl
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response
-import javax.ws.rs.core.StreamingOutput;
 import javax.ws.rs.core.Response.ResponseBuilder
 import javax.ws.rs.QueryParam
 
-import org.apache.commons.io.FileUtils
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils
-import org.apache.cxf.jaxrs.ext.multipart.Attachment
-import org.apache.cxf.jaxrs.ext.multipart.ContentDisposition
 import org.apache.cxf.jaxrs.ext.multipart.MultipartBody
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
-import org.springframework.core.io.Resource
+import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.context.ApplicationContext
 import org.stringtemplate.v4.ST
-import org.springframework.context.annotation.Scope
-
 import net.opentechnology.triki.auth.AuthorisationManager
 import net.opentechnology.triki.core.boot.CachedPropertyStore;
 import net.opentechnology.triki.core.boot.CoreModule
@@ -188,7 +171,7 @@ public class ContentResource extends RenderResource {
 				webContentUtils.writeContent(id, model.unEscapeContent(content));
 				if(suffix == "stg")
 				{
-					templateStore.initSiteTemplate()
+					templateStore.reinitSiteTemplate()
 					model.msgs << "Reinitialised site template."
 				}
 				model.msgs << "Successfully updated ${id}."
