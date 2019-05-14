@@ -9,7 +9,6 @@ class Profile {
     private String email
     private String website
     private String identityProvider
-    private Map<String, String> oauthCredentials = new HashMap<>()
     private Map<String, String> moduleParams = new HashMap<>()
 
     private Profile() {}
@@ -21,14 +20,6 @@ class Profile {
         else {
             return new Profile();
         }
-    }
-
-    Map<String, String> getOauthCredentials() {
-        return oauthCredentials
-    }
-
-    void setOauthCredentials(Map<String, String> oauthCredentials) {
-        this.oauthCredentials = oauthCredentials
     }
 
     Map<String, String> getModuleParams() {
@@ -100,7 +91,7 @@ class Profile {
                 ", email='" + email + '\'' +
                 ", website='" + website + '\'' +
                 ", identityProvider='" + identityProvider + '\'' +
-                ", oauthCredentials=" + oauthCredentials +
+                ", moduleParams=" + moduleParams +
                 ", isAdmin=" + isAdmin +
                 '}';
     }
