@@ -43,6 +43,7 @@
  </bean>
 	
 	<bean id="accessFilter" class="net.opentechnology.triki.auth.AccessFilter" />
+	<bean id="trikiWicketFilter" class="net.opentechnology.triki.auth.TrikiWicketFilter" />
 	<bean id="authMgr" class="net.opentechnology.triki.auth.AuthorisationManager" />
 	<bean id="authenticationMgr" class="net.opentechnology.triki.auth.AuthenticationManager" />  
 

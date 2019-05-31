@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<wicket:extend>
+  <div class="ui segment">
+    <form class="ui form" id="loginForm" method="get" wicket:id="loginForm">
+      <p wicket:id="loginStatus"></p>
+      <div class="field">
+        <label>Username</label>
+        <input type="text" wicket:id="username" name="username" placeholder="Username">
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" wicket:id="password" name="password" placeholder="Password">
+      </div>
+      <div class="field">
+        <div class="ui checkbox">
+          <input type="checkbox" tabindex="0" class="hidden">
+          <label>I agree to the Terms and Conditions</label>
+        </div>
+      </div>
+      <button class="ui button" type="submit">Submit</button>
+    </form>
+  </div>
+</wicket:extend>
+</body>
+</html>
