@@ -4,26 +4,43 @@
 </head>
 <body>
 <wicket:extend>
-  <div class="ui segment">
-    <form class="ui form" id="loginForm" method="get" wicket:id="loginForm">
-      <p wicket:id="loginStatus"></p>
-      <div class="field">
-        <label>Username</label>
-        <input type="text" wicket:id="username" name="username" placeholder="Username">
-      </div>
-      <div class="field">
-        <label>Password</label>
-        <input type="password" wicket:id="password" name="password" placeholder="Password">
-      </div>
-      <div class="field">
-        <div class="ui checkbox">
-          <input type="checkbox" tabindex="0" class="hidden">
-          <label>I agree to the Terms and Conditions</label>
+    <div class="ui placeholder segment">
+        <div class="ui two column very relaxed stackable grid">
+            <div class="column">
+                <form class="ui form" id="loginForm" method="get" wicket:id="loginForm">
+                    <p wicket:id="loginStatus"></p>
+                    <div class="field">
+                        <label>Username</label>
+                        <input type="text" wicket:id="username" name="username" placeholder="Username">
+                    </div>
+                    <div class="field">
+                        <label>Password</label>
+                        <input type="password" wicket:id="password" name="password" placeholder="Password">
+                    </div>
+                    <button class="ui button" type="submit">Login</button>
+                </form>
+            </div>
+            <div class="middle aligned column">
+                <button class="ui compact labeled icon button">
+                    <i class="amazon icon"></i>
+                    <a href="/auth/openidlogin?idp=google">Google</a>
+                </button>
+                <br>
+                <button class="ui compact labeled icon button">
+                    <i class="google icon"></i>
+                    <a href="/auth/openidlogin?idp=amazon">Amazon</a>
+                </button>
+                <br>
+                <button class="ui compact labeled icon button">
+                    <i class="microsoft icon"></i>
+                    <a href="/auth/openidlogin?idp=outlook">Outlook</a>
+                </button>
+            </div>
         </div>
-      </div>
-      <button class="ui button" type="submit">Submit</button>
-    </form>
-  </div>
+        <div class="ui vertical divider">
+            Or
+        </div>
+    </div>
 </wicket:extend>
 </body>
 </html>

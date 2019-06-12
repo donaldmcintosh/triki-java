@@ -231,6 +231,7 @@ public class CoreModule implements Module {
 		mediaTypeDto.addMediaType(MediaType.TEXT_PLAIN, "js", "86400");
 		mediaTypeDto.addMediaType(MediaType.TEXT_PLAIN, "log", "10");
 		mediaTypeDto.addMediaType("image/svg+xml", "svg", "10");
+		mediaTypeDto.addMediaType("font/woff","woff", "10");
 	}
 
 	private void initNamespacePrefixes() {

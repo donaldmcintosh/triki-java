@@ -152,6 +152,7 @@ public class AuthModule implements Module {
 		authRoot.addProperty(Triki.unrestricted, ".*\\.js");
 		authRoot.addProperty(Triki.unrestricted, ".*\\.ico");
 		authRoot.addProperty(Triki.unrestricted, ".*\\.svg");
+		authRoot.addProperty(Triki.unrestricted, ".*\\.woff");
 		authRoot.addProperty(Triki.unrestricted, ".*/ui/.*");
 	}
 
