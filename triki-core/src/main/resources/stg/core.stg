@@ -6,6 +6,7 @@ loginheader(size) ::= <<
 <head>
 <title>Login</title>
 <link rel="stylesheet" type="text/css" href="/content/core.css" />
+<link rel="stylesheet" type="text/css" href="/content/core-common.css" />
 <style>
 .ui-autocomplete-loading {
 background: white url("/content/wait.gif") right center no-repeat;

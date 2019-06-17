@@ -19,10 +19,6 @@
 body * + * {
 }
 
-.loginbutton {
-  margin: 0.2em;
-}
-
 @media (min-width: 50em) {
     .main {
       padding: 1em;
@@ -35,4 +31,29 @@ body * + * {
     padding: 2em 1em;
   }
 }
+
+.bannerback {
+  text-align: center;
+  height: auto;
+  overflow: hidden;
+  clear: both;
+  margin: 0px auto;
+  background-color: #205081;
+  padding: 0px;
+  border-bottom: 1px solid #2d2d2d;
+}
+
+.banner {
+  padding: 1em;
+  margin: 0 6em;
+}
+
+ul.confmenuright {
+  width: 4em;
+  list-style-type: none;
+  display: inline-block;
+  margin: 1em 10em;
+  float: right;
+}
+
 
