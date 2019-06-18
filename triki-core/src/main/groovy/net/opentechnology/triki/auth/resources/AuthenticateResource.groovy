@@ -31,6 +31,7 @@ import groovy.util.logging.Log4j
 import net.opentechnology.triki.schema.Dcterms
 import net.opentechnology.triki.schema.Foaf
 import org.apache.http.client.utils.URIBuilder
+import org.springframework.beans.factory.annotation.InjectionMetadata
 
 import javax.inject.Inject
 import javax.servlet.ServletException;
@@ -94,6 +95,9 @@ public class AuthenticateResource extends RenderResource {
 	@Inject
 	private final IdentityProviders identityProviders
 
+	@Inject
+	private final SessionUtils sessionUtils;
+
 	public AuthenticateResource(){
 
 	}
@@ -104,36 +108,6 @@ public class AuthenticateResource extends RenderResource {
 		this.utils = utils
 		this.settingDto = settingDto
 		this.identityProviders = identityProviders
-	}
-
-	@POST
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void login(@Context HttpServletResponse resp, @Context HttpServletRequest req,
-			MultivaluedMap<String, String> formParams,
-			@FormParam("action") String action,
-			@FormParam("triki:login") String login,
-			@FormParam("triki:password") String password) throws ServletException, IOException {
-		HttpSession session = req.getSession();
-		try {
-			// Check if known to me
-			Optional<Resource> signedInPerson = authMgr.authenticate(login, password)
-			ifKnownSave(signedInPerson, session)
-			if(signedInPerson.isPresent()){
-				Profile profile = Profile.getProfile(session)
-				profile.setName(signedInPerson.get().getProperty(Dcterms.title)?.getString())
-				profile.setEmail(signedInPerson.get().getProperty(Foaf.mbox)?.getString())
-				setIfAdmin(signedInPerson, profile)
-				setProfile(session, profile);
-
-				forwardCorrectly(resp, session, null)
-			}
-			else {
-				resp.sendRedirect("/login");
-			}
-		} catch (Exception e) {
-			logger.warn("Problems authenticating user ${login}");
-			forwardCorrectly(resp, session, null)
-		}
 	}
 	
 	@Path("indie")
@@ -166,20 +140,20 @@ public class AuthenticateResource extends RenderResource {
 			Profile profile = Profile.getProfile(session)
 			logger.info("${site} successfully authenticated by indieauth");
 			profile.setWebsite(site)
-			setProfile(session, profile);
+			sessionUtils.setProfile(session, profile);
 
 			// Check if known to site
 			Optional<Resource> signedInPerson = authMgr.authenticateByWebsite(site)
-			ifKnownSave(signedInPerson, session)
-			setIfAdmin(signedInPerson, profile)
+			sessionUtils.ifKnownSave(signedInPerson, session)
+			sessionUtils.setIfAdmin(signedInPerson, profile)
 
 			// Forward correctly
-			forwardCorrectly(resp, session, null)
+			sessionUtils.forwardCorrectly(resp, session, null)
 		}
 		else
 		{
 			logger.warn("${me} not authenticated.");
-			forwardCorrectly(resp, session, null)
+			sessionUtils.forwardCorrectly(resp, session, null)
 		}
 	}
 
@@ -233,7 +207,7 @@ public class AuthenticateResource extends RenderResource {
 		}
 		else {
 			logger.error("No anti-forgery state provided or code")
-			forwardCorrectly(resp, session, referer)
+			sessionUtils.forwardCorrectly(resp, session, referer)
 		}
 		
 		List<NameValuePair> form = new ArrayList<NameValuePair>();
@@ -259,24 +233,24 @@ public class AuthenticateResource extends RenderResource {
 				Profile profile = Profile.getProfile(session)
 				identityProvider.getMinimalProfile(profile, response)
 				logger.info("Successfully authenticated by OpenID Connect with email ${profile}");
-				setProfile(session, profile);
+				sessionUtils.setProfile(session, profile);
 
 				// Check if known to me - only trust email address
 				Optional<Resource> signedInPerson = authMgr.authenticateByEmail(profile.email)
-				ifKnownSave(signedInPerson, session)
-				setIfAdmin(signedInPerson, profile)
+				sessionUtils.ifKnownSave(signedInPerson, session)
+				sessionUtils.setIfAdmin(signedInPerson, profile)
 
 				// Forward correctly
-				forwardCorrectly(resp, session, referer)
+				sessionUtils.forwardCorrectly(resp, session, referer)
 			} catch (AuthenticationException e) {
 				logger.info("Problems with authentication ${e.getMessage()}")
-				forwardCorrectly(resp, session, referer)
+				sessionUtils.forwardCorrectly(resp, session, referer)
 			}
 		}
 		else
 		{
 			logger.warn("Not authenticated.");
-			forwardCorrectly(resp, session, referer)
+			sessionUtils.forwardCorrectly(resp, session, referer)
 		}
 	}
 
@@ -291,48 +265,4 @@ public class AuthenticateResource extends RenderResource {
 		resp.sendRedirect("/")
 	}
 
-	private setKnownPersonSession(HttpSession session, Resource person) {
-		logger.info("Setting session known person for " + person.getProperty(Dcterms.title)?.getString())
-		session.setAttribute(SESSION_PERSON, person)
-	}
-
-	private setProfile(HttpSession session, Profile profile) {
-		logger.info("Setting session profile to be " + profile)
-		session.setAttribute(SESSION_PROFILE, profile)
-	}
-
-	protected boolean ifKnownSave(Optional<Resource> signedInPerson, HttpSession session){
-		if(signedInPerson.isPresent()){
-			// If known to me
-			logger.info("${signedInPerson.get().getProperty(Dcterms.title)?.getString()} successfully authenticated");
-			setKnownPersonSession(session, signedInPerson.get());
-		}
-	}
-
-	private setIfAdmin(Optional<Resource> signedInPerson, Profile profile){
-		if(signedInPerson.isPresent()){
-			if(authorisationManager.isAdmin(signedInPerson.get())){
-				profile.setIsAdmin(true)
-			}
-		}
-	}
-
-	protected forwardCorrectly(HttpServletResponse resp, HttpSession session, String referer){
-		// Forward correctly
-		String redirectUrl = session.getAttribute("redirectUrl")
-		// Check if redirected via filter first
-		if(redirectUrl){
-			logger.info("Redirecting to ${redirectUrl}")
-			session.removeAttribute("redirectUrl")
-			resp.sendRedirect(redirectUrl);
-		} else if (referer && referer != NOREFERRER) {
-			logger.info("Redirecting to ${referer}")
-			resp.sendRedirect(referer);
-		}
-		else {
-			logger.info("Redirecting to home")
-			resp.sendRedirect("/");
-		}
-	}
-	
 }
