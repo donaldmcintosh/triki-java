@@ -86,7 +86,7 @@ public class ResourceAdaptorTest extends TrikiBaseTest {
 		String resource = "http://www.donaldmcintosh.net/resource/donald+mcintosh";
 		String templateDef = "foo(resource) ::= \"$resource.dcterms_description$ is a $resource.rdf_type/dcterms_description$\"";
 		String result = render(resource, templateDef);
-		assertTrue("Got result " + result, result.equals("Donald McIntosh is a Person"));
+		assertTrue("Got result " + result, result.equals("Donald McIntosh\n is a Person"));
 	}
 
 	@Test
@@ -95,7 +95,7 @@ public class ResourceAdaptorTest extends TrikiBaseTest {
 		String resource = "http://www.donaldmcintosh.net/resource/noah+mcintosh";
 		String templateDef = "foo(resource) ::= \"He is called $resource.dcterms_description$\"";
 		String result = render(resource, templateDef);
-		assertTrue(result.equals("He is called Noah McIntosh"));
+		assertTrue(result.equals("He is called Noah McIntosh\n"));
 	}
 	
 	@Test
@@ -104,7 +104,7 @@ public class ResourceAdaptorTest extends TrikiBaseTest {
 		String resource = "http://www.donaldmcintosh.net/resource/donald+mcintosh";
 		String templateDef = "foo(resource) ::= \"$resource.dcterms_description$ likes $resource.dcterms_likes/dcterms_description$\"";
 		String result = render(resource, templateDef);
-		assertTrue("Got " + result, result.equals("Donald McIntosh likes Daniel McIntoshNoah McIntosh"));
+		assertTrue("Got " + result, result.equals("Donald McIntosh\n likes Daniel McIntoshNoah McIntosh"));
 	}
 	
 	@Test
@@ -113,7 +113,7 @@ public class ResourceAdaptorTest extends TrikiBaseTest {
 		String resource = "http://www.donaldmcintosh.net/resource/donald+mcintosh";
 		String templateDef = "foo(resource) ::= \"$resource.dcterms_description$ is a <a href='$resource.rdf_type$' > $resource.rdf_type/dcterms_description$ </a>\"";
 		String result = render(resource, templateDef);
-		assertTrue("Got " + result, result.equals("Donald McIntosh is a <a href='http://www.foaf.org/0.1/Person' > Person </a>"));
+		assertTrue("Got " + result, result.equals("Donald McIntosh\n is a <a href='http://www.foaf.org/0.1/Person' > Person </a>"));
 	}
 	
 	@Test
@@ -122,7 +122,7 @@ public class ResourceAdaptorTest extends TrikiBaseTest {
 		String resource = "http://www.donaldmcintosh.net/resource/donald+mcintosh";
 		String templateDef = "foo(resource) ::= \"$resource.dcterms_description$ likes $resource.dcterms_likes/dcterms_description:{ x | $x$ }$\"";
 		String result = render(resource, templateDef);
-		assertTrue("Got " + result, result.equals("Donald McIntosh likes Daniel McIntosh Noah McIntosh "));
+		assertTrue("Got " + result, result.equals("Donald McIntosh\n likes Daniel McIntosh Noah McIntosh "));
 	}
 
 	@Test
@@ -131,7 +131,7 @@ public class ResourceAdaptorTest extends TrikiBaseTest {
 		String resource = "http://www.donaldmcintosh.net/resource/donald+mcintosh";
 		String templateDef = "foo(resource) ::= \"$resource.dcterms_description$ likes $resource.dcterms_likes:{ likes | <a href='$likes.relurl$'>$likes.dcterms_description$</a> }$\"";
 		String result = render(resource, templateDef);
-		assertTrue("Got " + result, result.equals("Donald McIntosh likes <a href='http://www.donaldmcintosh.net/resource/daniel+mcintosh'>Daniel McIntosh</a> <a href='http://www.donaldmcintosh.net/resource/noah+mcintosh'>Noah McIntosh</a> "));
+		assertTrue("Got " + result, result.equals("Donald McIntosh\n likes <a href='http://www.donaldmcintosh.net/resource/daniel+mcintosh'>Daniel McIntosh\n</a> <a href='http://www.donaldmcintosh.net/resource/noah+mcintosh'>Noah McIntosh\n</a> "));
 	}
 	
 	@Test
@@ -140,7 +140,7 @@ public class ResourceAdaptorTest extends TrikiBaseTest {
 		String resource = "http://www.donaldmcintosh.net/resource/IMG_0022.IMG";
 		String templateDef = "foo(resource) ::= \"Image $resource.dcterms_description$ is in albums $resource.Striki_contains/dcterms_description:{ x | $x$ }$\"";
 		String result = render(resource, templateDef);
-		assertTrue("Got " + result, result.equals("Image Cala Llenya photo is in albums August 2014 Album Ibiza 2014 Album "));
+		assertTrue("Got " + result, result.equals("Image Cala Llenya photo\n is in albums August 2014 Album Ibiza 2014 Album "));
 	}
 	
 	@Test
