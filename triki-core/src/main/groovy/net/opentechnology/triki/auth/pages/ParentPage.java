@@ -7,6 +7,6 @@ public class ParentPage extends WebPage {
 
   public ParentPage(PageParameters parameters) {
     super(parameters);
-    setVersioned(false);
   }
+
 }

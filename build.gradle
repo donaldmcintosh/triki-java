@@ -43,6 +43,14 @@ allprojects {
         compile("javax.ws.rs:javax.ws.rs-api:2.0.1")
         compile("javax.inject:javax.inject:1")
 
+        compile 'com.squareup.retrofit2:retrofit:2.3.0'
+        compile 'com.squareup.retrofit2:converter-jaxb:2.4.0'
+        compile 'com.squareup.retrofit2:converter-jackson:2.4.0'
+        compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.8'
+        compile 'io.reactivex:rxjava:1.2.0'
+        compile group: 'com.squareup.retrofit2', name: 'converter-scalars', version: '2.1.0'
+        compile group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: '3.9.1'
+        
         compile("org.apache.cxf:cxf-rt-frontend-jaxws:3.1.6")
         compile("org.apache.cxf:cxf-rt-frontend-jaxrs:3.1.6")
         compile("org.apache.cxf:cxf-rt-transports-http:3.1.6")

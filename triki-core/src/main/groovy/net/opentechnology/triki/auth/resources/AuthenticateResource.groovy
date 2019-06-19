@@ -109,6 +109,35 @@ public class AuthenticateResource extends RenderResource {
 		this.settingDto = settingDto
 		this.identityProviders = identityProviders
 	}
+
+	@POST
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public void login(@Context HttpServletResponse resp, @Context HttpServletRequest req,
+					  MultivaluedMap<String, String> formParams,
+					  @FormParam("action") String action,
+					  @FormParam("triki:login") String login,
+					  @FormParam("triki:password") String password) throws ServletException, IOException {
+		HttpSession session = req.getSession();
+		try {
+			// Check if known to me
+			Optional<Resource> signedInPerson = authMgr.authenticate(login, password)
+			sessionUtils.ifKnownSave(signedInPerson, session)
+			if(signedInPerson.isPresent()){
+				Profile profile = Profile.getProfile(session)
+				profile.setName(signedInPerson.get().getProperty(Dcterms.title)?.getString())
+				profile.setEmail(signedInPerson.get().getProperty(Foaf.mbox)?.getString())
+				sessionUtils.setIfAdmin(signedInPerson, profile)
+				sessionUtils.setProfile(session, profile);
+				sessionUtils.forwardCorrectly(resp, session, null)
+			}
+			else {
+				resp.sendRedirect("/login");
+			}
+		} catch (Exception e) {
+			logger.warn("Problems authenticating user ${login}");
+			sessionUtils.forwardCorrectly(resp, session, null)
+		}
+	}
 	
 	@Path("indie")
 	@GET

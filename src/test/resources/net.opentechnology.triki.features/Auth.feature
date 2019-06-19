@@ -1,12 +1,11 @@
 @mand
 Feature: Authorisation and authentication
 
-	@dev
 	Scenario: Login to site as admin
 		Given initialise triki 
 		And create empty directory /tmp/content
 		And start triki with content path /tmp/content and port 8080
-		And get resource /ui and check contains
+		And get resource /login and check contains
 			| Login: |
 			| Password: |
 		And login with admin/admin and check response contains

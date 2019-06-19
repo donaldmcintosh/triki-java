@@ -22,7 +22,9 @@
 package net.opentechnology.triki.cucumber;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.springframework.stereotype.Component;
 
+@Component
 class TestRoutes extends RouteBuilder {
 	@Override
 	public void configure() throws Exception {
