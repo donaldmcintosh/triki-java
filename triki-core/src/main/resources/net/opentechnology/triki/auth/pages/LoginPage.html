@@ -15,16 +15,16 @@
                     </ul>
                     <div class="field">
                         <label>Username</label>
-                        <input type="text" wicket:id="username" name="username" placeholder="Username">
-                        <div wicket:id="loginFeedback" class="ui pointing red basic label">
+                        <input id="username" type="text" wicket:id="username" name="username" placeholder="Username">
+                        <div id="loginFeedback" wicket:id="loginFeedback" class="ui pointing red basic label">
                             <p wicket:id="loginStatus"></p>
                         </div>
                     </div>
                     <div class="field">
                         <label>Password</label>
-                        <input type="password" wicket:id="password" name="password" placeholder="Password">
+                        <input id="password" type="password" wicket:id="password" name="password" placeholder="Password">
                     </div>
-                    <button class="ui button" type="submit">Login</button>
+                    <button id="loginButton" class="ui button" type="submit">Login</button>
                 </form>
             </div>
             <div class="middle aligned column">
