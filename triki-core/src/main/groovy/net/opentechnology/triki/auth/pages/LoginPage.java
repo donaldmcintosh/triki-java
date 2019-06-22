@@ -17,6 +17,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.pages.RedirectPage;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.request.cycle.RequestCycle;
@@ -79,7 +80,8 @@ public class LoginPage extends ParentPage {
 
         Optional<Resource> signedInPerson = authMgr.authenticate(username, password);
         if (signedInPerson.isPresent()) {
-            forward(resp, req, signedInPerson);
+          setSession(signedInPerson, req.getSession());
+          setResponsePage(new RedirectPage("/"));
         } else {
           loginStatus = "Wrong username or password !";
         }
@@ -88,9 +90,14 @@ public class LoginPage extends ParentPage {
       }
     }
 
-    private void forward(HttpServletResponse resp, HttpServletRequest req,
-        Optional<Resource> signedInPerson) {
+    private void setSessionAndForward(HttpServletResponse resp, HttpServletRequest req,
+                                      Optional<Resource> signedInPerson) {
       HttpSession session = req.getSession();
+      setSession(signedInPerson, session);
+      sessionUtils.forwardCorrectly(resp, session, null);
+    }
+
+    private void setSession(Optional<Resource> signedInPerson, HttpSession session) {
       Profile profile = Profile.getProfile(session);
       if (signedInPerson.get().getProperty(Dcterms.title) != null) {
         profile.setName(signedInPerson.get().getProperty(Dcterms.title).getString());
@@ -100,7 +107,6 @@ public class LoginPage extends ParentPage {
       }
       sessionUtils.setIfAdmin(signedInPerson, profile);
       sessionUtils.setProfile(session, profile);
-      sessionUtils.forwardCorrectly(resp, session, null);
     }
   }
 }
