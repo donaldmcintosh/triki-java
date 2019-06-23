@@ -2,6 +2,7 @@ package net.opentechnology.triki.auth.pages;
 
 import groovy.util.logging.Log4j;
 import java.util.Optional;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -75,13 +76,15 @@ public class LoginPage extends ParentPage {
     @Override
     public final void onSubmit() {
       try {
-        HttpServletRequest req = (HttpServletRequest) RequestCycle.get().getRequest().getContainerRequest();
-        HttpServletResponse resp = (HttpServletResponse) RequestCycle.get().getResponse().getContainerResponse();
+//        HttpServletRequest req = (HttpServletRequest) RequestCycle.get().getRequest().getContainerRequest();
+//        HttpServletResponse resp = (HttpServletResponse) RequestCycle.get().getResponse().getContainerResponse();
 
         Optional<Resource> signedInPerson = authMgr.authenticate(username, password);
         if (signedInPerson.isPresent()) {
-          setSession(signedInPerson, req.getSession());
-          setResponsePage(new RedirectPage("/"));
+          RedirectPage redir =new RedirectPage("/");
+          HttpSession session =  ((HttpServletRequest) redir.getPage().getRequest().getContainerRequest()).getSession();
+          setSession(signedInPerson, session);
+          setResponsePage(redir);
         } else {
           loginStatus = "Wrong username or password !";
         }

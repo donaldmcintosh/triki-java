@@ -34,6 +34,7 @@ import javax.ws.rs.core.Form
 
 import net.opentechnology.triki.core.boot.CachedPropertyStore;
 import net.opentechnology.triki.core.boot.TrikiClient
+import net.opentechnology.triki.core.boot.Utilities
 import groovy.util.logging.Log4j
 
 @Log4j
@@ -86,10 +87,10 @@ class TrikiHelper {
 		client.addContent(files);
 	}
 	
-//	def saveGraph(def filename)
-//	{
-//		Utilities.saveSite(siteModel, filename);
-//	}
+	def saveGraph(def filename)
+	{
+		Utilities.saveSite(siteModel, filename);
+	}
 	
 	def postNote(Form form)
 	{

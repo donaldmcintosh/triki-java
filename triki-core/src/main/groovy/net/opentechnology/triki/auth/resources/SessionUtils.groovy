@@ -25,6 +25,8 @@ public class SessionUtils {
 
   private final Logger logger = Logger.getLogger(this.getClass());
 
+  @Inject HttpSession session2;
+
   @Inject
   private AuthorisationManager authorisationManager;
 
@@ -44,7 +46,7 @@ public class SessionUtils {
 
   public setProfile(HttpSession session, Profile profile) {
     logger.info("Setting session profile to be " + profile)
-    session.setAttribute(SESSION_PROFILE, profile)
+    session2.setAttribute(SESSION_PROFILE, profile)
   }
 
   public boolean ifKnownSave(Optional<Resource> signedInPerson, HttpSession session){

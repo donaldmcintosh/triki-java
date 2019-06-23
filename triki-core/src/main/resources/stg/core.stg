@@ -31,6 +31,7 @@ confheader(size) ::= <<
 <title>Configuration</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="/content/core.css" />
+<link rel="stylesheet" type="text/css" href="/content/core-common.css" />
 <link rel="stylesheet" href="/content/jquery-ui.css">
 <link rel="stylesheet" href="/content/jquery-ui.theme.css">
 <link rel="stylesheet" href="/content/jquery-ui.structure.css">
@@ -48,23 +49,25 @@ background: white url("/content/wait.gif") right center no-repeat;
 <script src="/content/triki.js"></script>
 </head>
 <body>
-	<nav id="main-menu" class="menu">
-	    <img class="logo" src="/content/trikiLogo_90x50.svg"/>
-        <button class="menu-toggle" id="toggle-menu"></button>
-	    <div class="menu-dropdown">
-            <ul class="nav-menu">
-                <li><img class="findicon" src="/content/inOutTree_50x50.svg">
-                       <input type="text" class="search" value="Find..."
-                              onblur="if(this.value==''){ this.value='Find...'; this.style.color='#BBB';}"
-                              onfocus="if(this.value=='Find...'){ this.value=''; this.style.color='#000';}">
+    <div id="adminHeader">
+        <nav id="main-menu" class="menu">
+            <img class="logo" src="/content/trikiLogo_90x50.svg"/>
+            <button class="menu-toggle" id="toggle-menu"></button>
+            <div class="menu-dropdown">
+                <ul class="nav-menu">
+                    <li><img class="findicon" src="/content/inOutTree_50x50.svg">
+                           <input type="text" class="search" value="Find..."
+                                  onblur="if(this.value==''){ this.value='Find...'; this.style.color='#BBB';}"
+                                  onfocus="if(this.value=='Find...'){ this.value=''; this.style.color='#000';}">
 
-                </li>
-                <li><a class="iconlabel" href="/graph/addnode"><img class="icon" src="/content/outTree_50x50.svg">Add Node</a></li>
-                <li><a class="iconlabel" href="/content/upload"><img class="icon" src="/content/uploadArrow_50x50.svg">Upload</a></li>
-                <li><a class="iconlabel" href="/conf"><img class="icon" src="/content/configuration_50x50.svg">Configuration</a></li>
-            </ul>
-		</div>
-	</nav>
+                    </li>
+                    <li><a class="iconlabel" href="/graph/addnode"><img class="icon" src="/content/outTree_50x50.svg">Add Node</a></li>
+                    <li><a class="iconlabel" href="/content/upload"><img class="icon" src="/content/uploadArrow_50x50.svg">Upload</a></li>
+                    <li><a class="iconlabel" href="/conf"><img class="icon" src="/content/configuration_50x50.svg">Configuration</a></li>
+                </ul>
+            </div>
+        </nav>
+	</div>
 	<div id="main">
 >>
 

@@ -177,7 +177,7 @@ Feature: Specification for graph resource
 			| proptext2:property_title | title |
 			| obj2      | Prices |
 		And check response page contains "A resource with name http://localhost:8080/ already exists"
-	
+
 	Scenario: Add and get object resource in graph form
 		Given initialise triki 
 		And create empty directory /tmp/content
