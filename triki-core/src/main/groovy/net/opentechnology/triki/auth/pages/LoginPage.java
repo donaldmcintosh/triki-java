@@ -76,9 +76,6 @@ public class LoginPage extends ParentPage {
     @Override
     public final void onSubmit() {
       try {
-//        HttpServletRequest req = (HttpServletRequest) RequestCycle.get().getRequest().getContainerRequest();
-//        HttpServletResponse resp = (HttpServletResponse) RequestCycle.get().getResponse().getContainerResponse();
-
         Optional<Resource> signedInPerson = authMgr.authenticate(username, password);
         if (signedInPerson.isPresent()) {
           RedirectPage redir =new RedirectPage("/");
@@ -102,6 +99,7 @@ public class LoginPage extends ParentPage {
 
     private void setSession(Optional<Resource> signedInPerson, HttpSession session) {
       Profile profile = Profile.getProfile(session);
+      sessionUtils.ifKnownSave(signedInPerson, session);
       if (signedInPerson.get().getProperty(Dcterms.title) != null) {
         profile.setName(signedInPerson.get().getProperty(Dcterms.title).getString());
       }

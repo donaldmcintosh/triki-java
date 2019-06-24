@@ -113,6 +113,7 @@ public class CoreModule implements Module {
 
 	@Override
 	public void initMod() throws StartupException {
+		initTripleStore();
 		initMediaTypes();
 		initNamespacePrefixes();
 		initProperties();
@@ -120,7 +121,6 @@ public class CoreModule implements Module {
 		initPages();
 		initSettings();
 		initContent();
-		initTripleStore();
 		
 		registerValidator("stg", new StringTemplateValidator());
 		
