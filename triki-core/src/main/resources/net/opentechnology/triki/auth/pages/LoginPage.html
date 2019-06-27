@@ -8,9 +8,6 @@
         <div class="ui two column very relaxed stackable grid">
             <div class="column">
                 <form class="ui form" id="loginForm" method="post" wicket:id="loginForm">
-                    <div id="loginFeedback" wicket:id="loginFeedback" class="ui red basic label">
-                        <p wicket:id="status"></p>
-                    </div>
                     <div class="field">
                         <label>Username</label>
                         <input id="username" type="text" wicket:id="username" name="username" placeholder="Username">
@@ -26,6 +23,9 @@
                             <li class="feedbackPanelERROR">
                             </li>
                         </ul>
+                    </div>
+                    <div id="loginFeedback" wicket:id="loginFeedback" class="ui red basic label">
+                        <p wicket:id="status"></p>
                     </div>
                     <button id="loginButton" class="ui button" type="submit">Login</button>
                 </form>

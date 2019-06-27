@@ -72,7 +72,6 @@ public class LoginPage extends ParentPage {
       add(passwordFeedbackPanel);
 
       loginFeedback = new FeedbackStringContainer("loginFeedback");
-//      loginFeedback.add(new Label("loginStatus"));
       add(loginFeedback);
     }
 
@@ -91,6 +90,12 @@ public class LoginPage extends ParentPage {
       } catch (AuthenticationException e) {
         loginFeedback.setMsg(PLEASE_TRY_AGAIN);
       }
+    }
+
+    @Override
+    protected void onValidate() {
+      super.onValidate();
+      loginFeedback.setMsg(null);
     }
 
     private void setSessionAndForward(HttpServletResponse resp, HttpServletRequest req,
