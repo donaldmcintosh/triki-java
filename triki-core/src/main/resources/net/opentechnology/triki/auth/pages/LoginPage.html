@@ -8,21 +8,24 @@
         <div class="ui two column very relaxed stackable grid">
             <div class="column">
                 <form class="ui form" id="loginForm" method="post" wicket:id="loginForm">
-                    <ul wicket:id="feedback" class="feedbackPanel">
-                        <li class="feedbackPanelERROR">
-                            <span class="feedbackPanelERROR">Field 'Username' is required.</span>
-                        </li>
-                    </ul>
+                    <div id="loginFeedback" wicket:id="loginFeedback" class="ui red basic label">
+                        <p wicket:id="status"></p>
+                    </div>
                     <div class="field">
                         <label>Username</label>
                         <input id="username" type="text" wicket:id="username" name="username" placeholder="Username">
-                        <div id="loginFeedback" wicket:id="loginFeedback" class="ui pointing red basic label">
-                            <p wicket:id="loginStatus"></p>
-                        </div>
+                        <ul wicket:id="usernameFeedback" class="feedbackList ui pointing red basic label">
+                            <li class="feedbackPanelERROR">
+                            </li>
+                        </ul>
                     </div>
                     <div class="field">
                         <label>Password</label>
                         <input id="password" type="password" wicket:id="password" name="password" placeholder="Password">
+                        <ul wicket:id="passwordFeedback" class="feedbackList ui pointing red basic label">
+                            <li class="feedbackPanelERROR">
+                            </li>
+                        </ul>
                     </div>
                     <button id="loginButton" class="ui button" type="submit">Login</button>
                 </form>

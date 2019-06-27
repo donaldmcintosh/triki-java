@@ -81,3 +81,7 @@ ul.confmenuright {
   font-weight: bold;
 }
 
+li.feedbackPanelERROR {
+  list-style: none;
+}
+

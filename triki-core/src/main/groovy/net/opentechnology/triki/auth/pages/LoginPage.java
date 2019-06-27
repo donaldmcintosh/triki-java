@@ -2,17 +2,19 @@ package net.opentechnology.triki.auth.pages;
 
 import groovy.util.logging.Log4j;
 import java.util.Optional;
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import net.opentechnology.triki.auth.AuthenticationException;
 import net.opentechnology.triki.auth.AuthenticationManager;
+import net.opentechnology.triki.auth.components.FeedbackListContainer;
+import net.opentechnology.triki.auth.components.FeedbackStringContainer;
 import net.opentechnology.triki.auth.resources.Profile;
 import net.opentechnology.triki.auth.resources.SessionUtils;
 import net.opentechnology.triki.schema.Dcterms;
 import net.opentechnology.triki.schema.Foaf;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -21,7 +23,6 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.pages.RedirectPage;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
@@ -41,17 +42,13 @@ public class LoginPage extends ParentPage {
 
   class LoginForm extends Form {
 
+    public static final String PLEASE_TRY_AGAIN = "Wrong username or password.  Please try again.";
     private AuthenticationManager authMgr;
     private SessionUtils sessionUtils;
     private String username;
     private String password;
-    private String loginStatus;
-    private WebMarkupContainer loginFeedback = new WebMarkupContainer("loginFeedback") {
-      @Override
-      public final boolean isVisible() {
-        return loginStatus != null;
-      }
-    };
+//    private String loginStatus;
+    private FeedbackStringContainer loginFeedback;
 
     public LoginForm(String id, AuthenticationManager authMgr, SessionUtils sessionUtils) {
       super(id);
@@ -60,16 +57,22 @@ public class LoginPage extends ParentPage {
 
       setDefaultModel(new CompoundPropertyModel(this));
 
-      FeedbackPanel feedbackPanel = new FeedbackPanel("feedback");
-      add(feedbackPanel);
-
       TextField usernameTextfield = new TextField("username");
       usernameTextfield.setRequired(true);
       add(usernameTextfield);
+      FeedbackListContainer usernameFeedbackPanel = new FeedbackListContainer("usernameFeedback");
+      usernameFeedbackPanel.setFilter(new ComponentFeedbackMessageFilter(usernameTextfield));
+      add(usernameFeedbackPanel);
 
-      add(new PasswordTextField("password"));
+      PasswordTextField passwordTextField = new PasswordTextField("password");
+      passwordTextField.setRequired(true);
+      add(passwordTextField);
+      FeedbackListContainer passwordFeedbackPanel = new FeedbackListContainer("passwordFeedback");
+      passwordFeedbackPanel.setFilter(new ComponentFeedbackMessageFilter(passwordTextField));
+      add(passwordFeedbackPanel);
 
-      loginFeedback.add(new Label("loginStatus"));
+      loginFeedback = new FeedbackStringContainer("loginFeedback");
+//      loginFeedback.add(new Label("loginStatus"));
       add(loginFeedback);
     }
 
@@ -83,10 +86,10 @@ public class LoginPage extends ParentPage {
           setSession(signedInPerson, session);
           setResponsePage(redir);
         } else {
-          loginStatus = "Wrong username or password !";
+          loginFeedback.setMsg(PLEASE_TRY_AGAIN);
         }
       } catch (AuthenticationException e) {
-        loginStatus = "Wrong username or password !";
+        loginFeedback.setMsg(PLEASE_TRY_AGAIN);
       }
     }
 
