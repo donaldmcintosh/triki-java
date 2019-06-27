@@ -42,12 +42,11 @@ public class LoginPage extends ParentPage {
 
   class LoginForm extends Form {
 
-    public static final String PLEASE_TRY_AGAIN = "Wrong username or password.  Please try again.";
+    public static final String PLEASE_TRY_AGAIN = "Wrong username or password.";
     private AuthenticationManager authMgr;
     private SessionUtils sessionUtils;
     private String username;
     private String password;
-//    private String loginStatus;
     private FeedbackStringContainer loginFeedback;
 
     public LoginForm(String id, AuthenticationManager authMgr, SessionUtils sessionUtils) {
