@@ -6,7 +6,7 @@ body {
 
 :root {
     box-sizing: border-box;
-    font-size: calc(1vw + 0.5em);
+    font-size: calc(1vw + 0.8em);
 }
 
 *,
@@ -24,19 +24,6 @@ body {
 body * + * {
 }
 
-/*@media (min-width: 50em) {
-    .main {
-      padding: 1em;
-      margin: 0 10em;
-    }
-}
-
-
-@media (min-width: 70em) {
-  main {
-    padding: 2em 1em;
-  }
-}*/
 
 @media (min-width: 30em) {
   #main {
