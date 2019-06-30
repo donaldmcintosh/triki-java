@@ -11,7 +11,7 @@
                     <div class="field">
                         <label>Username</label>
                         <input id="username" type="text" wicket:id="username" name="username" placeholder="Username">
-                        <ul wicket:id="usernameFeedback" class="feedbackList ui pointing red basic label">
+                        <ul id="usernameFeedback" wicket:id="usernameFeedback" class="feedbackList ui pointing red basic label">
                             <li class="feedbackPanelERROR">
                             </li>
                         </ul>
@@ -19,7 +19,7 @@
                     <div class="field">
                         <label>Password</label>
                         <input id="password" type="password" wicket:id="password" name="password" placeholder="Password">
-                        <ul wicket:id="passwordFeedback" class="feedbackList ui pointing red basic label">
+                        <ul id="passwordFeedback" wicket:id="passwordFeedback" class="feedbackList ui pointing red basic label">
                             <li class="feedbackPanelERROR">
                             </li>
                         </ul>
@@ -35,12 +35,12 @@
             <div class="middle aligned column">
                 <div id="oauthLoginHeading">Or login with:</div>
                 <button class="ui compact labeled icon button">
-                    <i class="amazon icon"></i>
+                    <i class="google icon"></i>
                     <a href="/auth/openidlogin?idp=google">Google</a>
                 </button>
                 <br>
                 <button class="ui compact labeled icon button">
-                    <i class="google icon"></i>
+                    <i class="amazon icon"></i>
                     <a href="/auth/openidlogin?idp=amazon">Amazon</a>
                 </button>
                 <br>
