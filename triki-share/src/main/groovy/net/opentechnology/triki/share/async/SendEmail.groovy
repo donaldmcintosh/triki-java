@@ -19,21 +19,15 @@
 *
 ************************************************************************************/
 
-package net.opentechnology.triki.share.async
+package net.opentechnology.triki.mtd.async
 
-import java.text.SimpleDateFormat
 
-import javax.inject.Inject;
+import javax.inject.Inject
 
-import org.apache.camel.Exchange
 import org.apache.camel.builder.RouteBuilder
 import groovy.util.logging.Log4j
 import net.opentechnology.triki.core.dto.SettingDto;
-import net.opentechnology.triki.share.module.ShareModule.Settings;
-import twitter4j.StatusJSONImpl
-
-import org.springframework.aop.aspectj.RuntimeTestWalker.ThisInstanceOfResidueTestVisitor;
-import org.springframework.beans.factory.annotation.Value;
+import net.opentechnology.triki.share.module.ShareModule.Settings
 
 @Log4j("logger")
 class SendEmail extends RouteBuilder
