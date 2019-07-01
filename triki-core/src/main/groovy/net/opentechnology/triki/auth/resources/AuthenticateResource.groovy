@@ -31,7 +31,6 @@ import groovy.util.logging.Log4j
 import net.opentechnology.triki.schema.Dcterms
 import net.opentechnology.triki.schema.Foaf
 import org.apache.http.client.utils.URIBuilder
-import org.apache.wicket.Session
 import org.springframework.beans.factory.annotation.InjectionMetadata
 
 import javax.inject.Inject
@@ -113,7 +112,6 @@ public class AuthenticateResource extends RenderResource {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	@Deprecated
 	public void login(@Context HttpServletResponse resp, @Context HttpServletRequest req,
 					  MultivaluedMap<String, String> formParams,
 					  @FormParam("action") String action,

@@ -22,7 +22,7 @@
 package net.opentechnology.triki.auth.module
 
 
-import net.opentechnology.triki.auth.LoginApplication
+import net.opentechnology.triki.auth.UIApplication
 import net.opentechnology.triki.core.dto.IdentityProviderDto
 import net.opentechnology.triki.core.dto.PageDto
 import net.opentechnology.triki.core.dto.PrefixDto
@@ -30,7 +30,6 @@ import net.opentechnology.triki.core.dto.SettingDto
 import net.opentechnology.triki.core.dto.TypeDto
 import org.apache.wicket.protocol.http.ContextParamWebApplicationFactory
 import org.apache.wicket.protocol.http.WicketFilter
-import org.apache.wicket.protocol.http.servlet.WicketSessionFilter
 import org.apache.wicket.spring.SpringWebApplicationFactory
 
 import javax.inject.Inject;
@@ -220,16 +219,13 @@ public class AuthModule implements Module {
 	@Override
 	public void initWeb() {
 		sch.addFilter(new FilterHolder(new DelegatingFilterProxy("accessFilter")), "/*", EnumSet.allOf(DispatcherType.class));
+//		sch.addFilter(new FilterHolder(new DelegatingFilterProxy("trikiWicketFilter")), "/*", EnumSet.allOf(DispatcherType.class));
 
 		FilterHolder fh = new FilterHolder(WicketFilter.class);
 		fh.setInitParameter(WicketFilter.APP_FACT_PARAM, SpringWebApplicationFactory.class.getName());
-		fh.setInitParameter(ContextParamWebApplicationFactory.APP_CLASS_PARAM, LoginApplication.class.getName());
-		fh.setInitParameter(WicketFilter.FILTER_MAPPING_PARAM, "/ui/login/*");
-		sch.addFilter(fh, "/ui/login/*", EnumSet.of(DispatcherType.REQUEST, DispatcherType.ERROR));
-
-		FilterHolder wsf = new FilterHolder(WicketSessionFilter.class);
-		wsf.setInitParameter("filterName", "LoginApplication");
-		sch.addFilter(wsf, "/*", EnumSet.of(DispatcherType.REQUEST, DispatcherType.ERROR));
+		fh.setInitParameter(ContextParamWebApplicationFactory.APP_CLASS_PARAM, UIApplication.class.getName());
+		fh.setInitParameter(WicketFilter.FILTER_MAPPING_PARAM, "/ui/*");
+		sch.addFilter(fh, "/ui/*", EnumSet.of(DispatcherType.REQUEST, DispatcherType.ERROR));
 	}
 
 }

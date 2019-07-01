@@ -67,7 +67,7 @@ import net.opentechnology.triki.core.dto.TypeDto
 import net.opentechnology.triki.schema.Dcterms;
 import net.opentechnology.triki.schema.Rdfbase;
 import net.opentechnology.triki.schema.Triki;
-import net.opentechnology.triki.share.async.SendEmail
+import net.opentechnology.triki.share.async.SendEmail;
 import net.opentechnology.triki.share.module.ShareModule;
 import net.opentechnology.triki.sparql.SparqlExecutor;
 

@@ -3,6 +3,7 @@ package net.opentechnology.triki.auth;
 import javax.inject.Inject;
 import net.opentechnology.triki.auth.pages.LoginPage;
 import net.opentechnology.triki.auth.resources.SessionUtils;
+import net.opentechnology.triki.modules.Module;
 import org.apache.wicket.Page;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -11,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-public class LoginApplication extends WebApplication {
+public class UIApplication extends WebApplication {
 
   @Inject
   private ApplicationContext ctx;
@@ -19,8 +20,17 @@ public class LoginApplication extends WebApplication {
   @Override
   protected void init() {
     super.init();
-//    setName("LoginApplication");
     getComponentInstantiationListeners().add(new SpringComponentInjector(this, ctx));
+    mountPage("/login", LoginPage.class);
+    mountModulePages();
+  }
+
+  private void mountModulePages(){
+    String[] beanNames = getCtx().getParent().getBeanNamesForType(Module.class);
+    for(String beanName: beanNames){
+      Module module = getCtx().getBean(beanName, Module.class);
+      module.mountPages(this);
+    }
   }
 
   @Override

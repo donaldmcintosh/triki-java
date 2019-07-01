@@ -19,7 +19,10 @@
 *
 ************************************************************************************/
 
-package net.opentechnology.triki.share.module;
+package net.opentechnology.triki.share.module
+
+import net.opentechnology.triki.share.async.SendEmail
+import net.opentechnology.triki.share.async.SendTwitter;
 
 import javax.inject.Inject;
 
@@ -40,8 +43,6 @@ import net.opentechnology.triki.core.dto.ResourceDto
 import net.opentechnology.triki.core.dto.SettingDto;
 import net.opentechnology.triki.core.dto.TypeDto;
 import net.opentechnology.triki.modules.Module;
-import net.opentechnology.triki.share.async.SendEmail;
-import net.opentechnology.triki.share.async.SendTwitter
 
 @Log4j
 public class ShareModule implements Module {

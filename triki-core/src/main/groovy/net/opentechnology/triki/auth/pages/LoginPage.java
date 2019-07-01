@@ -35,8 +35,7 @@ public class LoginPage extends ParentPage {
   @SpringBean
   private SessionUtils sessionUtils;
 
-  public LoginPage(final PageParameters parameters) {
-    super(parameters);
+  public LoginPage() {
     add(new LoginForm("loginForm", authMgr, sessionUtils));
   }
 

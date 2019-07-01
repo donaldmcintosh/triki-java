@@ -5,7 +5,7 @@ import javax.servlet.annotation.WebInitParam;
 import org.apache.wicket.protocol.http.WicketFilter;
 
 @WebFilter(value = "/*", initParams = {
-    @WebInitParam(name = "applicationClassName", value ="net.opentechnology.triki.auth.LoginApplication"),
+    @WebInitParam(name = "applicationClassName", value ="net.opentechnology.triki.auth.UIApplication"),
     @WebInitParam(name="filterMappingUrlPattern", value="/*")
 })
 public class TrikiWicketFilter extends WicketFilter {

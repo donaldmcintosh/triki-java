@@ -8,3 +8,5 @@ bin/*
 .project
 /build/
 /bin/
+*/build/*
+*/out/*
