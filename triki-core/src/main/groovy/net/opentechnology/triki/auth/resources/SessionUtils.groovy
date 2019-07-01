@@ -1,6 +1,8 @@
 package net.opentechnology.triki.auth.resources;
 
-import groovy.util.logging.Log4j;
+import groovy.util.logging.Log4j
+import org.apache.wicket.Session;
+
 import java.util.Optional;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -47,6 +49,11 @@ public class SessionUtils {
   public setProfile(HttpSession session, Profile profile) {
     logger.info("Setting session profile to be " + profile)
     session2.setAttribute(SESSION_PROFILE, profile)
+    if (Session.exists())
+    {
+      Session wicketSession = Session.get();
+      wicketSession.setAttribute(SESSION_PROFILE, profile)
+    }
   }
 
   public boolean ifKnownSave(Optional<Resource> signedInPerson, HttpSession session){

@@ -1,6 +1,7 @@
 @mand
 Feature: Authorisation and authentication
 
+	@dev
 	Scenario: Login to site as admin
 		Given initialise triki 
 		And create empty directory /tmp/content

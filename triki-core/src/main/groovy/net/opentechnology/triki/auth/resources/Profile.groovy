@@ -3,7 +3,7 @@ package net.opentechnology.triki.auth.resources
 import javax.servlet.http.HttpSession
 
 
-class Profile {
+class Profile implements Serializable{
 
     private String name
     private String email

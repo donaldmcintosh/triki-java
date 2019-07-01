@@ -30,6 +30,7 @@ import net.opentechnology.triki.core.dto.SettingDto
 import net.opentechnology.triki.core.dto.TypeDto
 import org.apache.wicket.protocol.http.ContextParamWebApplicationFactory
 import org.apache.wicket.protocol.http.WicketFilter
+import org.apache.wicket.protocol.http.servlet.WicketSessionFilter
 import org.apache.wicket.spring.SpringWebApplicationFactory
 
 import javax.inject.Inject;
@@ -225,6 +226,10 @@ public class AuthModule implements Module {
 		fh.setInitParameter(ContextParamWebApplicationFactory.APP_CLASS_PARAM, LoginApplication.class.getName());
 		fh.setInitParameter(WicketFilter.FILTER_MAPPING_PARAM, "/ui/login/*");
 		sch.addFilter(fh, "/ui/login/*", EnumSet.of(DispatcherType.REQUEST, DispatcherType.ERROR));
+
+		FilterHolder wsf = new FilterHolder(WicketSessionFilter.class);
+		wsf.setInitParameter("filterName", "LoginApplication");
+		sch.addFilter(wsf, "/*", EnumSet.of(DispatcherType.REQUEST, DispatcherType.ERROR));
 	}
 
 }

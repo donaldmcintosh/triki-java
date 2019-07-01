@@ -19,6 +19,7 @@ public class LoginApplication extends WebApplication {
   @Override
   protected void init() {
     super.init();
+//    setName("LoginApplication");
     getComponentInstantiationListeners().add(new SpringComponentInjector(this, ctx));
   }
 
