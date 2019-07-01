@@ -86,7 +86,7 @@ public class ResourceAdaptorTest extends TrikiBaseTest {
 		String resource = "http://www.donaldmcintosh.net/resource/donald+mcintosh";
 		String templateDef = "foo(resource) ::= \"$resource.dcterms_description$ is a $resource.rdf_type/dcterms_description$\"";
 		String result = render(resource, templateDef);
-		assertTrue("Got result " + result, result.equals("Donald McIntosh is a Person"));
+		assertTrue("Got result " + result, result.equals("Donald McIntosh\n is a Person"));
 	}
 
 	@Test
@@ -95,7 +95,7 @@ public class ResourceAdaptorTest extends TrikiBaseTest {
 		String resource = "http://www.donaldmcintosh.net/resource/noah+mcintosh";
 		String templateDef = "foo(resource) ::= \"He is called $resource.dcterms_description$\"";
 		String result = render(resource, templateDef);
-		assertTrue(result.equals("He is called Noah McIntosh"));
+		assertTrue(result.equals("He is called Noah McIntosh\n"));
 	}
 	
 	@Test
@@ -104,7 +104,7 @@ public class ResourceAdaptorTest extends TrikiBaseTest {
 		String resource = "http://www.donaldmcintosh.net/resource/donald+mcintosh";
 		String templateDef = "foo(resource) ::= \"$resource.dcterms_description$ likes $resource.dcterms_likes/dcterms_description$\"";
 		String result = render(resource, templateDef);
-		assertTrue("Got " + result, result.equals("Donald McIntosh likes Daniel McIntoshNoah McIntosh"));
+		assertTrue("Got " + result, result.equals("Donald McIntosh\n likes Daniel McIntoshNoah McIntosh"));
 	}
 	
 	@Test
@@ -113,7 +113,7 @@ public class ResourceAdaptorTest extends TrikiBaseTest {
 		String resource = "http://www.donaldmcintosh.net/resource/donald+mcintosh";
 		String templateDef = "foo(resource) ::= \"$resource.dcterms_description$ is a <a href='$resource.rdf_type$' > $resource.rdf_type/dcterms_description$ </a>\"";
 		String result = render(resource, templateDef);
-		assertTrue("Got " + result, result.equals("Donald McIntosh is a <a href='http://www.foaf.org/0.1/Person' > Person </a>"));
+		assertTrue("Got " + result, result.equals("Donald McIntosh\n is a <a href='http://www.foaf.org/0.1/Person' > Person </a>"));
 	}
 	
 	@Test
@@ -122,7 +122,7 @@ public class ResourceAdaptorTest extends TrikiBaseTest {
 		String resource = "http://www.donaldmcintosh.net/resource/donald+mcintosh";
 		String templateDef = "foo(resource) ::= \"$resource.dcterms_description$ likes $resource.dcterms_likes/dcterms_description:{ x | $x$ }$\"";
 		String result = render(resource, templateDef);
-		assertTrue("Got " + result, result.equals("Donald McIntosh likes Daniel McIntosh Noah McIntosh "));
+		assertTrue("Got " + result, result.equals("Donald McIntosh\n likes Daniel McIntosh Noah McIntosh "));
 	}
 
 	@Test
@@ -131,7 +131,7 @@ public class ResourceAdaptorTest extends TrikiBaseTest {
 		String resource = "http://www.donaldmcintosh.net/resource/donald+mcintosh";
 		String templateDef = "foo(resource) ::= \"$resource.dcterms_description$ likes $resource.dcterms_likes:{ likes | <a href='$likes.relurl$'>$likes.dcterms_description$</a> }$\"";
 		String result = render(resource, templateDef);
-		assertTrue("Got " + result, result.equals("Donald McIntosh likes <a href='http://www.donaldmcintosh.net/resource/daniel+mcintosh'>Daniel McIntosh</a> <a href='http://www.donaldmcintosh.net/resource/noah+mcintosh'>Noah McIntosh</a> "));
+		assertTrue("Got " + result, result.equals("Donald McIntosh\n likes <a href='http://www.donaldmcintosh.net/resource/daniel+mcintosh'>Daniel McIntosh\n</a> <a href='http://www.donaldmcintosh.net/resource/noah+mcintosh'>Noah McIntosh\n</a> "));
 	}
 	
 	@Test
@@ -140,7 +140,7 @@ public class ResourceAdaptorTest extends TrikiBaseTest {
 		String resource = "http://www.donaldmcintosh.net/resource/IMG_0022.IMG";
 		String templateDef = "foo(resource) ::= \"Image $resource.dcterms_description$ is in albums $resource.Striki_contains/dcterms_description:{ x | $x$ }$\"";
 		String result = render(resource, templateDef);
-		assertTrue("Got " + result, result.equals("Image Cala Llenya photo is in albums August 2014 Album Ibiza 2014 Album "));
+		assertTrue("Got " + result, result.equals("Image Cala Llenya photo\n is in albums August 2014 Album Ibiza 2014 Album "));
 	}
 	
 	@Test
@@ -149,7 +149,7 @@ public class ResourceAdaptorTest extends TrikiBaseTest {
 		String resource = "http://www.donaldmcintosh.net/resource/donald+mcintosh";
 		String templateDef = "foo(resource) ::= \"All that I have created: $resource.Sdcterms_creator:{ x | $x.dcterms_description$, }$\"";
 		String result = render(resource, templateDef);
-		assertTrue("Got \"" + result + "\"", result.equals("All that I have created: A fascinating blog, Ibiza 2014 Album, "));
+		assertTrue("Got \"" + result + "\"", result.equals("All that I have created: A fascinating blog\n, Ibiza 2014 Album\n, "));
 	}
 	
 	@Test
@@ -168,7 +168,7 @@ public class ResourceAdaptorTest extends TrikiBaseTest {
 		String resource = "http://www.donaldmcintosh.net/resource/recentblogs";
 		String templateDef = "foo(resource) ::= \"Recent blogs: $resource.triki_sparql:{ x | $x.dcterms_description$, }$\"";
 		String result = render(resource, templateDef);
-		assertTrue("Got " + result, result.equals("Recent blogs: Eivissa holiday, Up North holiday, Berliner holiday, "));
+		assertTrue("Got " + result, result.equals("Recent blogs: Eivissa holiday\n, Up North holiday\n, Berliner holiday\n, "));
 	}
 	
 	@Test
@@ -177,7 +177,7 @@ public class ResourceAdaptorTest extends TrikiBaseTest {
 		String resource = "http://www.donaldmcintosh.net/resource/home";
 		String templateDef = "foo(resource) ::= \"Recent blogs: $resource.resource_blogsummary:{ recentblog | $recentblog.triki_sparql:{ blog | $blog.dcterms_description$, }$}$\"";
 		String result = render(resource, templateDef);
-		assertTrue("Got " + result, result.equals("Recent blogs: Eivissa holiday, Up North holiday, Berliner holiday, "));
+		assertTrue("Got " + result, result.equals("Recent blogs: Eivissa holiday\n, Up North holiday\n, Berliner holiday\n, "));
 	}
 	
    @Test
@@ -186,7 +186,7 @@ public class ResourceAdaptorTest extends TrikiBaseTest {
         String resource = "http://www.donaldmcintosh.net/resource/blog";
         String templateDef = "foo(resource) ::= \"Recent blogs: $resource.Srdf_type:{ blog | $blog.dcterms_description$, }$\"";
         String result = render(resource, templateDef);
-	    assertTrue("Got " + result, result.equals("Recent blogs: Eivissa holiday, Up North holiday, Berliner holiday, New York holiday, France holiday, "));
+	    assertTrue("Got " + result, result.equals("Recent blogs: Eivissa holiday\n, Up North holiday\n, Berliner holiday\n, New York holiday\n, France holiday\n, "));
     }
    
    @Test
@@ -195,9 +195,9 @@ public class ResourceAdaptorTest extends TrikiBaseTest {
        String resource = "http://www.donaldmcintosh.net/resource/blog";
        String templateDef = "foo(resource) ::= \"Recent blogs: $reverse(resource.Srdf_type:{ blog | $blog.dcterms_description$, })$\"";
        String result = render(resource, templateDef);
-	   assertTrue("Got " + result, result.equals("Recent blogs: France holiday, New York holiday, Berliner holiday, Up North holiday, Eivissa holiday, "));
+	   assertTrue("Got " + result, result.equals("Recent blogs: France holiday\n, New York holiday\n, Berliner holiday\n, Up North holiday\n, Eivissa holiday\n, "));
    }
-   
+
    @Test
    public void testDateRenderer() throws TemplateException{
 	   when(authMgr.allowAccess(Matchers.anyString())).thenReturn(true);

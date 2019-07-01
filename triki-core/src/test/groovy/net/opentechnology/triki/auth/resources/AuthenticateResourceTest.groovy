@@ -50,8 +50,7 @@ class AuthenticateResourceTest extends Specification {
 
         then: 'Should authenticate'
 
-        1 * mockIdentityProviders.getIdentityProvider('google') >> mockIdentityProvider
-        1 * mockIdentityProvider.getAuthUri() >> new URIBuilder('http://www.google.com/auth2')
+        1 * mockIdentityProviders.getAuthUri("google") >> new URIBuilder('http://www.google.com/auth2')
         1 * req.getSession() >> session
 
         1 * resp.sendRedirect(_) >> { args  ->

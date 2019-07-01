@@ -25,7 +25,9 @@ import org.apache.commons.configuration.PropertiesConfiguration
 import org.apache.jena.rdf.model.Model;
 import org.eclipse.jetty.server.Server;
 import org.springframework.context.ApplicationContext
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext
+import org.springframework.context.support.ClassPathXmlApplicationContext
+import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration
 
 import org.apache.commons.io.FileUtils
@@ -65,7 +67,12 @@ class TrikiSteps {
 	public def "initialise triki with props"()
 	{	
 		server.initialise()
-		ApplicationContext ctx = server.getCtx();
+
+		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+		ctx.register(TrikiClientConfig.class)
+		ctx.setParent(server.getCtx())
+		ctx.refresh();
+
 		helper = ctx.getBean(TrikiHelper.class, "trikiHelper")
 		helper.addTestRoutes();
 	}

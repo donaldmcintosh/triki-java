@@ -128,14 +128,14 @@ class TrikiClient {
 	
 	def String login(String username, String password)
 	{
-		def path = "/auth" 
+		def path = "/auth"
 		def target = initTarget(path)
 		Form form = new Form();
 		form.param("action", "login")
 		form.param("triki:login", username)
 		form.param("triki:password", password)
 		Response response = target.request().cookie(new NewCookie(SESSION_COOKIE, sessionId))
-			.post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE), Response.class)
+				.post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE), Response.class)
 
 		String redirect = response.getHeaderString("Location")
 		URL redir = new URL(redirect)

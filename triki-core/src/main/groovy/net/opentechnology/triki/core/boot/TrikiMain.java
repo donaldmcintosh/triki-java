@@ -25,6 +25,7 @@ import net.opentechnology.triki.modules.Module;
 import org.apache.camel.CamelContext;
 import org.apache.cxf.transport.servlet.CXFServlet;
 import org.apache.log4j.Logger;
+import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -86,10 +87,10 @@ public class TrikiMain {
 	}
 
 	private void initModules() throws StartupException {
-		Module authModule = getCtx().getBean("authModule", Module.class);
-		authModule.initMod();
 		Module coreModule = getCtx().getBean("coreModule", Module.class);
 		coreModule.initMod();
+		Module authModule = getCtx().getBean("authModule", Module.class);
+		authModule.initMod();
 	}
 	
 	private void initWeb() throws StartupException {

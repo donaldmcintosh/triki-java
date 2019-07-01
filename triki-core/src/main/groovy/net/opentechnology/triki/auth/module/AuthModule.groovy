@@ -22,11 +22,15 @@
 package net.opentechnology.triki.auth.module
 
 
+import net.opentechnology.triki.auth.LoginApplication
 import net.opentechnology.triki.core.dto.IdentityProviderDto
 import net.opentechnology.triki.core.dto.PageDto
 import net.opentechnology.triki.core.dto.PrefixDto
 import net.opentechnology.triki.core.dto.SettingDto
 import net.opentechnology.triki.core.dto.TypeDto
+import org.apache.wicket.protocol.http.ContextParamWebApplicationFactory
+import org.apache.wicket.protocol.http.WicketFilter
+import org.apache.wicket.spring.SpringWebApplicationFactory
 
 import javax.inject.Inject;
 import javax.servlet.DispatcherType;
@@ -148,6 +152,8 @@ public class AuthModule implements Module {
 		authRoot.addProperty(Triki.unrestricted, ".*\\.js");
 		authRoot.addProperty(Triki.unrestricted, ".*\\.ico");
 		authRoot.addProperty(Triki.unrestricted, ".*\\.svg");
+		authRoot.addProperty(Triki.unrestricted, ".*\\.woff");
+		authRoot.addProperty(Triki.unrestricted, ".*/ui/.*");
 	}
 
 	private void initPrefixes() {
@@ -213,6 +219,13 @@ public class AuthModule implements Module {
 	@Override
 	public void initWeb() {
 		sch.addFilter(new FilterHolder(new DelegatingFilterProxy("accessFilter")), "/*", EnumSet.allOf(DispatcherType.class));
+//		sch.addFilter(new FilterHolder(new DelegatingFilterProxy("trikiWicketFilter")), "/*", EnumSet.allOf(DispatcherType.class));
+
+		FilterHolder fh = new FilterHolder(WicketFilter.class);
+		fh.setInitParameter(WicketFilter.APP_FACT_PARAM, SpringWebApplicationFactory.class.getName());
+		fh.setInitParameter(ContextParamWebApplicationFactory.APP_CLASS_PARAM, LoginApplication.class.getName());
+		fh.setInitParameter(WicketFilter.FILTER_MAPPING_PARAM, "/ui/*");
+		sch.addFilter(fh, "/ui/*", EnumSet.of(DispatcherType.REQUEST, DispatcherType.ERROR));
 	}
 
 }

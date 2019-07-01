@@ -21,23 +21,24 @@
 
 package net.opentechnology.triki.cucumber
 
+
 import org.apache.camel.CamelContext
 import org.apache.camel.component.seda.SedaEndpoint
 import org.apache.jena.rdf.model.Model
 import org.springframework.beans.factory.annotation.Qualifier
-import org.springframework.beans.factory.annotation.Value;
 import org.apache.commons.io.FileUtils
+import org.springframework.stereotype.Component
 
 import javax.inject.Inject;
 import javax.ws.rs.core.Form
 
 import net.opentechnology.triki.core.boot.CachedPropertyStore;
 import net.opentechnology.triki.core.boot.TrikiClient
-import net.opentechnology.triki.core.boot.TrikiMain
 import net.opentechnology.triki.core.boot.Utilities
 import groovy.util.logging.Log4j
 
 @Log4j
+@Component
 class TrikiHelper {
 	
 	@Inject @Qualifier("siteModel")
@@ -45,6 +46,9 @@ class TrikiHelper {
 	
 	@Inject
 	TrikiClient client
+
+	@Inject
+	private RetrofitTrikiClient retrofitTrikiClient
 	
 	@Inject
 	private CamelContext camelCtx;
@@ -137,7 +141,7 @@ class TrikiHelper {
 	{
 		client.editResource(path)
 	}
-	
+
 	def login(String username, String password)
 	{
 		client.login(username, password)

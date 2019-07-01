@@ -1,59 +1,23 @@
-@import url('https://fonts.googleapis.com/css?family=Armata');
 
-:root {
-    box-sizing: border-box;
-    font-size: calc(1vw + 0.9em);
-}
 
-*,
-::before,
-::after {
-    box-sizing: inherit;
-}
+/*}*/
 
-.clearfix::after {
-  display: block;
-  content: " ";
-  clear: both;
-}
+/*#all {*/
+	/*font-family: verdana;*/
+	/*font-size: 12px;*/
+	/*margin: 0px auto;*/
+/*}*/
 
-body {
-  font-family: Armata, verdana;
-}
+/*main {*/
+  /*padding: 1em;*/
+  /*font-family: Verdana;*/
+/*}*/
 
-@media (min-width: 30em) {
-  body {
-    font-size: calc(1vw + 0.4em);
-  }
-}
-
-@media (min-width: 70em) {
-  body {
-    font-size: calc(1vw + 0.2em);
-    margin: 0 10em;
-  }
-}
-
-body * + * {
-
-}
-
-#all {
-	font-family: verdana;
-	font-size: 12px;
-	margin: 0px auto;
-}
-
-main {
-  padding: 1em;
-  font-family: Verdana;
-}
-
-@media (min-width: 70em) {
-  main {
-    padding: 2em 1em;
-  }
-}
+/*@media (min-width: 70em) {*/
+  /*main {*/
+    /*padding: 2em 1em;*/
+  /*}*/
+/*}*/
 
 .menu {
   position: relative;
@@ -238,18 +202,7 @@ textarea {
 	text-align: right;
 }
 
-#banner {
-	text-align: center;
-	height: auto;
-	overflow: hidden;
-	clear: both;
-	margin: 0px auto;
-	background-color: #205081;
-	padding: 0px;
-	border-bottom: 1px solid #2d2d2d;
-}
-
-ul#confmenu {
+ul.confmenu {
 	list-style-type: none;
 	display: inline-block;
 	margin: 0 0 0 0px;
@@ -257,14 +210,6 @@ ul#confmenu {
 	vertical-align: bottom;
 	align: left;
 	line-height: 35px;
-}
-
-ul#confmenuright {
-	width: 100x;
-	list-style-type: none;
-	display: inline-block;
-	margin: 0 0 0 0px;
-	float: right;
 }
 
 li.confitem {

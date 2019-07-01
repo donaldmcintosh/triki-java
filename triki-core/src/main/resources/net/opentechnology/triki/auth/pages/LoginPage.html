@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body xmlns:wicket="https://www.apache.org/wicket">
+<wicket:extend>
+    <div class="ui placeholder segment">
+        <div class="ui two column very relaxed stackable grid">
+            <div class="column">
+                <form class="ui form" id="loginForm" method="post" wicket:id="loginForm">
+                    <div class="field">
+                        <label>Username</label>
+                        <input id="username" type="text" wicket:id="username" name="username" placeholder="Username">
+                        <ul wicket:id="usernameFeedback" class="feedbackList ui pointing red basic label">
+                            <li class="feedbackPanelERROR">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="field">
+                        <label>Password</label>
+                        <input id="password" type="password" wicket:id="password" name="password" placeholder="Password">
+                        <ul wicket:id="passwordFeedback" class="feedbackList ui pointing red basic label">
+                            <li class="feedbackPanelERROR">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="field">
+                        <div id="loginFeedback" wicket:id="loginFeedback" class="ui red basic label">
+                            <p wicket:id="status"></p>
+                        </div>
+                    </div>
+                    <button id="loginButton" class="ui button" type="submit">Login</button>
+                </form>
+            </div>
+            <div class="middle aligned column">
+                <div id="oauthLoginHeading">Or login with:</div>
+                <button class="ui compact labeled icon button">
+                    <i class="amazon icon"></i>
+                    <a href="/auth/openidlogin?idp=google">Google</a>
+                </button>
+                <br>
+                <button class="ui compact labeled icon button">
+                    <i class="google icon"></i>
+                    <a href="/auth/openidlogin?idp=amazon">Amazon</a>
+                </button>
+                <br>
+                <button class="ui compact labeled icon button">
+                    <i class="microsoft icon"></i>
+                    <a href="/auth/openidlogin?idp=outlook">Outlook</a>
+                </button>
+            </div>
+        </div>
+    </div>
+</wicket:extend>
+</body>
+</html>

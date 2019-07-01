@@ -113,6 +113,7 @@ public class CoreModule implements Module {
 
 	@Override
 	public void initMod() throws StartupException {
+		initTripleStore();
 		initMediaTypes();
 		initNamespacePrefixes();
 		initProperties();
@@ -120,7 +121,6 @@ public class CoreModule implements Module {
 		initPages();
 		initSettings();
 		initContent();
-		initTripleStore();
 		
 		registerValidator("stg", new StringTemplateValidator());
 		
@@ -231,6 +231,7 @@ public class CoreModule implements Module {
 		mediaTypeDto.addMediaType(MediaType.TEXT_PLAIN, "js", "86400");
 		mediaTypeDto.addMediaType(MediaType.TEXT_PLAIN, "log", "10");
 		mediaTypeDto.addMediaType("image/svg+xml", "svg", "10");
+		mediaTypeDto.addMediaType("font/woff","woff", "10");
 	}
 
 	private void initNamespacePrefixes() {
