@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body xmlns:wicket="https://www.apache.org/wicket">
+<wicket:extend>
+
+  <div class="ui placeholder segment">
+    <div class="ui two column grid">
+      <div class="column">
+        <div class="ui fluid vertical steps">
+          <div class="active step">
+            <i class="lock icon"></i>
+            <div class="content">
+              <div class="title">Authenticate</div>
+              <div class="description">Login with <a href="/auth/openidlogin?idp=google">Google</a>, <a href="/auth/openidlogin?idp=amazon">Amazon</a>
+                or <a href="/auth/openidlogin?idp=outlook">Outlook</a></div>
+            </div>
+          </div>
+          <div class="disabled step">
+            <i class="lock icon"></i>
+            <div class="content">
+              <div class="title">Authorise</div>
+              <div class="description">Authorise opentax to access your <a href="/auth/openidlogin?idp=hmrctest">HMRC</a> records</div>
+            </div>
+          </div>
+          <div class="disabled step">
+            <i class="keyboard icon"></i>
+            <div class="content">
+              <div class="title">Submit your VAT Return</div>
+              <div class="description">Manager all your MTD VAT records</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <p>Let's get started!  In order to use opentax to manage you HMRC
+          VAT returns, we require a two-stage login.
+        <ol class="ui list">
+          <li>Login as yourself using an existing online identity.  This is quicker, more secure
+            and more convenient than setting up separate login with us.</li>
+          <li>Login to HMRC to authorise us to access your accounts.  If you change your mind later,
+          this permission can easily be revoked on the HMRC portal.</li>
+        </ol>
+        <p>That's it, you can manager your HMRC VAT records.</p>
+      </div>
+    </div>
+  </div>
+</wicket:extend>
+</body>
+</html>

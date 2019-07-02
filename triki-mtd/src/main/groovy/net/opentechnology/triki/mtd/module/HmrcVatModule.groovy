@@ -37,6 +37,7 @@ import net.opentechnology.triki.core.dto.TypeDto
 import net.opentechnology.triki.core.template.TemplateException
 import net.opentechnology.triki.core.template.TemplateStore
 import net.opentechnology.triki.modules.Module
+import net.opentechnology.triki.mtd.pages.MtdLogin
 import net.opentechnology.triki.mtd.pages.MtdVatHome
 import net.opentechnology.triki.mtd.security.HmrcIdentityProvider
 import net.opentechnology.triki.mtd.wicket.MtdVatApplication
@@ -134,17 +135,12 @@ public class HmrcVatModule implements Module {
 	}
 
 	private void initTypes() { ;
-//		typeDto.addType("mtdvathome", "MTD VAT Type");
-//		typeDto.addType("mtdsignin", "MTD Sign In");
-//		typeDto.addType("mtdvatui", "MTD VAT UI");
+
 	}
 
 	private void initPages() {
-//		pageDto.addPage("mtdsignin", typeDto.getType("mtdsignin"), "MTD Signin", "public");
-//		pageDto.addPage("vatmtdhome", typeDto.getType("mtdvathome"), "VAT MTD Home", "hmrcvat");
 		pageDto.addPage("tandc", typeDto.getType("page"), "Terms and Conditions", "public");
 		pageDto.addPage("privacy", typeDto.getType("page"), "Privacy Policy", "public");
-//		pageDto.addPage("MTD VAT UI", typeDto.getType("mtdvatui"), "MTD VAT UI", "public");
 	}
 
 	private void initContent(){
@@ -181,39 +177,20 @@ public class HmrcVatModule implements Module {
 
 	private void initSettings(){
 		settingDto.addSetting(Settings.HMRCBASEURL.name(), "https://test-api.service.hmrc.gov.uk/", "HMRC Base URL");
-//		settingDto.updateSetting(AuthModule.Settings.DEFAULTLOGINPAGE.name(), "/mtdvatui/", "Default login page");
 	}
 	
 	public void initAsync() throws StartupException {
-//		try {
-//			camelCtx.addRoutes(vatSubmissionRoute);
-//		} catch (Exception e) {
-//			throw new StartupException(e);
-//		}
+
 	}
 
 	@Override
 	public void initWeb() {
-//		sch.addFilter(new FilterHolder(new DelegatingFilterProxy("hmrcAccessFilter")), "/mtdvat/*", EnumSet.allOf(DispatcherType.class));
 
-//		FilterHolder fh = new FilterHolder(WicketFilter.class);
-//		fh.setInitParameter(WicketFilter.APP_FACT_PARAM, SpringWebApplicationFactory.class.getName());
-//		fh.setInitParameter(ContextParamWebApplicationFactory.APP_CLASS_PARAM, MtdVatApplication.class.getName());
-//		fh.setInitParameter(WicketFilter.FILTER_MAPPING_PARAM, "/mtdvatui/*");
-//		sch.addFilter(fh, "/mtdvatui/*", EnumSet.of(DispatcherType.REQUEST, DispatcherType.ERROR));
-//
-//		ServletHolder sh = new ServletHolder(WicketServlet.class);
-//		sh.setInitParameter(WicketFilter.APP_FACT_PARAM, SpringWebApplicationFactory.class.getName());
-//		sh.setInitParameter(ContextParamWebApplicationFactory.APP_CLASS_PARAM, MtdVatApplication.class.getName());
-//		sh.setInitParameter(WicketFilter.FILTER_MAPPING_PARAM, "/mtdvatui/*");
-//		if(!DEV_MODE) {
-//			sh.setInitParameter("wicket.configuration", "deployment");
-//		}
-//		sch.addServlet(sh, "/mtdvatui/*");
 	}
 
 	@Override
 	public void mountPages(WebApplication webApplication){
+		webApplication.mountPage("/mtdlogin", MtdLogin.class)
 		webApplication.mountPage("/mtdvat", MtdVatHome.class)
 	}
 
