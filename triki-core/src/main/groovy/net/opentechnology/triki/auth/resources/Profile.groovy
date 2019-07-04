@@ -11,16 +11,7 @@ class Profile implements Serializable{
     private String identityProvider
     private Map<String, String> moduleParams = new HashMap<>()
 
-    private Profile() {}
-
-    public static Profile getProfile(HttpSession session){
-        if(session.getAttribute(AuthenticateResource.SESSION_PROFILE)){
-            return session.getAttribute(AuthenticateResource.SESSION_PROFILE)
-        }
-        else {
-            return new Profile();
-        }
-    }
+    public Profile() {}
 
     Map<String, String> getModuleParams() {
         return moduleParams

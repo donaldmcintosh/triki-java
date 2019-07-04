@@ -121,21 +121,21 @@ public class AuthenticateResource extends RenderResource {
 		try {
 			// Check if known to me
 			Optional<Resource> signedInPerson = authMgr.authenticate(login, password)
-			sessionUtils.ifKnownSave(signedInPerson, session)
+			sessionUtils.ifKnownSave(signedInPerson)
 			if(signedInPerson.isPresent()){
-				Profile profile = Profile.getProfile(session)
+				Profile profile = sessionUtils.getProfile()
 				profile.setName(signedInPerson.get().getProperty(Dcterms.title)?.getString())
 				profile.setEmail(signedInPerson.get().getProperty(Foaf.mbox)?.getString())
 				sessionUtils.setIfAdmin(signedInPerson, profile)
-				sessionUtils.setProfile(session, profile);
-				sessionUtils.forwardCorrectly(resp, session, null)
+				sessionUtils.setProfile(profile);
+				sessionUtils.forwardCorrectly(resp, null)
 			}
 			else {
 				resp.sendRedirect("/login");
 			}
 		} catch (Exception e) {
 			logger.warn("Problems authenticating user ${login}");
-			sessionUtils.forwardCorrectly(resp, session, null)
+			sessionUtils.forwardCorrectly(resp,  null)
 		}
 	}
 	
@@ -166,23 +166,23 @@ public class AuthenticateResource extends RenderResource {
 		
 		if(response.getStatusLine().getStatusCode() == Response.Status.OK.code)
 		{
-			Profile profile = Profile.getProfile(session)
+			Profile profile = sessionUtils.getProfile()
 			logger.info("${site} successfully authenticated by indieauth");
 			profile.setWebsite(site)
-			sessionUtils.setProfile(session, profile);
+			sessionUtils.setProfile(profile);
 
 			// Check if known to site
 			Optional<Resource> signedInPerson = authMgr.authenticateByWebsite(site)
-			sessionUtils.ifKnownSave(signedInPerson, session)
+			sessionUtils.ifKnownSave(signedInPerson)
 			sessionUtils.setIfAdmin(signedInPerson, profile)
 
 			// Forward correctly
-			sessionUtils.forwardCorrectly(resp, session, null)
+			sessionUtils.forwardCorrectly(resp, null)
 		}
 		else
 		{
 			logger.warn("${me} not authenticated.");
-			sessionUtils.forwardCorrectly(resp, session, null)
+			sessionUtils.forwardCorrectly(resp, null)
 		}
 	}
 
@@ -236,7 +236,7 @@ public class AuthenticateResource extends RenderResource {
 		}
 		else {
 			logger.error("No anti-forgery state provided or code")
-			sessionUtils.forwardCorrectly(resp, session, referer)
+			sessionUtils.forwardCorrectly(resp, referer)
 		}
 		
 		List<NameValuePair> form = new ArrayList<NameValuePair>();
@@ -259,27 +259,27 @@ public class AuthenticateResource extends RenderResource {
 		{
 			try {
 				// Set profile
-				Profile profile = Profile.getProfile(session)
+				Profile profile = sessionUtils.getProfile()
 				identityProvider.getMinimalProfile(profile, response)
 				logger.info("Successfully authenticated by OpenID Connect with email ${profile}");
-				sessionUtils.setProfile(session, profile);
+				sessionUtils.setProfile(profile);
 
 				// Check if known to me - only trust email address
 				Optional<Resource> signedInPerson = authMgr.authenticateByEmail(profile.email)
-				sessionUtils.ifKnownSave(signedInPerson, session)
+				sessionUtils.ifKnownSave(signedInPerson)
 				sessionUtils.setIfAdmin(signedInPerson, profile)
 
 				// Forward correctly
-				sessionUtils.forwardCorrectly(resp, session, referer)
+				sessionUtils.forwardCorrectly(resp, referer)
 			} catch (AuthenticationException e) {
 				logger.info("Problems with authentication ${e.getMessage()}")
-				sessionUtils.forwardCorrectly(resp, session, referer)
+				sessionUtils.forwardCorrectly(resp, referer)
 			}
 		}
 		else
 		{
 			logger.warn("Not authenticated.");
-			sessionUtils.forwardCorrectly(resp, session, referer)
+			sessionUtils.forwardCorrectly(resp, referer)
 		}
 	}
 

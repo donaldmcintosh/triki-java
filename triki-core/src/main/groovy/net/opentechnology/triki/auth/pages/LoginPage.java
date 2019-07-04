@@ -100,12 +100,12 @@ public class LoginPage extends ParentPage {
                                       Optional<Resource> signedInPerson) {
       HttpSession session = req.getSession();
       setSession(signedInPerson, session);
-      sessionUtils.forwardCorrectly(resp, session, null);
+      sessionUtils.forwardCorrectly(resp,null);
     }
 
     private void setSession(Optional<Resource> signedInPerson, HttpSession session) {
-      Profile profile = Profile.getProfile(session);
-      sessionUtils.ifKnownSave(signedInPerson, session);
+      Profile profile = sessionUtils.getProfile();
+      sessionUtils.ifKnownSave(signedInPerson);
       if (signedInPerson.get().getProperty(Dcterms.title) != null) {
         profile.setName(signedInPerson.get().getProperty(Dcterms.title).getString());
       }
@@ -113,7 +113,7 @@ public class LoginPage extends ParentPage {
         profile.setEmail(signedInPerson.get().getProperty(Foaf.mbox).getString());
       }
       sessionUtils.setIfAdmin(signedInPerson, profile);
-      sessionUtils.setProfile(session, profile);
+      sessionUtils.setProfile(profile);
     }
   }
 }

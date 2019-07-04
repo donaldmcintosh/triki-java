@@ -25,7 +25,7 @@ public class SessionUtils {
 
   private final Logger logger = Logger.getLogger(this.getClass());
 
-  @Inject HttpSession session2;
+  @Inject HttpSession session;
 
   @Inject
   private AuthorisationManager authorisationManager;
@@ -39,21 +39,29 @@ public class SessionUtils {
   @Inject
   private final IdentityProviders identityProviders
 
-  private setKnownPersonSession(HttpSession session, Resource person) {
+  private setKnownPersonSession(  Resource person) {
     logger.info("Setting session known person for " + person.getProperty(Dcterms.title)?.getString())
     session.setAttribute(SESSION_PERSON, person)
   }
 
-  public setProfile(HttpSession session, Profile profile) {
+  public setProfile(Profile profile) {
     logger.info("Setting session profile to be " + profile)
-    session2.setAttribute(SESSION_PROFILE, profile)
+    session.setAttribute(SESSION_PROFILE, profile)
   }
 
-  public boolean ifKnownSave(Optional<Resource> signedInPerson, HttpSession session){
+  public boolean hasAuthenticatedEmail(){
+    profile.getEmail()
+  }
+
+  public boolean hasModuleToken(String tokenName){
+    profile.getModuleParams().get(tokenName)
+  }
+
+  public boolean ifKnownSave(Optional<Resource> signedInPerson){
     if(signedInPerson.isPresent()){
       // If known to me
       logger.info("${signedInPerson.get().getProperty(Dcterms.title)?.getString()} successfully authenticated");
-      setKnownPersonSession(session, signedInPerson.get());
+      setKnownPersonSession(signedInPerson.get());
     }
   }
 
@@ -65,7 +73,16 @@ public class SessionUtils {
     }
   }
 
-  public forwardCorrectly(HttpServletResponse resp, HttpSession session, String referer){
+  public Profile getProfile(){
+    if(session.getAttribute(AuthenticateResource.SESSION_PROFILE)){
+      return session.getAttribute(AuthenticateResource.SESSION_PROFILE)
+    }
+    else {
+      return new Profile();
+    }
+  }
+
+  public forwardCorrectly(HttpServletResponse resp, String referer){
     // Forward correctly
     String redirectUrl = session.getAttribute("redirectUrl")
     // Check if redirected via filter first
