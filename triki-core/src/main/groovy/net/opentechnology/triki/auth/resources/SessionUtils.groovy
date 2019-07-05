@@ -50,11 +50,11 @@ public class SessionUtils {
   }
 
   public boolean hasAuthenticatedEmail(){
-    profile.getEmail()
+    getProfile().getEmail()
   }
 
   public boolean hasModuleToken(String tokenName){
-    profile.getModuleParams().get(tokenName)
+    getProfile().getModuleParams().get(tokenName)
   }
 
   public boolean ifKnownSave(Optional<Resource> signedInPerson){
@@ -78,7 +78,9 @@ public class SessionUtils {
       return session.getAttribute(AuthenticateResource.SESSION_PROFILE)
     }
     else {
-      return new Profile();
+      def profile = new Profile();
+      setProfile(profile);
+      return profile;
     }
   }
 

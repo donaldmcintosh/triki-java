@@ -9,19 +9,19 @@
     <div class="ui two column grid">
       <div class="column">
         <div class="ui fluid vertical steps">
-          <div wicket:id="authenticateStep" class="step">
+          <div id="authenticateStep" wicket:id="authenticateStep" class="step">
             <i class="lock icon"></i>
             <div class="content">
               <div class="title">Authenticate</div>
-              <div class="description">Login with <a id="idpGoogleLink" href="/auth/openidlogin?idp=googlemock">Google</a>, <a href="/auth/openidlogin?idp=amazon">Amazon</a>
+              <div class="description">Login with <a id="idpGoogleLink" href="/auth/openidlogin?idp=google">Google</a>, <a href="/auth/openidlogin?idp=amazon">Amazon</a>
                 or <a href="/auth/openidlogin?idp=outlook">Outlook</a></div>
             </div>
           </div>
-          <div class="disabled step">
+          <div id="authoriseStep" wicket:id="authoriseStep" class="step">
             <i class="lock icon"></i>
             <div class="content">
               <div class="title">Authorise</div>
-              <div class="description">Authorise opentax to access your <a href="/auth/openidlogin?idp=hmrctest">HMRC</a> records</div>
+              <div class="description">Authorise opentax to access your <a id="idpHmrcLink" href="/auth/openidlogin?idp=hmrctest">HMRC</a> records</div>
             </div>
           </div>
           <div class="disabled step">
