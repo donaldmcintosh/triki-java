@@ -8,6 +8,7 @@ import net.opentechnology.triki.auth.resources.SessionUtils;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -34,6 +35,9 @@ public class MtdLogin extends MtdVatParent {
   protected void onConfigure() {
     super.onConfigure();
 
+    Fragment loginButtonsFragment = new  Fragment ("loginButtons", "authenticateButtons", this);
+    add(loginButtonsFragment);
+
     if(sessionUtils.hasAuthenticatedEmail()){
       authenticateStep.setEnabledMode(false);
       authenticateStep.add(new AttributeAppender("class", Model.of(" disabled")));
@@ -44,6 +48,8 @@ public class MtdLogin extends MtdVatParent {
       else {
         authoriseStep.setEnabledMode(true);
         authoriseStep.add(new AttributeAppender("class", Model.of(" active")));
+        Fragment hmrcButtonsFragment = new  Fragment ("loginButtons", "authoriseButtons", this);
+        replace(hmrcButtonsFragment);
       }
     }
     else {
