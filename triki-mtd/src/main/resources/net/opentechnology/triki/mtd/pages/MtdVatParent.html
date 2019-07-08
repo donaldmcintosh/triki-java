@@ -17,12 +17,12 @@
   </div>
 </div>
 <div id="main">
-  <div class="ui segments">
-    <div class="ui green label">
-      <i class="lock icon"></i> Authorised with HMRC
+  <div class="ui authstatus">
+    <div id="authenticateStatus" wicket:id="authenticateStatus" class="ui label">
+      <i id="authenticateStatusIcon" wicket:id="authenticateStatusIcon" class="icon"></i>
     </div>
-    <div class="ui red label">
-      <i class="lock open icon"></i> Unauthenticated
+    <div id="authoriseStatus" wicket:id="authoriseStatus" class="ui label">
+      <i id="authoriseStatusIcon" wicket:id="authoriseStatusIcon"  class="icon"></i>
     </div>
   </div>
   <wicket:child/>

@@ -35,20 +35,26 @@ public class MtdLogin extends MtdVatParent {
     super.onConfigure();
 
     if(sessionUtils.hasAuthenticatedEmail()){
+      setColourAuthenticateHeaderStatus("green");
       authenticateStep.setEnabledMode(false);
       authenticateStep.add(new AttributeAppender("class", Model.of(" disabled")));
       if(sessionUtils.hasModuleToken(HMRC_TOKEN)){
+        setColourAuthoriseHeaderStatus("green");
         authoriseStep.setEnabledMode(false);
         authoriseStep.add(new AttributeAppender("class", Model.of(" disabled")));
       }
       else {
+        setColourAuthoriseHeaderStatus("red");
         authoriseStep.setEnabledMode(true);
         authoriseStep.add(new AttributeAppender("class", Model.of(" active")));
       }
     }
     else {
+      setColourAuthenticateHeaderStatus("red");
       authenticateStep.setEnabledMode(true);
       authenticateStep.add(new AttributeAppender("class", Model.of(" active")));
+
+      setColourAuthoriseHeaderStatus("grey");
       authoriseStep.setEnabledMode(false);
       authoriseStep.add(new AttributeAppender("class", Model.of(" disabled")));
     }
