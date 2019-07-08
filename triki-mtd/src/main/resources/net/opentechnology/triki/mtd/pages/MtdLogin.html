@@ -5,47 +5,64 @@
 <body xmlns:wicket="https://www.apache.org/wicket">
 <wicket:extend>
 
-  <div class="ui placeholder segment">
-    <div class="ui two column grid">
-      <div class="column">
-        <div class="ui fluid vertical steps">
-          <div id="authenticateStep" wicket:id="authenticateStep" class="step">
-            <i class="lock icon"></i>
-            <div class="content">
-              <div class="title">Authenticate</div>
-              <div class="description">Login with <a id="idpGoogleLink" href="/auth/openidlogin?idp=google">Google</a>, <a href="/auth/openidlogin?idp=amazon">Amazon</a>
-                or <a href="/auth/openidlogin?idp=outlook">Outlook</a></div>
+    <div class="ui placeholder segment">
+        <div class="ui two column grid">
+            <div class="column">
+                <div class="ui fluid vertical steps">
+                    <div id="authenticateStep" wicket:id="authenticateStep" class="step">
+                        <i class="lock icon"></i>
+                        <div class="content">
+                            <div class="title">Authenticate with existing account</div>
+                        </div>
+                    </div>
+                    <div id="authoriseStep" wicket:id="authoriseStep" class="step">
+                        <i class="lock icon"></i>
+                        <div class="content">
+                            <div class="title">Authorise opentax with HMRC</div>
+                        </div>
+                    </div>
+                    <div class="disabled step">
+                        <i class="keyboard icon"></i>
+                        <div class="content">
+                            <div class="title">Submit your VAT Return</div>
+                            <div class="description">Manager all your MTD VAT records</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div id="authoriseStep" wicket:id="authoriseStep" class="step">
-            <i class="lock icon"></i>
-            <div class="content">
-              <div class="title">Authorise</div>
-              <div class="description">Authorise opentax to access your <a id="idpHmrcLink" href="/auth/openidlogin?idp=hmrctest">HMRC</a> records</div>
+            <div class="middle aligned column">
+                <div wicket:id="loginButtons"></div>
+                <wicket:fragment wicket:id="authenticateButtons">
+                    <div id="oauthLoginHeading" class="ui segment">Sign in securely with one of your existing online login.  This
+                    is more secure than creating another login with us and allows us to verify your email
+                    address for any confirmations that we need to send out.</div>
+                    <button class="ui compact labeled icon button">
+                        <i class="google icon"></i>
+                        <a id="idpGoogleLink" href="/auth/openidlogin?idp=google">Google</a>
+                    </button>
+                    <br>
+                    <button class="ui compact labeled icon button">
+                        <i class="amazon icon"></i>
+                        <a href="/auth/openidlogin?idp=amazon">Amazon</a>
+                    </button>
+                    <br>
+                    <button class="ui compact labeled icon button">
+                        <i class="microsoft icon"></i>
+                        <a href="/auth/openidlogin?idp=outlook">Outlook</a>
+                    </button>
+                </wicket:fragment>
+                <wicket:fragment wicket:id="authoriseButtons">
+                    <div id="oauthLoginHeading" class="ui segment">Sign in with your existing HMRC account to
+                    allow opentax.net to access your HMRC VAT records.  If you change your mind later, you can
+                    easily revoke this permission.</div>
+                    <button class="ui compact labeled icon button">
+                        <i class="icon"></i>
+                        <a id="idpHmrcLink" href="/auth/openidlogin?idp=hmrctest">HMRC</a>
+                    </button>
+                </wicket:fragment>
             </div>
-          </div>
-          <div class="disabled step">
-            <i class="keyboard icon"></i>
-            <div class="content">
-              <div class="title">Submit your VAT Return</div>
-              <div class="description">Manager all your MTD VAT records</div>
-            </div>
-          </div>
         </div>
-      </div>
-      <div class="column">
-        <p>Let's get started!  In order to use opentax to manage you HMRC
-          VAT returns, we require a two-stage login.
-        <ol class="ui list">
-          <li>Login as yourself using an existing online identity.  This is quicker, more secure
-            and more convenient than setting up separate login with us.</li>
-          <li>Login to HMRC to authorise us to access your accounts.  If you change your mind later,
-          this permission can easily be revoked on the HMRC portal.</li>
-        </ol>
-        <p>That's it, you can manager your HMRC VAT records.</p>
-      </div>
     </div>
-  </div>
 </wicket:extend>
 </body>
 </html>
