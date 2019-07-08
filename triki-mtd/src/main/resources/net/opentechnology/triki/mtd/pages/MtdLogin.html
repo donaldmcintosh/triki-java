@@ -10,22 +10,21 @@
             <div class="column">
                 <div class="ui fluid vertical steps">
                     <div id="authenticateStep" wicket:id="authenticateStep" class="step">
-                        <i class="lock icon"></i>
+                        <i wicket:id="authStepIcon" class="lock icon"></i>
                         <div class="content">
                             <div class="title">Authenticate with existing account</div>
                         </div>
                     </div>
                     <div id="authoriseStep" wicket:id="authoriseStep" class="step">
-                        <i class="lock icon"></i>
+                        <i wicket:id="authStepIcon" class="lock icon"></i>
                         <div class="content">
                             <div class="title">Authorise opentax with HMRC</div>
                         </div>
                     </div>
-                    <div class="disabled step">
-                        <i class="keyboard icon"></i>
+                    <div id="manageVatStep" wicket:id="manageVatStep" class="step">
+                        <i wicket:id="authStepIcon" class="keyboard icon"></i>
                         <div class="content">
-                            <div class="title">Submit your VAT Return</div>
-                            <div class="description">Manager all your MTD VAT records</div>
+                            <div class="title">Manage your VAT Return</div>
                         </div>
                     </div>
                 </div>
@@ -58,6 +57,14 @@
                     <button class="ui compact labeled icon button">
                         <i class="icon"></i>
                         <a id="idpHmrcLink" href="/auth/openidlogin?idp=hmrctest">HMRC</a>
+                    </button>
+                </wicket:fragment>
+                <wicket:fragment wicket:id="manageVatIntro">
+                    <div class="ui segment">That's you all signed in, you can go ahead
+                        now and manage your VAT returns status with HMRC.</div>
+                    <button class="ui compact labeled icon button">
+                        <i class="icon keyboard green"></i>
+                        <a href="/ui/vatindex">Manage VAT Returns</a>
                     </button>
                 </wicket:fragment>
             </div>

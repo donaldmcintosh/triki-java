@@ -54,3 +54,11 @@ body * + * {
   margin: 0 6em;
 }
 
+.authstatuslabel {
+  width: 100%;
+}
+
+.authstatus {
+  margin: 0.5em 0em;
+}
+

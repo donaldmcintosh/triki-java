@@ -20,6 +20,7 @@ public class MtdLogin extends MtdVatParent {
 
   private final LoginStep authenticateStep;
   private final LoginStep authoriseStep;
+  private final LoginStep manageVatStep;
 
   public MtdLogin() {
     // Initialise session if not already created
@@ -29,6 +30,8 @@ public class MtdLogin extends MtdVatParent {
     add(authenticateStep);
     authoriseStep = new LoginStep("authoriseStep");
     add(authoriseStep);
+    manageVatStep = new LoginStep("manageVatStep");
+    add(manageVatStep);
   }
 
   @Override
@@ -39,30 +42,37 @@ public class MtdLogin extends MtdVatParent {
     add(loginButtonsFragment);
 
     if(sessionUtils.hasAuthenticatedEmail()){
-      setColourAuthenticateHeaderStatus("green");
-      authenticateStep.setEnabledMode(false);
+      authenticateStep.setEnabledMode(false, "lock");
       authenticateStep.add(new AttributeAppender("class", Model.of(" disabled")));
+
       if(sessionUtils.hasModuleToken(HMRC_TOKEN)){
-        setColourAuthoriseHeaderStatus("green");
-        authoriseStep.setEnabledMode(false);
+        authoriseStep.setEnabledMode(false, "lock");
         authoriseStep.add(new AttributeAppender("class", Model.of(" disabled")));
+
+        manageVatStep.setEnabledMode(true, "keyboard");
+        manageVatStep.add(new AttributeAppender("class", Model.of(" active")));
+        Fragment manageVatIntroFragment = new  Fragment ("loginButtons", "manageVatIntro", this);
+        replace(manageVatIntroFragment);
       }
       else {
-        setColourAuthoriseHeaderStatus("red");
-        authoriseStep.setEnabledMode(true);
+        authoriseStep.setEnabledMode(true, "open lock");
         authoriseStep.add(new AttributeAppender("class", Model.of(" active")));
         Fragment hmrcButtonsFragment = new  Fragment ("loginButtons", "authoriseButtons", this);
         replace(hmrcButtonsFragment);
+
+        manageVatStep.setEnabledMode(false, "keyboard");
+        manageVatStep.add(new AttributeAppender("class", Model.of(" disabled")));
       }
     }
     else {
-      setColourAuthenticateHeaderStatus("red");
-      authenticateStep.setEnabledMode(true);
+      authenticateStep.setEnabledMode(true, "open lock");
       authenticateStep.add(new AttributeAppender("class", Model.of(" active")));
 
-      setColourAuthoriseHeaderStatus("grey");
-      authoriseStep.setEnabledMode(false);
+      authoriseStep.setEnabledMode(false, "open lock");
       authoriseStep.add(new AttributeAppender("class", Model.of(" disabled")));
+
+      manageVatStep.setEnabledMode(false, "keyboard");
+      manageVatStep.add(new AttributeAppender("class", Model.of(" disabled")));
     }
 
   }
