@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body xmlns:wicket="https://www.apache.org/wicket">
+<wicket:extend>
+
+    <div class="ui placeholder segment">
+        <div class="ui two column grid">
+            <div class="three wide column">
+                <div wicket:id="navigationMenu" class="ui fluid secondary vertical menu">
+                    <a wicket:id="obligationsLink" class="item" href="/ui/mtdvatobligations">
+                        Obligations
+                    </a>
+                    <a wicket:id="returnsLink" class="item" href="/ui/mtdvatreturns">
+                        Returns
+                    </a>
+                    <a wicket:id="liabilitiesLink" class="item" href="/ui/mtdvatliabilities">
+                        Liabilities
+                    </a>
+                    <a wicket:id="paymentsLink" class="item" href="/ui/mtdvatpayments">
+                        Payments
+                    </a>
+                    <a class="item" href="/ui/logout">
+                        Logout
+                    </a>
+                </div>
+            </div>
+            <div class="thirteen wide column">
+
+                <wicket:child/>
+
+            </div>
+        </div>
+    </div>
+</wicket:extend>
+</body>
+</html>

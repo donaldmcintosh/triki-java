@@ -39,6 +39,10 @@ import net.opentechnology.triki.core.template.TemplateStore
 import net.opentechnology.triki.modules.Module
 import net.opentechnology.triki.mtd.pages.MtdLogin
 import net.opentechnology.triki.mtd.pages.MtdVatHome
+import net.opentechnology.triki.mtd.pages.MtdVatLiabilities
+import net.opentechnology.triki.mtd.pages.MtdVatObligations
+import net.opentechnology.triki.mtd.pages.MtdVatPayments
+import net.opentechnology.triki.mtd.pages.MtdVatReturns
 import net.opentechnology.triki.mtd.security.HmrcIdentityProvider
 import net.opentechnology.triki.mtd.wicket.MtdVatApplication
 import net.opentechnology.triki.schema.Triki
@@ -149,18 +153,9 @@ public class HmrcVatModule implements Module {
 		contentDto.addContent("tc.md");
 		contentDto.addContent("mtd-summary.md");
 
-		contentDto.addContent("simplemtd.css");
-
 		contentDto.addContent("antifraud.js");
 
-		contentDto.addContent("amazon-icon.svg");
-		contentDto.addContent("gmail.svg");
-		contentDto.addContent("google.svg");
-		contentDto.addContent("google-icon.svg");
 		contentDto.addContent("hmrc.svg");
-		contentDto.addContent("outlook.svg");
-		contentDto.addContent("outlook-icon.svg");
-		contentDto.addContent("yahoo.svg");
 	}
 
 	private void initIdentityProviders(){
@@ -192,6 +187,10 @@ public class HmrcVatModule implements Module {
 	public void mountPages(WebApplication webApplication){
 		webApplication.mountPage("/mtdlogin", MtdLogin.class)
 		webApplication.mountPage("/mtdvat", MtdVatHome.class)
+		webApplication.mountPage("/mtdvatobligations", MtdVatObligations.class)
+		webApplication.mountPage("/mtdvatreturns", MtdVatReturns.class)
+		webApplication.mountPage("/mtdvatliabilities", MtdVatLiabilities.class)
+		webApplication.mountPage("/mtdvatpayments", MtdVatPayments.class)
 	}
 
 
