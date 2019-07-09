@@ -19,12 +19,16 @@ public class MtdVatManage extends MtdVatParent {
     switch (name) {
       case "obligations":
         navigationMenu.obligationsLinkActive();
+        break;
       case "returns":
         navigationMenu.returnsLinkActive();
+        break;
       case "liabilities":
         navigationMenu.liabilitiesLinkActive();
+        break;
       case "payments":
         navigationMenu.paymentsLinkActive();
+        break;
     }
   }
 }

@@ -10,5 +10,5 @@ public class MtdVatLiabilities extends MtdVatManage {
     super.onConfigure();
     setActiveMenu("liabilities");
   }
-  
+
 }
