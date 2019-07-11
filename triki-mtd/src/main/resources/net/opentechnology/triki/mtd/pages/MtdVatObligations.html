@@ -5,30 +5,46 @@
 <body xmlns:wicket="https://www.apache.org/wicket">
 <wicket:extend>
 
-  <form class="ui form" id="mtdVatObligationsForm" method="post" wicket:id="mtdVatObligationsForm">
-    <div class="field">
-      <label>VRN</label>
-      <input id="vrn" type="text" wicket:id="vrn" name="vrn" placeholder="VAT Registration Number">
-      <ul id="vrnFeedback" wicket:id="vrnFeedback" class="feedbackList ui pointing red basic label">
-        <li class="feedbackPanelERROR">
-        </li>
-      </ul>
+  <form class="ui form four column grid" id="mtdVatObligationsForm" method="post" wicket:id="mtdVatObligationsForm">
+    <div class="row">
+      <div class="column">
+        <div class="field">
+          <label>VRN</label>
+          <input id="vrn" type="text" wicket:id="vrn" name="vrn" placeholder="VAT Registration Number">
+          <ul id="vrnFeedback" wicket:id="vrnFeedback" class="feedbackList ui pointing red basic label">
+            <li class="feedbackPanelERROR">.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="column">
+        <div class="field">
+          <label>Date Range</label>
+          <select class="ui simple dropdown" wicket:id="dateRange"></select>
+        </div>
+      </div>
+      <div class="column">
+        <div class="field">
+          <label>Status</label>
+          <select class="ui simple dropdown" wicket:id="status"></select>
+        </div>
+      </div>
+      <div class="column">
+        <div class="field">
+          <label>Submit</label>
+          <button id="getObligationsButton" class="ui button" type="submit">Get Obligations</button>
+        </div>
+      </div>
     </div>
-    <div class="field">
-      <label>Date Range</label>
-      <select class="ui simple dropdown" wicket:id="dateRange"></select>
-    </div>
-    <div class="field">
-      <label>Status</label>
-      <select class="ui simple dropdown" wicket:id="status"></select>
-    </div>
-    <div class="field">
-      <div id="obligationsFeedback" wicket:id="obligationsFeedback" class="ui red basic label">
-        <p wicket:id="status"></p>
+    <div class="row">
+      <div class="column">
+        <div class="field">
+          <div id="obligationsFeedback" wicket:id="obligationsFeedback" class="ui red basic label">
+            <p wicket:id="status"></p>
+          </div>
+        </div>
       </div>
     </div>
     <input id="hmrcHeaders" type="hidden" wicket:id="hmrcHeaders" name="hmrcHeaders" value=""/>
-    <button id="getObligationsButton" class="ui button" type="submit">Get Obligations</button>
   </form>
 
 </wicket:extend>
