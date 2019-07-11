@@ -62,3 +62,7 @@ body * + * {
   margin: 0.5em 0em;
 }
 
+.feedbackPanel {
+  list-style: none;
+  padding: 0;
+}
