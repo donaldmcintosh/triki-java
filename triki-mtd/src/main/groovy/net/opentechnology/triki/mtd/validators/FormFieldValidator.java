@@ -3,7 +3,6 @@ package net.opentechnology.triki.mtd.validators;
 import org.apache.commons.lang.StringUtils;
 import org.apache.wicket.validation.INullAcceptingValidator;
 import org.apache.wicket.validation.IValidatable;
-import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.ValidationError;
 
 public class FormFieldValidator implements INullAcceptingValidator<String> {
@@ -18,11 +17,16 @@ public class FormFieldValidator implements INullAcceptingValidator<String> {
   public void validate(IValidatable<String> validatable) {
     String fieldValue = validatable.getValue();
 
-    if(StringUtils.isBlank(fieldValue)){
+    if (StringUtils.isBlank(fieldValue)) {
       ValidationError error = new ValidationError(this);
+      error.addKey(this.getClass().getSimpleName() + ".required");
+      error.setVariable("fieldName", fieldName);
+      validatable.error(error);
+    } else if (!StringUtils.isNumeric(fieldValue)) {
+      ValidationError error = new ValidationError(this);
+      error.addKey(this.getClass().getSimpleName() + ".numeric");
       error.setVariable("fieldName", fieldName);
       validatable.error(error);
     }
   }
-
 }

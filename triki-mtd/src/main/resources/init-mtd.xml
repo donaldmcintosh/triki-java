@@ -15,6 +15,6 @@
 <!--    <bean id="mtdApplication" class="net.opentechnology.triki.mtd.wicket.MtdVatApplication" />-->
     <bean id="hmrcIdentifyProvider" class="net.opentechnology.triki.mtd.security.HmrcIdentityProvider" />
     <bean id="mtdModule" class="net.opentechnology.triki.mtd.module.HmrcVatModule" init-method="init"/>
-
+    <bean id="clientUtils" class="net.opentechnology.triki.mtd.vatapi.client.HmrcClientUtils" />
 
 </beans>

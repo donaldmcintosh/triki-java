@@ -57,6 +57,10 @@ public class SessionUtils {
     getProfile().getModuleParams().get(tokenName)
   }
 
+  public String getModuleToken(String tokenName){
+    return getProfile().getModuleParams().get(tokenName)
+  }
+
   public boolean ifKnownSave(Optional<Resource> signedInPerson){
     if(signedInPerson.isPresent()){
       // If known to me

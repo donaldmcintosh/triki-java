@@ -1,5 +1,6 @@
-package net.opentechnology.triki.mtd.vatapi.dto;
+package net.opentechnology.triki.mtd.vatapi.dto
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data
 import lombok.EqualsAndHashCode
 import lombok.NoArgsConstructor;
@@ -10,8 +11,13 @@ import java.util.List;
 
 public class VatObligations {
 
+    @JsonProperty
     List<VatObligation> obligations = new ArrayList<>();
+
+    @JsonProperty
     String code
+
+    @JsonProperty
     String message
 
 }
