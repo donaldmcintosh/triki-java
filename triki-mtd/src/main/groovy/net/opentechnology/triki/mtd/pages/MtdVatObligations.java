@@ -1,7 +1,6 @@
 package net.opentechnology.triki.mtd.pages;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +11,8 @@ import net.opentechnology.triki.auth.resources.SessionUtils;
 import net.opentechnology.triki.mtd.enums.DateRange;
 import net.opentechnology.triki.mtd.enums.DateRange.DateRanges;
 import net.opentechnology.triki.mtd.security.HmrcIdentityProvider;
-import net.opentechnology.triki.mtd.validators.FormFieldValidator;
+import net.opentechnology.triki.mtd.validators.FormFieldNumericValidator;
+import net.opentechnology.triki.mtd.validators.FormFieldRequiredValidator;
 import net.opentechnology.triki.mtd.enums.VatObligationStatus;
 import net.opentechnology.triki.mtd.vatapi.client.HmrcClientUtils;
 import net.opentechnology.triki.mtd.vatapi.client.HmrcVatClient;
@@ -23,7 +23,6 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.HiddenField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import retrofit2.Call;
@@ -55,29 +54,47 @@ public class MtdVatObligations extends MtdVatManage {
     private String status = "All";
     private String hmrcHeaders;
     private FeedbackStringContainer obligationsFeedback;
+    private final List<String> statuses;
+    private final List<String> dateRanges;
 
     public MtdVatObligationsForm(String id, SessionUtils sessionUtils, HmrcClientUtils hmrcClientUtils) {
       super(id);
       this.sessionUtils = sessionUtils;
       this.hmrcClientUtils = hmrcClientUtils;
 
+      statuses = Arrays.stream(VatObligationStatus.values())
+              .map(VatObligationStatus::getDescription)
+              .collect(Collectors.toList());
+      statuses.add("All");
+
       setDefaultModel(new CompoundPropertyModel(this));
 
       TextField vrn = new TextField("vrn");
-      FormFieldValidator formFieldValidator = new FormFieldValidator("VRN");
-      vrn.add(formFieldValidator);
+      FormFieldRequiredValidator vrnRequiredValidator = new FormFieldRequiredValidator("VRN");
+      FormFieldNumericValidator vrnNumericValidator = new FormFieldNumericValidator("VRN");
+      vrn.add(vrnRequiredValidator);
+      vrn.add(vrnNumericValidator);
       add(vrn);
       FeedbackListContainer vrnFeedback = new FeedbackListContainer("vrnFeedback");
       vrnFeedback.setFilter(new ComponentFeedbackMessageFilter(vrn));
       add(vrnFeedback);
 
-      List<String> dateRange = Arrays.stream(DateRanges.values()).map(DateRanges::getLabel).collect(Collectors.toList());
-      add(new DropDownChoice<String>("dateRange", new PropertyModel(this, "dateRange"), dateRange));
-      List<String> statuses = Arrays.stream(VatObligationStatus.values())
-                                  .map(VatObligationStatus::getDescription)
-                                  .collect(Collectors.toList());
-      statuses.add("All");
-      add(new DropDownChoice<String>("status", new PropertyModel(this, "status"), statuses));
+      dateRanges = Arrays.stream(DateRanges.values()).map(DateRanges::getLabel).collect(Collectors.toList());
+      DropDownChoice<String> dateRangeChoice = new DropDownChoice<String>("dateRange", new PropertyModel(this, "dateRange"), dateRanges);
+      FormFieldRequiredValidator dateRangeRequiredValidator = new FormFieldRequiredValidator("Date range");
+      dateRangeChoice.add(dateRangeRequiredValidator);
+      add(dateRangeChoice);
+      FeedbackListContainer dateRangeFeedback = new FeedbackListContainer("dateRangeFeedback");
+      dateRangeFeedback.setFilter(new ComponentFeedbackMessageFilter(dateRangeChoice));
+      add(dateRangeFeedback);
+
+      DropDownChoice<String> statusChoice = new DropDownChoice<String>("status", new PropertyModel(this, "status"), statuses);
+      FormFieldRequiredValidator statusRequiredValidator = new FormFieldRequiredValidator("Status");
+      statusChoice.add(statusRequiredValidator);
+      add(statusChoice);
+      FeedbackListContainer statusFeedback = new FeedbackListContainer("statusFeedback");
+      statusFeedback.setFilter(new ComponentFeedbackMessageFilter(statusChoice));
+      add(statusFeedback);
 
       HiddenField hmrcHeaders = new HiddenField("hmrcHeaders");
       add(hmrcHeaders);
@@ -108,6 +125,7 @@ public class MtdVatObligations extends MtdVatManage {
             VatObligationStatus.getVatObligationStatus(status).name(), headers, "");
         Response<VatObligations> vatObligationsResponse = callable.execute();
 
+        vatObligationsResponse.toString();
 
       } catch (Exception e) {
         obligationsFeedback.setMsg("Problems calling HMRC");

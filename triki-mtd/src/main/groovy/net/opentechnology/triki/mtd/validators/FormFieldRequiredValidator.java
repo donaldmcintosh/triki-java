@@ -5,11 +5,11 @@ import org.apache.wicket.validation.INullAcceptingValidator;
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.ValidationError;
 
-public class FormFieldValidator implements INullAcceptingValidator<String> {
+public class FormFieldRequiredValidator implements INullAcceptingValidator<String> {
 
   private final String fieldName;
 
-  public FormFieldValidator(String fieldName) {
+  public FormFieldRequiredValidator(String fieldName) {
     this.fieldName = fieldName;
   }
 
@@ -20,11 +20,6 @@ public class FormFieldValidator implements INullAcceptingValidator<String> {
     if (StringUtils.isBlank(fieldValue)) {
       ValidationError error = new ValidationError(this);
       error.addKey(this.getClass().getSimpleName() + ".required");
-      error.setVariable("fieldName", fieldName);
-      validatable.error(error);
-    } else if (!StringUtils.isNumeric(fieldValue)) {
-      ValidationError error = new ValidationError(this);
-      error.addKey(this.getClass().getSimpleName() + ".numeric");
       error.setVariable("fieldName", fieldName);
       validatable.error(error);
     }

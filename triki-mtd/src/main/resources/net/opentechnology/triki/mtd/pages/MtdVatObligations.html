@@ -20,12 +20,18 @@
         <div class="field">
           <label>Date Range</label>
           <select class="ui simple dropdown" wicket:id="dateRange"></select>
+          <ul id="dateRangeFeedback" wicket:id="dateRangeFeedback" class="feedbackList ui pointing red basic label">
+            <li class="feedbackPanelERROR"></li>
+          </ul>
         </div>
       </div>
       <div class="column">
         <div class="field">
           <label>Status</label>
           <select class="ui simple dropdown" wicket:id="status"></select>
+          <ul id="statusFeedback" wicket:id="statusFeedback" class="feedbackList ui pointing red basic label">
+            <li class="feedbackPanelERROR"></li>
+          </ul>
         </div>
       </div>
       <div class="column">
