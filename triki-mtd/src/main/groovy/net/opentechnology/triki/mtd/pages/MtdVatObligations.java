@@ -9,7 +9,6 @@ import net.opentechnology.triki.auth.components.FeedbackListContainer;
 import net.opentechnology.triki.auth.components.FeedbackStringContainer;
 import net.opentechnology.triki.auth.resources.SessionUtils;
 import net.opentechnology.triki.mtd.enums.DateRange;
-import net.opentechnology.triki.mtd.enums.DateRange.DateRanges;
 import net.opentechnology.triki.mtd.security.HmrcIdentityProvider;
 import net.opentechnology.triki.mtd.validators.FormFieldNumericValidator;
 import net.opentechnology.triki.mtd.validators.FormFieldRequiredValidator;
@@ -50,8 +49,8 @@ public class MtdVatObligations extends MtdVatManage {
     private SessionUtils sessionUtils;
     private HmrcClientUtils hmrcClientUtils;
     private String vrn;
-    private String dateRange = DateRanges.THIS_YEAR_AND_LAST.getLabel();
-    private String status = "All";
+    private DateRange dateRange = DateRange.THIS_YEAR_AND_LAST;
+    private VatObligationStatus status = VatObligationStatus.ALL;
     private String hmrcHeaders;
     private FeedbackStringContainer obligationsFeedback;
     private final List<String> statuses;
@@ -65,7 +64,7 @@ public class MtdVatObligations extends MtdVatManage {
       statuses = Arrays.stream(VatObligationStatus.values())
               .map(VatObligationStatus::getDescription)
               .collect(Collectors.toList());
-      statuses.add("All");
+      dateRanges = Arrays.stream(DateRange.values()).map(DateRange::getLabel).collect(Collectors.toList());
 
       setDefaultModel(new CompoundPropertyModel(this));
 
@@ -79,7 +78,6 @@ public class MtdVatObligations extends MtdVatManage {
       vrnFeedback.setFilter(new ComponentFeedbackMessageFilter(vrn));
       add(vrnFeedback);
 
-      dateRanges = Arrays.stream(DateRanges.values()).map(DateRanges::getLabel).collect(Collectors.toList());
       DropDownChoice<String> dateRangeChoice = new DropDownChoice<String>("dateRange", new PropertyModel(this, "dateRange"), dateRanges);
       FormFieldRequiredValidator dateRangeRequiredValidator = new FormFieldRequiredValidator("Date range");
       dateRangeChoice.add(dateRangeRequiredValidator);
@@ -117,12 +115,10 @@ public class MtdVatObligations extends MtdVatManage {
         // Put in headers too
         headers.put("Gov-Client-Connection-Method", "WEB_APP_VIA_SERVER");
 
-
-        DateRange dateRangeValid = DateRange.getDateRange(dateRange);
         HmrcVatClient hmrcVatClient = hmrcClientUtils.buildAuthBearerServiceClient(accessToken);
         Call<VatObligations> callable = hmrcVatClient.getObligations(vrn,
-            DateRange.format(dateRangeValid.getStart()), DateRange.format(dateRangeValid.getEnd()),
-            VatObligationStatus.getVatObligationStatus(status).name(), headers, "");
+            DateRange.format(dateRange.getStart()), DateRange.format(dateRange.getEnd()),
+                status.getCode(), headers, "");
         Response<VatObligations> vatObligationsResponse = callable.execute();
 
         vatObligationsResponse.toString();

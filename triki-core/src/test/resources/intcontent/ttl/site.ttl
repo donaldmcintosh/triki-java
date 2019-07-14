@@ -1,12 +1,12 @@
 @prefix note:  <http://localhost:8080/note/> .
 @prefix notes: <http://localhost:8080/notes/> .
-@prefix year:  <http://localhost:8080/year/> .
 @prefix auth:  <http://localhost:8080/auth/> .
+@prefix year:  <http://localhost:8080/year/> .
 @prefix prefix: <http://localhost:8080/prefix/> .
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix blog:  <http://localhost:8080/blog/> .
 @prefix type:  <http://localhost:8080/type/> .
+@prefix blog:  <http://localhost:8080/blog/> .
 @prefix content: <http://localhost:8080/content/> .
 @prefix setting: <http://localhost:8080/setting/> .
 @prefix triki: <http://www.opentechnology.net/triki/0.1/> .
@@ -18,26 +18,28 @@
 @prefix image: <http://localhost:8080/image/> .
 @prefix query: <http://localhost:8080/query/> .
 @prefix as:    <http://www.w3.org/ns/activitystreams#> .
-@prefix idp:   <http://localhost:8080/idp/> .
 @prefix month: <http://localhost:8080/month/> .
+@prefix idp:   <http://localhost:8080/idp/> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix publish: <http://localhost:8080//publish/> .
 @prefix localprop: <http://localhost:8080/localprop/> .
 @prefix time:  <http://www.w3.org/2006/time#> .
-@prefix user:  <http://localhost:8080/user/> .
 @prefix mediatype: <http://localhost:8080/mediatype/> .
-@prefix exif:  <http://www.w3.org/2003/12/exif/ns#> .
+@prefix user:  <http://localhost:8080/user/> .
 @prefix dc:    <http://purl.org/dc/terms/> .
-
-property:pageViews  a  triki:Property ;
-        dc:identifier  triki:pageViews ;
-        dc:title       "pageViews" ;
-        triki:order    "40"^^xsd:int .
+@prefix exif:  <http://www.w3.org/2003/12/exif/ns#> .
 
 property:password  a   triki:Property ;
         dc:identifier  triki:password ;
         dc:title       "password" ;
         triki:order    "29"^^xsd:int .
+
+setting:OPENIDCONNECTREDIRECTURI
+        a                 triki:Setting ;
+        dc:description    "OpenID Connect Redirect URL" ;
+        dc:title          "OPENIDCONNECTREDIRECTURI" ;
+        triki:restricted  group:private ;
+        triki:setting     "https://www.yoursite.net/auth/openidconnect" .
 
 group:public  a   foaf:Group ;
         dc:title  "Public access group" .
@@ -194,22 +196,6 @@ content:vathome.md  a     triki:Content ;
         dc:title          "vathome.md" ;
         triki:restricted  group:private .
 
-content:google-icon.svg
-        a                 triki:Content ;
-        dc:title          "google-icon.svg" ;
-        triki:restricted  group:private .
-
-content:amazon-icon.svg
-        a                 triki:Content ;
-        dc:title          "amazon-icon.svg" ;
-        triki:restricted  group:private .
-
-user:Donald-McIntosh  a   foaf:Person ;
-        dc:title          "Donald McIntosh" ;
-        triki:restricted  group:private ;
-        foaf:mbox         "donald@hero.com" ;
-        foaf:member       group:hmrcvat .
-
 prefix:query  a        triki:Prefix ;
         dc:identifier  query: ;
         dc:title       "query" .
@@ -265,12 +251,11 @@ group:identified  a  foaf:Group ;
 
 idp:google  a                     triki:IdentityProvider ;
         dc:title                  "google" ;
-        triki:oauthauthendpoint   "http://localhost:9090/o/oauth2/v2/auth" ;
+        triki:oauthauthendpoint   "https://accounts.google.com/o/oauth2/v2/auth" ;
         triki:oauthclientid       "undefined" ;
         triki:oauthclientsecret   "undefined" ;
         triki:oauthscope          "openid email profile" ;
-        triki:oauthtokenendpoint  "http://localhost:9090/token" ;
-        triki:restricted          group:private .
+        triki:oauthtokenendpoint  "https://oauth2.googleapis.com/token" .
 
 setting:OUTLOOKPROFILEENDPOINT
         a                 triki:Setting ;
@@ -350,10 +335,6 @@ root:graph  a             type:graph ;
         dc:title          "Graph Explorer" ;
         triki:restricted  group:admin .
 
-content:gmail.svg  a      triki:Content ;
-        dc:title          "gmail.svg" ;
-        triki:restricted  group:private .
-
 root:blogs  a             type:blogs ;
         dc:references     type:blog ;
         dc:title          "Blogs Index" ;
@@ -427,7 +408,7 @@ property:references  a  triki:Property ;
         triki:order    "14"^^xsd:int .
 
 <http://localhost:8080//auth/>
-        triki:unrestricted  ".*/ui/.*" , ".*\\.woff" , ".*\\.svg" , ".*\\.ico" , ".*\\.js" , ".*\\.css" , ".*\\.png" , ".*/mtdvatui/.*" .
+        triki:unrestricted  ".*/mtdvatui/.*" , ".*\\.png" , ".*\\.css" , ".*\\.js" , ".*\\.ico" , ".*\\.svg" , ".*\\.woff" , ".*/ui/.*" .
 
 idp:googlemock  a                 triki:IdentityProvider ;
         dc:title                  "googlemock" ;
@@ -441,13 +422,6 @@ content:tc.md  a          triki:Content ;
         dc:title          "tc.md" ;
         triki:restricted  group:private .
 
-setting:YAHOOAUTHENDPOINT
-        a                 triki:Setting ;
-        dc:description    "Yahoo OAuth2 URL" ;
-        dc:title          "YAHOOAUTHENDPOINT" ;
-        triki:restricted  group:private ;
-        triki:setting     "https://api.login.yahoo.com/oauth2/request_auth" .
-
 setting:RESTRICTION  a    triki:Setting ;
         dc:title          "RESTRICTION" ;
         triki:restricted  group:private ;
@@ -459,9 +433,12 @@ setting:HMRCBASEURL  a    triki:Setting ;
         triki:restricted  group:private ;
         triki:setting     "https://test-api.service.hmrc.gov.uk/" .
 
-content:site.stg  a       triki:Content ;
-        dc:title          "site.stg" ;
-        triki:restricted  group:private .
+setting:YAHOOAUTHENDPOINT
+        a                 triki:Setting ;
+        dc:description    "Yahoo OAuth2 URL" ;
+        dc:title          "YAHOOAUTHENDPOINT" ;
+        triki:restricted  group:private ;
+        triki:setting     "https://api.login.yahoo.com/oauth2/request_auth" .
 
 setting:YEARMONTHRESTRICTION
         a                 triki:Setting ;
@@ -545,10 +522,6 @@ property:order  a      triki:Property ;
         dc:title       "order" ;
         triki:order    "30"^^xsd:int .
 
-content:yahoo.svg  a      triki:Content ;
-        dc:title          "yahoo.svg" ;
-        triki:restricted  group:private .
-
 root:tandc  a             type:page ;
         dc:title          "Terms and Conditions" ;
         triki:restricted  group:public .
@@ -590,11 +563,6 @@ prefix:time  a         triki:Prefix ;
         dc:identifier  time: ;
         dc:title       "time" .
 
-content:outlook-icon.svg
-        a                 triki:Content ;
-        dc:title          "outlook-icon.svg" ;
-        triki:restricted  group:private .
-
 type:auth  a      triki:Type ;
         dc:title  "Auth" .
 
@@ -624,10 +592,6 @@ property:webcontent  a  triki:Property ;
 
 group:admin  a    foaf:Group ;
         dc:title  "Administrator group" .
-
-content:outlook.svg  a    triki:Content ;
-        dc:title          "outlook.svg" ;
-        triki:restricted  group:private .
 
 property:include  a    triki:Property ;
         dc:identifier  triki:include ;
@@ -728,12 +692,11 @@ setting:LIVEGRAPHSAVEPERIODMINS
 
 idp:hmrctest  a                   triki:IdentityProvider ;
         dc:title                  "hmrctest" ;
-        triki:oauthauthendpoint   "http://localhost:9090/oauth/authorize" ;
+        triki:oauthauthendpoint   "https://test-api.service.hmrc.gov.uk/oauth/authorize" ;
         triki:oauthclientid       "undefined" ;
         triki:oauthclientsecret   "undefined" ;
         triki:oauthscope          "read:vat write:vat" ;
-        triki:oauthtokenendpoint  "http://localhost:9090/oauth/token" ;
-        triki:restricted          group:private .
+        triki:oauthtokenendpoint  "https://test-api.service.hmrc.gov.uk/oauth/token" .
 
 prefix:root  a         triki:Prefix ;
         dc:identifier  root: ;
@@ -761,11 +724,6 @@ root:template  a          type:template ;
         dc:title          "Template Editor" ;
         triki:restricted  group:admin .
 
-content:simplemtd.css
-        a                 triki:Content ;
-        dc:title          "simplemtd.css" ;
-        triki:restricted  group:private .
-
 prefix:auth  a         triki:Prefix ;
         dc:identifier  auth: ;
         dc:title       "auth" .
@@ -775,10 +733,6 @@ setting:EMAILPASSWORD
         dc:title          "EMAILPASSWORD" ;
         triki:restricted  group:private ;
         triki:setting     "emailpass" .
-
-content:google.svg  a     triki:Content ;
-        dc:title          "google.svg" ;
-        triki:restricted  group:private .
 
 property:identifier  a  triki:Property ;
         dc:identifier  dc:identifier ;
@@ -793,15 +747,15 @@ type:graph  a     triki:Type ;
 
 triki:Type  dc:title  "Triki Type" .
 
-prefix:notes  a        triki:Prefix ;
-        dc:identifier  notes: ;
-        dc:title       "notes" .
-
 property:dateTimeOriginal
         a              triki:Property ;
         dc:identifier  exif:dateTimeOriginal ;
         dc:title       "dateTimeOriginal" ;
         triki:order    "19"^^xsd:int .
+
+prefix:notes  a        triki:Prefix ;
+        dc:identifier  notes: ;
+        dc:title       "notes" .
 
 prefix:exif  a         triki:Prefix ;
         dc:identifier  exif: ;
@@ -860,22 +814,18 @@ setting:IGNOREAGENTS  a   triki:Setting ;
         triki:restricted  group:private ;
         triki:setting     "(?iu).*(bot|Spider|curl|feedly|crawl|NetShelter ContentScan|slurp).*" .
 
-content:hmrc.svg  a       triki:Content ;
-        dc:title          "hmrc.svg" ;
-        triki:restricted  group:private .
-
 prefix:localprop  a    triki:Prefix ;
         dc:identifier  localprop: ;
         dc:title       "localprop" .
+
+content:hmrc.svg  a       triki:Content ;
+        dc:title          "hmrc.svg" ;
+        triki:restricted  group:private .
 
 property:feedtype  a   triki:Property ;
         dc:identifier  triki:feedtype ;
         dc:title       "feedtype" ;
         triki:order    "11"^^xsd:int .
-
-content:site.css  a       triki:Content ;
-        dc:title          "site.css" ;
-        triki:restricted  group:private .
 
 setting:TWITTERCLIENTSECRET
         a                 triki:Setting ;
@@ -927,30 +877,27 @@ property:sparql  a     triki:Property ;
 
 idp:hmrc  a                       triki:IdentityProvider ;
         dc:title                  "hmrc" ;
-        triki:oauthauthendpoint   "http://localhost:9090/oauth/authorize" ;
+        triki:oauthauthendpoint   "https://api.service.hmrc.gov.uk/oauth/authorize" ;
         triki:oauthclientid       "undefined" ;
         triki:oauthclientsecret   "undefined" ;
         triki:oauthscope          "read:vat write:vat" ;
-        triki:oauthtokenendpoint  "http://localhost:9090/oauth/token" ;
-        triki:restricted          group:private .
+        triki:oauthtokenendpoint  "https://api.service.hmrc.gov.uk/oauth/token" .
 
 property:setting  a    triki:Property ;
         dc:identifier  triki:setting ;
         dc:title       "setting" ;
         triki:order    "20"^^xsd:int .
 
-content:mtd-summary.md
-        a                 triki:Content ;
-        dc:title          "mtd-summary.md" ;
-        triki:restricted  group:private .
-
 prefix:publish  a      triki:Prefix ;
         dc:identifier  publish: ;
         dc:title       "publish" .
 
-setting:OPENIDCONNECTREDIRECTURI
-        a                 triki:Setting ;
-        dc:description    "OpenID Connect Redirect URL" ;
-        dc:title          "OPENIDCONNECTREDIRECTURI" ;
-        triki:restricted  group:private ;
-        triki:setting     "https://localhost:8080/auth/openidconnect" .
+property:pageViews  a  triki:Property ;
+        dc:identifier  triki:pageViews ;
+        dc:title       "pageViews" ;
+        triki:order    "40"^^xsd:int .
+
+content:mtd-summary.md
+        a                 triki:Content ;
+        dc:title          "mtd-summary.md" ;
+        triki:restricted  group:private .

@@ -4,20 +4,27 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public enum VatObligationStatus {
-    O("Open"),
-    F("Fulfilled");
+    OPEN("Open", "O"),
+    FULFILLED("Fulfilled", "F"),
+    ALL("All", null);
 
     private final String description;
+    private final String code;
 
-    private VatObligationStatus(String description){
+    private VatObligationStatus(String description, String code){
         this.description = description;
+        this.code = code;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public static VatObligationStatus getVatObligationStatus(String desc){
+    public String getCode() {
+        return code;
+    }
+
+    public static VatObligationStatus getVatObligationStatus(String desc) throws EnumValueException {
         Optional<VatObligationStatus> optOblig = Arrays.stream(VatObligationStatus.values())
                                                        .filter(oblig -> oblig.description.equals(desc))
                                                        .findFirst();
@@ -26,7 +33,7 @@ public enum VatObligationStatus {
             return optOblig.get();
         }
         else {
-            return null;
+            throw new EnumValueException("Could not find status " + desc);
         }
     }
 }

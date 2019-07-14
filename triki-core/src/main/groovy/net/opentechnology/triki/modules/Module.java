@@ -22,6 +22,7 @@
 package net.opentechnology.triki.modules;
 
 import net.opentechnology.triki.core.boot.StartupException;
+import org.apache.wicket.ConverterLocator;
 import org.apache.wicket.protocol.http.WebApplication;
 
 public interface Module {
@@ -35,6 +36,10 @@ public interface Module {
 	void initWeb();
 
 	public default void mountPages(WebApplication webApplication){
+
+	}
+
+	public default void addConverters(ConverterLocator defaultLocator){
 
 	}
 

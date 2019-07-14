@@ -37,6 +37,10 @@ import net.opentechnology.triki.core.dto.TypeDto
 import net.opentechnology.triki.core.template.TemplateException
 import net.opentechnology.triki.core.template.TemplateStore
 import net.opentechnology.triki.modules.Module
+import net.opentechnology.triki.mtd.enums.DateRange
+import net.opentechnology.triki.mtd.enums.DateRangeIConverter
+import net.opentechnology.triki.mtd.enums.StatusIConverter
+import net.opentechnology.triki.mtd.enums.VatObligationStatus
 import net.opentechnology.triki.mtd.pages.MtdLogin
 import net.opentechnology.triki.mtd.pages.MtdVatHome
 import net.opentechnology.triki.mtd.pages.MtdVatLiabilities
@@ -49,6 +53,7 @@ import net.opentechnology.triki.schema.Triki
 import org.apache.camel.CamelContext
 import org.apache.jena.rdf.model.Model
 import org.apache.jena.rdf.model.Resource
+import org.apache.wicket.ConverterLocator
 import org.apache.wicket.protocol.http.ContextParamWebApplicationFactory
 import org.apache.wicket.protocol.http.WebApplication
 import org.apache.wicket.protocol.http.WicketFilter
@@ -181,6 +186,12 @@ public class HmrcVatModule implements Module {
 	@Override
 	public void initWeb() {
 
+	}
+
+	@Override
+	void addConverters(ConverterLocator defaultLocator) {
+		defaultLocator.set(DateRange.class, new DateRangeIConverter());
+		defaultLocator.set(VatObligationStatus.class, new StatusIConverter());
 	}
 
 	@Override

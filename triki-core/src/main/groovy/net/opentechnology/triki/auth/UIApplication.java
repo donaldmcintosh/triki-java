@@ -4,6 +4,8 @@ import javax.inject.Inject;
 import net.opentechnology.triki.auth.pages.LoginPage;
 import net.opentechnology.triki.auth.resources.SessionUtils;
 import net.opentechnology.triki.modules.Module;
+import org.apache.wicket.ConverterLocator;
+import org.apache.wicket.IConverterLocator;
 import org.apache.wicket.Page;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -31,6 +33,19 @@ public class UIApplication extends WebApplication {
       Module module = getCtx().getBean(beanName, Module.class);
       module.mountPages(this);
     }
+  }
+
+  @Override
+  protected IConverterLocator newConverterLocator() {
+    ConverterLocator defaultLocator = new ConverterLocator();
+
+    String[] beanNames = getCtx().getParent().getBeanNamesForType(Module.class);
+    for(String beanName: beanNames){
+      Module module = getCtx().getBean(beanName, Module.class);
+      module.addConverters(defaultLocator);
+    }
+
+    return defaultLocator;
   }
 
   @Override
