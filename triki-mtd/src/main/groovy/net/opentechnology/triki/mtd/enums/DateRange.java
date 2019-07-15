@@ -10,8 +10,7 @@ public enum DateRange {
 
     THIS_YEAR_AND_LAST("This year and last"),
     NEXT_2_YEARS("Next 2 years"),
-    LAST_2_YEARS("Last 2 years"),
-    LAST_5_YEARS("Last 5 years");
+    LAST_2_YEARS("Last 2 years");
 
     private String label;
     private LocalDate start;
@@ -43,11 +42,6 @@ public enum DateRange {
                 range = DateRange.LAST_2_YEARS;
                 range.end = LocalDate.now();
                 range.start = range.end.minus(2, ChronoUnit.YEARS);
-                return range;
-            case LAST_5_YEARS:
-                range = DateRange.LAST_5_YEARS;
-                range.end = LocalDate.now();
-                range.start = range.end.minus(5, ChronoUnit.YEARS);
                 return range;
             default:
                 throw new EnumValueException("Unknown date range");

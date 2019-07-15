@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import net.opentechnology.triki.auth.components.FeedbackListContainer;
 import net.opentechnology.triki.auth.components.FeedbackStringContainer;
 import net.opentechnology.triki.auth.resources.SessionUtils;
@@ -15,12 +17,16 @@ import net.opentechnology.triki.mtd.validators.FormFieldRequiredValidator;
 import net.opentechnology.triki.mtd.enums.VatObligationStatus;
 import net.opentechnology.triki.mtd.vatapi.client.HmrcClientUtils;
 import net.opentechnology.triki.mtd.vatapi.client.HmrcVatClient;
+import net.opentechnology.triki.mtd.vatapi.dto.VatObligation;
 import net.opentechnology.triki.mtd.vatapi.dto.VatObligations;
 import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.HiddenField;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -55,6 +61,8 @@ public class MtdVatObligations extends MtdVatManage {
     private FeedbackStringContainer obligationsFeedback;
     private final List<String> statuses;
     private final List<String> dateRanges;
+    private final ObjectMapper objectMapper = new ObjectMapper();
+    private List<VatObligation> obligations;
 
     public MtdVatObligationsForm(String id, SessionUtils sessionUtils, HmrcClientUtils hmrcClientUtils) {
       super(id);
@@ -99,6 +107,13 @@ public class MtdVatObligations extends MtdVatManage {
 
       obligationsFeedback = new FeedbackStringContainer("obligationsFeedback");
       add(obligationsFeedback);
+
+//      add(new ListView<VatObligation>("obligations", obligations) {
+//        @Override
+//        protected void populateItem(ListItem<VatObligation> item) {
+//          item.add(new Label("start", new PropertyModel(item.getModel(), "start")));
+//        }
+//      });
     }
 
     @Override
@@ -107,12 +122,7 @@ public class MtdVatObligations extends MtdVatManage {
 
       String accessToken = sessionUtils.getModuleToken(HmrcIdentityProvider.HMRC_TOKEN);
       try {
-        Map<String, String> headers = new HashMap<>();
-//      @FormParam("test_scenario") String scenario
-//        if (hmrcHeaders) {
-//          headers = slurper.parseText(hmrcHeaders)
-//        }
-        // Put in headers too
+        HashMap<String, String> headers = objectMapper.readValue(hmrcHeaders, HashMap.class);
         headers.put("Gov-Client-Connection-Method", "WEB_APP_VIA_SERVER");
 
         HmrcVatClient hmrcVatClient = hmrcClientUtils.buildAuthBearerServiceClient(accessToken);

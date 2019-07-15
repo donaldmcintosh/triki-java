@@ -5,7 +5,7 @@
 <body xmlns:wicket="https://www.apache.org/wicket">
 <wicket:extend>
 
-  <form class="ui form four column grid" id="mtdVatObligationsForm" method="post" wicket:id="mtdVatObligationsForm">
+  <form class="ui form four column grid" id="mtdVatObligationsForm" onsubmit="setAntiFraudHeaders()" method="post" wicket:id="mtdVatObligationsForm">
     <div class="row">
       <div class="column">
         <div class="field">
@@ -19,7 +19,7 @@
       <div class="column">
         <div class="field">
           <label>Date Range</label>
-          <select class="ui simple dropdown" wicket:id="dateRange"></select>
+          <select id="dateRange" class="ui simple dropdown" wicket:id="dateRange"></select>
           <ul id="dateRangeFeedback" wicket:id="dateRangeFeedback" class="feedbackList ui pointing red basic label">
             <li class="feedbackPanelERROR"></li>
           </ul>
@@ -28,7 +28,7 @@
       <div class="column">
         <div class="field">
           <label>Status</label>
-          <select class="ui simple dropdown" wicket:id="status"></select>
+          <select id="status" class="ui simple dropdown" wicket:id="status"></select>
           <ul id="statusFeedback" wicket:id="statusFeedback" class="feedbackList ui pointing red basic label">
             <li class="feedbackPanelERROR"></li>
           </ul>

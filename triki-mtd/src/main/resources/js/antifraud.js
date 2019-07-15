@@ -18,7 +18,7 @@ function setAntiFraudHeaders() {
     antifraudHeaders["Gov-Client-Browser-JS-User-Agent"] = window.navigator.userAgent
     antifraudHeaders["Gov-Client-Browser-Plugins"] = navigator.plugins
 
-    if(document.getElementById('afh') != null) {
-        document.getElementById('afh').value = JSON.stringify(antifraudHeaders)
+    if(document.getElementById('hmrcHeaders') != null) {
+        document.getElementById('hmrcHeaders').value = JSON.stringify(antifraudHeaders)
     }
 }

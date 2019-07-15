@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public enum VatObligationStatus {
-    OPEN("Open", "O"),
-    FULFILLED("Fulfilled", "F"),
-    ALL("All", null);
+    ALL("All", null),
+    O("Open", "O"),
+    F("Fulfilled", "F");
 
     private final String description;
     private final String code;
