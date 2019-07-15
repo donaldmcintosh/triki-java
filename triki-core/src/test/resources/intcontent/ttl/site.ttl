@@ -29,17 +29,15 @@
 @prefix dc:    <http://purl.org/dc/terms/> .
 @prefix exif:  <http://www.w3.org/2003/12/exif/ns#> .
 
+property:pageViews  a  triki:Property ;
+        dc:identifier  triki:pageViews ;
+        dc:title       "pageViews" ;
+        triki:order    "40"^^xsd:int .
+
 property:password  a   triki:Property ;
         dc:identifier  triki:password ;
         dc:title       "password" ;
         triki:order    "29"^^xsd:int .
-
-setting:OPENIDCONNECTREDIRECTURI
-        a                 triki:Setting ;
-        dc:description    "OpenID Connect Redirect URL" ;
-        dc:title          "OPENIDCONNECTREDIRECTURI" ;
-        triki:restricted  group:private ;
-        triki:setting     "https://www.yoursite.net/auth/openidconnect" .
 
 group:public  a   foaf:Group ;
         dc:title  "Public access group" .
@@ -196,6 +194,12 @@ content:vathome.md  a     triki:Content ;
         dc:title          "vathome.md" ;
         triki:restricted  group:private .
 
+user:Donald-McIntosh  a   foaf:Person ;
+        dc:title          "Donald McIntosh" ;
+        triki:restricted  group:private ;
+        foaf:mbox         "donald@hero.com" ;
+        foaf:member       group:hmrcvat .
+
 prefix:query  a        triki:Prefix ;
         dc:identifier  query: ;
         dc:title       "query" .
@@ -251,11 +255,12 @@ group:identified  a  foaf:Group ;
 
 idp:google  a                     triki:IdentityProvider ;
         dc:title                  "google" ;
-        triki:oauthauthendpoint   "https://accounts.google.com/o/oauth2/v2/auth" ;
+        triki:oauthauthendpoint   "http://localhost:9090/o/oauth2/v2/auth" ;
         triki:oauthclientid       "undefined" ;
         triki:oauthclientsecret   "undefined" ;
         triki:oauthscope          "openid email profile" ;
-        triki:oauthtokenendpoint  "https://oauth2.googleapis.com/token" .
+        triki:oauthtokenendpoint  "http://localhost:9090/token" ;
+        triki:restricted          group:private .
 
 setting:OUTLOOKPROFILEENDPOINT
         a                 triki:Setting ;
@@ -692,11 +697,12 @@ setting:LIVEGRAPHSAVEPERIODMINS
 
 idp:hmrctest  a                   triki:IdentityProvider ;
         dc:title                  "hmrctest" ;
-        triki:oauthauthendpoint   "https://test-api.service.hmrc.gov.uk/oauth/authorize" ;
+        triki:oauthauthendpoint   "http://localhost:9090/oauth/authorize" ;
         triki:oauthclientid       "undefined" ;
         triki:oauthclientsecret   "undefined" ;
         triki:oauthscope          "read:vat write:vat" ;
-        triki:oauthtokenendpoint  "https://test-api.service.hmrc.gov.uk/oauth/token" .
+        triki:oauthtokenendpoint  "http://localhost:9090/oauth/token" ;
+        triki:restricted          group:private .
 
 prefix:root  a         triki:Prefix ;
         dc:identifier  root: ;
@@ -892,12 +898,14 @@ prefix:publish  a      triki:Prefix ;
         dc:identifier  publish: ;
         dc:title       "publish" .
 
-property:pageViews  a  triki:Property ;
-        dc:identifier  triki:pageViews ;
-        dc:title       "pageViews" ;
-        triki:order    "40"^^xsd:int .
-
 content:mtd-summary.md
         a                 triki:Content ;
         dc:title          "mtd-summary.md" ;
         triki:restricted  group:private .
+
+setting:OPENIDCONNECTREDIRECTURI
+        a                 triki:Setting ;
+        dc:description    "OpenID Connect Redirect URL" ;
+        dc:title          "OPENIDCONNECTREDIRECTURI" ;
+        triki:restricted  group:private ;
+        triki:setting     "http://localhost:8080/auth/openidconnect" .
