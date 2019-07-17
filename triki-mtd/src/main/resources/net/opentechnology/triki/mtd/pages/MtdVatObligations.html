@@ -48,17 +48,33 @@
             <p wicket:id="status"></p>
         </div>
 
+    </form>
+
+    <div class="ui divider"></div>
+
+    <div wicket:id="resultsSection"></div>
+
+    <wicket:fragment wicket:id="resultsPlaceholder">
+        <div class="ui placeholder"></div>
+    </wicket:fragment>
+
+    <wicket:fragment wicket:id="resultsFragments">
         <table class="ui celled table">
             <thead>
             <tr>
+                <th>Period Key</th>
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Status</th>
+                <th>Due</th>
             </tr>
             </thead>
             <tbody>
             <div id="obligationsResults" wicket:id="obligationResults">
                 <tr>
+                    <td data-label="Period Key">
+                        <div wicket:id="periodKey"></div>
+                    </td>
                     <td data-label="Start Date">
                         <div wicket:id="start"></div>
                     </td>
@@ -68,11 +84,14 @@
                     <td data-label="Status">
                         <div wicket:id="status"></div>
                     </td>
+                    <td data-label="Due">
+                        <div wicket:id="due"></div>
+                    </td>
                 </tr>
             </div>
             </tbody>
         </table>
-    </form>
+    </wicket:fragment>
 
 </wicket:extend>
 </body>

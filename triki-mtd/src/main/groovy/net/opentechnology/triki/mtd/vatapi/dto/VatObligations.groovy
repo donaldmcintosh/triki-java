@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class VatObligations {
+public class VatObligations implements Serializable {
 
     @JsonProperty
     List<VatObligation> obligations = new ArrayList<>();

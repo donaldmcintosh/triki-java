@@ -27,6 +27,7 @@ import org.apache.wicket.markup.html.form.HiddenField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -41,15 +42,17 @@ public class MtdVatObligations extends MtdVatManage {
   @SpringBean
   private HmrcClientUtils hmrcVatClient;
 
+  private List<VatObligation> obligationsResults;
+
+  private ListView<VatObligation> results;
+
   public MtdVatObligations() {
 
     add(new MtdVatObligationsForm("mtdVatObligationsForm", sessionUtils, hmrcVatClient));
 
-  }
+    Fragment resultsPlaceholder = new  Fragment ("resultsSection", "resultsPlaceholder", this);
+    add(resultsPlaceholder);
 
-  @Override
-  protected void onConfigure() {
-    super.onConfigure();
   }
 
   private class MtdVatObligationsForm extends Form<MtdVatObligationsForm> {
@@ -64,9 +67,6 @@ public class MtdVatObligations extends MtdVatManage {
     private final List<String> statuses;
     private final List<String> dateRanges;
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private List<VatObligation> obligationsResults;
-
-    private ListView<VatObligation> results;
 
     public MtdVatObligationsForm(String id, SessionUtils sessionUtils, HmrcClientUtils hmrcClientUtils) {
       super(id);
@@ -111,18 +111,8 @@ public class MtdVatObligations extends MtdVatManage {
 
       obligationsFeedback = new FeedbackStringContainer("obligationsFeedback");
       add(obligationsFeedback);
-
-      results = new ListView<VatObligation>("obligationResults", obligationsResults) {
-        @Override
-        protected void populateItem(ListItem<VatObligation> item) {
-          item.add(new Label("start", new PropertyModel(item.getModel(), "start")));
-          item.add(new Label("end", new PropertyModel(item.getModel(), "end")));
-          item.add(new Label("status", new PropertyModel(item.getModel(), "status")));
-        }
-      };
-      results.setReuseItems(true);
-      add(results);
     }
+
 
     @Override
     protected void onSubmit() {
@@ -140,12 +130,35 @@ public class MtdVatObligations extends MtdVatManage {
         Response<VatObligations> vatObligationsResponse = callable.execute();
 
         obligationsResults = vatObligationsResponse.body().getObligations();
-        results.setList(obligationsResults);
-
       } catch (Exception e) {
         obligationsFeedback.setMsg("Problems calling HMRC");
       }
     }
+  }
 
+  @Override
+  protected void onConfigure() {
+    super.onConfigure();
+
+    if(obligationsResults != null && obligationsResults.size() > 0){
+
+      Fragment resultsSection = new  Fragment ("resultsSection", "resultsFragments", this);
+      results = new ListView<VatObligation>("obligationResults", obligationsResults) {
+        @Override
+        protected void populateItem(ListItem<VatObligation> item) {
+          item.add(new Label("start", new PropertyModel(item.getModel(), "start")));
+          item.add(new Label("end", new PropertyModel(item.getModel(), "end")));
+          item.add(new Label("status", new PropertyModel(item.getModel(), "status")));
+          item.add(new Label("due", new PropertyModel(item.getModel(), "due")));
+//          item.add(new Label("received", new PropertyModel(item.getModel(), "received")));
+          item.add(new Label("periodKey", new PropertyModel(item.getModel(), "periodKey")));
+        }
+      };
+      results.setReuseItems(true);
+      resultsSection.add(results);
+
+
+      replace(resultsSection);
+    }
   }
 }
