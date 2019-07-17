@@ -5,47 +5,74 @@
 <body xmlns:wicket="https://www.apache.org/wicket">
 <wicket:extend>
 
-  <form class="ui form four column grid" id="mtdVatObligationsForm" onsubmit="setAntiFraudHeaders()" method="post" wicket:id="mtdVatObligationsForm">
-    <div class="row">
-      <div class="column">
-        <div class="field">
-          <label>VRN</label>
-          <input id="vrn" type="text" wicket:id="vrn" name="vrn" placeholder="VAT Registration Number"/>
-          <ul id="vrnFeedback" wicket:id="vrnFeedback" class="feedbackList ui pointing red basic label">
-            <li class="feedbackPanelERROR"></li>
-          </ul>
+    <form class="ui form four column grid" id="mtdVatObligationsForm" onsubmit="setAntiFraudHeaders()" method="post"
+          wicket:id="mtdVatObligationsForm">
+        <div class="row">
+            <div class="column">
+                <div class="field">
+                    <label>VRN</label>
+                    <input id="vrn" type="text" wicket:id="vrn" name="vrn" placeholder="VAT Registration Number"/>
+                    <ul id="vrnFeedback" wicket:id="vrnFeedback" class="feedbackList ui pointing red basic label">
+                        <li class="feedbackPanelERROR"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="column">
+                <div class="field">
+                    <label>Date Range</label>
+                    <select id="dateRange" class="ui simple dropdown" wicket:id="dateRange"></select>
+                    <ul id="dateRangeFeedback" wicket:id="dateRangeFeedback"
+                        class="feedbackList ui pointing red basic label">
+                        <li class="feedbackPanelERROR"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="column">
+                <div class="field">
+                    <label>Status</label>
+                    <select id="status" class="ui simple dropdown" wicket:id="status"></select>
+                    <ul id="statusFeedback" wicket:id="statusFeedback" class="feedbackList ui pointing red basic label">
+                        <li class="feedbackPanelERROR"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="column">
+                <div class="field">
+                    <label>Submit</label>
+                    <button id="getObligationsButton" class="ui button" type="submit">Get Obligations</button>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="column">
-        <div class="field">
-          <label>Date Range</label>
-          <select id="dateRange" class="ui simple dropdown" wicket:id="dateRange"></select>
-          <ul id="dateRangeFeedback" wicket:id="dateRangeFeedback" class="feedbackList ui pointing red basic label">
-            <li class="feedbackPanelERROR"></li>
-          </ul>
+        <input id="hmrcHeaders" type="hidden" wicket:id="hmrcHeaders" name="hmrcHeaders" value=""/>
+        <div id="obligationsFeedback" wicket:id="obligationsFeedback" class="ui red basic label">
+            <p wicket:id="status"></p>
         </div>
-      </div>
-      <div class="column">
-        <div class="field">
-          <label>Status</label>
-          <select id="status" class="ui simple dropdown" wicket:id="status"></select>
-          <ul id="statusFeedback" wicket:id="statusFeedback" class="feedbackList ui pointing red basic label">
-            <li class="feedbackPanelERROR"></li>
-          </ul>
-        </div>
-      </div>
-      <div class="column">
-        <div class="field">
-          <label>Submit</label>
-          <button id="getObligationsButton" class="ui button" type="submit">Get Obligations</button>
-        </div>
-      </div>
-    </div>
-    <input id="hmrcHeaders" type="hidden" wicket:id="hmrcHeaders" name="hmrcHeaders" value=""/>
-    <div id="obligationsFeedback" wicket:id="obligationsFeedback" class="ui red basic label">
-      <p wicket:id="status"></p>
-    </div>
-  </form>
+
+        <table class="ui celled table">
+            <thead>
+            <tr>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <div id="obligationsResults" wicket:id="obligationResults">
+                <tr>
+                    <td data-label="Start Date">
+                        <div wicket:id="start"></div>
+                    </td>
+                    <td data-label="End Date">
+                        <div wicket:id="end"></div>
+                    </td>
+                    <td data-label="Status">
+                        <div wicket:id="status"></div>
+                    </td>
+                </tr>
+            </div>
+            </tbody>
+        </table>
+    </form>
 
 </wicket:extend>
 </body>

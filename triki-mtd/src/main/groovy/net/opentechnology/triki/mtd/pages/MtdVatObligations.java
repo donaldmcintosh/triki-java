@@ -42,7 +42,9 @@ public class MtdVatObligations extends MtdVatManage {
   private HmrcClientUtils hmrcVatClient;
 
   public MtdVatObligations() {
+
     add(new MtdVatObligationsForm("mtdVatObligationsForm", sessionUtils, hmrcVatClient));
+
   }
 
   @Override
@@ -62,7 +64,9 @@ public class MtdVatObligations extends MtdVatManage {
     private final List<String> statuses;
     private final List<String> dateRanges;
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private List<VatObligation> obligations;
+    private List<VatObligation> obligationsResults;
+
+    private ListView<VatObligation> results;
 
     public MtdVatObligationsForm(String id, SessionUtils sessionUtils, HmrcClientUtils hmrcClientUtils) {
       super(id);
@@ -108,12 +112,16 @@ public class MtdVatObligations extends MtdVatManage {
       obligationsFeedback = new FeedbackStringContainer("obligationsFeedback");
       add(obligationsFeedback);
 
-//      add(new ListView<VatObligation>("obligations", obligations) {
-//        @Override
-//        protected void populateItem(ListItem<VatObligation> item) {
-//          item.add(new Label("start", new PropertyModel(item.getModel(), "start")));
-//        }
-//      });
+      results = new ListView<VatObligation>("obligationResults", obligationsResults) {
+        @Override
+        protected void populateItem(ListItem<VatObligation> item) {
+          item.add(new Label("start", new PropertyModel(item.getModel(), "start")));
+          item.add(new Label("end", new PropertyModel(item.getModel(), "end")));
+          item.add(new Label("status", new PropertyModel(item.getModel(), "status")));
+        }
+      };
+      results.setReuseItems(true);
+      add(results);
     }
 
     @Override
@@ -131,7 +139,8 @@ public class MtdVatObligations extends MtdVatManage {
                 status.getCode(), headers, "");
         Response<VatObligations> vatObligationsResponse = callable.execute();
 
-        vatObligationsResponse.toString();
+        obligationsResults = vatObligationsResponse.body().getObligations();
+        results.setList(obligationsResults);
 
       } catch (Exception e) {
         obligationsFeedback.setMsg("Problems calling HMRC");
