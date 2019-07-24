@@ -14,10 +14,4 @@ public class VatObligations implements Serializable {
     @JsonProperty
     List<VatObligation> obligations = new ArrayList<>();
 
-    @JsonProperty
-    String code
-
-    @JsonProperty
-    String message
-
 }

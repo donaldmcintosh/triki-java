@@ -17,8 +17,10 @@ import net.opentechnology.triki.mtd.validators.FormFieldRequiredValidator;
 import net.opentechnology.triki.mtd.enums.VatObligationStatus;
 import net.opentechnology.triki.mtd.vatapi.client.HmrcClientUtils;
 import net.opentechnology.triki.mtd.vatapi.client.HmrcVatClient;
+import net.opentechnology.triki.mtd.vatapi.dto.VatError;
 import net.opentechnology.triki.mtd.vatapi.dto.VatObligation;
 import net.opentechnology.triki.mtd.vatapi.dto.VatObligations;
+import org.apache.log4j.Logger;
 import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.DropDownChoice;
@@ -35,6 +37,8 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class MtdVatObligations extends MtdVatManage {
+
+  private static final Logger logger = Logger.getLogger(MtdVatObligations.class);
 
   @SpringBean
   private SessionUtils sessionUtils;
@@ -60,7 +64,7 @@ public class MtdVatObligations extends MtdVatManage {
     private SessionUtils sessionUtils;
     private HmrcClientUtils hmrcClientUtils;
     private String vrn;
-    private DateRange dateRange = DateRange.THIS_YEAR_AND_LAST;
+    private DateRange dateRange = DateRange.NEXT_6_MONTHS;
     private VatObligationStatus status = VatObligationStatus.ALL;
     private String hmrcHeaders;
     private FeedbackStringContainer obligationsFeedback;
@@ -129,9 +133,24 @@ public class MtdVatObligations extends MtdVatManage {
                 status.getCode(), headers, "");
         Response<VatObligations> vatObligationsResponse = callable.execute();
 
-        obligationsResults = vatObligationsResponse.body().getObligations();
+        if(vatObligationsResponse.code() == 200) {
+          obligationsResults = vatObligationsResponse.body().getObligations();
+          obligationsFeedback.setMsg(null);
+        }
+        else {
+          VatError vatError = objectMapper.readValue(vatObligationsResponse.errorBody().bytes(), VatError.class);
+          String key = "problems";
+          if(vatError.getStatusCode() != null){
+            key = vatError.getMessage();
+          }
+          else if(vatError.getCode() != null){
+            key = vatError.getCode();
+          }
+          obligationsFeedback.setMsg(getResourceBundleMsg(key));
+        }
       } catch (Exception e) {
-        obligationsFeedback.setMsg("Problems calling HMRC");
+        logger.error("Problems calling HMRC", e);
+        obligationsFeedback.setMsg(getResourceBundleMsg("problems"));
       }
     }
   }
@@ -160,5 +179,9 @@ public class MtdVatObligations extends MtdVatManage {
 
       replace(resultsSection);
     }
+  }
+
+  public String getResourceBundleMsg(String key){
+    return getString(key);
   }
 }

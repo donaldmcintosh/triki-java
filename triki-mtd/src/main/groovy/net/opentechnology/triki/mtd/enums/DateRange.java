@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public enum DateRange {
 
-    THIS_YEAR_AND_LAST("This year and last"),
+    NEXT_6_MONTHS("Next 6 months"),
     NEXT_2_YEARS("Next 2 years"),
     LAST_2_YEARS("Last 2 years");
 
@@ -27,11 +27,11 @@ public enum DateRange {
     public static DateRange getRange(DateRange rangeName) throws EnumValueException {
 
         switch (rangeName) {
-            case THIS_YEAR_AND_LAST:
-                DateRange range = DateRange.THIS_YEAR_AND_LAST;
+            case NEXT_6_MONTHS:
+                DateRange range = DateRange.NEXT_6_MONTHS;
                 LocalDate now = LocalDate.now();
-                range.start = now.minus(1, ChronoUnit.YEARS);
-                range.end = now.plus(1, ChronoUnit.YEARS);
+                range.start = now;
+                range.end = now.plus(6, ChronoUnit.MONTHS);
                 return range;
             case NEXT_2_YEARS:
                 range = DateRange.NEXT_2_YEARS;
