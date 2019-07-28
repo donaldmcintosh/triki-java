@@ -1,12 +1,12 @@
 @prefix note:  <http://localhost:8080/note/> .
 @prefix notes: <http://localhost:8080/notes/> .
-@prefix year:  <http://localhost:8080/year/> .
 @prefix auth:  <http://localhost:8080/auth/> .
+@prefix year:  <http://localhost:8080/year/> .
 @prefix prefix: <http://localhost:8080/prefix/> .
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix blog:  <http://localhost:8080/blog/> .
 @prefix type:  <http://localhost:8080/type/> .
+@prefix blog:  <http://localhost:8080/blog/> .
 @prefix content: <http://localhost:8080/content/> .
 @prefix setting: <http://localhost:8080/setting/> .
 @prefix triki: <http://www.opentechnology.net/triki/0.1/> .
@@ -18,16 +18,16 @@
 @prefix image: <http://localhost:8080/image/> .
 @prefix query: <http://localhost:8080/query/> .
 @prefix as:    <http://www.w3.org/ns/activitystreams#> .
-@prefix idp:   <http://localhost:8080/idp/> .
 @prefix month: <http://localhost:8080/month/> .
+@prefix idp:   <http://localhost:8080/idp/> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix publish: <http://localhost:8080//publish/> .
 @prefix localprop: <http://localhost:8080/localprop/> .
 @prefix time:  <http://www.w3.org/2006/time#> .
-@prefix user:  <http://localhost:8080/user/> .
 @prefix mediatype: <http://localhost:8080/mediatype/> .
-@prefix exif:  <http://www.w3.org/2003/12/exif/ns#> .
+@prefix user:  <http://localhost:8080/user/> .
 @prefix dc:    <http://purl.org/dc/terms/> .
+@prefix exif:  <http://www.w3.org/2003/12/exif/ns#> .
 
 property:pageViews  a  triki:Property ;
         dc:identifier  triki:pageViews ;
@@ -413,7 +413,7 @@ property:references  a  triki:Property ;
         triki:order    "14"^^xsd:int .
 
 <http://localhost:8080//auth/>
-        triki:unrestricted  ".*/ui/.*" , ".*\\.woff" , ".*\\.svg" , ".*\\.ico" , ".*\\.js" , ".*\\.css" , ".*\\.png" , ".*/mtdvatui/.*" .
+        triki:unrestricted  ".*/mtdvatui/.*" , ".*\\.png" , ".*\\.css" , ".*\\.js" , ".*\\.ico" , ".*\\.svg" , ".*\\.woff" , ".*/ui/.*" .
 
 idp:googlemock  a                 triki:IdentityProvider ;
         dc:title                  "googlemock" ;
@@ -820,13 +820,13 @@ setting:IGNOREAGENTS  a   triki:Setting ;
         triki:restricted  group:private ;
         triki:setting     "(?iu).*(bot|Spider|curl|feedly|crawl|NetShelter ContentScan|slurp).*" .
 
-content:hmrc.svg  a       triki:Content ;
-        dc:title          "hmrc.svg" ;
-        triki:restricted  group:private .
-
 prefix:localprop  a    triki:Prefix ;
         dc:identifier  localprop: ;
         dc:title       "localprop" .
+
+content:hmrc.svg  a       triki:Content ;
+        dc:title          "hmrc.svg" ;
+        triki:restricted  group:private .
 
 property:feedtype  a   triki:Property ;
         dc:identifier  triki:feedtype ;
@@ -894,18 +894,18 @@ property:setting  a    triki:Property ;
         dc:title       "setting" ;
         triki:order    "20"^^xsd:int .
 
-setting:OPENIDCONNECTREDIRECTURI
-        a                 triki:Setting ;
-        dc:description    "OpenID Connect Redirect URL" ;
-        dc:title          "OPENIDCONNECTREDIRECTURI" ;
-        triki:restricted  group:private ;
-        triki:setting     "http://localhost:8080/auth/openidconnect" .
+prefix:publish  a      triki:Prefix ;
+        dc:identifier  publish: ;
+        dc:title       "publish" .
 
 content:mtd-summary.md
         a                 triki:Content ;
         dc:title          "mtd-summary.md" ;
         triki:restricted  group:private .
 
-prefix:publish  a      triki:Prefix ;
-        dc:identifier  publish: ;
-        dc:title       "publish" .
+setting:OPENIDCONNECTREDIRECTURI
+        a                 triki:Setting ;
+        dc:description    "OpenID Connect Redirect URL" ;
+        dc:title          "OPENIDCONNECTREDIRECTURI" ;
+        triki:restricted  group:private ;
+        triki:setting     "http://localhost:8080/auth/openidconnect" .

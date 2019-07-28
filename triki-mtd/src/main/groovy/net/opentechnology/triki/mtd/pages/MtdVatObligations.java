@@ -1,9 +1,6 @@
 package net.opentechnology.triki.mtd.pages;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,6 +8,7 @@ import net.opentechnology.triki.auth.components.FeedbackListContainer;
 import net.opentechnology.triki.auth.components.FeedbackStringContainer;
 import net.opentechnology.triki.auth.resources.SessionUtils;
 import net.opentechnology.triki.mtd.enums.DateRange;
+import net.opentechnology.triki.mtd.enums.RangeStartStop;
 import net.opentechnology.triki.mtd.security.HmrcIdentityProvider;
 import net.opentechnology.triki.mtd.validators.FormFieldNumericValidator;
 import net.opentechnology.triki.mtd.validators.FormFieldRequiredValidator;
@@ -23,10 +21,7 @@ import net.opentechnology.triki.mtd.vatapi.dto.VatObligations;
 import org.apache.log4j.Logger;
 import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.DropDownChoice;
-import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.HiddenField;
-import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.form.*;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Fragment;
@@ -94,17 +89,13 @@ public class MtdVatObligations extends MtdVatManage {
       vrnFeedback.setFilter(new ComponentFeedbackMessageFilter(vrn));
       add(vrnFeedback);
 
-      DropDownChoice<String> dateRangeChoice = new DropDownChoice<String>("dateRange", new PropertyModel(this, "dateRange"), dateRanges);
-      FormFieldRequiredValidator dateRangeRequiredValidator = new FormFieldRequiredValidator("Date range");
-      dateRangeChoice.add(dateRangeRequiredValidator);
+      DropDownChoice<DateRange> dateRangeChoice = new DropDownChoice<DateRange>("dateRange", new PropertyModel(this, "dateRange"),  Arrays.asList(DateRange.values()) );
       add(dateRangeChoice);
       FeedbackListContainer dateRangeFeedback = new FeedbackListContainer("dateRangeFeedback");
       dateRangeFeedback.setFilter(new ComponentFeedbackMessageFilter(dateRangeChoice));
       add(dateRangeFeedback);
 
-      DropDownChoice<String> statusChoice = new DropDownChoice<String>("status", new PropertyModel(this, "status"), statuses);
-      FormFieldRequiredValidator statusRequiredValidator = new FormFieldRequiredValidator("Status");
-      statusChoice.add(statusRequiredValidator);
+      DropDownChoice<VatObligationStatus> statusChoice = new DropDownChoice<VatObligationStatus>("status", new PropertyModel(this, "status"), Arrays.asList(VatObligationStatus.values()));
       add(statusChoice);
       FeedbackListContainer statusFeedback = new FeedbackListContainer("statusFeedback");
       statusFeedback.setFilter(new ComponentFeedbackMessageFilter(statusChoice));
@@ -127,9 +118,10 @@ public class MtdVatObligations extends MtdVatManage {
         HashMap<String, String> headers = objectMapper.readValue(hmrcHeaders, HashMap.class);
         headers.put("Gov-Client-Connection-Method", "WEB_APP_VIA_SERVER");
 
+        RangeStartStop startStop = new RangeStartStop(dateRange);
         HmrcVatClient hmrcVatClient = hmrcClientUtils.buildAuthBearerServiceClient(accessToken);
         Call<VatObligations> callable = hmrcVatClient.getObligations(vrn,
-            DateRange.format(dateRange.getStart()), DateRange.format(dateRange.getEnd()),
+            startStop.getStartFormatted(), startStop.getEndFormatted(),
                 status.getCode(), headers, "");
         Response<VatObligations> vatObligationsResponse = callable.execute();
 
@@ -138,7 +130,7 @@ public class MtdVatObligations extends MtdVatManage {
           obligationsFeedback.setMsg(null);
         }
         else {
-          VatError vatError = objectMapper.readValue(vatObligationsResponse.errorBody().bytes(), VatError.class);
+          VatError vatError = objectMapper. readValue(vatObligationsResponse.errorBody().bytes(), VatError.class);
           String key = "problems";
           if(vatError.getStatusCode() != null){
             key = vatError.getMessage();
@@ -152,6 +144,12 @@ public class MtdVatObligations extends MtdVatManage {
         logger.error("Problems calling HMRC", e);
         obligationsFeedback.setMsg(getResourceBundleMsg("problems"));
       }
+    }
+
+    @Override
+    protected void onConfigure() {
+      super.onConfigure();
+      setActiveMenu("obligations");
     }
   }
 

@@ -37,9 +37,6 @@ import net.opentechnology.triki.core.dto.TypeDto
 import net.opentechnology.triki.core.template.TemplateException
 import net.opentechnology.triki.core.template.TemplateStore
 import net.opentechnology.triki.modules.Module
-import net.opentechnology.triki.mtd.enums.DateRange
-import net.opentechnology.triki.mtd.enums.DateRangeIConverter
-import net.opentechnology.triki.mtd.enums.StatusIConverter
 import net.opentechnology.triki.mtd.enums.VatObligationStatus
 import net.opentechnology.triki.mtd.pages.MtdLogin
 import net.opentechnology.triki.mtd.pages.MtdVatHome
@@ -190,8 +187,7 @@ public class HmrcVatModule implements Module {
 
 	@Override
 	void addConverters(ConverterLocator defaultLocator) {
-		defaultLocator.set(DateRange.class, new DateRangeIConverter());
-		defaultLocator.set(VatObligationStatus.class, new StatusIConverter());
+		//defaultLocator.set(VatObligationStatus.class, new StatusIConverter());
 	}
 
 	@Override

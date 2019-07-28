@@ -36,4 +36,10 @@ public enum VatObligationStatus {
             throw new EnumValueException("Could not find status " + desc);
         }
     }
+
+    @Override
+    public String toString() {
+        return description;
+    }
+
 }
