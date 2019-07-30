@@ -35,9 +35,17 @@ public interface HmrcVatClient {
 
     @GET("organisations/vat/{vrn}/liabilities")
     @Headers("Accept: application/vnd.hmrc.1.0+json")
-    Call<VatLiabilities> getLiabilities(@Path("vrn") String vrn);
+    Call<VatLiabilities> getLiabilities(@Path("vrn") String vrn,
+                                        @Query("from") String from,
+                                        @Query("to") String to,
+                                        @HeaderMap Map<String, String> hmrcHeaders,
+                                        @Header("Gov-Test-Scenario") String testScenario);
 
     @GET("organisations/vat/{vrn}/payments")
     @Headers("Accept: application/vnd.hmrc.1.0+json")
-    Call<VatPayments> getPayments(@Path("vrn") String vrn);
+    Call<VatPayments> getPayments(@Path("vrn") String vrn,
+                                  @Query("from") String from,
+                                  @Query("to") String to,
+                                  @HeaderMap Map<String, String> hmrcHeaders,
+                                  @Header("Gov-Test-Scenario") String testScenario);
 }

@@ -7,8 +7,7 @@ import java.time.LocalDate
 
 @Data
 @Builder
-class VatLiability {
-
+class VatLiability implements Serializable{
     TaxPeriod taxPeriod
     String type
     BigDecimal originalAmount

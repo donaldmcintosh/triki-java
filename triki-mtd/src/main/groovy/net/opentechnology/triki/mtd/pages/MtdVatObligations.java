@@ -63,19 +63,12 @@ public class MtdVatObligations extends MtdVatManage {
     private VatObligationStatus status = VatObligationStatus.ALL;
     private String hmrcHeaders;
     private FeedbackStringContainer obligationsFeedback;
-    private final List<String> statuses;
-    private final List<String> dateRanges;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     public MtdVatObligationsForm(String id, SessionUtils sessionUtils, HmrcClientUtils hmrcClientUtils) {
       super(id);
       this.sessionUtils = sessionUtils;
       this.hmrcClientUtils = hmrcClientUtils;
-
-      statuses = Arrays.stream(VatObligationStatus.values())
-              .map(VatObligationStatus::getDescription)
-              .collect(Collectors.toList());
-      dateRanges = Arrays.stream(DateRange.values()).map(DateRange::getLabel).collect(Collectors.toList());
 
       setDefaultModel(new CompoundPropertyModel(this));
 

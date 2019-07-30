@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,8 +5,94 @@
 <body xmlns:wicket="https://www.apache.org/wicket">
 <wicket:extend>
 
-  Liabilities content
+  <form class="ui form four column grid" id="mtdVatLiabilitiesForm" onsubmit="setAntiFraudHeaders()" method="post"
+        wicket:id="mtdVatLiabilitiesForm">
+    <div class="row">
+      <div class="column">
+        <div class="field">
+          <label>VRN</label>
+          <input id="vrn" type="text" wicket:id="vrn" name="vrn" placeholder="VAT Registration Number"/>
+          <ul id="vrnFeedback" wicket:id="vrnFeedback" class="feedbackList ui pointing red basic label">
+            <li class="feedbackPanelERROR"></li>
+          </ul>
+        </div>
+      </div>
+      <div class="column">
+        <div class="field">
+          <label>Date Range</label>
+          <select id="dateRange" class="ui simple dropdown" wicket:id="dateRange"></select>
+          <ul id="dateRangeFeedback" wicket:id="dateRangeFeedback"
+              class="feedbackList ui pointing red basic label">
+            <li class="feedbackPanelERROR"></li>
+          </ul>
+        </div>
+      </div>
+      <div class="column">
+        <div class="field">
+          <label>Get Liabilities</label>
+          <button id="getLiabilitiesButton" class="ui button" type="submit">Submit</button>
+        </div>
+      </div>
+    </div>
+    <input id="hmrcHeaders" type="hidden" wicket:id="hmrcHeaders" name="hmrcHeaders" value=""/>
+    <div id="liabilitiesFeedback" wicket:id="liabilitiesFeedback" class="ui red basic label">
+      <p wicket:id="status"></p>
+    </div>
+
+  </form>
+
+  <!--    <div class="ui divider"></div>-->
+
+  <div wicket:id="resultsSection"></div>
+
+  <wicket:fragment wicket:id="resultsPlaceholder">
+    <div class="ui placeholder"></div>
+  </wicket:fragment>
+
+  <wicket:fragment wicket:id="resultsFragments">
+    <table class="ui celled structured table">
+      <thead>
+      <tr>
+        <th colspan="2">Tax Period</th>
+        <th rowspan="2">Type</th>
+        <th colspan="2">Amount</th>
+        <th rowspan="2">Due</th>
+      </tr>
+      <tr>
+        <th>From</th>
+        <th>To</th>
+        <th>Original</th>
+        <th>Outstanding</th>
+      </tr>
+      </thead>
+      <tbody>
+      <div id="liabilitiesResults" wicket:id="liabilityResults">
+        <tr>
+          <td data-label="From Date">
+            <div wicket:id="fromDate"></div>
+          </td>
+          <td data-label="To Date">
+            <div wicket:id="toDate"></div>
+          </td>
+          <td data-label="Type">
+            <div wicket:id="type"></div>
+          </td>
+          <td data-label="Original Amount">
+            <div wicket:id="originalAmount"></div>
+          </td>
+          <td data-label="Outstanding Amount">
+            <div wicket:id="outstandingAmount"></div>
+          </td>
+          <td data-label="Due">
+            <div wicket:id="due"></div>
+          </td>
+        </tr>
+      </div>
+      </tbody>
+    </table>
+  </wicket:fragment>
 
 </wicket:extend>
 </body>
 </html>
+

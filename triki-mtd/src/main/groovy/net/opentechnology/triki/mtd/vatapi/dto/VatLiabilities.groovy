@@ -5,7 +5,7 @@ import lombok.Data
 
 @Data
 @Builder
-class VatLiabilities {
+class VatLiabilities implements Serializable {
 
     List<VatLiability> liabilities
 }

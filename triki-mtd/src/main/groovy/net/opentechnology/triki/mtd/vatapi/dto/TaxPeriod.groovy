@@ -7,7 +7,7 @@ import java.time.LocalDate
 
 @Data
 @Builder
-class TaxPeriod {
+class TaxPeriod implements Serializable {
 
     LocalDate from
     LocalDate to
