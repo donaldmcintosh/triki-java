@@ -33,7 +33,24 @@ class VatObligationsTest extends Specification {
         "QUARTERLY_ONE_MET" | _
         "QUARTERLY_THREE_MET" | _
         "QUARTERLY_TWO_MET" | _
+    }
 
+    def "check date serialisation"(){
+        given:
+        InputStream url = this.getClass().getClassLoader().getResourceAsStream("json/MONTHLY_NONE_MET.json")
+        ObjectMapper camelObjectMapper =  new ObjectMapper()
+                .registerModule(new JavaTimeModule())
+                .setPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CAMEL_CASE);
+
+        when:
+        def jsonText = url.getText("UTF-8")
+        VatObligations vatObligations = camelObjectMapper.readValue(jsonText, VatObligations)
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        camelObjectMapper.writeValue(baos, vatObligations);
+
+        then:
+        baos.toString().contains("01 Jan 2017")
 
     }
 }

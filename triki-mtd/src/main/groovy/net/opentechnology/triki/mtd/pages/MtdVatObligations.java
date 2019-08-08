@@ -160,8 +160,8 @@ public class MtdVatObligations extends MtdVatManage {
           item.add(new Label("end", new PropertyModel(item.getModel(), "end")));
           item.add(new Label("status", new PropertyModel(item.getModel(), "status")));
           item.add(new Label("due", new PropertyModel(item.getModel(), "due")));
-//          item.add(new Label("received", new PropertyModel(item.getModel(), "received")));
           item.add(new Label("periodKey", new PropertyModel(item.getModel(), "periodKey")));
+          item.add(new Label("received", new PropertyModel(item.getModel(), "received")));
         }
       };
       results.setReuseItems(true);
