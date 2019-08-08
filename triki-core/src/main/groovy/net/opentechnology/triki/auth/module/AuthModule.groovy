@@ -219,13 +219,13 @@ public class AuthModule implements Module {
 	@Override
 	public void initWeb() {
 		sch.addFilter(new FilterHolder(new DelegatingFilterProxy("accessFilter")), "/*", EnumSet.allOf(DispatcherType.class));
-//		sch.addFilter(new FilterHolder(new DelegatingFilterProxy("trikiWicketFilter")), "/*", EnumSet.allOf(DispatcherType.class));
 
 		FilterHolder fh = new FilterHolder(WicketFilter.class);
 		fh.setInitParameter(WicketFilter.APP_FACT_PARAM, SpringWebApplicationFactory.class.getName());
 		fh.setInitParameter(ContextParamWebApplicationFactory.APP_CLASS_PARAM, UIApplication.class.getName());
 		fh.setInitParameter(WicketFilter.FILTER_MAPPING_PARAM, "/ui/*");
 		sch.addFilter(fh, "/ui/*", EnumSet.of(DispatcherType.REQUEST, DispatcherType.ERROR));
+
 	}
 
 }

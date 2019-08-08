@@ -39,6 +39,12 @@ public class SessionUtils {
   @Inject
   private final IdentityProviders identityProviders
 
+  public SessionUtils(){}
+
+  public SessionUtils(HttpSession session){
+    this.session = session;
+  }
+
   private setKnownPersonSession(  Resource person) {
     logger.info("Setting session known person for " + person.getProperty(Dcterms.title)?.getString())
     session.setAttribute(SESSION_PERSON, person)

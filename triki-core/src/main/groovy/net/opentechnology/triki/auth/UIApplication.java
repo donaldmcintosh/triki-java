@@ -8,6 +8,7 @@ import org.apache.wicket.ConverterLocator;
 import org.apache.wicket.IConverterLocator;
 import org.apache.wicket.Page;
 import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.settings.SecuritySettings;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class UIApplication extends WebApplication {
     getComponentInstantiationListeners().add(new SpringComponentInjector(this, ctx));
     mountPage("/login", LoginPage.class);
     mountModulePages();
+    setAuthorisationStrategy(getSecuritySettings());
   }
 
   private void mountModulePages(){
@@ -32,6 +34,14 @@ public class UIApplication extends WebApplication {
     for(String beanName: beanNames){
       Module module = getCtx().getBean(beanName, Module.class);
       module.mountPages(this);
+    }
+  }
+
+  private void setAuthorisationStrategy(SecuritySettings securitySettings){
+    String[] beanNames = getCtx().getParent().getBeanNamesForType(Module.class);
+    for(String beanName: beanNames){
+      Module module = getCtx().getBean(beanName, Module.class);
+      module.setAuthorisationStrategy(securitySettings);
     }
   }
 

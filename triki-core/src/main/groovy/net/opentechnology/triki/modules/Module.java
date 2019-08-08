@@ -24,6 +24,7 @@ package net.opentechnology.triki.modules;
 import net.opentechnology.triki.core.boot.StartupException;
 import org.apache.wicket.ConverterLocator;
 import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.settings.SecuritySettings;
 
 public interface Module {
 
@@ -40,6 +41,10 @@ public interface Module {
 	}
 
 	public default void addConverters(ConverterLocator defaultLocator){
+
+	}
+
+	public default void setAuthorisationStrategy(SecuritySettings securitySettings){
 
 	}
 

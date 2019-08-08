@@ -21,43 +21,27 @@
 
 package net.opentechnology.triki.mtd.module
 
-
+import net.opentechnology.triki.auth.module.AuthModule
 import net.opentechnology.triki.auth.resources.IdentityProviders
+import net.opentechnology.triki.auth.resources.SessionUtils
 import net.opentechnology.triki.core.boot.CachedPropertyStore
 import net.opentechnology.triki.core.boot.CoreModule
 import net.opentechnology.triki.core.boot.StartupException
-import net.opentechnology.triki.core.dto.ContentDto
-import net.opentechnology.triki.core.dto.GroupDto
-import net.opentechnology.triki.core.dto.IdentityProviderDto
-import net.opentechnology.triki.core.dto.PageDto
-import net.opentechnology.triki.core.dto.PrefixDto
-import net.opentechnology.triki.core.dto.PropertyDto
-import net.opentechnology.triki.core.dto.SettingDto
-import net.opentechnology.triki.core.dto.TypeDto
-import net.opentechnology.triki.core.template.TemplateException
+import net.opentechnology.triki.core.dto.*
 import net.opentechnology.triki.core.template.TemplateStore
 import net.opentechnology.triki.modules.Module
-import net.opentechnology.triki.mtd.enums.VatObligationStatus
-import net.opentechnology.triki.mtd.pages.MtdLogin
-import net.opentechnology.triki.mtd.pages.MtdVatHome
-import net.opentechnology.triki.mtd.pages.MtdVatLiabilities
-import net.opentechnology.triki.mtd.pages.MtdVatObligations
-import net.opentechnology.triki.mtd.pages.MtdVatPayments
-import net.opentechnology.triki.mtd.pages.MtdVatReturns
+import net.opentechnology.triki.mtd.pages.*
 import net.opentechnology.triki.mtd.security.HmrcIdentityProvider
-import net.opentechnology.triki.mtd.wicket.MtdVatApplication
+import net.opentechnology.triki.mtd.security.PageAuthStrategy
 import net.opentechnology.triki.schema.Triki
 import org.apache.camel.CamelContext
 import org.apache.jena.rdf.model.Model
 import org.apache.jena.rdf.model.Resource
 import org.apache.wicket.ConverterLocator
-import org.apache.wicket.protocol.http.ContextParamWebApplicationFactory
+import org.apache.wicket.authorization.strategies.page.SimplePageAuthorizationStrategy
 import org.apache.wicket.protocol.http.WebApplication
-import org.apache.wicket.protocol.http.WicketFilter
-import org.apache.wicket.protocol.http.WicketServlet
-import org.apache.wicket.spring.SpringWebApplicationFactory
+import org.apache.wicket.settings.SecuritySettings
 import org.eclipse.jetty.servlet.ServletContextHandler
-import org.eclipse.jetty.servlet.ServletHolder
 import org.springframework.beans.factory.annotation.Qualifier
 
 import javax.inject.Inject
@@ -174,6 +158,7 @@ public class HmrcVatModule implements Module {
 
 	private void initSettings(){
 		settingDto.addSetting(Settings.HMRCBASEURL.name(), "https://test-api.service.hmrc.gov.uk/", "HMRC Base URL");
+		settingDto.updateSetting(AuthModule.Settings.DEFAULTLOGINPAGE.name(), "/ui/mtdlogin", "MTD Default login page");
 	}
 	
 	public void initAsync() throws StartupException {
@@ -182,7 +167,6 @@ public class HmrcVatModule implements Module {
 
 	@Override
 	public void initWeb() {
-
 	}
 
 	@Override
@@ -192,13 +176,18 @@ public class HmrcVatModule implements Module {
 
 	@Override
 	public void mountPages(WebApplication webApplication){
-		webApplication.mountPage("/mtdlogin", MtdLogin.class)
-		webApplication.mountPage("/mtdvat", MtdVatHome.class)
-		webApplication.mountPage("/mtdvatobligations", MtdVatObligations.class)
-		webApplication.mountPage("/mtdvatreturns", MtdVatReturns.class)
-		webApplication.mountPage("/mtdvatliabilities", MtdVatLiabilities.class)
-		webApplication.mountPage("/mtdvatpayments", MtdVatPayments.class)
+		webApplication.mountPage("/mtd/login", MtdLogin.class)
+		webApplication.mountPage("/mtd/vat", MtdVatHome.class)
+		webApplication.mountPage("/mtd/vat/obligations", MtdVatObligations.class)
+		webApplication.mountPage("/mtd/vat/returns", MtdVatReturns.class)
+		webApplication.mountPage("/mtd/vat/liabilities", MtdVatLiabilities.class)
+		webApplication.mountPage("/mtd/vat/payments", MtdVatPayments.class)
 	}
 
+	@Override
+	void setAuthorisationStrategy(SecuritySettings securitySettings) {
+		PageAuthStrategy pageAuthStrategy = new PageAuthStrategy(MtdVatManage.class, MtdLogin.class);
 
+		securitySettings.setAuthorizationStrategy(pageAuthStrategy);
+	}
 }
