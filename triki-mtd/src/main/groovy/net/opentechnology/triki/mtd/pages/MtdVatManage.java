@@ -1,6 +1,7 @@
 package net.opentechnology.triki.mtd.pages;
 
 import net.opentechnology.triki.auth.resources.SessionUtils;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 public class MtdVatManage extends MtdVatParent {
@@ -10,7 +11,7 @@ public class MtdVatManage extends MtdVatParent {
 
   private final NavigationMenu navigationMenu;
 
-  public MtdVatManage() {
+  public MtdVatManage(PageParameters parameters) {
     navigationMenu = new NavigationMenu("navigationMenu");
     add(navigationMenu);
   }

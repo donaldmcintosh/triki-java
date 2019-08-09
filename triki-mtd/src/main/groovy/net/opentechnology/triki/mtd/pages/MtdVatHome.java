@@ -4,7 +4,8 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 public class MtdVatHome extends MtdVatManage {
 
-  public MtdVatHome() {
+  public MtdVatHome(PageParameters parameters) {
 
+    super(parameters);
   }
 }

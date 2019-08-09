@@ -33,6 +33,7 @@ import net.opentechnology.triki.modules.Module
 import net.opentechnology.triki.mtd.pages.*
 import net.opentechnology.triki.mtd.security.HmrcIdentityProvider
 import net.opentechnology.triki.mtd.security.PageAuthStrategy
+import net.opentechnology.triki.mtd.vatapi.serialisers.LocalDateConverter
 import net.opentechnology.triki.schema.Triki
 import org.apache.camel.CamelContext
 import org.apache.jena.rdf.model.Model
@@ -45,6 +46,7 @@ import org.eclipse.jetty.servlet.ServletContextHandler
 import org.springframework.beans.factory.annotation.Qualifier
 
 import javax.inject.Inject
+import java.time.LocalDate
 
 public class HmrcVatModule implements Module {
 
@@ -171,7 +173,7 @@ public class HmrcVatModule implements Module {
 
 	@Override
 	void addConverters(ConverterLocator defaultLocator) {
-		//defaultLocator.set(VatObligationStatus.class, new StatusIConverter());
+		defaultLocator.set(LocalDate.class, new LocalDateConverter());
 	}
 
 	@Override

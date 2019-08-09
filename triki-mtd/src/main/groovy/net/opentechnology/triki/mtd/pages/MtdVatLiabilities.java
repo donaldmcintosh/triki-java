@@ -6,7 +6,6 @@ import net.opentechnology.triki.auth.components.FeedbackStringContainer;
 import net.opentechnology.triki.auth.resources.SessionUtils;
 import net.opentechnology.triki.mtd.enums.DateRange;
 import net.opentechnology.triki.mtd.enums.RangeStartStop;
-import net.opentechnology.triki.mtd.enums.VatObligationStatus;
 import net.opentechnology.triki.mtd.security.HmrcIdentityProvider;
 import net.opentechnology.triki.mtd.validators.FormFieldNumericValidator;
 import net.opentechnology.triki.mtd.validators.FormFieldRequiredValidator;
@@ -14,7 +13,6 @@ import net.opentechnology.triki.mtd.vatapi.client.HmrcClientUtils;
 import net.opentechnology.triki.mtd.vatapi.client.HmrcVatClient;
 import net.opentechnology.triki.mtd.vatapi.dto.VatError;
 import net.opentechnology.triki.mtd.vatapi.dto.VatLiability;
-import net.opentechnology.triki.mtd.vatapi.dto.VatObligation;
 import net.opentechnology.triki.mtd.vatapi.dto.VatLiabilities;
 import org.apache.log4j.Logger;
 import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
@@ -28,6 +26,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -35,7 +34,6 @@ import retrofit2.Response;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MtdVatLiabilities extends MtdVatManage {
 
@@ -51,8 +49,9 @@ public class MtdVatLiabilities extends MtdVatManage {
 
   private ListView<VatLiability> results;
 
-  public MtdVatLiabilities() {
+  public MtdVatLiabilities(PageParameters parameters) {
 
+    super(parameters);
     add(new MtdVatLiabilities.MtdVatLiabilitiesForm("mtdVatLiabilitiesForm", sessionUtils, hmrcVatClient));
 
     Fragment resultsPlaceholder = new  Fragment ("resultsSection", "resultsPlaceholder", this);

@@ -1,7 +1,7 @@
 package net.opentechnology.triki.mtd.pages;
 
+import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.opentechnology.triki.auth.components.FeedbackListContainer;
@@ -22,11 +22,13 @@ import org.apache.log4j.Logger;
 import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.*;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -45,8 +47,9 @@ public class MtdVatObligations extends MtdVatManage {
 
   private ListView<VatObligation> results;
 
-  public MtdVatObligations() {
+  public MtdVatObligations(PageParameters pageParameters) {
 
+    super(pageParameters);
     add(new MtdVatObligationsForm("mtdVatObligationsForm", sessionUtils, hmrcVatClient));
 
     Fragment resultsPlaceholder = new  Fragment ("resultsSection", "resultsPlaceholder", this);
@@ -154,19 +157,38 @@ public class MtdVatObligations extends MtdVatManage {
 
       Fragment resultsSection = new  Fragment ("resultsSection", "resultsFragments", this);
       results = new ListView<VatObligation>("obligationResults", obligationsResults) {
+
         @Override
         protected void populateItem(ListItem<VatObligation> item) {
+          VatObligation vatObligation = item.getModelObject();
           item.add(new Label("start", new PropertyModel(item.getModel(), "start")));
           item.add(new Label("end", new PropertyModel(item.getModel(), "end")));
           item.add(new Label("status", new PropertyModel(item.getModel(), "status")));
           item.add(new Label("due", new PropertyModel(item.getModel(), "due")));
           item.add(new Label("periodKey", new PropertyModel(item.getModel(), "periodKey")));
           item.add(new Label("received", new PropertyModel(item.getModel(), "received")));
+          PageParameters pageParameters = new PageParameters();
+          pageParameters.set("periodKey", vatObligation.getPeriodKey());
+          BookmarkablePageLink viewReturnLink = new BookmarkablePageLink("viewReturn", MtdVatViewReturn.class, pageParameters);
+          item.add(viewReturnLink);
+          BookmarkablePageLink submitReturnLink = new BookmarkablePageLink("submitReturn", MtdVatSubmitReturn.class, pageParameters);
+          item.add(submitReturnLink);
+
+          if(vatObligation.getStatus() == VatObligationStatus.F){
+            submitReturnLink.setVisible(false);
+          }
+          if(vatObligation.getStatus() == VatObligationStatus.O) {
+            if (vatObligation.getDue().isBefore(LocalDate.now())) {
+              viewReturnLink.setVisible(false);
+            } else {
+              submitReturnLink.setVisible(false);
+              viewReturnLink.setVisible(false);
+            }
+          }
         }
       };
       results.setReuseItems(true);
       resultsSection.add(results);
-
 
       replace(resultsSection);
     }

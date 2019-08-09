@@ -6,20 +6,20 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.Data;
+import lombok.Getter;
 import net.opentechnology.triki.mtd.enums.VatObligationStatus;
 import net.opentechnology.triki.mtd.vatapi.serialisers.LocalDateSerializer;
 
+@Getter
 public class VatObligation implements Serializable {
 
-    @JsonSerialize(using = LocalDateSerializer.class)
     @JsonProperty
     LocalDate start;
 
-    @JsonSerialize(using = LocalDateSerializer.class)
     @JsonProperty
     LocalDate end;
 
-    @JsonSerialize(using = LocalDateSerializer.class)
     @JsonProperty
     LocalDate due;
 
@@ -29,7 +29,6 @@ public class VatObligation implements Serializable {
     @JsonProperty
     String periodKey;
 
-    @JsonSerialize(using = LocalDateSerializer.class)
     @JsonProperty
     LocalDate received;
 

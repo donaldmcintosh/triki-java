@@ -68,6 +68,7 @@
                 <th>Status</th>
                 <th>Due</th>
                 <th>Received</th>
+                <th>Return</th>
             </tr>
             </thead>
             <tbody>
@@ -90,6 +91,14 @@
                     </td>
                     <td data-label="Received">
                         <div wicket:id="received"></div>
+                    </td>
+                    <td data-label="Return">
+                        <a id="viewReturn" wicket:id="viewReturn" class="item">
+                            <button class="ui grey button">View</button>
+                        </a>
+                        <a id="submitReturn" wicket:id="submitReturn" class="item">
+                            <button class="ui green button">Submit</button>
+                        </a>
                     </td>
                 </tr>
             </div>

@@ -2,9 +2,9 @@ package net.opentechnology.triki.mtd.pages;
 
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
-public class MtdVatReturns extends MtdVatManage {
+public class MtdVatSubmitReturn extends MtdVatManage {
 
-  public MtdVatReturns(PageParameters parameters) {
+  public MtdVatSubmitReturn(PageParameters parameters) {
     super(parameters);
   }
 

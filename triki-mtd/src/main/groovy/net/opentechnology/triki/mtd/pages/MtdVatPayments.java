@@ -1,8 +1,11 @@
 package net.opentechnology.triki.mtd.pages;
 
+import org.apache.wicket.request.mapper.parameter.PageParameters;
+
 public class MtdVatPayments extends MtdVatManage {
 
-  public MtdVatPayments() {
+  public MtdVatPayments(PageParameters parameters) {
+    super(parameters);
   }
 
   @Override
