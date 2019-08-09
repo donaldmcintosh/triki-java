@@ -1,5 +1,7 @@
 package net.opentechnology.triki.mtd.pages;
 
+import static net.opentechnology.triki.mtd.pages.MtdVatViewReturn.PERIOD_KEY;
+
 import java.time.LocalDate;
 import java.util.*;
 
@@ -19,6 +21,7 @@ import net.opentechnology.triki.mtd.vatapi.dto.VatError;
 import net.opentechnology.triki.mtd.vatapi.dto.VatObligation;
 import net.opentechnology.triki.mtd.vatapi.dto.VatObligations;
 import org.apache.log4j.Logger;
+import org.apache.wicket.Session;
 import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.*;
@@ -111,8 +114,9 @@ public class MtdVatObligations extends MtdVatManage {
 
       String accessToken = sessionUtils.getModuleToken(HmrcIdentityProvider.HMRC_TOKEN);
       try {
+        setVrn(vrn);
         HashMap<String, String> headers = objectMapper.readValue(hmrcHeaders, HashMap.class);
-        headers.put("Gov-Client-Connection-Method", "WEB_APP_VIA_SERVER");
+        setHmrcHeaders(headers);
 
         RangeStartStop startStop = new RangeStartStop(dateRange);
         HmrcVatClient hmrcVatClient = hmrcClientUtils.buildAuthBearerServiceClient(accessToken);
@@ -168,7 +172,7 @@ public class MtdVatObligations extends MtdVatManage {
           item.add(new Label("periodKey", new PropertyModel(item.getModel(), "periodKey")));
           item.add(new Label("received", new PropertyModel(item.getModel(), "received")));
           PageParameters pageParameters = new PageParameters();
-          pageParameters.set("periodKey", vatObligation.getPeriodKey());
+          pageParameters.set(PERIOD_KEY, vatObligation.getPeriodKey());
           BookmarkablePageLink viewReturnLink = new BookmarkablePageLink("viewReturn", MtdVatViewReturn.class, pageParameters);
           item.add(viewReturnLink);
           BookmarkablePageLink submitReturnLink = new BookmarkablePageLink("submitReturn", MtdVatSubmitReturn.class, pageParameters);
@@ -192,9 +196,5 @@ public class MtdVatObligations extends MtdVatManage {
 
       replace(resultsSection);
     }
-  }
-
-  public String getResourceBundleMsg(String key){
-    return getString(key);
   }
 }

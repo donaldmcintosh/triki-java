@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body xmlns:wicket="https://www.apache.org/wicket">
+<wicket:extend>
+
+        <div class="row">
+            <div class="column">
+                <div class="field">
+                    <label>VRN: <div id="vrn"  wicket:id="vrn"><</div></label>
+                    <ul id="vrnFeedback" wicket:id="vrnFeedback" class="feedbackList ui pointing red basic label">
+                        <li class="feedbackPanelERROR"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- table of return fields -->
+
+        <div id="viewReturnFeedback" wicket:id="viewReturnFeedback" class="ui red basic label">
+            <p wicket:id="status"></p>
+        </div>
+
+</wicket:extend>
+</body>
+</html>
+
