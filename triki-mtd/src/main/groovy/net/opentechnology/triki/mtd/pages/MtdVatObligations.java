@@ -78,14 +78,14 @@ public class MtdVatObligations extends MtdVatManage {
 
       setDefaultModel(new CompoundPropertyModel(this));
 
-      TextField vrn = new TextField("vrn");
+      TextField vrnField = new TextField("vrn");
       FormFieldRequiredValidator vrnRequiredValidator = new FormFieldRequiredValidator("VRN");
       FormFieldNumericValidator vrnNumericValidator = new FormFieldNumericValidator("VRN");
-      vrn.add(vrnRequiredValidator);
-      vrn.add(vrnNumericValidator);
-      add(vrn);
+      vrnField.add(vrnRequiredValidator);
+      vrnField.add(vrnNumericValidator);
+      add(vrnField);
       FeedbackListContainer vrnFeedback = new FeedbackListContainer("vrnFeedback");
-      vrnFeedback.setFilter(new ComponentFeedbackMessageFilter(vrn));
+      vrnFeedback.setFilter(new ComponentFeedbackMessageFilter(vrnField));
       add(vrnFeedback);
 
       DropDownChoice<DateRange> dateRangeChoice = new DropDownChoice<DateRange>("dateRange", new PropertyModel(this, "dateRange"),  Arrays.asList(DateRange.values()) );
@@ -105,6 +105,8 @@ public class MtdVatObligations extends MtdVatManage {
 
       obligationsFeedback = new FeedbackStringContainer("obligationsFeedback");
       add(obligationsFeedback);
+
+      vrn = getVrn();
     }
 
 

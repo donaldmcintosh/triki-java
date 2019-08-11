@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter
 
 class LocalDateSerializer extends JsonSerializer<LocalDate> {
 
-    private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MMM yyyy")
+    private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MMM yy")
 
     @Override
     void serialize(LocalDate localDate, JsonGenerator gen, SerializerProvider provider) throws IOException {

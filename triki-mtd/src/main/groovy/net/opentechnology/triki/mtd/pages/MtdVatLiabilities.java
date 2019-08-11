@@ -50,7 +50,6 @@ public class MtdVatLiabilities extends MtdVatManage {
   private ListView<VatLiability> results;
 
   public MtdVatLiabilities(PageParameters parameters) {
-
     super(parameters);
     add(new MtdVatLiabilities.MtdVatLiabilitiesForm("mtdVatLiabilitiesForm", sessionUtils, hmrcVatClient));
 
@@ -76,14 +75,14 @@ public class MtdVatLiabilities extends MtdVatManage {
 
       setDefaultModel(new CompoundPropertyModel(this));
 
-      TextField vrn = new TextField("vrn");
+      TextField vrnField = new TextField("vrn");
       FormFieldRequiredValidator vrnRequiredValidator = new FormFieldRequiredValidator("VRN");
       FormFieldNumericValidator vrnNumericValidator = new FormFieldNumericValidator("VRN");
-      vrn.add(vrnRequiredValidator);
-      vrn.add(vrnNumericValidator);
-      add(vrn);
+      vrnField.add(vrnRequiredValidator);
+      vrnField.add(vrnNumericValidator);
+      add(vrnField);
       FeedbackListContainer vrnFeedback = new FeedbackListContainer("vrnFeedback");
-      vrnFeedback.setFilter(new ComponentFeedbackMessageFilter(vrn));
+      vrnFeedback.setFilter(new ComponentFeedbackMessageFilter(vrnField));
       add(vrnFeedback);
 
       DropDownChoice<DateRange> dateRangeChoice = new DropDownChoice<DateRange>("dateRange", new PropertyModel(this, "dateRange"),  Arrays.asList(DateRange.values()) );
@@ -97,6 +96,8 @@ public class MtdVatLiabilities extends MtdVatManage {
 
       liabilitiesFeedback = new FeedbackStringContainer("liabilitiesFeedback");
       add(liabilitiesFeedback);
+
+      vrn = getVrn();
     }
 
 
@@ -106,8 +107,9 @@ public class MtdVatLiabilities extends MtdVatManage {
 
       String accessToken = sessionUtils.getModuleToken(HmrcIdentityProvider.HMRC_TOKEN);
       try {
+        setVrn(vrn);
         HashMap<String, String> headers = objectMapper.readValue(hmrcHeaders, HashMap.class);
-        headers.put("Gov-Client-Connection-Method", "WEB_APP_VIA_SERVER");
+        setHmrcHeaders(headers);
 
         RangeStartStop startStop = new RangeStartStop(dateRange);
         HmrcVatClient hmrcVatClient = hmrcClientUtils.buildAuthBearerServiceClient(accessToken);

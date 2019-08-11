@@ -33,6 +33,7 @@ import net.opentechnology.triki.modules.Module
 import net.opentechnology.triki.mtd.pages.*
 import net.opentechnology.triki.mtd.security.HmrcIdentityProvider
 import net.opentechnology.triki.mtd.security.PageAuthStrategy
+import net.opentechnology.triki.mtd.vatapi.serialisers.BigDecimalConverter
 import net.opentechnology.triki.mtd.vatapi.serialisers.LocalDateConverter
 import net.opentechnology.triki.schema.Triki
 import org.apache.camel.CamelContext
@@ -174,6 +175,7 @@ public class HmrcVatModule implements Module {
 	@Override
 	void addConverters(ConverterLocator defaultLocator) {
 		defaultLocator.set(LocalDate.class, new LocalDateConverter());
+		defaultLocator.set(BigDecimal.class, new BigDecimalConverter());
 	}
 
 	@Override
