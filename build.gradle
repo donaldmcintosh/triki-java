@@ -132,7 +132,8 @@ dependencies {
     compile project(":triki-twitter")
     compile project(":triki-pageviews")
     compile project(":triki-image")
-//    compile project(":triki-mtd")
+    compile project(":triki-mtd")
+    compile project(":triki-paypal")
 }
 
 shadowJar {
