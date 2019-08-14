@@ -21,20 +21,14 @@
 
 package net.opentechnology.triki.share.async
 
-import java.text.SimpleDateFormat
 
 import javax.inject.Inject;
 
 import org.apache.camel.Exchange
 import org.apache.camel.builder.RouteBuilder
 import groovy.util.logging.Log4j
-import net.opentechnology.triki.core.dto.SettingDto;
-import twitter4j.StatusJSONImpl
-
+import net.opentechnology.triki.core.dto.SettingDto
 import net.opentechnology.triki.share.module.ShareModule
-
-import org.springframework.aop.aspectj.RuntimeTestWalker.ThisInstanceOfResidueTestVisitor;
-import org.springframework.beans.factory.annotation.Value;
 
 @Log4j("logger")
 class SendTwitter extends RouteBuilder

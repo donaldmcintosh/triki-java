@@ -9,4 +9,6 @@ public class ParentPage extends WebPage {
     super(parameters);
   }
 
+  public ParentPage() {
+  }
 }

@@ -91,7 +91,8 @@ allprojects {
         compile group: 'org.apache.wicket', name: 'wicket-core', version: '8.4.0'
         compile group: 'org.apache.wicket', name: 'wicket-spring', version: '8.4.0'
         compile group: 'org.apache.wicket', name: 'wicket-bean-validation', version: '8.4.0'
-//        compile group: 'org.objenesis', name: 'objenesis', version: '1.4'
+        compile group: 'org.apache.wicket', name: 'wicket-extensions', version: '8.4.0'
+        compile "org.projectlombok:lombok:1.18.6"
 
         compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
         compile group: 'org.slf4j', name: 'log4j-over-slf4j', version: '1.7.25'
@@ -131,6 +132,7 @@ dependencies {
     compile project(":triki-twitter")
     compile project(":triki-pageviews")
     compile project(":triki-image")
+//    compile project(":triki-mtd")
 }
 
 shadowJar {

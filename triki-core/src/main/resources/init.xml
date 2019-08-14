@@ -52,7 +52,6 @@
 	<bean id="identityProviders" class="net.opentechnology.triki.auth.resources.IdentityProviders" />
 	
 	<bean id="authModule" class="net.opentechnology.triki.auth.module.AuthModule" />
-	<bean id="wicketApplication" class="net.opentechnology.triki.auth.LoginApplication" />
 
 	<bean id="utilities" class="net.opentechnology.triki.core.boot.Utilities" />
 	<bean id="templateStore" class="net.opentechnology.triki.core.template.TemplateStore" />

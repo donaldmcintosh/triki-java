@@ -1,17 +1,15 @@
-package net.opentechnology.triki.auth;
+package net.opentechnology.triki.mtd.wicket;
 
 import javax.inject.Inject;
-import net.opentechnology.triki.auth.pages.LoginPage;
-import net.opentechnology.triki.auth.resources.SessionUtils;
+
+import net.opentechnology.triki.mtd.pages.MtdVatHome;
 import org.apache.wicket.Page;
 import org.apache.wicket.protocol.http.WebApplication;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-public class LoginApplication extends WebApplication {
+public class MtdVatApplication extends WebApplication {
 
   @Inject
   private ApplicationContext ctx;
@@ -27,7 +25,7 @@ public class LoginApplication extends WebApplication {
     getComponentInstantiationListeners().add(new SpringComponentInjector(this,
         WebApplicationContextUtils.getRequiredWebApplicationContext(
             getServletContext())));
-    return LoginPage.class;
+    return MtdVatHome.class;
   }
 
   public ApplicationContext getCtx() {

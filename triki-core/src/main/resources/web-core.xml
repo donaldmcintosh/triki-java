@@ -42,8 +42,9 @@
       </property>
  </bean>
 
+	<bean id="wicketApplication" class="net.opentechnology.triki.auth.UIApplication" />
 	<bean id="accessFilter" class="net.opentechnology.triki.auth.AccessFilter" />
-	<bean id="trikiWicketFilter" class="net.opentechnology.triki.auth.TrikiWicketFilter" />
+<!--	<bean id="trikiWicketFilter" class="net.opentechnology.triki.auth.TrikiWicketFilter" />-->
 	<bean id="sessionUtils" class="net.opentechnology.triki.auth.resources.SessionUtils" />
 	<bean id="authMgr" class="net.opentechnology.triki.auth.AuthorisationManager" />
 	<bean id="authenticationMgr" class="net.opentechnology.triki.auth.AuthenticationManager" />
