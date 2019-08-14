@@ -161,7 +161,7 @@ public class HmrcVatModule implements Module {
 
 	private void initSettings(){
 		settingDto.addSetting(Settings.HMRCBASEURL.name(), "https://test-api.service.hmrc.gov.uk/", "HMRC Base URL");
-		settingDto.updateSetting(AuthModule.Settings.DEFAULTLOGINPAGE.name(), "/ui/mtdlogin", "MTD Default login page");
+		settingDto.updateSetting(AuthModule.Settings.DEFAULTLOGINPAGE.name(), "/ui/mtd/login", "MTD Default login page");
 	}
 	
 	public void initAsync() throws StartupException {
