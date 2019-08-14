@@ -10,3 +10,5 @@ bin/*
 /bin/
 */build/*
 */out/*
+triki-mtd/*
+triki-paypal/*
