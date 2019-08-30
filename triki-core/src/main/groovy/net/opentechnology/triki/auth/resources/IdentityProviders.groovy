@@ -149,7 +149,9 @@ class OutlookIdentityProvider implements IdentityProvider {
                 logger.info("Claim is ${claim.key} : ${claim.getValue().asString()}")
             }
 
-            profile.setName(jwt.getClaims().find{it.key == 'name'}.getValue().asString())
+            if(jwt.getClaims().containsKey('preferred_username')) {
+                profile.setName(jwt.getClaims().find { it.key == 'preferred_username' }.getValue().asString())
+            }
             profile.setEmail(jwt.getClaims().find{it.key == 'email'}.getValue().asString())
             profile.setIdentityProvider(getName())
         } catch (Exception e){
