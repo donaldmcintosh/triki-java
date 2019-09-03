@@ -208,6 +208,30 @@
    <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/oauthscope" vs:term_status="stable" rdfs:label="OAuth scope" rdfs:comment="OAuth scope">
      <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
    </rdf:Property>
+   
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/product" vs:term_status="stable" rdfs:label="Product" rdfs:comment="Product">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>
 
+    <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/price" vs:term_status="stable" rdfs:label="Price" rdfs:comment="Price">
+      <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+    </rdf:Property>
+
+  <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/order" vs:term_status="stable" rdfs:label="Order" rdfs:comment="Order">
+    <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+  </rdf:Property>
+  
+    <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/payment" vs:term_status="stable" rdfs:label="Payment" rdfs:comment="Payment">
+      <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+    </rdf:Property>
+
+    <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/currentOrder" vs:term_status="stable" rdfs:label="Current order" rdfs:comment="Current order">
+      <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+    </rdf:Property>
+
+    <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/paypalButtonId" vs:term_status="stable" rdfs:label="PayPal Button ID" rdfs:comment="PayPal Button ID">
+      <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+    </rdf:Property>
+    
 </rdf:RDF>
 

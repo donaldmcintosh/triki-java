@@ -262,6 +262,11 @@ idp:google  a                     triki:IdentityProvider ;
         triki:oauthtokenendpoint  "http://localhost:9090/token" ;
         triki:restricted          group:private .
 
+mediatype:ods  a      triki:MediaType ;
+        dc:format     "application/octet-stream" ;
+        dc:title      "ods" ;
+        triki:maxage  "10" .
+
 setting:OUTLOOKPROFILEENDPOINT
         a                 triki:Setting ;
         dc:description    "Outlook profile endpoint" ;
@@ -397,6 +402,11 @@ prefix:month  a        triki:Prefix ;
         dc:identifier  month: ;
         dc:title       "month" .
 
+content:odt-vat-template-v10.ods
+        a                 triki:Content ;
+        dc:title          "odt-vat-template-v10.ods" ;
+        triki:restricted  group:private .
+
 prefix:note  a         triki:Prefix ;
         dc:identifier  note: ;
         dc:title       "note" .
@@ -413,7 +423,7 @@ property:references  a  triki:Property ;
         triki:order    "14"^^xsd:int .
 
 <http://localhost:8080//auth/>
-        triki:unrestricted  ".*/ui/.*" , ".*\\.woff" , ".*\\.svg" , ".*\\.ico" , ".*\\.js" , ".*\\.css" , ".*\\.png" , ".*/mtdvatui/.*" .
+        triki:unrestricted  ".*\\.ods" , ".*/ui/.*" , ".*\\.woff" , ".*\\.svg" , ".*\\.ico" , ".*\\.js" , ".*\\.css" , ".*\\.png" , ".*/mtdvatui/.*" .
 
 idp:googlemock  a                 triki:IdentityProvider ;
         dc:title                  "googlemock" ;
