@@ -1,33 +1,36 @@
 @prefix note:  <http://localhost:8080/note/> .
 @prefix notes: <http://localhost:8080/notes/> .
-@prefix year:  <http://localhost:8080/year/> .
 @prefix auth:  <http://localhost:8080/auth/> .
+@prefix year:  <http://localhost:8080/year/> .
 @prefix prefix: <http://localhost:8080/prefix/> .
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix blog:  <http://localhost:8080/blog/> .
 @prefix type:  <http://localhost:8080/type/> .
+@prefix blog:  <http://localhost:8080/blog/> .
 @prefix content: <http://localhost:8080/content/> .
 @prefix setting: <http://localhost:8080/setting/> .
 @prefix triki: <http://www.opentechnology.net/triki/0.1/> .
 @prefix rss:   <http://purl.org/rss/1.0/> .
 @prefix root:  <http://localhost:8080/> .
 @prefix property: <http://localhost:8080/property/> .
+@prefix payment: <http://localhost:8080/payment/> .
 @prefix foaf:  <http://xmlns.com/foaf/0.1/> .
 @prefix group: <http://localhost:8080/group/> .
+@prefix order: <http://localhost:8080/order/> .
 @prefix image: <http://localhost:8080/image/> .
+@prefix product: <http://localhost:8080/product/> .
 @prefix query: <http://localhost:8080/query/> .
 @prefix as:    <http://www.w3.org/ns/activitystreams#> .
-@prefix idp:   <http://localhost:8080/idp/> .
 @prefix month: <http://localhost:8080/month/> .
+@prefix idp:   <http://localhost:8080/idp/> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix publish: <http://localhost:8080//publish/> .
 @prefix localprop: <http://localhost:8080/localprop/> .
 @prefix time:  <http://www.w3.org/2006/time#> .
-@prefix user:  <http://localhost:8080/user/> .
 @prefix mediatype: <http://localhost:8080/mediatype/> .
-@prefix exif:  <http://www.w3.org/2003/12/exif/ns#> .
+@prefix user:  <http://localhost:8080/user/> .
 @prefix dc:    <http://purl.org/dc/terms/> .
+@prefix exif:  <http://www.w3.org/2003/12/exif/ns#> .
 
 property:pageViews  a  triki:Property ;
         dc:identifier  triki:pageViews ;
@@ -262,6 +265,11 @@ idp:google  a                     triki:IdentityProvider ;
         triki:oauthtokenendpoint  "http://localhost:9090/token" ;
         triki:restricted          group:private .
 
+property:price  a      triki:Property ;
+        dc:identifier  triki:price ;
+        dc:title       "price" ;
+        triki:order    "18"^^xsd:int .
+
 mediatype:ods  a      triki:MediaType ;
         dc:format     "application/octet-stream" ;
         dc:title      "ods" ;
@@ -310,6 +318,17 @@ mediatype:svg  a      triki:MediaType ;
         dc:format     "image/svg+xml" ;
         dc:title      "svg" ;
         triki:maxage  "10" .
+
+root:10RETURNS-2019  a        type:product ;
+        dc:created            "2019-09-03T10:54:14.772Z"^^xsd:dateTime ;
+        dc:creator            user:administrator ;
+        dc:description        "Pre-Pay 10 VAT Returns" ;
+        dc:identifier         "10RETURNS-2019" ;
+        dc:title              "10 VAT Returns Bundle" ;
+        triki:paypalButtonId  "S3N5EBCJL9VHA" ;
+        triki:price           "34.99" ;
+        triki:restricted      group:public ;
+        time:month            month:2019September .
 
 prefix:setting  a      triki:Prefix ;
         dc:identifier  setting: ;
@@ -383,6 +402,9 @@ setting:YAHOOOPENIDSCOPE
         triki:restricted  group:private ;
         triki:setting     "openid" .
 
+type:product  a   triki:Type ;
+        dc:title  "Product" .
+
 type:notepub  a   triki:Type ;
         dc:title  "Post note" .
 
@@ -423,7 +445,7 @@ property:references  a  triki:Property ;
         triki:order    "14"^^xsd:int .
 
 <http://localhost:8080//auth/>
-        triki:unrestricted  ".*\\.ods" , ".*/ui/.*" , ".*\\.woff" , ".*\\.svg" , ".*\\.ico" , ".*\\.js" , ".*\\.css" , ".*\\.png" , ".*/mtdvatui/.*" .
+        triki:unrestricted  ".*\\.png" , ".*\\.ico" , ".*/ui/.*" , ".*\\.js" , ".*\\.woff" , ".*\\.css" , ".*\\.ods" , ".*/mtdvatui/.*" , ".*\\.xls" , ".*\\.svg" .
 
 idp:googlemock  a                 triki:IdentityProvider ;
         dc:title                  "googlemock" ;
@@ -474,6 +496,11 @@ mediatype:log  a      triki:MediaType ;
         dc:format     "text/plain" ;
         dc:title      "log" ;
         triki:maxage  "10" .
+
+property:product  a    triki:Property ;
+        dc:identifier  triki:product ;
+        dc:title       "product" ;
+        triki:order    "15"^^xsd:int .
 
 idp:amazon  a                     triki:IdentityProvider ;
         dc:title                  "amazon" ;
@@ -526,6 +553,17 @@ property:title  a      triki:Property ;
 prefix:triki  a        triki:Prefix ;
         dc:identifier  triki: ;
         dc:title       "triki" .
+
+root:4RETURNS-2019  a         type:product ;
+        dc:created            "2019-09-03T10:54:14.772Z"^^xsd:dateTime ;
+        dc:creator            user:administrator ;
+        dc:description        "Pre-pay four VAT returns" ;
+        dc:identifier         "4RETURNS-2019" ;
+        dc:title              "4 VAT Returns Bundle" ;
+        triki:paypalButtonId  "P8933R84RRU" ;
+        triki:price           "15.99" ;
+        triki:restricted      group:public ;
+        time:month            month:2019September .
 
 property:restricted  a  triki:Property ;
         dc:identifier  triki:restricted ;
@@ -587,6 +625,9 @@ setting:AMAZONPROFILEENDPOINT
         dc:title          "AMAZONPROFILEENDPOINT" ;
         triki:restricted  group:private ;
         triki:setting     "https://api.amazon.com/user/profile" .
+
+type:order  a     triki:Type ;
+        dc:title  "Order" .
 
 property:oauthtokenendpoint
         a              triki:Property ;
@@ -677,6 +718,12 @@ setting:DAILYREFRESH  a   triki:Setting ;
         triki:restricted  group:private ;
         triki:setting     "720" .
 
+setting:PAYPALBASE  a     triki:Setting ;
+        dc:description    "PayPal Base URL" ;
+        dc:title          "PAYPALBASE" ;
+        triki:restricted  group:private ;
+        triki:setting     "https://www.paypal.com/" .
+
 property:homepage  a   triki:Property ;
         dc:identifier  foaf:homepage ;
         dc:title       "homepage" ;
@@ -750,6 +797,9 @@ setting:EMAILPASSWORD
         triki:restricted  group:private ;
         triki:setting     "emailpass" .
 
+type:payment  a   triki:Type ;
+        dc:title  "Payment" .
+
 property:identifier  a  triki:Property ;
         dc:identifier  dc:identifier ;
         dc:title       "identifier" ;
@@ -763,29 +813,29 @@ type:graph  a     triki:Type ;
 
 triki:Type  dc:title  "Triki Type" .
 
+prefix:notes  a        triki:Prefix ;
+        dc:identifier  notes: ;
+        dc:title       "notes" .
+
 property:dateTimeOriginal
         a              triki:Property ;
         dc:identifier  exif:dateTimeOriginal ;
         dc:title       "dateTimeOriginal" ;
         triki:order    "19"^^xsd:int .
 
-prefix:notes  a        triki:Prefix ;
-        dc:identifier  notes: ;
-        dc:title       "notes" .
-
 prefix:exif  a         triki:Prefix ;
         dc:identifier  exif: ;
         dc:title       "exif" .
+
+type:blogs  a             triki:Type ;
+        dc:title          "Blogs" ;
+        triki:restricted  group:public .
 
 property:oauthauthendpoint
         a              triki:Property ;
         dc:identifier  triki:oauthauthendpoint ;
         dc:title       "oauthauthendpoint" ;
         triki:order    "20"^^xsd:int .
-
-type:blogs  a             triki:Type ;
-        dc:title          "Blogs" ;
-        triki:restricted  group:public .
 
 prefix:blog  a         triki:Prefix ;
         dc:identifier  blog: ;
@@ -819,6 +869,11 @@ root:emailpub  a          type:emailpub ;
         triki:restricted  group:admin ;
         triki:sparql      " \n\t\tPREFIX triki: <http://www.opentechnology.net/triki/0.1/>\n\t\tPREFIX dc:    <http://purl.org/dc/terms/> \n\t\tPREFIX foaf:  <http://xmlns.com/foaf/0.1/>\n\t\tPREFIX resource: <http://localhost:8080/group/>\n\t\t\n\t\tSELECT ?target\n\t\t\tWHERE {  \n\t\t\t?target dc:title ?title .\n\t\t\t?target foaf:mbox ?mbox .\n\t\t\t?target foaf:member resource:friends .\n\t\t}\n\t\t" .
 
+property:payment  a    triki:Property ;
+        dc:identifier  triki:payment ;
+        dc:title       "payment" ;
+        triki:order    "17"^^xsd:int .
+
 property:maxage  a     triki:Property ;
         dc:identifier  triki:maxage ;
         dc:title       "maxage" ;
@@ -830,18 +885,23 @@ setting:TWITTERTOKENSECRET
         triki:restricted  group:private ;
         triki:setting     "twittertokensecret" .
 
+mediatype:xls  a      triki:MediaType ;
+        dc:format     "application/octet-stream" ;
+        dc:title      "xls" ;
+        triki:maxage  "10" .
+
 setting:IGNOREAGENTS  a   triki:Setting ;
         dc:title          "IGNOREAGENTS" ;
         triki:restricted  group:private ;
         triki:setting     "(?iu).*(bot|Spider|curl|feedly|crawl|NetShelter ContentScan|slurp).*" .
 
-content:hmrc.svg  a       triki:Content ;
-        dc:title          "hmrc.svg" ;
-        triki:restricted  group:private .
-
 prefix:localprop  a    triki:Prefix ;
         dc:identifier  localprop: ;
         dc:title       "localprop" .
+
+content:hmrc.svg  a       triki:Content ;
+        dc:title          "hmrc.svg" ;
+        triki:restricted  group:private .
 
 property:feedtype  a   triki:Property ;
         dc:identifier  triki:feedtype ;
@@ -876,6 +936,12 @@ auth:openidlogin  a       type:auth ;
         dc:title          "Authorise OpenID Login" ;
         triki:restricted  group:public .
 
+property:currentBundle
+        a              triki:Property ;
+        dc:identifier  triki:currentOrder ;
+        dc:title       "currentBundle" ;
+        triki:order    "18"^^xsd:int .
+
 root:login  a             type:login ;
         dc:title          "Console login" ;
         triki:restricted  group:public .
@@ -890,6 +956,17 @@ mediatype:woff  a     triki:MediaType ;
         triki:maxage  "10" .
 
 triki:Prefix  dc:title  "Triki Prefix" .
+
+root:1RETURN-2019  a          type:product ;
+        dc:created            "2019-09-03T10:54:14.772Z"^^xsd:dateTime ;
+        dc:creator            user:administrator ;
+        dc:description        "Pre-pay one VAT returns" ;
+        dc:identifier         "1RETURN-2019" ;
+        dc:title              "1 VAT Return Bundle" ;
+        triki:paypalButtonId  "JF3893JD383" ;
+        triki:price           "4.99" ;
+        triki:restricted      group:public ;
+        time:month            month:2019September .
 
 property:sparql  a     triki:Property ;
         dc:identifier  triki:sparql ;
@@ -909,18 +986,18 @@ property:setting  a    triki:Property ;
         dc:title       "setting" ;
         triki:order    "20"^^xsd:int .
 
-setting:OPENIDCONNECTREDIRECTURI
-        a                 triki:Setting ;
-        dc:description    "OpenID Connect Redirect URL" ;
-        dc:title          "OPENIDCONNECTREDIRECTURI" ;
-        triki:restricted  group:private ;
-        triki:setting     "http://localhost:8080/auth/openidconnect" .
+prefix:publish  a      triki:Prefix ;
+        dc:identifier  publish: ;
+        dc:title       "publish" .
 
 content:mtd-summary.md
         a                 triki:Content ;
         dc:title          "mtd-summary.md" ;
         triki:restricted  group:private .
 
-prefix:publish  a      triki:Prefix ;
-        dc:identifier  publish: ;
-        dc:title       "publish" .
+setting:OPENIDCONNECTREDIRECTURI
+        a                 triki:Setting ;
+        dc:description    "OpenID Connect Redirect URL" ;
+        dc:title          "OPENIDCONNECTREDIRECTURI" ;
+        triki:restricted  group:private ;
+        triki:setting     "http://localhost:8080/auth/openidconnect" .
