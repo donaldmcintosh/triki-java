@@ -233,5 +233,9 @@
       <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
     </rdf:Property>
     
+    <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/credits" vs:term_status="stable" rdfs:label="Credits" rdfs:comment="Credits">
+      <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+    </rdf:Property>
+    
 </rdf:RDF>
 
