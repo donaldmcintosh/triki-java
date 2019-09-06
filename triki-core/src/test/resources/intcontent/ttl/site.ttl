@@ -14,10 +14,12 @@
 @prefix root:  <http://localhost:8080/> .
 @prefix property: <http://localhost:8080/property/> .
 @prefix payment: <http://localhost:8080/payment/> .
+@prefix mtd:   <http://www.opentechnology.net/triki/mtd/0.1/> .
 @prefix foaf:  <http://xmlns.com/foaf/0.1/> .
 @prefix order: <http://localhost:8080/order/> .
 @prefix group: <http://localhost:8080/group/> .
 @prefix image: <http://localhost:8080/image/> .
+@prefix product: <http://localhost:8080/product/> .
 @prefix query: <http://localhost:8080/query/> .
 @prefix as:    <http://www.w3.org/ns/activitystreams#> .
 @prefix idp:   <http://localhost:8080/idp/> .
@@ -175,6 +177,9 @@ prefix:mediatype  a    triki:Prefix ;
         dc:identifier  mediatype: ;
         dc:title       "mediatype" .
 
+mtd:Payment  a    triki:Type ;
+        dc:title  "Payment" .
+
 setting:NEWSREFRESH  a    triki:Setting ;
         dc:title          "NEWSREFRESH" ;
         triki:restricted  group:private ;
@@ -219,6 +224,9 @@ property:description  a  triki:Property ;
         dc:identifier  dc:description ;
         dc:title       "description" ;
         triki:order    "12"^^xsd:int .
+
+mtd:VatReturn  a  triki:Type ;
+        dc:title  "VAT Return" .
 
 type:conf  a      triki:Type ;
         dc:title  "Configuration" .
@@ -408,6 +416,11 @@ setting:YAHOOOPENIDSCOPE
 type:product  a   triki:Type ;
         dc:title  "Product" .
 
+property:credits  a    triki:Property ;
+        dc:identifier  mtd:credits ;
+        dc:title       "credits" ;
+        triki:order    "18"^^xsd:int .
+
 type:notepub  a   triki:Type ;
         dc:title  "Post note" .
 
@@ -448,7 +461,7 @@ property:references  a  triki:Property ;
         triki:order    "14"^^xsd:int .
 
 <http://localhost:8080//auth/>
-        triki:unrestricted  ".*\\.png" , ".*\\.ico" , ".*/ui/.*" , ".*\\.js" , ".*\\.woff" , ".*\\.css" , ".*\\.ods" , ".*/mtdvatui/.*" , ".*\\.xls" , ".*\\.svg" .
+        triki:unrestricted  ".*\\.png" , ".*\\.ico" , ".*/ui/.*" , ".*/ipnnotify" , ".*\\.js" , ".*\\.woff" , ".*\\.css" , ".*\\.ods" , ".*/mtdvatui/.*" , ".*\\.xls" , ".*\\.svg" .
 
 idp:googlemock  a                 triki:IdentityProvider ;
         dc:title                  "googlemock" ;
@@ -523,6 +536,10 @@ setting:IMAPHOST  a       triki:Setting ;
         triki:restricted  group:private ;
         triki:setting     "imaphost" .
 
+prefix:mtd  a          triki:Prefix ;
+        dc:identifier  mtd: ;
+        dc:title       "mtd" .
+
 setting:AMAZONOPENIDSCOPE
         a                 triki:Setting ;
         dc:description    "Amazon OpenID scope" ;
@@ -533,6 +550,9 @@ setting:AMAZONOPENIDSCOPE
 root:   a                 type:home ;
         dc:title          "Home Page" ;
         triki:restricted  group:public .
+
+mtd:Order  a      triki:Type ;
+        dc:title  "Order" .
 
 type:images  a            triki:Type ;
         dc:title          "Images" ;
@@ -785,6 +805,9 @@ setting:YAHOOPROFILEENDPOINT
         triki:restricted  group:private ;
         triki:setting     "https://social.yahooapis.com/v1/user/${guid}/profile?format=json" .
 
+mtd:Product  a    triki:Type ;
+        dc:title  "Product" .
+
 mediatype:png  a      triki:MediaType ;
         dc:format     "image/png" ;
         dc:title      "png" ;
@@ -851,6 +874,12 @@ type:blogs  a             triki:Type ;
 prefix:blog  a         triki:Prefix ;
         dc:identifier  blog: ;
         dc:title       "blog" .
+
+property:paypalButtonId
+        a              triki:Property ;
+        dc:identifier  mtd:paypalButtonId ;
+        dc:title       "paypalButtonId" ;
+        triki:order    "18"^^xsd:int .
 
 prefix:dc  a           triki:Prefix ;
         dc:identifier  dc: ;
