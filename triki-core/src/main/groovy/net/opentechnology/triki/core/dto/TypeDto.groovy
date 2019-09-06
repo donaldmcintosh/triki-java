@@ -51,6 +51,14 @@ public class TypeDto extends BaseDto {
 		return type
 	}
 	
+	public Resource addType(Resource type, String title) 
+	{
+		Resource typeRes = model.createResource(type.getURI());
+		addResource(typeRes, RDF.type, Triki.Type);
+		checkString(typeRes, DCTerms.title, title);
+		return type
+	}
+	
 	public void addTypeRestricted(String name, String title, Resource group)
 	{
 		Resource type = addType(name, title);

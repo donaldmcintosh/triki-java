@@ -21,9 +21,11 @@
 
 package net.opentechnology.triki.core.boot;
 
+import net.opentechnology.triki.core.model.ModelStore;
 import net.opentechnology.triki.modules.Module;
 import org.apache.camel.CamelContext;
 import org.apache.cxf.transport.servlet.CXFServlet;
+import org.apache.jena.rdf.model.Model;
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -120,8 +122,13 @@ public class TrikiMain {
   public void stop() {
     try {
       server.stop();
+
       CamelContext camelCtx = ctx.getBean(CamelContext.class);
       camelCtx.stop();
+
+      ModelStore modelStore = ctx.getBean("modelStore", ModelStore.class);
+      Model model = ctx.getBean("siteModel", Model.class);
+      modelStore.saveModel(model, ModelStore.SITE_TTL);
     } catch (Exception e) {
       System.err.println(e);
     }

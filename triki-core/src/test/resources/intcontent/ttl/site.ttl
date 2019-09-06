@@ -18,7 +18,6 @@
 @prefix order: <http://localhost:8080/order/> .
 @prefix group: <http://localhost:8080/group/> .
 @prefix image: <http://localhost:8080/image/> .
-@prefix product: <http://localhost:8080/product/> .
 @prefix query: <http://localhost:8080/query/> .
 @prefix as:    <http://www.w3.org/ns/activitystreams#> .
 @prefix idp:   <http://localhost:8080/idp/> .
@@ -323,7 +322,7 @@ mediatype:svg  a      triki:MediaType ;
         dc:title      "svg" ;
         triki:maxage  "10" .
 
-root:10RETURNS-2019  a        type:product ;
+root:10RETURNS-2019  a        mtd:Product ;
         dc:created            "2019-09-03T10:54:14.772Z"^^xsd:dateTime ;
         dc:creator            user:administrator ;
         dc:description        "Pre-Pay 10 VAT Returns" ;
@@ -563,7 +562,7 @@ property:restricted  a  triki:Property ;
         dc:title       "restricted" ;
         triki:order    "14"^^xsd:int .
 
-root:4RETURNS-2019  a         type:product ;
+root:4RETURNS-2019  a         mtd:Product ;
         dc:created            "2019-09-03T10:54:14.772Z"^^xsd:dateTime ;
         dc:creator            user:administrator ;
         dc:description        "Pre-pay four VAT returns" ;
@@ -987,7 +986,7 @@ idp:hmrc  a                       triki:IdentityProvider ;
         triki:oauthscope          "read:vat write:vat" ;
         triki:oauthtokenendpoint  "https://api.service.hmrc.gov.uk/oauth/token" .
 
-root:1RETURN-2019  a          type:product ;
+root:1RETURN-2019  a          mtd:Product ;
         dc:created            "2019-09-03T10:54:14.772Z"^^xsd:dateTime ;
         dc:creator            user:administrator ;
         dc:description        "Pre-pay one VAT returns" ;
