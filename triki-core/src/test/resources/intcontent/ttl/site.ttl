@@ -22,6 +22,7 @@
 @prefix product: <http://localhost:8080/product/> .
 @prefix query: <http://localhost:8080/query/> .
 @prefix as:    <http://www.w3.org/ns/activitystreams#> .
+@prefix vatreturns: <http://localhost:8080/vatreturns/> .
 @prefix idp:   <http://localhost:8080/idp/> .
 @prefix month: <http://localhost:8080/month/> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -252,6 +253,12 @@ setting:TWITTERAUTHENDPOINT
         triki:restricted  group:private ;
         triki:setting     "https://api.twitter.com/oauth2/token" .
 
+property:formBundleNumber
+        a              triki:Property ;
+        dc:identifier  mtd:formBundleNumber ;
+        dc:title       "formBundleNumber" ;
+        triki:order    "19"^^xsd:int .
+
 root:notes  a             type:notes ;
         dc:references     type:note ;
         dc:title          "Notes Index" ;
@@ -330,16 +337,16 @@ mediatype:svg  a      triki:MediaType ;
         dc:title      "svg" ;
         triki:maxage  "10" .
 
-root:10RETURNS-2019  a        mtd:Product ;
-        dc:created            "2019-09-03T10:54:14.772Z"^^xsd:dateTime ;
-        dc:creator            user:administrator ;
-        dc:description        "Pre-Pay 10 VAT Returns" ;
-        dc:identifier         "10RETURNS-2019" ;
-        dc:title              "10 VAT Returns Bundle" ;
-        triki:paypalButtonId  "S3N5EBCJL9VHA" ;
-        triki:price           "34.99" ;
-        triki:restricted      group:public ;
-        time:month            month:2019September .
+root:10RETURNS-2019  a      mtd:Product ;
+        dc:created          "2019-09-03T10:54:14.772Z"^^xsd:dateTime ;
+        dc:creator          user:administrator ;
+        dc:description      "Pre-Pay 10 VAT Returns" ;
+        dc:identifier       "10RETURNS-2019" ;
+        dc:title            "10 VAT Returns Bundle" ;
+        triki:restricted    group:public ;
+        mtd:paypalButtonId  "S3N5EBCJL9VHA" ;
+        mtd:price           "34.99" ;
+        time:month          month:2019September .
 
 prefix:setting  a      triki:Prefix ;
         dc:identifier  setting: ;
@@ -428,6 +435,12 @@ type:login  a             triki:Type ;
         dc:title          "Login" ;
         triki:restricted  group:public .
 
+property:transactionId
+        a              triki:Property ;
+        dc:identifier  mtd:txnId ;
+        dc:title       "transactionId" ;
+        triki:order    "19"^^xsd:int .
+
 prefix:rdf  a          triki:Prefix ;
         dc:identifier  rdf: ;
         dc:title       "rdf" .
@@ -474,6 +487,11 @@ idp:googlemock  a                 triki:IdentityProvider ;
 content:tc.md  a          triki:Content ;
         dc:title          "tc.md" ;
         triki:restricted  group:private .
+
+property:payeeEmail  a  triki:Property ;
+        dc:identifier  mtd:payeeEmail ;
+        dc:title       "payeeEmail" ;
+        triki:order    "19"^^xsd:int .
 
 setting:RESTRICTION  a    triki:Setting ;
         dc:title          "RESTRICTION" ;
@@ -582,16 +600,16 @@ property:restricted  a  triki:Property ;
         dc:title       "restricted" ;
         triki:order    "14"^^xsd:int .
 
-root:4RETURNS-2019  a         mtd:Product ;
-        dc:created            "2019-09-03T10:54:14.772Z"^^xsd:dateTime ;
-        dc:creator            user:administrator ;
-        dc:description        "Pre-pay four VAT returns" ;
-        dc:identifier         "4RETURNS-2019" ;
-        dc:title              "4 VAT Returns Bundle" ;
-        triki:paypalButtonId  "P8933R84RRU" ;
-        triki:price           "15.99" ;
-        triki:restricted      group:public ;
-        time:month            month:2019September .
+root:4RETURNS-2019  a       mtd:Product ;
+        dc:created          "2019-09-03T10:54:14.772Z"^^xsd:dateTime ;
+        dc:creator          user:administrator ;
+        dc:description      "Pre-pay four VAT returns" ;
+        dc:identifier       "4RETURNS-2019" ;
+        dc:title            "4 VAT Returns Bundle" ;
+        triki:restricted    group:public ;
+        mtd:paypalButtonId  "P8933R84RRU" ;
+        mtd:price           "15.99" ;
+        time:month          month:2019September .
 
 property:order  a      triki:Property ;
         dc:identifier  triki:order ;
@@ -619,6 +637,11 @@ property:originalWidth
         dc:title       "originalWidth" ;
         triki:order    "19"^^xsd:int .
 
+property:itemCode  a   triki:Property ;
+        dc:identifier  mtd:itemCode ;
+        dc:title       "itemCode" ;
+        triki:order    "19"^^xsd:int .
+
 group:family  a   foaf:Group ;
         dc:title  "Family group" .
 
@@ -638,6 +661,12 @@ mediatype:ttl  a      triki:MediaType ;
 prefix:time  a         triki:Prefix ;
         dc:identifier  time: ;
         dc:title       "time" .
+
+property:paymentStatus
+        a              triki:Property ;
+        dc:identifier  mtd:paymentStatus ;
+        dc:title       "paymentStatus" ;
+        triki:order    "19"^^xsd:int .
 
 type:auth  a      triki:Type ;
         dc:title  "Auth" .
@@ -712,6 +741,15 @@ property:originalHeight
         dc:title       "originalHeight" ;
         triki:order    "19"^^xsd:int .
 
+<http://localhost:8080/orders/38d828a8-aa09-455c-b607-de570d44a4ee>
+        a                mtd:Order ;
+        dc:created       "2019-09-08T21:58:00.462Z"^^xsd:dateTime ;
+        dc:identifier    "38d828a8-aa09-455c-b607-de570d44a4ee" ;
+        dc:title         "Order 38d828a8-aa09-455c-b607-de570d44a4ee" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
+
 setting:CHATREFRESH  a    triki:Setting ;
         dc:title          "CHATREFRESH" ;
         triki:restricted  group:private ;
@@ -736,25 +774,30 @@ type:home  a              triki:Type ;
         dc:title          "Home" ;
         triki:restricted  group:public .
 
+property:orderStatus  a  triki:Property ;
+        dc:identifier  mtd:orderStatus ;
+        dc:title       "orderStatus" ;
+        triki:order    "19"^^xsd:int .
+
 setting:DAILYREFRESH  a   triki:Setting ;
         dc:title          "DAILYREFRESH" ;
         triki:restricted  group:private ;
         triki:setting     "720" .
 
-setting:PAYPALBASE  a     triki:Setting ;
-        dc:description    "PayPal Base URL" ;
-        dc:title          "PAYPALBASE" ;
-        triki:restricted  group:private ;
-        triki:setting     "https://www.paypal.com/cgi-bin/webscr" .
+prefix:prefix  a       triki:Prefix ;
+        dc:identifier  prefix: ;
+        dc:title       "prefix" .
 
 property:homepage  a   triki:Property ;
         dc:identifier  foaf:homepage ;
         dc:title       "homepage" ;
         triki:order    "16"^^xsd:int .
 
-prefix:prefix  a       triki:Prefix ;
-        dc:identifier  prefix: ;
-        dc:title       "prefix" .
+setting:PAYPALBASE  a     triki:Setting ;
+        dc:description    "PayPal Base URL" ;
+        dc:title          "PAYPALBASE" ;
+        triki:restricted  group:private ;
+        triki:setting     "https://www.paypal.com/cgi-bin/webscr" .
 
 idp:yahoo  a                      triki:IdentityProvider ;
         dc:title                  "yahoo" ;
@@ -856,6 +899,10 @@ property:dateTimeOriginal
 prefix:notes  a        triki:Prefix ;
         dc:identifier  notes: ;
         dc:title       "notes" .
+
+prefix:vatreturns  a   triki:Prefix ;
+        dc:identifier  vatreturns: ;
+        dc:title       "vatreturns" .
 
 prefix:exif  a         triki:Prefix ;
         dc:identifier  exif: ;
@@ -1015,16 +1062,16 @@ idp:hmrc  a                       triki:IdentityProvider ;
         triki:oauthscope          "read:vat write:vat" ;
         triki:oauthtokenendpoint  "https://api.service.hmrc.gov.uk/oauth/token" .
 
-root:1RETURN-2019  a          mtd:Product ;
-        dc:created            "2019-09-03T10:54:14.772Z"^^xsd:dateTime ;
-        dc:creator            user:administrator ;
-        dc:description        "Pre-pay one VAT returns" ;
-        dc:identifier         "1RETURN-2019" ;
-        dc:title              "1 VAT Return Bundle" ;
-        triki:paypalButtonId  "JF3893JD383" ;
-        triki:price           "4.99" ;
-        triki:restricted      group:public ;
-        time:month            month:2019September .
+root:1RETURN-2019  a        mtd:Product ;
+        dc:created          "2019-09-03T10:54:14.772Z"^^xsd:dateTime ;
+        dc:creator          user:administrator ;
+        dc:description      "Pre-pay one VAT returns" ;
+        dc:identifier       "1RETURN-2019" ;
+        dc:title            "1 VAT Return Bundle" ;
+        triki:restricted    group:public ;
+        mtd:paypalButtonId  "JF3893JD383" ;
+        mtd:price           "4.99" ;
+        time:month          month:2019September .
 
 setting:OPENIDCONNECTREDIRECTURI
         a                 triki:Setting ;
