@@ -797,7 +797,7 @@ setting:PAYPALBASE  a     triki:Setting ;
         dc:description    "PayPal Base URL" ;
         dc:title          "PAYPALBASE" ;
         triki:restricted  group:private ;
-        triki:setting     "https://www.paypal.com/cgi-bin/webscr" .
+        triki:setting     "http://localhost:9090/cgi-bin/webscr" .
 
 idp:yahoo  a                      triki:IdentityProvider ;
         dc:title                  "yahoo" ;
