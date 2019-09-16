@@ -292,8 +292,6 @@ public class AuthenticateResource extends RenderResource {
 		session.removeAttribute(SESSION_PERSON);
 		session.removeAttribute(SESSION_PROFILE);
 
-		Session.get().invalidateNow();
-
 		resp.sendRedirect("/")
 	}
 

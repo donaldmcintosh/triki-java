@@ -21,6 +21,10 @@ class Profile implements Serializable{
         this.moduleParams = moduleParams
     }
 
+    void clearModuleParams(){
+        moduleParams.clear();
+    }
+
     private boolean isAdmin = false
 
     String getName() {
