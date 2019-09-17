@@ -8,6 +8,7 @@ def build() {
 
         stage('Gradle build') {
             sh "./gradlew clean build"
+            junit 'target/failsafe-reports/**/*.xml'
         }
 
         stage('Deploy local') {
