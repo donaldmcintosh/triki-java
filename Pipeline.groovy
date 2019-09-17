@@ -12,7 +12,7 @@ def build() {
         }
 
         stage('Deploy local') {
-            sh "rm -rf ~/deploy/*; unzip build/distributions/*.zip -d ~/deploy"
+            sh "rm -rf $HOME/deploy/*; unzip build/distributions/*.zip -d $HOME/deploy"
         }
     }
 }
