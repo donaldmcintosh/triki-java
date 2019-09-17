@@ -10,10 +10,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/triki-core" />
             <option value="$PROJECT_DIR$/triki-image" />
-            <option value="$PROJECT_DIR$/triki-mtd" />
             <option value="$PROJECT_DIR$/triki-news" />
             <option value="$PROJECT_DIR$/triki-pageviews" />
-            <option value="$PROJECT_DIR$/triki-paypal" />
             <option value="$PROJECT_DIR$/triki-share" />
             <option value="$PROJECT_DIR$/triki-twitter" />
           </set>
