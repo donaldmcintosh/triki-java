@@ -8,7 +8,7 @@ def build() {
 
         stage('Gradle build') {
             sh "./gradlew clean build"
-            junit 'target/failsafe-reports/**/*.xml'
+	    cucumber fileIncludePattern: 'build/cucumber/report.json'
         }
 
         stage('Deploy local') {
