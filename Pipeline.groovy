@@ -8,7 +8,7 @@ def build() {
 
         stage('Gradle build') {
             sh "./gradlew clean build"
-	    cucumber fileIncludePattern: 'build/cucumber/report.js'
+	    cucumber fileIncludePattern: 'build/dev.json'
         }
 
         stage('Deploy local') {
