@@ -12,3 +12,4 @@ bin/*
 */out/*
 triki-mtd/*
 triki-paypal/*
+.idea/*

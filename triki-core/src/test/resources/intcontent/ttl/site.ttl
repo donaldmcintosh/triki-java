@@ -1,33 +1,39 @@
 @prefix note:  <http://localhost:8080/note/> .
 @prefix notes: <http://localhost:8080/notes/> .
-@prefix year:  <http://localhost:8080/year/> .
 @prefix auth:  <http://localhost:8080/auth/> .
+@prefix year:  <http://localhost:8080/year/> .
 @prefix prefix: <http://localhost:8080/prefix/> .
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix blog:  <http://localhost:8080/blog/> .
 @prefix type:  <http://localhost:8080/type/> .
+@prefix blog:  <http://localhost:8080/blog/> .
 @prefix content: <http://localhost:8080/content/> .
 @prefix setting: <http://localhost:8080/setting/> .
 @prefix triki: <http://www.opentechnology.net/triki/0.1/> .
 @prefix rss:   <http://purl.org/rss/1.0/> .
 @prefix root:  <http://localhost:8080/> .
 @prefix property: <http://localhost:8080/property/> .
+@prefix payment: <http://localhost:8080/payment/> .
+@prefix mtd:   <http://www.opentechnology.net/triki/mtd/0.1/> .
 @prefix foaf:  <http://xmlns.com/foaf/0.1/> .
 @prefix group: <http://localhost:8080/group/> .
+@prefix order: <http://localhost:8080/order/> .
 @prefix image: <http://localhost:8080/image/> .
+@prefix product: <http://localhost:8080/product/> .
+@prefix vatreturn: <http://localhost:8080/vatreturn/> .
 @prefix query: <http://localhost:8080/query/> .
 @prefix as:    <http://www.w3.org/ns/activitystreams#> .
-@prefix idp:   <http://localhost:8080/idp/> .
+@prefix vatreturns: <http://localhost:8080/vatreturns/> .
 @prefix month: <http://localhost:8080/month/> .
+@prefix idp:   <http://localhost:8080/idp/> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix publish: <http://localhost:8080//publish/> .
 @prefix localprop: <http://localhost:8080/localprop/> .
 @prefix time:  <http://www.w3.org/2006/time#> .
-@prefix user:  <http://localhost:8080/user/> .
 @prefix mediatype: <http://localhost:8080/mediatype/> .
-@prefix exif:  <http://www.w3.org/2003/12/exif/ns#> .
+@prefix user:  <http://localhost:8080/user/> .
 @prefix dc:    <http://purl.org/dc/terms/> .
+@prefix exif:  <http://www.w3.org/2003/12/exif/ns#> .
 
 property:pageViews  a  triki:Property ;
         dc:identifier  triki:pageViews ;
@@ -46,6 +52,22 @@ property:dateformat  a  triki:Property ;
         dc:identifier  triki:dateformat ;
         dc:title       "dateformat" ;
         triki:order    "11"^^xsd:int .
+
+vatreturn:d7a88755-3f1b-4968-a9cb-4fbabb28553a
+        a              mtd:VatReturn ;
+        dc:created     "2019-09-16T10:41:00.098Z"^^xsd:dateTime ;
+        dc:identifier  "d7a88755-3f1b-4968-a9cb-4fbabb28553a" ;
+        dc:title       "VAT Return d7a88755-3f1b-4968-a9cb-4fbabb28553a" ;
+        mtd:order      order:779e9ba9-edc9-4f21-9f73-1ef5b05e27c2 .
+
+order:a68fed64-9794-4fda-8ded-b71140c6ce3f
+        a                mtd:Order ;
+        dc:created       "2019-09-12T13:44:31.731Z"^^xsd:dateTime ;
+        dc:identifier    "a68fed64-9794-4fda-8ded-b71140c6ce3f" ;
+        dc:title         "Order a68fed64-9794-4fda-8ded-b71140c6ce3f" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
 
 setting:TWITTERACCESSTOKEN
         a                 triki:Setting ;
@@ -102,9 +124,27 @@ setting:AMAZONCLIENTSECRET
         triki:restricted  group:private ;
         triki:setting     "Undefined" .
 
+order:77a23990-7adc-41b8-a63b-2a11c8d4c135
+        a                mtd:Order ;
+        dc:created       "2019-09-13T14:48:34.575Z"^^xsd:dateTime ;
+        dc:identifier    "77a23990-7adc-41b8-a63b-2a11c8d4c135" ;
+        dc:title         "Order 77a23990-7adc-41b8-a63b-2a11c8d4c135" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "USED" ;
+        mtd:payee        user:Donald-McIntosh .
+
 auth:openidconnect  a     type:auth ;
         dc:title          "Authorise OpenID Token Exchange" ;
         triki:restricted  group:public .
+
+order:43608074-9061-4ea9-88a8-464fabae833a
+        a                mtd:Order ;
+        dc:created       "2019-09-12T14:00:00.957Z"^^xsd:dateTime ;
+        dc:identifier    "43608074-9061-4ea9-88a8-464fabae833a" ;
+        dc:title         "Order 43608074-9061-4ea9-88a8-464fabae833a" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
 
 prefix:idp  a          triki:Prefix ;
         dc:identifier  idp: ;
@@ -123,6 +163,15 @@ setting:INDIELOGINREDIRECTURI
         dc:title          "INDIELOGINREDIRECTURI" ;
         triki:restricted  group:private ;
         triki:setting     "https://www.yoursite.net/auth/indie" .
+
+order:9b729177-5ca7-4aa3-a4eb-40c26b2210cd
+        a                mtd:Order ;
+        dc:created       "2019-09-16T10:37:55.575Z"^^xsd:dateTime ;
+        dc:identifier    "9b729177-5ca7-4aa3-a4eb-40c26b2210cd" ;
+        dc:title         "Order 9b729177-5ca7-4aa3-a4eb-40c26b2210cd" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "USED" ;
+        mtd:payee        user:Donald-McIntosh .
 
 type:sitelogin  a  triki:Type ;
         dc:title  "Site login" .
@@ -155,6 +204,17 @@ setting:AMAZONTOKENENDPOINT
         triki:restricted  group:private ;
         triki:setting     "https://api.amazon.com/auth/o2/token" .
 
+payment:98c0c124-d057-40ce-9e43-04f12f018c3f
+        a                  mtd:Payment ;
+        dc:created         "2019-09-12T14:02:03.106Z"^^xsd:dateTime ;
+        dc:description     "Payment for 98c0c124-d057-40ce-9e43-04f12f018c3f and item 001" ;
+        dc:identifier      "98c0c124-d057-40ce-9e43-04f12f018c3f" ;
+        dc:title           "Payment for 98c0c124-d057-40ce-9e43-04f12f018c3f" ;
+        mtd:itemCode       "001" ;
+        mtd:order          order:cbba7c31-7a6e-47a0-ab61-e267b6aea3f0 ;
+        mtd:payeeEmail     "don@gmail.com" ;
+        mtd:paymentStatus  "Completed" .
+
 mediatype:groovy  a   triki:MediaType ;
         dc:format     "text/plain" ;
         dc:title      "groovy" ;
@@ -165,6 +225,15 @@ mediatype:js  a       triki:MediaType ;
         dc:title      "js" ;
         triki:maxage  "86400" .
 
+order:d3b62817-c161-47ad-9596-4f5797a4eee6
+        a                mtd:Order ;
+        dc:created       "2019-09-12T13:42:32.027Z"^^xsd:dateTime ;
+        dc:identifier    "d3b62817-c161-47ad-9596-4f5797a4eee6" ;
+        dc:title         "Order d3b62817-c161-47ad-9596-4f5797a4eee6" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
+
 root:privacy  a           type:page ;
         dc:title          "Privacy Policy" ;
         triki:restricted  group:public .
@@ -172,6 +241,16 @@ root:privacy  a           type:page ;
 prefix:mediatype  a    triki:Prefix ;
         dc:identifier  mediatype: ;
         dc:title       "mediatype" .
+
+mtd:Payment  a    triki:Type ;
+        dc:title  "Payment" .
+
+vatreturn:93ef0767-659e-4eea-84e3-3afec4f63c73
+        a              mtd:VatReturn ;
+        dc:created     "2019-09-13T14:48:39.65Z"^^xsd:dateTime ;
+        dc:identifier  "93ef0767-659e-4eea-84e3-3afec4f63c73" ;
+        dc:title       "VAT Return 93ef0767-659e-4eea-84e3-3afec4f63c73" ;
+        mtd:order      order:77a23990-7adc-41b8-a63b-2a11c8d4c135 .
 
 setting:NEWSREFRESH  a    triki:Setting ;
         dc:title          "NEWSREFRESH" ;
@@ -194,25 +273,32 @@ content:vathome.md  a     triki:Content ;
         dc:title          "vathome.md" ;
         triki:restricted  group:private .
 
+property:description  a  triki:Property ;
+        dc:identifier  dc:description ;
+        dc:title       "description" ;
+        triki:order    "12"^^xsd:int .
+
+prefix:query  a        triki:Prefix ;
+        dc:identifier  query: ;
+        dc:title       "query" .
+
 user:Donald-McIntosh  a   foaf:Person ;
         dc:title          "Donald McIntosh" ;
         triki:restricted  group:private ;
         foaf:mbox         "donald@hero.com" ;
         foaf:member       group:hmrcvat .
 
-prefix:query  a        triki:Prefix ;
-        dc:identifier  query: ;
-        dc:title       "query" .
+prefix:payment  a      triki:Prefix ;
+        dc:identifier  payment: ;
+        dc:title       "payment" .
 
 property:content  a    triki:Property ;
         dc:identifier  triki:content ;
         dc:title       "content" ;
         triki:order    "19"^^xsd:int .
 
-property:description  a  triki:Property ;
-        dc:identifier  dc:description ;
-        dc:title       "description" ;
-        triki:order    "12"^^xsd:int .
+mtd:VatReturn  a  triki:Type ;
+        dc:title  "VAT Return" .
 
 type:conf  a      triki:Type ;
         dc:title  "Configuration" .
@@ -223,6 +309,26 @@ setting:AMAZONCLIENTID
         dc:title          "AMAZONCLIENTID" ;
         triki:restricted  group:private ;
         triki:setting     "Undefined" .
+
+order:9080f534-980c-4c21-a625-4122b6346ae4
+        a                mtd:Order ;
+        dc:created       "2019-09-13T14:52:23.177Z"^^xsd:dateTime ;
+        dc:identifier    "9080f534-980c-4c21-a625-4122b6346ae4" ;
+        dc:title         "Order 9080f534-980c-4c21-a625-4122b6346ae4" ;
+        mtd:item         root:1RETURN-2019 ;
+        mtd:orderStatus  "USED" ;
+        mtd:payee        user:Donald-McIntosh .
+
+payment:007ee2ff-a5e0-4741-a3cf-f8ce6bfb4f2e
+        a                  mtd:Payment ;
+        dc:created         "2019-09-13T14:48:34.758Z"^^xsd:dateTime ;
+        dc:description     "Payment for 007ee2ff-a5e0-4741-a3cf-f8ce6bfb4f2e and item 001" ;
+        dc:identifier      "007ee2ff-a5e0-4741-a3cf-f8ce6bfb4f2e" ;
+        dc:title           "Payment for 007ee2ff-a5e0-4741-a3cf-f8ce6bfb4f2e" ;
+        mtd:itemCode       "001" ;
+        mtd:order          order:77a23990-7adc-41b8-a63b-2a11c8d4c135 ;
+        mtd:payeeEmail     "don@gmail.com" ;
+        mtd:paymentStatus  "Completed" .
 
 setting:YAHOOCLIENTSECRET
         a                 triki:Setting ;
@@ -238,6 +344,30 @@ setting:TWITTERAUTHENDPOINT
         triki:restricted  group:private ;
         triki:setting     "https://api.twitter.com/oauth2/token" .
 
+order:1977910a-4c84-4cf6-830b-8f0a83b21b69
+        a                mtd:Order ;
+        dc:created       "2019-09-12T13:47:45.94Z"^^xsd:dateTime ;
+        dc:identifier    "1977910a-4c84-4cf6-830b-8f0a83b21b69" ;
+        dc:title         "Order 1977910a-4c84-4cf6-830b-8f0a83b21b69" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
+
+order:41f746b0-c5b5-4425-9df5-511b3afaff4a
+        a                mtd:Order ;
+        dc:created       "2019-09-12T13:56:22.361Z"^^xsd:dateTime ;
+        dc:identifier    "41f746b0-c5b5-4425-9df5-511b3afaff4a" ;
+        dc:title         "Order 41f746b0-c5b5-4425-9df5-511b3afaff4a" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
+
+property:formBundleNumber
+        a              triki:Property ;
+        dc:identifier  mtd:formBundleNumber ;
+        dc:title       "formBundleNumber" ;
+        triki:order    "19"^^xsd:int .
+
 root:notes  a             type:notes ;
         dc:references     type:note ;
         dc:title          "Notes Index" ;
@@ -250,6 +380,13 @@ setting:TWITTERCLIENTID
         triki:restricted  group:private ;
         triki:setting     "Undefined" .
 
+vatreturn:17f15cab-9967-45c3-8dd0-0ea0ec000fd0
+        a              mtd:VatReturn ;
+        dc:created     "2019-09-13T14:52:28.771Z"^^xsd:dateTime ;
+        dc:identifier  "17f15cab-9967-45c3-8dd0-0ea0ec000fd0" ;
+        dc:title       "VAT Return 17f15cab-9967-45c3-8dd0-0ea0ec000fd0" ;
+        mtd:order      order:9080f534-980c-4c21-a625-4122b6346ae4 .
+
 group:identified  a  foaf:Group ;
         dc:title  "Identified group" .
 
@@ -261,6 +398,30 @@ idp:google  a                     triki:IdentityProvider ;
         triki:oauthscope          "openid email profile" ;
         triki:oauthtokenendpoint  "http://localhost:9090/token" ;
         triki:restricted          group:private .
+
+vatreturn:415fb9a3-0011-41ef-a7ce-2d0b23ba616e
+        a              mtd:VatReturn ;
+        dc:created     "2019-09-13T14:48:49.624Z"^^xsd:dateTime ;
+        dc:identifier  "415fb9a3-0011-41ef-a7ce-2d0b23ba616e" ;
+        dc:title       "VAT Return 415fb9a3-0011-41ef-a7ce-2d0b23ba616e" ;
+        mtd:order      order:77a23990-7adc-41b8-a63b-2a11c8d4c135 .
+
+property:price  a      triki:Property ;
+        dc:identifier  triki:price ;
+        dc:title       "price" ;
+        triki:order    "18"^^xsd:int .
+
+mediatype:ods  a      triki:MediaType ;
+        dc:format     "application/octet-stream" ;
+        dc:title      "ods" ;
+        triki:maxage  "10" .
+
+vatreturn:738358da-89f2-4eab-9a72-9413ecb01064
+        a              mtd:VatReturn ;
+        dc:created     "2019-09-16T10:38:04.12Z"^^xsd:dateTime ;
+        dc:identifier  "738358da-89f2-4eab-9a72-9413ecb01064" ;
+        dc:title       "VAT Return 738358da-89f2-4eab-9a72-9413ecb01064" ;
+        mtd:order      order:9b729177-5ca7-4aa3-a4eb-40c26b2210cd .
 
 setting:OUTLOOKPROFILEENDPOINT
         a                 triki:Setting ;
@@ -291,6 +452,17 @@ content:triki.ttl  a      triki:Content ;
         dc:title          "triki.ttl" ;
         triki:restricted  group:private .
 
+payment:12a69839-c984-4cac-8c59-17a933352922
+        a                  mtd:Payment ;
+        dc:created         "2019-09-16T10:40:54.946Z"^^xsd:dateTime ;
+        dc:description     "Payment for 12a69839-c984-4cac-8c59-17a933352922 and item 001" ;
+        dc:identifier      "12a69839-c984-4cac-8c59-17a933352922" ;
+        dc:title           "Payment for 12a69839-c984-4cac-8c59-17a933352922" ;
+        mtd:itemCode       "001" ;
+        mtd:order          order:779e9ba9-edc9-4f21-9f73-1ef5b05e27c2 ;
+        mtd:payeeEmail     "don@gmail.com" ;
+        mtd:paymentStatus  "Completed" .
+
 type:emailpub  a  triki:Type ;
         dc:title  "Send Email" .
 
@@ -306,13 +478,43 @@ mediatype:svg  a      triki:MediaType ;
         dc:title      "svg" ;
         triki:maxage  "10" .
 
+root:10RETURNS-2019  a      mtd:Product ;
+        dc:created          "2019-09-03T10:54:14.772Z"^^xsd:dateTime ;
+        dc:creator          user:administrator ;
+        dc:description      "Pre-Pay 10 VAT Returns" ;
+        dc:identifier       "10RETURNS-2019" ;
+        dc:title            "10 VAT Returns Bundle" ;
+        triki:restricted    group:public ;
+        mtd:credits         "10" ;
+        mtd:paypalButtonId  "S3N5EBCJL9VHA" ;
+        mtd:price           "34.99" ;
+        time:month          month:2019September .
+
 prefix:setting  a      triki:Prefix ;
         dc:identifier  setting: ;
         dc:title       "setting" .
 
+order:8145cd2a-6840-4eaa-b3e5-d5a5d51e8c83
+        a                mtd:Order ;
+        dc:created       "2019-09-12T14:01:31.376Z"^^xsd:dateTime ;
+        dc:identifier    "8145cd2a-6840-4eaa-b3e5-d5a5d51e8c83" ;
+        dc:title         "Order 8145cd2a-6840-4eaa-b3e5-d5a5d51e8c83" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
+
 prefix:property  a     triki:Prefix ;
         dc:identifier  property: ;
         dc:title       "property" .
+
+order:eac4ac4a-a16c-4e39-8c5a-47e2f75acf28
+        a                mtd:Order ;
+        dc:created       "2019-09-12T13:52:18.24Z"^^xsd:dateTime ;
+        dc:identifier    "eac4ac4a-a16c-4e39-8c5a-47e2f75acf28" ;
+        dc:title         "Order eac4ac4a-a16c-4e39-8c5a-47e2f75acf28" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
 
 group:personal  a  foaf:Group ;
         dc:title  "Personal group" .
@@ -359,6 +561,13 @@ prefix:type  a         triki:Prefix ;
 group:friends  a  foaf:Group ;
         dc:title  "Friends group" .
 
+vatreturn:1fab0f2a-8c61-4471-b3c6-5c5c205e5b3d
+        a              mtd:VatReturn ;
+        dc:created     "2019-09-13T14:48:41.995Z"^^xsd:dateTime ;
+        dc:identifier  "1fab0f2a-8c61-4471-b3c6-5c5c205e5b3d" ;
+        dc:title       "VAT Return 1fab0f2a-8c61-4471-b3c6-5c5c205e5b3d" ;
+        mtd:order      order:77a23990-7adc-41b8-a63b-2a11c8d4c135 .
+
 setting:INDIELOGINROOT
         a                 triki:Setting ;
         dc:description    "IndieLogin Login URL" ;
@@ -371,6 +580,37 @@ property:login  a      triki:Property ;
         dc:title       "login" ;
         triki:order    "28"^^xsd:int .
 
+order:cb114e22-f759-40df-99a3-2c5fd0d29d10
+        a                mtd:Order ;
+        dc:created       "2019-09-12T13:48:15.717Z"^^xsd:dateTime ;
+        dc:identifier    "cb114e22-f759-40df-99a3-2c5fd0d29d10" ;
+        dc:title         "Order cb114e22-f759-40df-99a3-2c5fd0d29d10" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
+
+payment:d2d69936-04c5-43d8-a0b3-8756bd15e1fb
+        a                  mtd:Payment ;
+        dc:created         "2019-09-12T14:07:57.974Z"^^xsd:dateTime ;
+        dc:description     "Payment for d2d69936-04c5-43d8-a0b3-8756bd15e1fb and item 001" ;
+        dc:identifier      "d2d69936-04c5-43d8-a0b3-8756bd15e1fb" ;
+        dc:title           "Payment for d2d69936-04c5-43d8-a0b3-8756bd15e1fb" ;
+        mtd:itemCode       "001" ;
+        mtd:order          order:98778ffa-2339-4b4f-bcda-1180ba31c511 ;
+        mtd:payeeEmail     "don@gmail.com" ;
+        mtd:paymentStatus  "Completed" .
+
+payment:b37ccb0b-67d2-4ff2-aa68-bbad039cfb06
+        a                  mtd:Payment ;
+        dc:created         "2019-09-13T14:52:23.331Z"^^xsd:dateTime ;
+        dc:description     "Payment for b37ccb0b-67d2-4ff2-aa68-bbad039cfb06 and item 001" ;
+        dc:identifier      "b37ccb0b-67d2-4ff2-aa68-bbad039cfb06" ;
+        dc:title           "Payment for b37ccb0b-67d2-4ff2-aa68-bbad039cfb06" ;
+        mtd:itemCode       "001" ;
+        mtd:order          order:9080f534-980c-4c21-a625-4122b6346ae4 ;
+        mtd:payeeEmail     "don@gmail.com" ;
+        mtd:paymentStatus  "Completed" .
+
 setting:YAHOOOPENIDSCOPE
         a                 triki:Setting ;
         dc:description    "Yahoo OpenID scope" ;
@@ -378,12 +618,44 @@ setting:YAHOOOPENIDSCOPE
         triki:restricted  group:private ;
         triki:setting     "openid" .
 
+order:0438a104-e631-4968-b794-b177467850a6
+        a                mtd:Order ;
+        dc:created       "2019-09-12T13:47:45.537Z"^^xsd:dateTime ;
+        dc:identifier    "0438a104-e631-4968-b794-b177467850a6" ;
+        dc:title         "Order 0438a104-e631-4968-b794-b177467850a6" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
+
+type:product  a   triki:Type ;
+        dc:title  "Product" .
+
+property:credits  a    triki:Property ;
+        dc:identifier  mtd:credits ;
+        dc:title       "credits" ;
+        triki:order    "18"^^xsd:int .
+
+order:1affa799-096a-4166-953b-6285008fd7f1
+        a                mtd:Order ;
+        dc:created       "2019-09-13T14:48:34.065Z"^^xsd:dateTime ;
+        dc:identifier    "1affa799-096a-4166-953b-6285008fd7f1" ;
+        dc:title         "Order 1affa799-096a-4166-953b-6285008fd7f1" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
+
 type:notepub  a   triki:Type ;
         dc:title  "Post note" .
 
 type:login  a             triki:Type ;
         dc:title          "Login" ;
         triki:restricted  group:public .
+
+property:transactionId
+        a              triki:Property ;
+        dc:identifier  mtd:txnId ;
+        dc:title       "transactionId" ;
+        triki:order    "19"^^xsd:int .
 
 prefix:rdf  a          triki:Prefix ;
         dc:identifier  rdf: ;
@@ -393,9 +665,34 @@ root:notepub  a           type:notepub ;
         dc:title          "Post note page" ;
         triki:restricted  group:admin .
 
+order:9768479b-9281-4d58-8a8b-1170ff9bb3c1
+        a                mtd:Order ;
+        dc:created       "2019-09-12T13:44:32.119Z"^^xsd:dateTime ;
+        dc:identifier    "9768479b-9281-4d58-8a8b-1170ff9bb3c1" ;
+        dc:title         "Order 9768479b-9281-4d58-8a8b-1170ff9bb3c1" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
+
 prefix:month  a        triki:Prefix ;
         dc:identifier  month: ;
         dc:title       "month" .
+
+content:odt-vat-template-v10.ods
+        a                 triki:Content ;
+        dc:title          "odt-vat-template-v10.ods" ;
+        triki:restricted  group:private .
+
+payment:b3e25a8d-3189-4bc7-9ce1-4df3ae319798
+        a                  mtd:Payment ;
+        dc:created         "2019-09-12T13:56:22.968Z"^^xsd:dateTime ;
+        dc:description     "Payment for b3e25a8d-3189-4bc7-9ce1-4df3ae319798 and item 001" ;
+        dc:identifier      "b3e25a8d-3189-4bc7-9ce1-4df3ae319798" ;
+        dc:title           "Payment for b3e25a8d-3189-4bc7-9ce1-4df3ae319798" ;
+        mtd:itemCode       "001" ;
+        mtd:order          order:e11e14ee-66e0-4b6d-9bb4-df96cd396cb4 ;
+        mtd:payeeEmail     "don@gmail.com" ;
+        mtd:paymentStatus  "Completed" .
 
 prefix:note  a         triki:Prefix ;
         dc:identifier  note: ;
@@ -413,7 +710,7 @@ property:references  a  triki:Property ;
         triki:order    "14"^^xsd:int .
 
 <http://localhost:8080//auth/>
-        triki:unrestricted  ".*/ui/.*" , ".*\\.woff" , ".*\\.svg" , ".*\\.ico" , ".*\\.js" , ".*\\.css" , ".*\\.png" , ".*/mtdvatui/.*" .
+        triki:unrestricted  ".*\\.png" , ".*\\.ico" , ".*/ui/.*" , ".*/ipnnotify" , ".*\\.js" , ".*\\.woff" , ".*\\.css" , ".*\\.ods" , ".*/mtdvatui/.*" , ".*\\.xls" , ".*\\.svg" .
 
 idp:googlemock  a                 triki:IdentityProvider ;
         dc:title                  "googlemock" ;
@@ -426,6 +723,15 @@ idp:googlemock  a                 triki:IdentityProvider ;
 content:tc.md  a          triki:Content ;
         dc:title          "tc.md" ;
         triki:restricted  group:private .
+
+prefix:vatreturn  a    triki:Prefix ;
+        dc:identifier  vatreturn: ;
+        dc:title       "vatreturn" .
+
+property:payeeEmail  a  triki:Property ;
+        dc:identifier  mtd:payeeEmail ;
+        dc:title       "payeeEmail" ;
+        triki:order    "19"^^xsd:int .
 
 setting:RESTRICTION  a    triki:Setting ;
         dc:title          "RESTRICTION" ;
@@ -465,6 +771,20 @@ mediatype:log  a      triki:MediaType ;
         dc:title      "log" ;
         triki:maxage  "10" .
 
+order:82dfbef1-d8a1-422b-88cf-3892424d6c9d
+        a                mtd:Order ;
+        dc:created       "2019-09-12T13:57:20.35Z"^^xsd:dateTime ;
+        dc:identifier    "82dfbef1-d8a1-422b-88cf-3892424d6c9d" ;
+        dc:title         "Order 82dfbef1-d8a1-422b-88cf-3892424d6c9d" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
+
+property:product  a    triki:Property ;
+        dc:identifier  triki:product ;
+        dc:title       "product" ;
+        triki:order    "15"^^xsd:int .
+
 idp:amazon  a                     triki:IdentityProvider ;
         dc:title                  "amazon" ;
         triki:oauthauthendpoint   "https://www.amazon.com/ap/oa" ;
@@ -472,6 +792,13 @@ idp:amazon  a                     triki:IdentityProvider ;
         triki:oauthclientsecret   "undefined" ;
         triki:oauthscope          "profile" ;
         triki:oauthtokenendpoint  "https://api.amazon.com/auth/o2/token" .
+
+vatreturn:e1930dd5-29ac-4e63-b695-43d3a4e2ede4
+        a              mtd:VatReturn ;
+        dc:created     "2019-09-16T10:38:06.235Z"^^xsd:dateTime ;
+        dc:identifier  "e1930dd5-29ac-4e63-b695-43d3a4e2ede4" ;
+        dc:title       "VAT Return e1930dd5-29ac-4e63-b695-43d3a4e2ede4" ;
+        mtd:order      order:9b729177-5ca7-4aa3-a4eb-40c26b2210cd .
 
 setting:CREATOR  a        triki:Setting ;
         dc:title          "CREATOR" ;
@@ -483,6 +810,10 @@ setting:IMAPHOST  a       triki:Setting ;
         triki:restricted  group:private ;
         triki:setting     "imaphost" .
 
+prefix:mtd  a          triki:Prefix ;
+        dc:identifier  mtd: ;
+        dc:title       "mtd" .
+
 setting:AMAZONOPENIDSCOPE
         a                 triki:Setting ;
         dc:description    "Amazon OpenID scope" ;
@@ -490,9 +821,23 @@ setting:AMAZONOPENIDSCOPE
         triki:restricted  group:private ;
         triki:setting     "profile" .
 
+payment:5b0fb3bb-2307-4909-a95a-b74f3487dae9
+        a                  mtd:Payment ;
+        dc:created         "2019-09-12T13:53:26.25Z"^^xsd:dateTime ;
+        dc:description     "Payment for 5b0fb3bb-2307-4909-a95a-b74f3487dae9 and item 001" ;
+        dc:identifier      "5b0fb3bb-2307-4909-a95a-b74f3487dae9" ;
+        dc:title           "Payment for 5b0fb3bb-2307-4909-a95a-b74f3487dae9" ;
+        mtd:itemCode       "001" ;
+        mtd:order          order:5cfe8ade-a09a-4237-86da-d4ed943524ff ;
+        mtd:payeeEmail     "don@gmail.com" ;
+        mtd:paymentStatus  "Completed" .
+
 root:   a                 type:home ;
         dc:title          "Home Page" ;
         triki:restricted  group:public .
+
+mtd:Order  a      triki:Type ;
+        dc:title  "Order" .
 
 type:images  a            triki:Type ;
         dc:title          "Images" ;
@@ -522,6 +867,18 @@ property:restricted  a  triki:Property ;
         dc:title       "restricted" ;
         triki:order    "14"^^xsd:int .
 
+root:4RETURNS-2019  a       mtd:Product ;
+        dc:created          "2019-09-03T10:54:14.772Z"^^xsd:dateTime ;
+        dc:creator          user:administrator ;
+        dc:description      "Pre-pay four VAT returns" ;
+        dc:identifier       "4RETURNS-2019" ;
+        dc:title            "4 VAT Returns Bundle" ;
+        triki:restricted    group:public ;
+        mtd:credits         "4" ;
+        mtd:paypalButtonId  "P8933R84RRU" ;
+        mtd:price           "15.99" ;
+        time:month          month:2019September .
+
 property:order  a      triki:Property ;
         dc:identifier  triki:order ;
         dc:title       "order" ;
@@ -542,10 +899,35 @@ root:images  a            type:images ;
         dc:title          "Images Index" ;
         triki:restricted  group:public .
 
+payment:9badd27b-cdd4-4602-9bdd-3fcfcd792567
+        a                  mtd:Payment ;
+        dc:created         "2019-09-12T13:57:20.914Z"^^xsd:dateTime ;
+        dc:description     "Payment for 9badd27b-cdd4-4602-9bdd-3fcfcd792567 and item 001" ;
+        dc:identifier      "9badd27b-cdd4-4602-9bdd-3fcfcd792567" ;
+        dc:title           "Payment for 9badd27b-cdd4-4602-9bdd-3fcfcd792567" ;
+        mtd:itemCode       "001" ;
+        mtd:order          order:577dd408-02d3-4acd-9070-db71b71596d4 ;
+        mtd:payeeEmail     "don@gmail.com" ;
+        mtd:paymentStatus  "Completed" .
+
 property:originalWidth
         a              triki:Property ;
         dc:identifier  exif:width ;
         dc:title       "originalWidth" ;
+        triki:order    "19"^^xsd:int .
+
+order:5a3a2755-6210-4aff-b61a-bfd7640a2f65
+        a                mtd:Order ;
+        dc:created       "2019-09-12T13:46:51.585Z"^^xsd:dateTime ;
+        dc:identifier    "5a3a2755-6210-4aff-b61a-bfd7640a2f65" ;
+        dc:title         "Order 5a3a2755-6210-4aff-b61a-bfd7640a2f65" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
+
+property:itemCode  a   triki:Property ;
+        dc:identifier  mtd:itemCode ;
+        dc:title       "itemCode" ;
         triki:order    "19"^^xsd:int .
 
 group:family  a   foaf:Group ;
@@ -559,6 +941,15 @@ idp:hmrcmock  a                   triki:IdentityProvider ;
         triki:oauthscope          "read:vat write:vat" ;
         triki:oauthtokenendpoint  "http://localhost:9090/oauth/token" .
 
+order:93f82d2d-896c-4ac8-8dff-c765f0229bdf
+        a                mtd:Order ;
+        dc:created       "2019-09-12T13:48:15.251Z"^^xsd:dateTime ;
+        dc:identifier    "93f82d2d-896c-4ac8-8dff-c765f0229bdf" ;
+        dc:title         "Order 93f82d2d-896c-4ac8-8dff-c765f0229bdf" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
+
 mediatype:ttl  a      triki:MediaType ;
         dc:format     "text/plain" ;
         dc:title      "ttl" ;
@@ -567,6 +958,21 @@ mediatype:ttl  a      triki:MediaType ;
 prefix:time  a         triki:Prefix ;
         dc:identifier  time: ;
         dc:title       "time" .
+
+property:paymentStatus
+        a              triki:Property ;
+        dc:identifier  mtd:paymentStatus ;
+        dc:title       "paymentStatus" ;
+        triki:order    "19"^^xsd:int .
+
+order:8a19b543-d432-48fc-ad83-c5bcb9a44ef0
+        a                mtd:Order ;
+        dc:created       "2019-09-12T13:46:20.176Z"^^xsd:dateTime ;
+        dc:identifier    "8a19b543-d432-48fc-ad83-c5bcb9a44ef0" ;
+        dc:title         "Order 8a19b543-d432-48fc-ad83-c5bcb9a44ef0" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
 
 type:auth  a      triki:Type ;
         dc:title  "Auth" .
@@ -577,6 +983,9 @@ setting:AMAZONPROFILEENDPOINT
         dc:title          "AMAZONPROFILEENDPOINT" ;
         triki:restricted  group:private ;
         triki:setting     "https://api.amazon.com/user/profile" .
+
+type:order  a     triki:Type ;
+        dc:title  "Order" .
 
 property:oauthtokenendpoint
         a              triki:Property ;
@@ -590,13 +999,43 @@ property:oauthclientid
         dc:title       "oauthclientid" ;
         triki:order    "26"^^xsd:int .
 
+vatreturn:239c9890-c77c-40ac-8c27-e0196553d390
+        a              mtd:VatReturn ;
+        dc:created     "2019-09-16T10:37:59.63Z"^^xsd:dateTime ;
+        dc:identifier  "239c9890-c77c-40ac-8c27-e0196553d390" ;
+        dc:title       "VAT Return 239c9890-c77c-40ac-8c27-e0196553d390" ;
+        mtd:order      order:9b729177-5ca7-4aa3-a4eb-40c26b2210cd .
+
 property:webcontent  a  triki:Property ;
         dc:identifier  triki:webcontent ;
         dc:title       "webcontent" ;
         triki:order    "20"^^xsd:int .
 
+order:62aaa63f-1087-4d94-baab-d34c2437e1d5
+        a                mtd:Order ;
+        dc:created       "2019-09-12T14:06:57.633Z"^^xsd:dateTime ;
+        dc:identifier    "62aaa63f-1087-4d94-baab-d34c2437e1d5" ;
+        dc:title         "Order 62aaa63f-1087-4d94-baab-d34c2437e1d5" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
+
+property:payee  a      triki:Property ;
+        dc:identifier  mtd:payee ;
+        dc:title       "payee" ;
+        triki:order    "24"^^xsd:int .
+
 group:admin  a    foaf:Group ;
         dc:title  "Administrator group" .
+
+order:70eca11d-f137-4026-8d4c-859c3fc83fbb
+        a                mtd:Order ;
+        dc:created       "2019-09-16T10:37:55.162Z"^^xsd:dateTime ;
+        dc:identifier    "70eca11d-f137-4026-8d4c-859c3fc83fbb" ;
+        dc:title         "Order 70eca11d-f137-4026-8d4c-859c3fc83fbb" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
 
 property:include  a    triki:Property ;
         dc:identifier  triki:include ;
@@ -625,18 +1064,40 @@ setting:DEFAULTLOGINPAGE
         dc:description    "MTD Default login page" ;
         dc:title          "DEFAULTLOGINPAGE" ;
         triki:restricted  group:private ;
-        triki:setting     "/ui/mtdlogin" .
+        triki:setting     "/ui/mtd/login" .
 
-property:oauthscope  a  triki:Property ;
-        dc:identifier  triki:oauthscope ;
-        dc:title       "oauthscope" ;
-        triki:order    "24"^^xsd:int .
+vatreturn:b68eba21-ada4-4237-9f56-d67d0e988aaf
+        a              mtd:VatReturn ;
+        dc:created     "2019-09-16T10:38:01.829Z"^^xsd:dateTime ;
+        dc:identifier  "b68eba21-ada4-4237-9f56-d67d0e988aaf" ;
+        dc:title       "VAT Return b68eba21-ada4-4237-9f56-d67d0e988aaf" ;
+        mtd:order      order:9b729177-5ca7-4aa3-a4eb-40c26b2210cd .
 
 property:originalHeight
         a              triki:Property ;
         dc:identifier  exif:height ;
         dc:title       "originalHeight" ;
         triki:order    "19"^^xsd:int .
+
+property:oauthscope  a  triki:Property ;
+        dc:identifier  triki:oauthscope ;
+        dc:title       "oauthscope" ;
+        triki:order    "24"^^xsd:int .
+
+<http://localhost:8080/orders/38d828a8-aa09-455c-b607-de570d44a4ee>
+        a                mtd:Order ;
+        dc:created       "2019-09-08T21:58:00.462Z"^^xsd:dateTime ;
+        dc:identifier    "38d828a8-aa09-455c-b607-de570d44a4ee" ;
+        dc:title         "Order 38d828a8-aa09-455c-b607-de570d44a4ee" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
+
+property:currentOrder
+        a              triki:Property ;
+        dc:identifier  mtd:currentOrder ;
+        dc:title       "currentOrder" ;
+        triki:order    "21"^^xsd:int .
 
 setting:CHATREFRESH  a    triki:Setting ;
         dc:title          "CHATREFRESH" ;
@@ -658,14 +1119,43 @@ setting:TWITTERCONSUMERKEY
         triki:restricted  group:private ;
         triki:setting     "twitterconsumerkey" .
 
+order:a6b3354a-5b97-47b9-b6f6-62cc59868ee7
+        a                mtd:Order ;
+        dc:created       "2019-09-12T13:43:27.791Z"^^xsd:dateTime ;
+        dc:identifier    "a6b3354a-5b97-47b9-b6f6-62cc59868ee7" ;
+        dc:title         "Order a6b3354a-5b97-47b9-b6f6-62cc59868ee7" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
+
 type:home  a              triki:Type ;
         dc:title          "Home" ;
         triki:restricted  group:public .
+
+property:orderStatus  a  triki:Property ;
+        dc:identifier  mtd:orderStatus ;
+        dc:title       "orderStatus" ;
+        triki:order    "19"^^xsd:int .
 
 setting:DAILYREFRESH  a   triki:Setting ;
         dc:title          "DAILYREFRESH" ;
         triki:restricted  group:private ;
         triki:setting     "720" .
+
+order:779e9ba9-edc9-4f21-9f73-1ef5b05e27c2
+        a                mtd:Order ;
+        dc:created       "2019-09-16T10:40:54.799Z"^^xsd:dateTime ;
+        dc:identifier    "779e9ba9-edc9-4f21-9f73-1ef5b05e27c2" ;
+        dc:title         "Order 779e9ba9-edc9-4f21-9f73-1ef5b05e27c2" ;
+        mtd:item         root:1RETURN-2019 ;
+        mtd:orderStatus  "USED" ;
+        mtd:payee        user:Donald-McIntosh .
+
+setting:PAYPALBASE  a     triki:Setting ;
+        dc:description    "PayPal Base URL" ;
+        dc:title          "PAYPALBASE" ;
+        triki:restricted  group:private ;
+        triki:setting     "http://localhost:9090/cgi-bin/webscr" .
 
 property:homepage  a   triki:Property ;
         dc:identifier  foaf:homepage ;
@@ -684,17 +1174,6 @@ idp:yahoo  a                      triki:IdentityProvider ;
         triki:oauthscope          "openid" ;
         triki:oauthtokenendpoint  "https://api.login.yahoo.com/oauth2/get_token" .
 
-property:member  a     triki:Property ;
-        dc:identifier  foaf:member ;
-        dc:title       "member" ;
-        triki:order    "30"^^xsd:int .
-
-setting:LIVEGRAPHSAVEPERIODMINS
-        a                 triki:Setting ;
-        dc:title          "LIVEGRAPHSAVEPERIODMINS" ;
-        triki:restricted  group:private ;
-        triki:setting     "5" .
-
 idp:hmrctest  a                   triki:IdentityProvider ;
         dc:title                  "hmrctest" ;
         triki:oauthauthendpoint   "http://localhost:9090/oauth/authorize" ;
@@ -704,9 +1183,29 @@ idp:hmrctest  a                   triki:IdentityProvider ;
         triki:oauthtokenendpoint  "http://localhost:9090/oauth/token" ;
         triki:restricted          group:private .
 
+setting:LIVEGRAPHSAVEPERIODMINS
+        a                 triki:Setting ;
+        dc:title          "LIVEGRAPHSAVEPERIODMINS" ;
+        triki:restricted  group:private ;
+        triki:setting     "5" .
+
+property:member  a     triki:Property ;
+        dc:identifier  foaf:member ;
+        dc:title       "member" ;
+        triki:order    "30"^^xsd:int .
+
+property:item  a       triki:Property ;
+        dc:identifier  mtd:item ;
+        dc:title       "item" ;
+        triki:order    "25"^^xsd:int .
+
 prefix:root  a         triki:Prefix ;
         dc:identifier  root: ;
         dc:title       "root" .
+
+prefix:order  a        triki:Prefix ;
+        dc:identifier  order: ;
+        dc:title       "order" .
 
 setting:TWITTERCONSUMERSECRET
         a                 triki:Setting ;
@@ -721,24 +1220,81 @@ setting:YAHOOPROFILEENDPOINT
         triki:restricted  group:private ;
         triki:setting     "https://social.yahooapis.com/v1/user/${guid}/profile?format=json" .
 
+mtd:Product  a    triki:Type ;
+        dc:title  "Product" .
+
+payment:9eb53d52-584a-42cb-8063-705548efa337
+        a                  mtd:Payment ;
+        dc:created         "2019-09-12T13:59:03.209Z"^^xsd:dateTime ;
+        dc:description     "Payment for 9eb53d52-584a-42cb-8063-705548efa337 and item 001" ;
+        dc:identifier      "9eb53d52-584a-42cb-8063-705548efa337" ;
+        dc:title           "Payment for 9eb53d52-584a-42cb-8063-705548efa337" ;
+        mtd:itemCode       "001" ;
+        mtd:order          order:d2949f3d-a7bc-41cb-a683-2244fbd55e65 ;
+        mtd:payeeEmail     "don@gmail.com" ;
+        mtd:paymentStatus  "Completed" .
+
 mediatype:png  a      triki:MediaType ;
         dc:format     "image/png" ;
         dc:title      "png" ;
         triki:maxage  "86400" .
 
+payment:null  a            mtd:Payment ;
+        dc:created         "2019-09-12T13:46:24.641Z"^^xsd:dateTime ;
+        dc:description     "Payment for null and item 001" ;
+        dc:title           "Payment for null" ;
+        mtd:itemCode       "001" ;
+        mtd:order          order:29c3b592-71a6-4569-8abf-0617657a286a ;
+        mtd:payeeEmail     "don@gmail.com" ;
+        mtd:paymentStatus  "Completed" .
+
 root:template  a          type:template ;
         dc:title          "Template Editor" ;
         triki:restricted  group:admin .
 
-prefix:auth  a         triki:Prefix ;
-        dc:identifier  auth: ;
-        dc:title       "auth" .
+order:07fd5581-e3e7-4497-aac8-42b43252e067
+        a                mtd:Order ;
+        dc:created       "2019-09-12T13:46:51.971Z"^^xsd:dateTime ;
+        dc:identifier    "07fd5581-e3e7-4497-aac8-42b43252e067" ;
+        dc:title         "Order 07fd5581-e3e7-4497-aac8-42b43252e067" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
+
+order:e5eead7d-65da-46ab-8387-82572cc25e0d
+        a                mtd:Order ;
+        dc:created       "2019-09-12T13:52:17.787Z"^^xsd:dateTime ;
+        dc:identifier    "e5eead7d-65da-46ab-8387-82572cc25e0d" ;
+        dc:title         "Order e5eead7d-65da-46ab-8387-82572cc25e0d" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
 
 setting:EMAILPASSWORD
         a                 triki:Setting ;
         dc:title          "EMAILPASSWORD" ;
         triki:restricted  group:private ;
         triki:setting     "emailpass" .
+
+prefix:auth  a         triki:Prefix ;
+        dc:identifier  auth: ;
+        dc:title       "auth" .
+
+order:1caef24a-1041-44e6-b171-bf7d5dce3ef3
+        a                mtd:Order ;
+        dc:created       "2019-09-12T13:59:41.12Z"^^xsd:dateTime ;
+        dc:identifier    "1caef24a-1041-44e6-b171-bf7d5dce3ef3" ;
+        dc:title         "Order 1caef24a-1041-44e6-b171-bf7d5dce3ef3" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
+
+prefix:product  a      triki:Prefix ;
+        dc:identifier  product: ;
+        dc:title       "product" .
+
+type:payment  a   triki:Type ;
+        dc:title  "Payment" .
 
 property:identifier  a  triki:Property ;
         dc:identifier  dc:identifier ;
@@ -753,19 +1309,36 @@ type:graph  a     triki:Type ;
 
 triki:Type  dc:title  "Triki Type" .
 
+prefix:notes  a        triki:Prefix ;
+        dc:identifier  notes: ;
+        dc:title       "notes" .
+
 property:dateTimeOriginal
         a              triki:Property ;
         dc:identifier  exif:dateTimeOriginal ;
         dc:title       "dateTimeOriginal" ;
         triki:order    "19"^^xsd:int .
 
-prefix:notes  a        triki:Prefix ;
-        dc:identifier  notes: ;
-        dc:title       "notes" .
+order:ac8bd70e-1606-4bba-b03e-a005d1f4b110
+        a                mtd:Order ;
+        dc:created       "2019-09-12T13:59:01.614Z"^^xsd:dateTime ;
+        dc:identifier    "ac8bd70e-1606-4bba-b03e-a005d1f4b110" ;
+        dc:title         "Order ac8bd70e-1606-4bba-b03e-a005d1f4b110" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
+
+prefix:vatreturns  a   triki:Prefix ;
+        dc:identifier  vatreturns: ;
+        dc:title       "vatreturns" .
 
 prefix:exif  a         triki:Prefix ;
         dc:identifier  exif: ;
         dc:title       "exif" .
+
+type:blogs  a             triki:Type ;
+        dc:title          "Blogs" ;
+        triki:restricted  group:public .
 
 property:oauthauthendpoint
         a              triki:Property ;
@@ -773,13 +1346,24 @@ property:oauthauthendpoint
         dc:title       "oauthauthendpoint" ;
         triki:order    "20"^^xsd:int .
 
-type:blogs  a             triki:Type ;
-        dc:title          "Blogs" ;
-        triki:restricted  group:public .
-
 prefix:blog  a         triki:Prefix ;
         dc:identifier  blog: ;
         dc:title       "blog" .
+
+order:89ad3016-c622-4786-aefa-929e123d8c1e
+        a                mtd:Order ;
+        dc:created       "2019-09-12T13:53:25.415Z"^^xsd:dateTime ;
+        dc:identifier    "89ad3016-c622-4786-aefa-929e123d8c1e" ;
+        dc:title         "Order 89ad3016-c622-4786-aefa-929e123d8c1e" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
+
+property:paypalButtonId
+        a              triki:Property ;
+        dc:identifier  mtd:paypalButtonId ;
+        dc:title       "paypalButtonId" ;
+        triki:order    "18"^^xsd:int .
 
 prefix:dc  a           triki:Prefix ;
         dc:identifier  dc: ;
@@ -795,19 +1379,68 @@ property:created  a    triki:Property ;
         dc:title       "created" ;
         triki:order    "16"^^xsd:int .
 
+payment:33be09d2-3b89-45e4-ac77-6fe6670a6b32
+        a                  mtd:Payment ;
+        dc:created         "2019-09-16T10:37:55.732Z"^^xsd:dateTime ;
+        dc:description     "Payment for 33be09d2-3b89-45e4-ac77-6fe6670a6b32 and item 001" ;
+        dc:identifier      "33be09d2-3b89-45e4-ac77-6fe6670a6b32" ;
+        dc:title           "Payment for 33be09d2-3b89-45e4-ac77-6fe6670a6b32" ;
+        mtd:itemCode       "001" ;
+        mtd:order          order:9b729177-5ca7-4aa3-a4eb-40c26b2210cd ;
+        mtd:payeeEmail     "don@gmail.com" ;
+        mtd:paymentStatus  "Completed" .
+
 prefix:rdfs  a         triki:Prefix ;
         dc:identifier  rdfs: ;
         dc:title       "rdfs" .
+
+order:c6bf1188-8ddb-4fef-a22f-67870724a328
+        a                mtd:Order ;
+        dc:created       "2019-09-12T13:43:27.396Z"^^xsd:dateTime ;
+        dc:identifier    "c6bf1188-8ddb-4fef-a22f-67870724a328" ;
+        dc:title         "Order c6bf1188-8ddb-4fef-a22f-67870724a328" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
+
+root:emailpub  a          type:emailpub ;
+        dc:title          "Send email page" ;
+        triki:restricted  group:admin ;
+        triki:sparql      " \n\t\tPREFIX triki: <http://www.opentechnology.net/triki/0.1/>\n\t\tPREFIX dc:    <http://purl.org/dc/terms/> \n\t\tPREFIX foaf:  <http://xmlns.com/foaf/0.1/>\n\t\tPREFIX resource: <http://localhost:8080/group/>\n\t\t\n\t\tSELECT ?target\n\t\t\tWHERE {  \n\t\t\t?target dc:title ?title .\n\t\t\t?target foaf:mbox ?mbox .\n\t\t\t?target foaf:member resource:friends .\n\t\t}\n\t\t" .
 
 property:itemParser  a  triki:Property ;
         dc:identifier  triki:itemParser ;
         dc:title       "itemParser" ;
         triki:order    "11"^^xsd:int .
 
-root:emailpub  a          type:emailpub ;
-        dc:title          "Send email page" ;
-        triki:restricted  group:admin ;
-        triki:sparql      " \n\t\tPREFIX triki: <http://www.opentechnology.net/triki/0.1/>\n\t\tPREFIX dc:    <http://purl.org/dc/terms/> \n\t\tPREFIX foaf:  <http://xmlns.com/foaf/0.1/>\n\t\tPREFIX resource: <http://localhost:8080/group/>\n\t\t\n\t\tSELECT ?target\n\t\t\tWHERE {  \n\t\t\t?target dc:title ?title .\n\t\t\t?target foaf:mbox ?mbox .\n\t\t\t?target foaf:member resource:friends .\n\t\t}\n\t\t" .
+order:89cb906a-70ad-47dc-97ed-9fc11233b18d
+        a                mtd:Order ;
+        dc:created       "2019-09-12T13:58:07.908Z"^^xsd:dateTime ;
+        dc:identifier    "89cb906a-70ad-47dc-97ed-9fc11233b18d" ;
+        dc:title         "Order 89cb906a-70ad-47dc-97ed-9fc11233b18d" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
+
+property:payment  a    triki:Property ;
+        dc:identifier  triki:payment ;
+        dc:title       "payment" ;
+        triki:order    "17"^^xsd:int .
+
+payment:839289302  a       mtd:Payment ;
+        dc:created         "2019-09-12T13:42:36.266Z"^^xsd:dateTime ;
+        dc:description     "Payment for 839289302 and item 001" ;
+        dc:identifier      "839289302" ;
+        dc:title           "Payment for 839289302" ;
+        mtd:itemCode       "001" ;
+        mtd:order          order:091c7dad-5f34-4e49-9829-34a7538cff90 ;
+        mtd:payeeEmail     "don@gmail.com" ;
+        mtd:paymentStatus  "Completed" .
+
+property:maxage  a     triki:Property ;
+        dc:identifier  triki:maxage ;
+        dc:title       "maxage" ;
+        triki:order    "19"^^xsd:int .
 
 setting:TWITTERTOKENSECRET
         a                 triki:Setting ;
@@ -815,18 +1448,34 @@ setting:TWITTERTOKENSECRET
         triki:restricted  group:private ;
         triki:setting     "twittertokensecret" .
 
+payment:09b4a90f-8fe8-42e3-9691-8612fac7709f
+        a                  mtd:Payment ;
+        dc:created         "2019-09-12T14:07:06.082Z"^^xsd:dateTime ;
+        dc:description     "Payment for 09b4a90f-8fe8-42e3-9691-8612fac7709f and item 001" ;
+        dc:identifier      "09b4a90f-8fe8-42e3-9691-8612fac7709f" ;
+        dc:title           "Payment for 09b4a90f-8fe8-42e3-9691-8612fac7709f" ;
+        mtd:itemCode       "001" ;
+        mtd:order          order:316a0d7c-a903-4985-84e1-b396217a149a ;
+        mtd:payeeEmail     "don@gmail.com" ;
+        mtd:paymentStatus  "Completed" .
+
+mediatype:xls  a      triki:MediaType ;
+        dc:format     "application/octet-stream" ;
+        dc:title      "xls" ;
+        triki:maxage  "10" .
+
 setting:IGNOREAGENTS  a   triki:Setting ;
         dc:title          "IGNOREAGENTS" ;
         triki:restricted  group:private ;
         triki:setting     "(?iu).*(bot|Spider|curl|feedly|crawl|NetShelter ContentScan|slurp).*" .
 
-content:hmrc.svg  a       triki:Content ;
-        dc:title          "hmrc.svg" ;
-        triki:restricted  group:private .
-
 prefix:localprop  a    triki:Prefix ;
         dc:identifier  localprop: ;
         dc:title       "localprop" .
+
+content:hmrc.svg  a       triki:Content ;
+        dc:title          "hmrc.svg" ;
+        triki:restricted  group:private .
 
 property:feedtype  a   triki:Property ;
         dc:identifier  triki:feedtype ;
@@ -846,6 +1495,13 @@ prefix:xsd  a          triki:Prefix ;
         dc:identifier  xsd: ;
         dc:title       "xsd" .
 
+vatreturn:a90cc0bc-ed8d-438b-92cc-1be3d7c04051
+        a              mtd:VatReturn ;
+        dc:created     "2019-09-13T14:48:46.274Z"^^xsd:dateTime ;
+        dc:identifier  "a90cc0bc-ed8d-438b-92cc-1be3d7c04051" ;
+        dc:title       "VAT Return a90cc0bc-ed8d-438b-92cc-1be3d7c04051" ;
+        mtd:order      order:77a23990-7adc-41b8-a63b-2a11c8d4c135 .
+
 setting:YAHOOCLIENTID
         a                 triki:Setting ;
         dc:description    "Generated Yahoo OAuth2 client ID" ;
@@ -861,6 +1517,12 @@ auth:openidlogin  a       type:auth ;
         dc:title          "Authorise OpenID Login" ;
         triki:restricted  group:public .
 
+property:currentBundle
+        a              triki:Property ;
+        dc:identifier  triki:currentOrder ;
+        dc:title       "currentBundle" ;
+        triki:order    "18"^^xsd:int .
+
 root:login  a             type:login ;
         dc:title          "Console login" ;
         triki:restricted  group:public .
@@ -875,6 +1537,43 @@ mediatype:woff  a     triki:MediaType ;
         triki:maxage  "10" .
 
 triki:Prefix  dc:title  "Triki Prefix" .
+
+order:983e9a99-de83-483b-a682-c09106cbe8b4
+        a                mtd:Order ;
+        dc:created       "2019-09-12T14:07:56.458Z"^^xsd:dateTime ;
+        dc:identifier    "983e9a99-de83-483b-a682-c09106cbe8b4" ;
+        dc:title         "Order 983e9a99-de83-483b-a682-c09106cbe8b4" ;
+        mtd:item         root:4RETURNS-2019 ;
+        mtd:orderStatus  "PENDING" ;
+        mtd:payee        user:Donald-McIntosh .
+
+payment:fc0fa911-55af-46bb-80bb-32a340712ccd
+        a                  mtd:Payment ;
+        dc:created         "2019-09-12T13:58:08.451Z"^^xsd:dateTime ;
+        dc:description     "Payment for fc0fa911-55af-46bb-80bb-32a340712ccd and item 001" ;
+        dc:identifier      "fc0fa911-55af-46bb-80bb-32a340712ccd" ;
+        dc:title           "Payment for fc0fa911-55af-46bb-80bb-32a340712ccd" ;
+        mtd:itemCode       "001" ;
+        mtd:order          order:b403a8c8-4ce3-4183-a7dd-9a2bbe5c6399 ;
+        mtd:payeeEmail     "don@gmail.com" ;
+        mtd:paymentStatus  "Completed" .
+
+property:vatreturn  a  triki:Property ;
+        dc:identifier  mtd:vatreturn ;
+        dc:title       "vatreturn" ;
+        triki:order    "19"^^xsd:int .
+
+root:1RETURN-2019  a        mtd:Product ;
+        dc:created          "2019-09-03T10:54:14.772Z"^^xsd:dateTime ;
+        dc:creator          user:administrator ;
+        dc:description      "Pre-pay one VAT returns" ;
+        dc:identifier       "1RETURN-2019" ;
+        dc:title            "1 VAT Return Bundle" ;
+        triki:restricted    group:public ;
+        mtd:credits         "1" ;
+        mtd:paypalButtonId  "JF3893JD383" ;
+        mtd:price           "4.99" ;
+        time:month          month:2019September .
 
 property:sparql  a     triki:Property ;
         dc:identifier  triki:sparql ;
@@ -894,18 +1593,18 @@ property:setting  a    triki:Property ;
         dc:title       "setting" ;
         triki:order    "20"^^xsd:int .
 
-setting:OPENIDCONNECTREDIRECTURI
-        a                 triki:Setting ;
-        dc:description    "OpenID Connect Redirect URL" ;
-        dc:title          "OPENIDCONNECTREDIRECTURI" ;
-        triki:restricted  group:private ;
-        triki:setting     "http://localhost:8080/auth/openidconnect" .
+prefix:publish  a      triki:Prefix ;
+        dc:identifier  publish: ;
+        dc:title       "publish" .
 
 content:mtd-summary.md
         a                 triki:Content ;
         dc:title          "mtd-summary.md" ;
         triki:restricted  group:private .
 
-prefix:publish  a      triki:Prefix ;
-        dc:identifier  publish: ;
-        dc:title       "publish" .
+setting:OPENIDCONNECTREDIRECTURI
+        a                 triki:Setting ;
+        dc:description    "OpenID Connect Redirect URL" ;
+        dc:title          "OPENIDCONNECTREDIRECTURI" ;
+        triki:restricted  group:private ;
+        triki:setting     "http://localhost:8080/auth/openidconnect" .

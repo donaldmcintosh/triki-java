@@ -31,6 +31,7 @@ import groovy.util.logging.Log4j
 import net.opentechnology.triki.schema.Dcterms
 import net.opentechnology.triki.schema.Foaf
 import org.apache.http.client.utils.URIBuilder
+import org.apache.wicket.Session
 import org.springframework.beans.factory.annotation.InjectionMetadata
 
 import javax.inject.Inject

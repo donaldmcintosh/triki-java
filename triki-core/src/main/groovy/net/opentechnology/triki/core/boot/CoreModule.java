@@ -189,6 +189,8 @@ public class CoreModule implements Module {
 		
 		propertyDto.addProperty("setting", Triki.setting.getURI(), 20);
 		propertyDto.addProperty("webcontent", Triki.webcontent.getURI(), 20);
+		propertyDto.addProperty("maxage", Triki.maxage.getURI(), 19);
+
 	}
 	
 	private void initSettings()

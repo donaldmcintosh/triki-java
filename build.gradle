@@ -97,6 +97,8 @@ allprojects {
         compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
         compile group: 'org.slf4j', name: 'log4j-over-slf4j', version: '1.7.25'
 
+        compile group: 'com.opencsv', name: 'opencsv', version: '4.0'
+
         testCompile("junit:junit:4.4")
         testCompile("org.mockito:mockito-all:1.9.5")
         testCompile("org.apache.camel:camel-test:2.16.1")
@@ -132,7 +134,8 @@ dependencies {
     compile project(":triki-twitter")
     compile project(":triki-pageviews")
     compile project(":triki-image")
-//    compile project(":triki-mtd")
+    compile project(":triki-mtd")
+    compile project(":triki-paypal")
 }
 
 shadowJar {

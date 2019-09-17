@@ -11,6 +11,7 @@ import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.settings.SecuritySettings;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
+import org.apache.wicket.util.file.Folder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -27,6 +28,8 @@ public class UIApplication extends WebApplication {
     mountPage("/login", LoginPage.class);
     mountModulePages();
     setAuthorisationStrategy(getSecuritySettings());
+
+    getApplicationSettings().setUploadProgressUpdatesEnabled(true);
   }
 
   private void mountModulePages(){
