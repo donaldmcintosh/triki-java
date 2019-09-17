@@ -8,7 +8,6 @@ buildscript {
 }
 
 plugins {
-  id 'maven-publish'
   id 'net.researchgate.release' version '2.6.0'
 }
 
@@ -139,8 +138,7 @@ dependencies {
 
 shadowJar {
     baseName project.name
-    classifier = null
-    version = null
+    version = project.version
     mergeServiceFiles {
         include 'META-INF/services'
         include 'META-INF/schemas.*'
@@ -158,7 +156,25 @@ shadowJar {
 }
 
 distZip.dependsOn shadowJar
+publishToMavenLocal.dependsOn distZip
 afterReleaseBuild.dependsOn publishToMavenLocal
+
+publishing {
+    publications {
+        shadow(MavenPublication) {
+            from components.shadow
+            groupId 'net.opentechnology'
+            artifactId project.name
+            version project.version
+        }
+        zip(MavenPublication) {
+            artifact distZip
+            groupId 'net.opentechnology'
+            artifactId project.name
+            version project.version
+        }
+    }
+}
 
 distributions {
     main {
