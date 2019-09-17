@@ -158,6 +158,7 @@ shadowJar {
 }
 
 distZip.dependsOn shadowJar
+afterReleaseBuild.dependsOn publishToMavenLocal
 
 distributions {
     main {
