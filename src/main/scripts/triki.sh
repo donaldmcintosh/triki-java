@@ -33,7 +33,7 @@ then
   echo Adding triki modules $TRIKI_MODULES
 fi
 
-TRIKI_JAR=`ls -1 ../lib/triki*.jar`
+TRIKI_JAR=`ls -1 lib/triki*.jar`
 export CLASSPATH=$CLASSPATH:$TRIKI_JAR:$TRIKI_MODULES
 
 java $DEBUG -Dcontent_dir=$1 -Dport=$2 net.opentechnology.triki.core.boot.TrikiMain
