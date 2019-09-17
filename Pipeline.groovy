@@ -7,7 +7,11 @@ def build() {
         }
 
         stage('Gradle build') {
-            buildInfo = rtGradle.run buildFile: 'build.gradle', tasks: 'clean build'
+            sh "./gradlew clean build -x test"
+        }
+
+        stage('Deploy local') {
+            sh "unzip build/distributions/*.zip -d ~/deploy"
         }
     }
 }

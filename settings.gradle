@@ -1,3 +1,5 @@
+rootProject.name=name
+
 include 'triki-core'
 include 'triki-news'
 include 'triki-image'
