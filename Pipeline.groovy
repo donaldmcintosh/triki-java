@@ -7,7 +7,7 @@ def build() {
         }
 
         stage('Gradle build') {
-            sh "./gradlew clean build -x test"
+            sh "./gradlew clean build"
         }
 
         stage('Deploy local') {
