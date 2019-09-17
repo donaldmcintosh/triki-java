@@ -28,7 +28,7 @@ fi
 if [ ! -z ${TRIKI_MODULES} ]
 then
   for jar in `ls -1 $TRIKI_MODULES`; do
-    TRIKI_MODULES=$jar:$TRIKI_MODULES
+    TRIKI_MODULES=$TRIKI_MODULES/$jar
   done
   echo Adding triki modules $TRIKI_MODULES
 fi
