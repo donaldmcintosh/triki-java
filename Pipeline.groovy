@@ -12,7 +12,14 @@ def build() {
         }
 
         stage('Deploy local') {
-            sh "unzip -o build/distributions/*.zip -d $LOCAL_DEPLOY"
+            sh "./gradlew unzipDistrib"
+        }
+
+        stage('Release'){
+            timeout(time: 10, unit: 'MINUTES') {
+                input message: "Release?", ok: "Yes"
+            }
+            sh "git clean -fd; ./gradlew release -Prelease.useAutomaticVersion=true"
         }
     }
 }

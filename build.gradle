@@ -155,9 +155,16 @@ shadowJar {
     configurations = [project.configurations.default]
 }
 
+task unzipDistrib(type: Copy) {
+    println "Unzipping to ${System.env.LOCAL_DEPLOY}"
+    from zipTree(file("${buildDir}/distributions/${rootProject.name}-${version}.zip"))
+    into "${System.env.LOCAL_DEPLOY}"
+}
+
 distZip.dependsOn shadowJar
 publishToMavenLocal.dependsOn distZip
 afterReleaseBuild.dependsOn publishToMavenLocal
+afterReleaseBuild.dependsOn unzipDistrib
 
 publishing {
     publications {
