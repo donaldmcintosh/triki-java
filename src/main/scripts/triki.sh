@@ -29,7 +29,7 @@ fi
 if [ ! -z ${TRIKI_MODULES} ]
 then
   for jar in `echo $TRIKI_MODULES | sed "s/:/ /g"`; do
-    MODULES_CLASSPATH=$MODULES_CLASSPATH:`ls -1 $LOCAL_DEPLOY/modules/*$jar*`
+    MODULES_CLASSPATH=$MODULES_CLASSPATH:`ls -1 $LOCAL_DEPLOY/modules/*$jar.jar`
   done
   echo Adding triki modules $MODULES_CLASSPATH
 fi
