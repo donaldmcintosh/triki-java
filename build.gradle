@@ -25,6 +25,10 @@ allprojects {
     apply plugin: 'distribution'
     apply plugin: 'maven-publish'
 
+    ext {
+        jenaVersion = '3.13.1'
+    }
+
     repositories {
         mavenLocal()
         mavenCentral()
@@ -37,7 +41,7 @@ allprojects {
     }
 
     dependencies {
-        schemagen 'org.apache.jena:jena-core:3.0.1'
+        schemagen "org.apache.jena:jena-core:3.0.1"
         compile("org.antlr:stringtemplate:4.0.2")
         compile("javax.servlet:javax.servlet-api:3.0.1")
         compile("javax.ws.rs:javax.ws.rs-api:2.0.1")
@@ -63,8 +67,8 @@ allprojects {
         compile("org.springframework:spring-test:4.2.6.RELEASE")
         compile("org.springframework:spring-aspects:4.2.6.RELEASE")
 
-        compile("org.apache.jena:jena-core:3.0.1")
-        compile("org.apache.jena:jena-arq:3.0.1")
+        compile("org.apache.jena:jena-core:${jenaVersion}")
+        compile("org.apache.jena:jena-arq:${jenaVersion}")
         compile("xml-apis:xml-apis:1.4.01")
         compile('com.vladsch.flexmark:flexmark:0.34.30')
         compile('com.vladsch.flexmark:flexmark-profile-pegdown:0.34.30')
