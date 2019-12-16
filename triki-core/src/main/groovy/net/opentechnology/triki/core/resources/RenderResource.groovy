@@ -24,9 +24,10 @@ package net.opentechnology.triki.core.resources
 import net.opentechnology.triki.core.expander.ExpanderException
 import net.opentechnology.triki.core.template.ResourceAdaptor;
 import net.opentechnology.triki.core.template.TemplateException
-import net.opentechnology.triki.core.template.TemplateStore;
-
-import org.springframework.beans.factory.annotation.Qualifier;
+import net.opentechnology.triki.core.template.TemplateStore
+import net.opentechnology.triki.modules.Module;
+import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.context.ApplicationContext;
 import org.stringtemplate.v4.ST
 
 import org.apache.jena.vocabulary.RDF
@@ -47,6 +48,9 @@ abstract class RenderResource {
 	
 	@Inject
 	protected final TemplateStore templateStore;
+
+	@Inject
+	private ApplicationContext appCtx;
 	
 	private final Logger logger = Logger.getLogger(this.getClass());
 
@@ -74,6 +78,12 @@ abstract class RenderResource {
 			if(template == null) throw new TemplateException("No template found for type " + type);
 			
 			template.add("props", url);
+
+			String[] beanNames = appCtx.getBeanNamesForType(Module.class);
+			for(String beanName: beanNames){
+				Module module = appCtx.getBean(beanName, Module.class);
+				module.addTemplateObjects(template, url);
+			}
 		
 			logger.info("Rendering resource " + url);
 			return template.render();
