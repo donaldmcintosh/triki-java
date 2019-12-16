@@ -25,6 +25,7 @@ import net.opentechnology.triki.core.boot.StartupException;
 import org.apache.wicket.ConverterLocator;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.settings.SecuritySettings;
+import org.stringtemplate.v4.ST;
 
 public interface Module {
 
@@ -45,6 +46,10 @@ public interface Module {
 	}
 
 	public default void setAuthorisationStrategy(SecuritySettings securitySettings){
+
+	}
+
+	public default void addTemplateObjects(ST template, String url){
 
 	}
 
