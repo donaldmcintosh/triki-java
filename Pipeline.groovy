@@ -7,7 +7,7 @@ def build() {
         }
 
         stage('Gradle build') {
-            sh "./gradlew clean build"
+            sh "./gradlew clean build publishToMavenLocal"
 	    cucumber fileIncludePattern: 'build/dev.json'
         }
 
