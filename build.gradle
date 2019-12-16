@@ -69,6 +69,9 @@ allprojects {
 
         compile("org.apache.jena:jena-core:${jenaVersion}")
         compile("org.apache.jena:jena-arq:${jenaVersion}")
+	compile 'org.eclipse.rdf4j:rdf4j-repository-sparql:3.0.3'
+	compile 'org.eclipse.rdf4j:rdf4j-sparqlbuilder:3.0.3'
+	compile group: 'org.apache.jena', name: 'jena-rdfconnection', version: ${jenaVersion}
         compile("xml-apis:xml-apis:1.4.01")
         compile('com.vladsch.flexmark:flexmark:0.34.30')
         compile('com.vladsch.flexmark:flexmark-profile-pegdown:0.34.30')
