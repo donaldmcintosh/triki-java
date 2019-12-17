@@ -19,60 +19,27 @@
 *
 ************************************************************************************/
 
-package net.opentechnology.triki.core.resources;
+package net.opentechnology.triki.core.resources
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.ws.rs.Consumes
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response;
-
-import org.apache.camel.CamelContext;
-import org.apache.camel.ProducerTemplate
-import org.apache.cxf.jaxrs.ext.multipart.Attachment
-import org.apache.cxf.jaxrs.ext.multipart.ContentDisposition
-import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.Property;
-import org.apache.jena.rdf.model.RDFNode;
-import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.rdf.model.Statement;
-import org.apache.jena.rdf.model.StmtIterator;
-import org.apache.jena.vocabulary.DCTerms;
-import org.apache.jena.vocabulary.RDF;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
+import net.opentechnology.triki.core.boot.CachedPropertyStore
+import net.opentechnology.triki.core.boot.CoreModule
+import net.opentechnology.triki.core.boot.Utilities
+import net.opentechnology.triki.core.dto.PropertyDto
+import net.opentechnology.triki.core.expander.ExpanderException
+import net.opentechnology.triki.core.template.TemplateException
+import org.apache.camel.CamelContext
+import org.apache.jena.rdf.model.Model
+import org.apache.jena.rdf.model.Resource
+import org.apache.jena.vocabulary.DCTerms
+import org.apache.log4j.Logger
+import org.springframework.beans.factory.annotation.Qualifier
 import org.stringtemplate.v4.ST
 
-import net.opentechnology.triki.core.boot.CachedPropertyStore;
-import net.opentechnology.triki.core.boot.CoreModule
-import net.opentechnology.triki.core.boot.Utilities;
-import net.opentechnology.triki.core.dto.PropertyDto;
-import net.opentechnology.triki.core.expander.ExpanderException;
-import net.opentechnology.triki.core.expander.SourceExpander;
-import net.opentechnology.triki.core.template.ResourceAdaptor;
-import net.opentechnology.triki.core.template.TemplateException;
-import net.opentechnology.triki.core.template.TemplateStore;
+import javax.inject.Inject
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpSession
+import javax.ws.rs.*
+import javax.ws.rs.core.Context
 
 @Path("/")
 public class SemanticResource extends RenderResource {

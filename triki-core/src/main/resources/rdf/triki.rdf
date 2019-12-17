@@ -209,6 +209,9 @@
      <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
    </rdf:Property>
 
+   <rdf:Property rdf:about="http://www.opentechnology.net/triki/0.1/allowtemplateobjects" vs:term_status="stable" rdfs:label="Allow template objects" rdfs:comment="Allow template objects">
+     <rdfs:isDefinedBy rdf:resource="http://http://www.opentechnology.net/triki/0.1/"/>
+   </rdf:Property>
     
 </rdf:RDF>
 

@@ -25,7 +25,8 @@ import net.opentechnology.triki.core.expander.ExpanderException
 import net.opentechnology.triki.core.template.ResourceAdaptor;
 import net.opentechnology.triki.core.template.TemplateException
 import net.opentechnology.triki.core.template.TemplateStore
-import net.opentechnology.triki.modules.Module;
+import net.opentechnology.triki.modules.Module
+import net.opentechnology.triki.schema.Triki;
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.ApplicationContext;
 import org.stringtemplate.v4.ST
@@ -79,10 +80,15 @@ abstract class RenderResource {
 			
 			template.add("props", url);
 
-			String[] beanNames = appCtx.getBeanNamesForType(Module.class);
-			for(String beanName: beanNames){
-				Module module = appCtx.getBean(beanName, Module.class);
-				module.addTemplateObjects(template, url);
+			if(type.hasProperty(Triki.allowtemplateobjects)) {
+				logger.info("Template ${templateName} is allowed to have objects added.");
+				String[] beanNames = appCtx.getParent().getBeanNamesForType(Module.class);
+				for (String beanName : beanNames) {
+					Module module = appCtx.getBean(beanName, Module.class);
+					String rootUrl = url.replaceAll("#.*", "")
+					logger.info("Adding beans for ${beanName} for url ${rootUrl}");
+					module.addTemplateObjects(template, rootUrl);
+				}
 			}
 		
 			logger.info("Rendering resource " + url);
