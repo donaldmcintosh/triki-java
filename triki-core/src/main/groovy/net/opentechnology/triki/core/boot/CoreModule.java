@@ -190,6 +190,8 @@ public class CoreModule implements Module {
 		propertyDto.addProperty("setting", Triki.setting.getURI(), 20);
 		propertyDto.addProperty("webcontent", Triki.webcontent.getURI(), 20);
 		propertyDto.addProperty("maxage", Triki.maxage.getURI(), 19);
+		propertyDto.addProperty("allowtemplateobjects", Triki.allowtemplateobjects.getURI(), 19);
+
 
 	}
 	
@@ -230,7 +232,7 @@ public class CoreModule implements Module {
 		mediaTypeDto.addMediaType(MediaType.TEXT_PLAIN, "groovy", "10");
 		mediaTypeDto.addMediaType("text/x-markdown", "md", "0");
 		mediaTypeDto.addMediaType(MediaType.TEXT_PLAIN, "stg", "10");
-		mediaTypeDto.addMediaType(MediaType.TEXT_PLAIN, "js", "86400");
+		mediaTypeDto.addMediaType("application/javascript", "js", "86400");
 		mediaTypeDto.addMediaType(MediaType.TEXT_PLAIN, "log", "10");
 		mediaTypeDto.addMediaType("image/svg+xml", "svg", "10");
 		mediaTypeDto.addMediaType("font/woff","woff", "10");
