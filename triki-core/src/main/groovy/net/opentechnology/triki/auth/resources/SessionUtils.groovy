@@ -103,11 +103,11 @@ public class SessionUtils {
     String redirectUrl = session.getAttribute("redirectUrl")
     // Check if redirected via filter first
     if(redirectUrl){
-      logger.info("Redirecting to ${redirectUrl}")
+      logger.info("Redirecting to ${redirectUrl} using redirectUrl from filter")
       session.removeAttribute("redirectUrl")
       resp.sendRedirect(redirectUrl);
     } else if (referer && referer != NOREFERRER) {
-      logger.info("Redirecting to ${referer}")
+      logger.info("Redirecting to ${referer} using referer from OAuth")
       resp.sendRedirect(referer);
     }
     else {

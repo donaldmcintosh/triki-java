@@ -198,9 +198,10 @@ public class AuthenticateResource extends RenderResource {
 
 		logger.info("Signing state token with secret ${randomSecret}")
 		String secretState = JWT.create()
-				.withClaim('referer', req.getHeader("referer") ?: NOREFERRER)
+				.withClaim('referer', req.getHeader("Referer") ?: NOREFERRER)
 				.withClaim('idp', idp)
 				.sign(algorithm)
+		logger.info("Saving referer ${req.getHeader("Referer")} in JWT")
 		session.setAttribute(AuthModule.SessionVars.OPENID_STATE.toString(), secretState)
 		authUrl.addParameter("state", secretState)
 		
