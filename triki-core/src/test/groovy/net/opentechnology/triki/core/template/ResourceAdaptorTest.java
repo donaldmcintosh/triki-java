@@ -188,6 +188,24 @@ public class ResourceAdaptorTest extends TrikiBaseTest {
         String result = render(resource, templateDef);
 	    assertTrue("Got " + result, result.equals("Recent blogs: Eivissa holiday\n, Up North holiday\n, Berliner holiday\n, New York holiday\n, France holiday\n, "));
     }
+
+	@Test
+	public void testOrderedModules() throws TemplateException{
+		when(authMgr.allowAccess(Matchers.anyString())).thenReturn(true);
+		String resource = "http://www.donaldmcintosh.net/resource/module";
+		String templateDef = "foo(resource) ::= \"Modules: $resource.Srdf_type:{ module | $module.dcterms_description$, }$\"";
+		String result = render(resource, templateDef);
+		assertTrue("Got " + result, result.equals("Modules: Basics\n, Introduction\n, Environment\n, "));
+	}
+
+	@Test
+	public void testOrderedModulesLinkedToPage() throws TemplateException{
+		when(authMgr.allowAccess(Matchers.anyString())).thenReturn(true);
+		String resource = "http://www.donaldmcintosh.net/resource/modules";
+		String templateDef = "foo(resource) ::= \"Modules: $resource.property_module:{ module | $module.dcterms_description$, }$\"";
+		String result = render(resource, templateDef);
+		assertTrue("Got " + result, result.equals("Modules: Environment\n, Introduction\n, Basics\n, "));
+	}
    
    @Test
    public void testReverseOrderedBlogs() throws TemplateException{

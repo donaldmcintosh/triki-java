@@ -361,7 +361,8 @@ public class ResourceAdaptor implements ModelAdaptor {
 			 WHERE {  
 			<$resource.URI> <$predicate.URI> ?obj . 
 			OPTIONAL { 
-				 ?obj triki:order ?order .  
+			     ?obj a ?type .
+				 ?type triki:order ?order .  
 				 ?obj ?order ?seq .
 				 }  
 			 } ORDER BY ASC(?seq) ?obj 

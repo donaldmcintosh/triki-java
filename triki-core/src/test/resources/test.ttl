@@ -109,18 +109,27 @@ resource:recentblogs triki:sparql '''
 resource:holiday-arisaig a resource:page ;
 						dcterms:created "2012-04-22"^^xsd:dateTime .
 
+resource:modules a resource:page ;
+                        property:module scriptcourse:introduction ;
+                        property:module scriptcourse:environment ;
+                        property:module scriptcourse:basics ;
+						dcterms:created "2012-04-22"^^xsd:dateTime .
+
 resource:module triki:order triki:seq .
 scriptcourse:introduction a resource:module ;
 						triki:restricted triki:public ;
-						triki:seq "1";
+						triki:seq "2";
+						dcterms:created "2008-09-22T19:00:00"^^xsd:dateTime ;
 						dcterms:description "Introduction" .
-scriptcourse:basics a resource:module ;
-						triki:restricted triki:public ;
-						dcterms:description "Basics" ;
-						triki:seq "2".
 scriptcourse:environment a resource:module ;
 						triki:restricted triki:public ;
 						dcterms:description "Environment" ;
+						dcterms:created "2008-11-22T19:00:00"^^xsd:dateTime ;
+						triki:seq "1".
+scriptcourse:basics a resource:module ;
+						triki:restricted triki:public ;
+						dcterms:description "Basics" ;
+						dcterms:created "2008-10-22T19:00:00"^^xsd:dateTime ;
 						triki:seq "3".
 
 property:webcontent  a         triki:Property ;
