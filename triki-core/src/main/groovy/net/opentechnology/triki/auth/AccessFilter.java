@@ -32,6 +32,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import net.opentechnology.triki.auth.module.AuthModule;
@@ -67,6 +68,7 @@ public class AccessFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpReq = (HttpServletRequest) request;
+		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 		HttpSession session = httpReq.getSession();
 		String path = httpReq.getRequestURI();
 		
@@ -74,8 +76,7 @@ public class AccessFilter implements Filter {
 		logger.debug("Checking auth on " + url);
 		if(!authoriser.allowAccess(url)){		
 			session.setAttribute("redirectUrl", url);
-			RequestDispatcher dispatcher = request.getRequestDispatcher(settingDto.getSetting(AuthModule.Settings.DEFAULTLOGINPAGE.toString()));
-			dispatcher.forward(request, response);
+			httpServletResponse.sendRedirect(settingDto.getSetting(AuthModule.Settings.DEFAULTLOGINPAGE.toString()));
 			return;
 		}
 		
