@@ -225,6 +225,7 @@ public class CoreModule implements Module {
 		typeDto.addResourceTitle(Triki.MediaType.getURI(), "Triki Media Type");
 		mediaTypeDto.addMediaType(MediaType.TEXT_PLAIN, "ttl", "10");
 		mediaTypeDto.addMediaType("text/css", "css", "10");
+		mediaTypeDto.addMediaType("text/css", "less", "10");
 		mediaTypeDto.addMediaType("application/pdf", "pdf", "10");
 		mediaTypeDto.addMediaType("image/png", "png", "86400");
 		mediaTypeDto.addMediaType("image/gif", "gif", "10");
@@ -278,6 +279,7 @@ public class CoreModule implements Module {
 	public void initContent(){
 		contentDto.checkFile("site.stg", "default.stg");
 		contentDto.checkFile("site.css", "default.css");
+		contentDto.addContent("less.min.js");
 		contentDto.addContent("triki.ttl");
 		contentDto.addContent("triki.log");
 		contentDto.addContent("triki-lb.log");
