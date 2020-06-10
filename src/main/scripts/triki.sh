@@ -37,4 +37,4 @@ fi
 TRIKI_JAR=`ls -1 lib/triki*.jar`
 export CLASSPATH=$CLASSPATH:$TRIKI_JAR:$MODULES_CLASSPATH
 
-java $DEBUG -Dcontent_dir=$1 -Dport=$2 net.opentechnology.triki.core.boot.TrikiMain
+java $JAVA_OPTS $DEBUG -Dcontent_dir=$1 -Dport=$2 net.opentechnology.triki.core.boot.TrikiMain
