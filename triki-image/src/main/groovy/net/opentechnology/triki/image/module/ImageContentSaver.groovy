@@ -22,12 +22,6 @@
 package net.opentechnology.triki.image.module;
 
 import java.awt.image.BufferedImage
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream
-import java.util.Calendar;
-import java.util.Date;
-
 import javax.imageio.ImageIO
 import javax.inject.Inject
 import javax.servlet.http.HttpSession
@@ -35,8 +29,7 @@ import org.apache.commons.io.IOUtils
 
 import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.sparql.vocabulary.FOAF;
+import org.apache.jena.rdf.model.Resource
 import org.apache.jena.vocabulary.DCTerms
 import org.apache.jena.vocabulary.RDF;
 import org.imgscalr.Scalr
@@ -56,20 +49,20 @@ import net.opentechnology.triki.core.dto.GroupDto
 import net.opentechnology.triki.core.dto.ResourceDto
 import net.opentechnology.triki.core.dto.SettingDto
 import net.opentechnology.triki.core.dto.TypeDto
-import net.opentechnology.triki.core.dto.SettingDto.Settings
 import net.opentechnology.triki.core.resources.ContentUtils
 import net.opentechnology.triki.modules.ContentSaver
 import net.opentechnology.triki.schema.Exif
-import net.opentechnology.triki.schema.Rdfbase;
 import net.opentechnology.triki.schema.Triki;
 import net.opentechnology.triki.schema.Dcterms
 
 @Log4j
 public class ImageContentSaver implements ContentSaver {
 
-	private static final int MAX_WIDTH = 1000
+	private static final int MAX_LANDSCAPE_WIDTH = 2000
+	private static final int MAX_PORTRAIT_WIDTH = 1333
 
-	private static final int MAX_WIDTH_THUMB = 125
+	private static final int MAX_LANDSCAPE_WIDTH_THUMB = 800
+	private static final int MAX_PORTRAIT_WIDTH_THUMB = 533
 	
 	@Inject
 	private ContentUtils contentUtils;
@@ -128,6 +121,7 @@ public class ImageContentSaver implements ContentSaver {
 			msgs << "Created resource /content/${webName}"
 			msgs << "Created resource /content/${thumbName}"
 			msgs << "Created resource /image/${webName}"
+			log.info("Resized $filename")
 		} catch (IOException e) {
 			errors << "Problems saving image ${filename}: " + e.getMessage()
 		}
@@ -146,17 +140,35 @@ public class ImageContentSaver implements ContentSaver {
 	}
 	
 	private BufferedImage createWeb(BufferedImage img) {
-		if(img.width > MAX_WIDTH)
-			return Scalr.resize(img, Scalr.Method.SPEED, MAX_WIDTH, Scalr.OP_ANTIALIAS, Scalr.OP_BRIGHTER);
-		else
-			return img
+		if(isLandscape(img)) {
+			if (img.width > MAX_LANDSCAPE_WIDTH)
+				return Scalr.resize(img, Scalr.Method.ULTRA_QUALITY, MAX_LANDSCAPE_WIDTH, Scalr.OP_ANTIALIAS, Scalr.OP_BRIGHTER);
+			else
+				return img
+		} else {
+			if (img.width > MAX_PORTRAIT_WIDTH)
+				return Scalr.resize(img, Scalr.Method.ULTRA_QUALITY, MAX_PORTRAIT_WIDTH, Scalr.OP_ANTIALIAS, Scalr.OP_BRIGHTER);
+			else
+				return img
+		}
 	}
 
 	private BufferedImage createThumbnail(BufferedImage img) {
-		if(img.width > MAX_WIDTH_THUMB)
-			return Scalr.resize(img, Scalr.Method.SPEED, MAX_WIDTH_THUMB, Scalr.OP_ANTIALIAS, Scalr.OP_BRIGHTER);
-		else
-			return img
+		if(isLandscape(img)) {
+			if (img.width > MAX_LANDSCAPE_WIDTH_THUMB)
+				return Scalr.resize(img, Scalr.Method.ULTRA_QUALITY, MAX_LANDSCAPE_WIDTH_THUMB, Scalr.OP_ANTIALIAS, Scalr.OP_BRIGHTER);
+			else
+				return img
+		} else {
+			if (img.width > MAX_PORTRAIT_WIDTH_THUMB)
+				return Scalr.resize(img, Scalr.Method.ULTRA_QUALITY, MAX_PORTRAIT_WIDTH_THUMB	, Scalr.OP_ANTIALIAS, Scalr.OP_BRIGHTER);
+			else
+				return img
+		}
+	}
+
+	private boolean isLandscape(BufferedImage img){
+		img.width > img.height
 	}
 	
 	private void addContentResource(String webName, String thumbName, BufferedInputStream inStream, List<String> errors, String access) {

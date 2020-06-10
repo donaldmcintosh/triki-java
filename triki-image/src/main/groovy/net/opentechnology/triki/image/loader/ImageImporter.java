@@ -232,11 +232,11 @@ public class ImageImporter {
 	}
 
 	private BufferedImage createWeb(BufferedImage img) {
-		return Scalr.resize(img, Scalr.Method.SPEED, 1000, Scalr.OP_ANTIALIAS, Scalr.OP_BRIGHTER);
+		return Scalr.resize(img, Scalr.Method.SPEED, 2000, Scalr.OP_ANTIALIAS, Scalr.OP_BRIGHTER);
 	}
 
 	private BufferedImage createThumbnail(BufferedImage img) {
-		return Scalr.resize(img, Scalr.Method.SPEED, 125, Scalr.OP_ANTIALIAS, Scalr.OP_BRIGHTER);
+		return Scalr.resize(img, Scalr.Method.SPEED, 400, Scalr.OP_ANTIALIAS, Scalr.OP_BRIGHTER);
 	}
 
 	private void setPrefixes(){

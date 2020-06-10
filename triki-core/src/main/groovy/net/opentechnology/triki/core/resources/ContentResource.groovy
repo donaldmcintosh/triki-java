@@ -23,6 +23,7 @@ package net.opentechnology.triki.core.resources
 
 
 import javax.inject.Inject
+import javax.servlet.annotation.MultipartConfig
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
@@ -56,6 +57,7 @@ import net.opentechnology.triki.core.template.TemplateStore
 import net.opentechnology.triki.modules.ContentValidator
 
 @Path("/content")
+@MultipartConfig(location="/tmp", fileSizeThreshold=1000000, maxFileSize=50000L, maxRequestSize=100000000L)
 public class ContentResource extends RenderResource {
 	public static final String CONTENT_PATH = "/content";
 	

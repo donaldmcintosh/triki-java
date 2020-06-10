@@ -32,6 +32,9 @@ confheader(size) ::= <<
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="/content/core.css" />
 <link rel="stylesheet" type="text/css" href="/content/core-common.css" />
+<link rel="stylesheet" type="text/css" href="/content/semantic.min.css"/>
+<link rel="stylesheet/less" type="text/css" href="/content/styles.less" />
+
 <link rel="stylesheet" href="/content/jquery-ui.css">
 <link rel="stylesheet" href="/content/jquery-ui.theme.css">
 <link rel="stylesheet" href="/content/jquery-ui.structure.css">
@@ -44,6 +47,8 @@ background: white url("/content/wait.gif") right center no-repeat;
     var rowcount = $size$;
     var contentPath;
 </script>
+
+<script src="/content/semantic.min.js"></script>
 <script src="/content/jquery.js"></script>
 <script src="/content/jquery-ui.min.js"></script>
 <script src="/content/triki.js"></script>

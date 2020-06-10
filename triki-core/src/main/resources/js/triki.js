@@ -131,7 +131,7 @@ function initEditor() {
         menu.classList.toggle('is-open');
         });
       })();
-     
+
 };
 
 window.onload = function() {
