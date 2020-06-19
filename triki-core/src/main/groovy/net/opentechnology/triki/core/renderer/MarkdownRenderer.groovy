@@ -14,7 +14,7 @@ import com.vladsch.flexmark.util.options.MutableDataSet
 class MarkdownRenderer {
 
     static final MutableDataHolder OPTIONS = new MutableDataSet()
-            .set(HtmlRenderer.HARD_BREAK, "\n")
+            .set(HtmlRenderer.HARD_BREAK, "<br>\n")
             .set(Parser.EXTENSIONS, Arrays.asList(MediaTagsExtension.create(), TablesExtension.create()));
 
     static final DataHolder pegdownOptions = PegdownOptionsAdapter.flexmarkOptions(
