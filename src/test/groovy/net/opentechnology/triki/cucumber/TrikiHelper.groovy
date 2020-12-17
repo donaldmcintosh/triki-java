@@ -33,7 +33,7 @@ import javax.inject.Inject;
 import javax.ws.rs.core.Form
 
 import net.opentechnology.triki.core.boot.CachedPropertyStore;
-import net.opentechnology.triki.core.boot.TrikiClient
+import net.opentechnology.triki.core.boot.TrikiClientRs
 import net.opentechnology.triki.core.boot.Utilities
 import groovy.util.logging.Log4j
 
@@ -45,7 +45,7 @@ class TrikiHelper {
 	private Model siteModel;
 	
 	@Inject
-	TrikiClient client
+	TrikiClientRs client
 
 	@Inject
 	private RetrofitTrikiClient retrofitTrikiClient

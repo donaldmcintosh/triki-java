@@ -82,7 +82,7 @@ class UpdatePageViews extends RouteBuilder {
 				
 				String ignores = ignoreAgents.replaceAll("'", "");
 				
-				if(view.forwardedFor != null && !view.getAgent().matches(ignores)){
+				if(view?.forwardedFor != null && view.getAgent() != null && !view.getAgent().matches(ignores)){
 					Resource page = model.getResource(view.url);
 					if(model.containsResource(page))
 					{
