@@ -3,7 +3,7 @@ package net.opentechnology
 def build() {
     node {
         stage('Clone sources') {
-            git url: 'git@github.com:donaldmcintosh/triki.git'
+            git credentialsId: 'jenkins-robin', url: 'git@github.com:donaldmcintosh/triki.git'
         }
 
         stage('Gradle build') {
