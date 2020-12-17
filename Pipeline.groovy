@@ -19,13 +19,7 @@ def build() {
             timeout(time: 10, unit: 'MINUTES') {
                 input message: "Release?", ok: "Yes"
             }
-	    withCredentials([usernamePassword(
-               credentialsId: 'donaldmcintosh',
-               usernameVariable: 'USERNAME',
-               passwordVariable: 'PASSWORD'
-             )]) {
-                sh "git clean -fd; ./gradlew release -Prelease.useAutomaticVersion=true -Dgit.user=${USERNAME} -Dgit.password=${PASSWORD}"
-             }
+            sh "git clean -fd; ./gradlew release -Prelease.useAutomaticVersion=true"
         }
     }
 }
