@@ -14,6 +14,7 @@ pipeline{
         }
         stage('Deploy local') {
 	    steps{
+	        // Need env param LOCAL_DEPLOY set for this 
                 sh "./gradlew unzipDistrib"
 	    }
         }
@@ -22,6 +23,8 @@ pipeline{
                 timeout(time: 10, unit: 'MINUTES') {
                     input message: "Release?", ok: "Yes"
                 }
+		// release cannot get credentieals for git unless they are in ~jenkins/.ssh
+		// And need a ~/.gitconfig with user details under jenkins user
                 sh "git clean -fd; ./gradlew release -Prelease.useAutomaticVersion=true"
 	    }
         }
