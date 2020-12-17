@@ -22,9 +22,7 @@ pipeline{
                 timeout(time: 10, unit: 'MINUTES') {
                     input message: "Release?", ok: "Yes"
                 }
-	        sshagent (credentials: ['jenkins-robin']) {
-                   sh "git clean -fd; ./gradlew release -Prelease.useAutomaticVersion=true"
-                }
+                sh "git clean -fd; ./gradlew release -Prelease.useAutomaticVersion=true"
 	    }
         }
     }
