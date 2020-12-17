@@ -3,7 +3,7 @@ package net.opentechnology
 def build() {
     node {
         stage('Clone sources') {
-            git url: 'https://github.com/donaldmcintosh/triki.git'
+            git url: 'git@github.com:donaldmcintosh/triki.git'
         }
 
         stage('Gradle build') {
@@ -19,7 +19,9 @@ def build() {
             timeout(time: 10, unit: 'MINUTES') {
                 input message: "Release?", ok: "Yes"
             }
-            sh "git clean -fd; ./gradlew release -Prelease.useAutomaticVersion=true"
+	    sshagent (credentials: ['jenkins-robin']) {
+               sh "git clean -fd; ./gradlew release -Prelease.useAutomaticVersion=true"
+            }
         }
     }
 }
