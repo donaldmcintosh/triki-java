@@ -55,7 +55,7 @@ import javax.ws.rs.core.Form
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.NewCookie
 
-class TrikiClient {
+class TrikiClientRs {
 
 	private static final String SESSION_COOKIE = "JSESSIONID"
 	
@@ -73,6 +73,7 @@ class TrikiClient {
 		if(client == null)
 		{
 			client = ClientBuilder.newClient();
+
 			client.register(JacksonJaxbJsonProvider.class)
 			Response response = client
 					.target(propStore.getPrivateUrl() + "login")

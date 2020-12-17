@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel>
-      <module name="triki.main" target="1.8" />
-      <module name="triki.test" target="1.8" />
-      <module name="triki.triki-core.main" target="1.8" />
-      <module name="triki.triki-core.test" target="1.8" />
-      <module name="triki.triki-image.main" target="1.8" />
-      <module name="triki.triki-image.test" target="1.8" />
-      <module name="triki.triki-news.main" target="1.8" />
-      <module name="triki.triki-news.test" target="1.8" />
-      <module name="triki.triki-pageviews.main" target="1.8" />
-      <module name="triki.triki-pageviews.test" target="1.8" />
-      <module name="triki.triki-share.main" target="1.8" />
-      <module name="triki.triki-share.test" target="1.8" />
-      <module name="triki.triki-twitter.main" target="1.8" />
-      <module name="triki.triki-twitter.test" target="1.8" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="1.8" />
   </component>
 </project>

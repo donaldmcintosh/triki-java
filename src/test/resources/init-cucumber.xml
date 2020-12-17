@@ -14,7 +14,7 @@
         
         <context:property-placeholder ignore-resource-not-found="true" location="classpath:test.properties" />
         
-        <bean id="trikiClient" class="net.opentechnology.triki.core.boot.TrikiClient" />
+        <bean id="trikiClient" class="net.opentechnology.triki.core.boot.TrikiClientRs" />
         <bean id="trikiClientConfig" class="net.opentechnology.triki.cucumber.TrikiClientConfig" />
         <bean id="trikiHelper" class="net.opentechnology.triki.cucumber.TrikiHelper" />
 		<bean id="trikiSteps" class="net.opentechnology.triki.cucumber.TrikiSteps" />
