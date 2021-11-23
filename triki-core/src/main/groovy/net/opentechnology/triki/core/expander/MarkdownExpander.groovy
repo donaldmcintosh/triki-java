@@ -54,6 +54,11 @@ public class MarkdownExpander extends AbstractSourceExpander implements SourceEx
 			} catch (ResourceException e) {
 				throw new ExpanderException("Could not get url " + url);
 			}
+		} else if(url.endsWith("html")){
+			URL fullUrl = new URL(url);
+			String filename = fullUrl.getPath().replaceAll("^.*/", "");
+			String html = contentUtils.getClasspathTextContent(filename);
+			return html;
 		}
 		else
 		{

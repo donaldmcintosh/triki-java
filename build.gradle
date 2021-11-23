@@ -120,11 +120,6 @@ allprojects {
         testCompile("cglib:cglib-nodep:3.2.8")
     }
 
-    test {
-        exclude '**/TrikiDevFeatures.class'
-        include '**/TrikiMandFeatures.class'
-    }
-
     publishing {
         publications {
             maven(MavenPublication) {
@@ -144,6 +139,11 @@ dependencies {
     compile project(":triki-twitter")
     compile project(":triki-pageviews")
     compile project(":triki-image")
+}
+
+test {
+    exclude '**/TrikiDevFeatures.class'
+    include '**/TrikiMandFeatures.class'
 }
 
 shadowJar {

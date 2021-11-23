@@ -19,11 +19,11 @@ ext {
 }
 
 sourceSets {
-   main {
+	main {
 	   java {
 			srcDirs 'generated-sources/java'
 	   }
-   }
+	}
 }
 
 task generateJava() {

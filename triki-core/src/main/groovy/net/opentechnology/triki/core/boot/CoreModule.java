@@ -232,6 +232,7 @@ public class CoreModule implements Module {
 		mediaTypeDto.addMediaType("image/jpg", "jpg", "10");
 		mediaTypeDto.addMediaType(MediaType.TEXT_PLAIN, "groovy", "10");
 		mediaTypeDto.addMediaType("text/x-markdown", "md", "0");
+		mediaTypeDto.addMediaType("text/html", "html", "0");
 		mediaTypeDto.addMediaType(MediaType.TEXT_PLAIN, "stg", "10");
 		mediaTypeDto.addMediaType("application/javascript", "js", "86400");
 		mediaTypeDto.addMediaType(MediaType.TEXT_PLAIN, "log", "10");
