@@ -166,10 +166,10 @@ public class ResourceAdaptorTest extends TrikiBaseTest {
 	public void testHtmlExpander() throws TemplateException, ExpanderException{
 		when(authMgr.allowAccess(Matchers.anyString())).thenReturn(true);
 		String resource = "http://www.donaldmcintosh.net/resource/blog1";
-		when(expander.expand("http://www.donaldmcintosh.net/resource/whatever")).thenReturn("<p><div id='main'>hello!</div><p>");
+		when(expander.expand("http://www.donaldmcintosh.net/resource/whatever")).thenReturn("<p><div id='main'>&#163;hello!</div><p>");
 		String templateDef = "foo(resource) ::= \"Include this $resource.triki_include$\"";
 		String result = render(resource, templateDef);
-		assertTrue("Got " + result, result.equals("Include this <p><div id='main'>hello!</div><p>"));
+		assertTrue("Got " + result, result.equals("Include this <p><div id='main'>&#163;hello!</div><p>"));
 	}
 	
 	@Test
